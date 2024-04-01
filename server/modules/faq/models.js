@@ -2,19 +2,23 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const objectId = Schema.ObjectId;
 
-
-// Review
 const faq = {
     _id: { type: objectId, auto: true },
-    question: String,
-    answer: String,
-    createdAt: Date,
-    updatedAt: Date,
-    status: { type: Boolean, default: 1 },
-};
-const faqSchema = new Schema(faq, { versionKey: false, timestamps: true });
+    category: { type: String, required: true },
+    question: { type: String, required: true },
+    answer: { type: String, required: true },
+    createdDate: Date,
+    status: { type: Boolean, default: 1 }
+}
 
+const faqSchema = new Schema(faq, { versionKey: false });
 
-module.exports = {
-    Faq: mongoose.model("faq", faqSchema)
-};
+faqSchema.pre('save', function (next) {
+    const currentDate = new Date();
+    if (!this.createdDate) {
+        this.createdDate = currentDate;
+    }
+    next();
+});
+
+module.exports = mongoose.model("faq", faqSchema);

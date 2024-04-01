@@ -3,33 +3,29 @@ const Schema = mongoose.Schema;
 const objectId = Schema.ObjectId;
 
 // Project
-const project = {
+const prize = {
     _id: { type: objectId, auto: true },
-    userId: { type: objectId, required: true },
-    projectName: { type: String, required: true },
-    projectDescription: { type: String, required: true },
-    category: { type: objectId, required: true },
-    subCategory: { type: Schema.Types.Mixed, required: true },
-    techStack: { type: Schema.Types.Mixed, required: true },
+    category: { type: String, required: true },
     status: { type: Boolean, default: 1 },
     createdAt: Date,
     updatedAt: Date
 };
-const projectSchema = new Schema(project, { versionKey: false, timestamps: true });
+const prizeSchema = new Schema(prize, { versionKey: false, timestamps: true });
 
 
 // Project Image
-const projectImage = {
+const prizeDescription = {
     _id: { type: objectId, auto: true },
-    projectId: { type: objectId, required: true },
-    projectImage: Schema.Types.Mixed,
+    prizeId:  { type: objectId, required: true },
+    question: { type: String, required: true },
+    answer: { type: String, required: true },
     createdAt: Date,
     updatedAt: Date
 };
-const projectImageSchema = new Schema(projectImage, { versionKey: false, timestamps: true });
+const prizeDescriptionSchema = new Schema(prizeDescription, { versionKey: false, timestamps: true });
 
 
 module.exports = {
-    Project: mongoose.model("project", projectSchema),
-    Image: mongoose.model("projectImage", projectImageSchema)
+    Prize: mongoose.model("prize", prizeSchema),
+    PrizeDescription: mongoose.model("prizeDescription", prizeDescriptionSchema)
 };
