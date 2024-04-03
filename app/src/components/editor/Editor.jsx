@@ -4,19 +4,18 @@ import { StreamLanguage } from '@codemirror/language';
 import { javascript } from '@codemirror/lang-javascript';
 import { java } from '@codemirror/lang-java';
 import { go } from '@codemirror/legacy-modes/mode/go';
+import { sublime } from '@uiw/codemirror-theme-sublime';
 
 
 export default function Editor(props) {
     let language;
 
     const [value, setValue] = useState("");
-    // const [language, setLanguage] = useState("");
     const onChange = useCallback((val, viewUpdate) => {
         setValue(val);
     }, []);
 
     useEffect(() => {
-        console.log();
         switch (props.language) {
             case 'javascript':
                 setValue("console.log('hello world!');")
@@ -38,7 +37,6 @@ func main() {
     }, [props.language])
 
     const codeOptions = {
-        theme: "monokai",
         // mode: "text/x-sql",
         line: true,
         lineNumbers: true,
@@ -53,17 +51,17 @@ func main() {
         <div>
             {props.language === 'javascript' && (
                 <div>
-                    <CodeMirror value={value} height="200px" onChange={onChange} options={codeOptions} extensions={[javascript({ jsx: true })]} />
+                    <CodeMirror value={value} height="200px" onChange={onChange} options={codeOptions} theme={sublime} extensions={[javascript({ jsx: true })]} />
                 </div>
             )}
             {props.language === 'java' && (
                 <div>
-                    <CodeMirror value={value} height="200px" onChange={onChange} options={codeOptions} extensions={[java()]} />
+                    <CodeMirror value={value} height="200px" onChange={onChange} options={codeOptions} theme={sublime} extensions={[java()]} />
                 </div>
             )}
             {props.language === 'go' && (
                 <div>
-                    <CodeMirror value={value} height="200px" onChange={onChange} options={codeOptions} extensions={[StreamLanguage.define(go)]} />;
+                    <CodeMirror value={value} height="200px" onChange={onChange} options={codeOptions} theme={sublime} extensions={[StreamLanguage.define(go)]} />;
                 </div>
             )}
         </div>
