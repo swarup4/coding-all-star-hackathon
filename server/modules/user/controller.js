@@ -23,15 +23,9 @@ router.get("/info/:id", async (req, res) => {
         const id = req.params.id;
         const user = await User.Auth.findById(id, { password: 0 });
         if (user) {
-            const obj = user;
-            if (user.countryCode != undefined && user.phone != undefined) {
-                obj.countryCode = 91;
-                obj.phone = `+${user.countryCode}-${user.phone}`;
-            }
-
             res.json({
                 success: true,
-                data: obj
+                data: user
             });
         }
     } catch (error) {

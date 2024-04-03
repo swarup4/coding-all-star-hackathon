@@ -6,14 +6,14 @@ const objectId = Schema.ObjectId;
 // User
 const user = {
     _id: { type: objectId, auto: true },
-    fname: String,
-    lname: String,
-    role: String,
-    empId: String,
-    email: String,
-    password: String,
-    manager: objectId,
-    reporty: [objectId],
+    fname: { type: String, require: true },
+    lname: { type: String, require: true },
+    role: { type: String, require: true },
+    empId: { type: Number, require: true },
+    email: { type: String, require: true },
+    password: { type: String, require: true },
+    manager: { type: objectId, required: true },
+    reporty: [{ type: objectId, required: true }],
     createdAt: Date,
     updatedAt: Date,
     status: { type: Boolean, default: 1 }
