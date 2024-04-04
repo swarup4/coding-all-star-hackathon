@@ -10,14 +10,14 @@ import FileList from '../files/FileList';
 
 export default function EditorPage() {
     const [language, setLanguage] = useState('');
-    const [code, setCode] = useState('');
+    const [codes, setCodes] = useState('');
 
     // const changeLanguage = (event) => {
     //     setLanguage(event.target.value);
     // };
 
     function save() {
-        let body = { code: code }
+        let body = { code: codes }
         console.log(body)
         // axios.put(`http://localhost:3001/code/saveCode/:id`, body).then(res => {
         //     console.log(res.data.data);
@@ -31,11 +31,11 @@ export default function EditorPage() {
         let arr = data.fileName.split('.');
         let fileExt = arr[arr.length - 1]
         setLanguage(fileExt)
-        setCode(data.code)
+        setCodes(data.code)
     }
 
     function getCode(data) {
-        setCode(data)
+        setCodes(data)
         console.log(data)
     }
 
@@ -53,7 +53,7 @@ export default function EditorPage() {
                         </IconButton>
                     </Box>
                     <Box sx={{ marginTop: 2 }}>
-                        <Editor language={language} code={code} getCode={getCode} />
+                        <Editor language={language} code={codes} getCode={getCode} />
                     </Box>
                 </Grid>
             </Grid>
