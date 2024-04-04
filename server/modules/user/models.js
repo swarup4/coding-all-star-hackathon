@@ -12,8 +12,8 @@ const user = {
     empId: { type: Number, require: true },
     email: { type: String, require: true },
     password: { type: String, require: true },
-    manager: { type: objectId, required: true },
-    reporty: [{ type: objectId, required: true }],
+    manager: { type: objectId },
+    reporty: [{ type: objectId }],
     createdAt: Date,
     updatedAt: Date,
     status: { type: Boolean, default: 1 }

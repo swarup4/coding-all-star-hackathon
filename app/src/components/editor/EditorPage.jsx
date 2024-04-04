@@ -1,6 +1,7 @@
 import React from 'react'
-import { Grid, Box, InputLabel, MenuItem, FormControl, Select } from '@mui/material';
-
+import axios from 'axios'
+import { Grid, Box, InputLabel, MenuItem, FormControl, Select, IconButton } from '@mui/material';
+import SaveIcon from '@mui/icons-material/Save';
 
 import './style.scss';
 
@@ -13,6 +14,15 @@ export default function EditorPage() {
     const changeLanguage = (event) => {
         setLanguage(event.target.value);
     };
+
+    function save(){
+        let body = { options: subCatList }
+        axios.put(`http://localhost:3001/code/saveCode/:id`, body).then(res => {
+            console.log(res.data.data);
+        }).catch(err => {
+            console.log(err);
+        });
+    }
 
 
     return (
@@ -41,6 +51,10 @@ export default function EditorPage() {
                                 <MenuItem value={'go'}>Go</MenuItem>
                             </Select>
                         </FormControl>
+
+                        <IconButton aria-label="save" color="primary" onClick={() => save()}>
+                            <SaveIcon />
+                        </IconButton>
                     </Box>
                     <Box sx={{ marginTop: 2 }}>
                         <Editor language={language} />

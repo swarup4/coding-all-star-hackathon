@@ -18,9 +18,6 @@ router.get('/', (req, res) => {
 });
 
 
-/* 
-{ currencyCode: 'INR', format: 'INR 00.00', createdBy: 'superadmin' }
-*/
 router.post('/addFaq', (req, res) => {
     let model = new Faq(req.body);
     model.save((err, data) => {

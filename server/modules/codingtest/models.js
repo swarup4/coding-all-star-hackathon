@@ -11,10 +11,10 @@ const apis = {
     version: { type: String, required: true },
     documentationLink: { type: String, required: true },
     envVariables: String,
-    videoLink: { type: String, required: true },
     postmanExport: String,
+    videoLink: { type: String, required: true },
     requirementApproach: String,
-    Category: String,
+    category: String,
     description: String,
     validation: String,
     createdAt: Date,
@@ -29,7 +29,7 @@ const apiFiles = {
     _id: { type: objectId, auto: true },
     apiId: { type: objectId, required: true },
     fileName: { type: String, required: true },
-    code: { type: String, required: true },
+    code: { type: String },
     createdAt: Date,
     updatedAt: Date
 };

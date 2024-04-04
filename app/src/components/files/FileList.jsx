@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios'
 import { Grid, Box, Link, TextField, IconButton } from '@mui/material';
 import NoteAddIcon from '@mui/icons-material/NoteAdd';
 import './style.scss';
@@ -9,12 +10,33 @@ export default function FileList() {
     const [fileName, setFileName] = useState('');
     const [files, setFiles] = useState([]);
 
+    useEffect(() => {
+        axios.get('http://localhost:3001/code/getApiFileList/660e37d2b87ab697bdc66f30').then(res => {
+            setFiles(res.data);
+        }).catch(err => {
+            console.log(err);
+        });
+    }, [])
+
     function keyPress(e) {
         if (e.key === "Enter") {
-            setFiles([...files, fileName]);
-            setAddFile(false);
-            setFileName('')
+            addFileInfo(fileName)
         }
+    }
+
+    function addFileInfo(name){
+        let body = {
+            apiId: "660e37d2b87ab697bdc66f30",
+            fileName: name
+        }
+        
+        axios.post('http://localhost:3001/code/addApiFile', body).then(res => {
+            setAddFile(false)
+            setFileName('')
+            setFiles([...files, res.data])
+        }).catch(err => {
+            console.log(err);
+        });
     }
 
     function handleChange(ev) {
@@ -34,7 +56,7 @@ export default function FileList() {
             <Box>
                 {files.map((x, ind) => (
                     <Link className='file-name' underline="none" key={ind}>
-                        {x}
+                        {x.fileName}
                     </Link>
                 ))}
             </Box>
