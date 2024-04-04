@@ -9,22 +9,17 @@ import Editor from './Editor'
 import FileList from '../files/FileList';
 
 export default function EditorPage() {
-    const [language, setLanguage] = useState('');
-    const [codes, setCodes] = useState('');
-
-    // const changeLanguage = (event) => {
-    //     setLanguage(event.target.value);
-    // };
+    const [language, setLanguage] = useState('')
+    const [codes, setCodes] = useState('')
+    const [fileId, setFileId] = useState('')
 
     function save() {
         let body = { code: codes }
-        console.log(body)
-        // axios.put(`http://localhost:3001/code/saveCode/:id`, body).then(res => {
-        //     console.log(res.data.data);
-        // }).catch(err => {
-        //     console.log(err);
-        // });
-        
+        axios.put(`http://localhost:3001/code/saveCode/${fileId}`, body).then(res => {
+            console.log(res.data.data);
+        }).catch(err => {
+            console.log(err);
+        })
     }
 
     function getFileDetails(data) {
@@ -32,11 +27,7 @@ export default function EditorPage() {
         let fileExt = arr[arr.length - 1]
         setLanguage(fileExt)
         setCodes(data.code)
-    }
-
-    function getCode(data) {
-        setCodes(data)
-        console.log(data)
+        setFileId(data._id)
     }
 
 
@@ -53,7 +44,7 @@ export default function EditorPage() {
                         </IconButton>
                     </Box>
                     <Box sx={{ marginTop: 2 }}>
-                        <Editor language={language} code={codes} getCode={getCode} />
+                        <Editor language={language} code={codes} setCode={setCodes} />
                     </Box>
                 </Grid>
             </Grid>

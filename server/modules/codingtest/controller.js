@@ -78,9 +78,9 @@ router.get('/getCode/:id', async (req, res) => {
 
 router.put('/saveCode/:id', async (req, res) => {
     try {
-        const id = req.params.id;
-        const body = req.body;
-        const code = await Models.Code.findOneAndUpdate({ _id: id }, body);
+        const id = req.params.id
+        const body = req.body
+        const code = await Models.Code.findOneAndUpdate({ _id: id }, body)
         if (code) {
             res.json({
                 success: true,
@@ -132,7 +132,7 @@ router.get('/getTestFileList/:id', async (req, res) => {
     }
 })
 
-router.put('/saveCode/:id', async (req, res) => {
+router.put('/saveUnitTestCode/:id', async (req, res) => {
     try {
         const id = req.params.id;
         const body = req.body;
