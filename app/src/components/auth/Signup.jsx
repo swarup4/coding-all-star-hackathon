@@ -113,7 +113,7 @@ export default function Signup() {
                             </Grid>
                             <Grid item xs={12}>
                                 <Stack spacing={1}>
-                                    <InputLabel htmlFor="company-signup">Company</InputLabel>
+                                    <InputLabel htmlFor="company-signup">Employee Id</InputLabel>
                                     <OutlinedInput
                                         fullWidth
                                         error={Boolean(touched.company && errors.company)}
