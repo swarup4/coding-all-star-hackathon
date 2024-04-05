@@ -6,8 +6,9 @@ import { AppBar, Box, ClickAwayListener, IconButton, Paper, Popper, Toolbar } fr
 
 // project import
 import Search from './Search';
-import Profile from './Profile';
-import Transitions from 'components/@extended/Transitions';
+import Profile from '../Profile';
+// import Transitions from 'components/@extended/Transitions';
+import Transitions from '../../../@extended/Transitions';
 
 // assets
 import { MoreOutlined } from '@ant-design/icons';

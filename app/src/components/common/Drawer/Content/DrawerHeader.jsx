@@ -2,13 +2,14 @@ import PropTypes from 'prop-types';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
-import { Stack, Chip } from '@mui/material';
+import { Stack, Chip, Box } from '@mui/material';
+import { styled } from '@mui/material/styles';
 
 // project import
 // import Logo from 'components/Logo';
 
 
-export default function DrawerHeader() {
+export default function DrawerHeader({ open }) {
     const theme = useTheme();
 
     const DrawerHeaderStyled = styled(Box, { shouldForwardProp: (prop) => prop !== 'open' })(({ theme, open }) => ({

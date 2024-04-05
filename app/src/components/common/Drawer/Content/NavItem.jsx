@@ -9,6 +9,7 @@ import { Avatar, Chip, ListItemButton, ListItemIcon, ListItemText, Typography } 
 
 // project import
 // import { activeItem } from 'store/reducers/menu';
+import { activeItem } from '../../../../store/reducers/menu';
 
 
 export default function NavItem({ item, level }) {
@@ -29,7 +30,7 @@ export default function NavItem({ item, level }) {
     }
 
     const itemHandler = (id) => {
-        // dispatch(activeItem({ openItem: [id] }));
+        dispatch(activeItem({ openItem: [id] }));
     };
 
     const Icon = item.icon;
@@ -39,7 +40,7 @@ export default function NavItem({ item, level }) {
     // active menu item on page load
     useEffect(() => {
         if (pathname.includes(item.url)) {
-            // dispatch(activeItem({ openItem: [item.id] }));
+            dispatch(activeItem({ openItem: [item.id] }));
         }
     }, [pathname]);
 

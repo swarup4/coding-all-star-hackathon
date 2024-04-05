@@ -12,6 +12,8 @@ import ProtectedRoute from './routes/ProtectedRoute';
 // import AddCategory from './components/admin/AddCategory';
 import EditorPage from './components/editor/EditorPage';
 import MainLayout from './layout/MainLayout';
+import ThemeCustomization from './themes';
+
 
 function App() {
 
@@ -55,7 +57,9 @@ function App() {
         }
     ])
     return (
-        <RouterProvider router={route}></RouterProvider>
+        <ThemeCustomization>
+            <RouterProvider router={route}></RouterProvider>
+        </ThemeCustomization>
     );
 }
 export default App;

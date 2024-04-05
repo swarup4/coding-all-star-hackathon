@@ -1,5 +1,5 @@
 // project import
-import NavCard from './NavCard';
+// import NavCard from './NavCard';
 import Navigation from './Navigation';
 import SimpleBarScroll from '../../../third-party/SimpleBar';
 
@@ -15,7 +15,7 @@ export default function DrawerContent() {
             }}
         >
             <Navigation />
-            <NavCard />
+            {/* <NavCard /> */}
         </SimpleBarScroll>
     )
 }

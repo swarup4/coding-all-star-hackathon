@@ -9,7 +9,7 @@ import { Box, Drawer, useMediaQuery } from '@mui/material';
 import DrawerHeader from './Content/DrawerHeader';
 import DrawerContent from './Content/DrawerContent';
 import DrawerStyle from './Content/DrawerStyle';
-import { drawerWidth } from 'config';
+import { drawerWidth } from '../../../config';
 
 
 export default function DrawerComponent({ open, handleDrawerToggle, window }) {

@@ -7,7 +7,7 @@ import { Box, List, Typography } from '@mui/material';
 // project import
 import NavItem from './NavItem';
 
-export default function NavGroup() {
+export default function NavGroup({ item }) {
     const menu = useSelector((state) => state.menu);
     const { drawerOpen } = menu;
 

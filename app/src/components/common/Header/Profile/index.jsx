@@ -6,13 +6,13 @@ import { useTheme } from '@mui/material/styles';
 import { Avatar, Box, ButtonBase, CardContent, ClickAwayListener, Grid, IconButton, Paper, Popper, Stack, Tab, Tabs, Typography } from '@mui/material';
 
 // project import
-import MainCard from 'components/MainCard';
-import Transitions from 'components/@extended/Transitions';
+import MainCard from '../../MainCard';
+import Transitions from '../../../@extended/Transitions';
 import ProfileTab from './ProfileTab';
 import SettingTab from './SettingTab';
 
 // assets
-import avatar1 from 'assets/images/users/avatar-1.png';
+// import avatar1 from 'assets/images/users/avatar-1.png';
 import { LogoutOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons';
 
 // tab panel wrapper
@@ -37,7 +37,7 @@ function a11yProps(index) {
     };
 }
 
-export default function index() {
+export default function Profile() {
     const theme = useTheme();
 
     const handleLogout = async () => {
@@ -77,7 +77,7 @@ export default function index() {
                 aria-label="open profile" ref={anchorRef} aria-controls={open ? 'profile-grow' : undefined} aria-haspopup="true" onClick={handleToggle}
             >
                 <Stack direction="row" spacing={2} alignItems="center" sx={{ p: 0.5 }}>
-                    <Avatar alt="profile user" src={avatar1} sx={{ width: 32, height: 32 }} />
+                    {/* <Avatar alt="profile user" src={avatar1} sx={{ width: 32, height: 32 }} /> */}
                     <Typography variant="subtitle1">John Doe</Typography>
                 </Stack>
             </ButtonBase>
@@ -113,7 +113,7 @@ export default function index() {
                                             <Grid container justifyContent="space-between" alignItems="center">
                                                 <Grid item>
                                                     <Stack direction="row" spacing={1.25} alignItems="center">
-                                                        <Avatar alt="profile user" src={avatar1} sx={{ width: 32, height: 32 }} />
+                                                        {/* <Avatar alt="profile user" src={avatar1} sx={{ width: 32, height: 32 }} /> */}
                                                         <Stack>
                                                             <Typography variant="h6">John Doe</Typography>
                                                             <Typography variant="body2" color="textSecondary">
