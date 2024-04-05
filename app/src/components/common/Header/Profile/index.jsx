@@ -7,7 +7,7 @@ import { Avatar, Box, ButtonBase, CardContent, ClickAwayListener, Grid, IconButt
 
 // project import
 import MainCard from '../../MainCard';
-import Transitions from '../../../@extended/Transitions';
+import Transitions from '../../@extended/Transitions';
 import ProfileTab from './ProfileTab';
 import SettingTab from './SettingTab';
 

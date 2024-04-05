@@ -1,5 +1,5 @@
 import Navigation from './Navigation';
-import SimpleBarScroll from '../../../third-party/SimpleBar';
+import SimpleBarScroll from '../../third-party/SimpleBar';
 
 
 export default function DrawerContent() {

@@ -38,6 +38,15 @@ function App() {
         }, {
             path: 'dashboard',
             element: <MainLayout />,
+            children: [
+                {
+                    path: '',
+                    element: <EditorPage />
+                }, {
+                    path: 'editor',
+                    element: <EditorPage />
+                }
+            ]
         //     errorElement: <Error />,
         //     children: [
         //         {

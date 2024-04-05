@@ -10,7 +10,8 @@ import { Box, Toolbar, useMediaQuery } from '@mui/material';
 import DrawerComponent from '../components/common/Drawer';
 import Header from '../components/common/Header';
 import navigation from '../components/common/menu-items';
-import Breadcrumbs from '../components/@extended/Breadcrumbs';
+// import Breadcrumbs from './components/@extended/Breadcrumbs';
+import Breadcrumbs from '../components/common/@extended/Breadcrumbs';
 
 // types
 // import { openDrawer } from 'store/reducers/menu';

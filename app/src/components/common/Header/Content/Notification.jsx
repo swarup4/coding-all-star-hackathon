@@ -9,7 +9,7 @@ import {
 
 // project import
 import MainCard from '../../MainCard';
-import Transitions from '../../../@extended/Transitions';
+import Transitions from '../../@extended/Transitions';
 
 // assets
 import { BellOutlined, CloseOutlined, GiftOutlined, MessageOutlined, SettingOutlined } from '@ant-design/icons';
