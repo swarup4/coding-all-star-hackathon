@@ -11,6 +11,7 @@ import ProtectedRoute from './routes/ProtectedRoute';
 // import AddProject from './components/admin/AddProject';
 // import AddCategory from './components/admin/AddCategory';
 import EditorPage from './components/editor/EditorPage';
+import MainLayout from './layout/MainLayout';
 
 function App() {
 
@@ -32,9 +33,9 @@ function App() {
           path: '',
             element: <EditorPage />,
             // errorElement: <Error />
-        // }, {
-        //     path: 'dashboard',
-        //     element: <Home />,
+        }, {
+            path: 'dashboard',
+            element: <MainLayout />,
         //     errorElement: <Error />,
         //     children: [
         //         {

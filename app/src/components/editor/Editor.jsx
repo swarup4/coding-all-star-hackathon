@@ -14,12 +14,12 @@ export default function Editor(props) {
     }, []);
 
     useEffect(() => {
-        if(props.language == 'js' & props.code == ''){
+        if(props.language == 'js' && props.code == ''){
             props.setCode("console.log('hello world!');")
-        }else if(props.language == 'java' & props.code == ''){
+        }else if(props.language == 'java' && props.code == ''){
             props.setCode('System.out.println("hello world!");')
         }
-        else if(props.language == 'html' & props.code == ''){
+        else if(props.language == 'html' && props.code == ''){
             props.setCode(`<html>
     <head>
         <title>index page</title>
@@ -29,7 +29,7 @@ export default function Editor(props) {
     </body>
 <html>`)
         }
-        else if(props.language == 'go' & props.code == ''){
+        else if(props.language == 'go' && props.code == ''){
             props.setCode(`package main
 import "fmt"
                 
