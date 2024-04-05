@@ -10,6 +10,7 @@ import ProtectedRoute from './routes/ProtectedRoute';
 // import Error from './components/common/Error';
 // import AddProject from './components/admin/AddProject';
 // import AddCategory from './components/admin/AddCategory';
+import Api from './components/api/Api';
 import EditorPage from './components/editor/EditorPage';
 import MainLayout from './layout/MainLayout';
 import ThemeCustomization from './themes';
@@ -41,7 +42,7 @@ function App() {
             children: [
                 {
                     path: '',
-                    element: <EditorPage />
+                    element: <Api />
                 }, {
                     path: 'editor',
                     element: <EditorPage />

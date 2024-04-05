@@ -28,7 +28,7 @@ router.post('/addApi', async (req, res) => {
 router.get('/getApiList/:id', async (req, res) => {
     try {
         const id = req.params.id;
-        const api = await Models.APIs.findById(id);
+        const api = await Models.APIs.find({ userId: id })
         if (api) {
             res.json(api);
         }
