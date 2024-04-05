@@ -40,7 +40,6 @@ func main() {
     }, [props.language])
 
     const codeOptions = {
-        // mode: "text/x-sql",
         line: true,
         lineNumbers: true,
         tabSize: 4,

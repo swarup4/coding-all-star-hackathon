@@ -10,8 +10,10 @@ import ProtectedRoute from './routes/ProtectedRoute';
 // import Error from './components/common/Error';
 // import AddProject from './components/admin/AddProject';
 // import AddCategory from './components/admin/AddCategory';
-import Api from './components/api/Api';
-import EditorPage from './components/editor/EditorPage';
+import ApiPage from './pages/ApiPage';
+import EditorPage from './pages/EditorPage';
+import LoginPage from './pages/LoginPage';
+import SignupPage from './pages/SignupPage';
 import MainLayout from './layout/MainLayout';
 import ThemeCustomization from './themes';
 
@@ -42,7 +44,7 @@ function App() {
             children: [
                 {
                     path: '',
-                    element: <Api />
+                    element: <ApiPage />
                 }, {
                     path: 'editor',
                     element: <EditorPage />
@@ -58,12 +60,12 @@ function App() {
         //             element: <ProtectedRoute><Outlet /></ProtectedRoute>,
         //         }
         //     ]
-        // }, {
-        //     path: '',
-        //     element: <Login />
-        // }, {
-        //     path: 'signup',
-        //     element: <Signup />
+        }, {
+            path: 'login',
+            element: <LoginPage />
+        }, {
+            path: 'signup',
+            element: <SignupPage />
         }
     ])
     return (

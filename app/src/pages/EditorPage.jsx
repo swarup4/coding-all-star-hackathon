@@ -3,10 +3,8 @@ import axios from 'axios'
 import { Grid, Box, InputLabel, MenuItem, FormControl, Select, IconButton } from '@mui/material';
 import SaveIcon from '@mui/icons-material/Save';
 
-import './style.scss';
-
-import Editor from './Editor'
-import FileList from '../files/FileList';
+import Editor from '../components/editor/Editor'
+import FileList from '../components/files/FileList';
 
 export default function EditorPage() {
     const [language, setLanguage] = useState('')
@@ -34,7 +32,7 @@ export default function EditorPage() {
     return (
         <Box sx={{ flexGrow: 1, height: '100%' }}>
             <Grid container spacing={2} style={{ height: '100%' }}>
-                <Grid item xs={3} className='left-panel'>
+                <Grid item xs={3} style={{border: '1px solid #e6e6e6'}}>
                     <FileList selectFile={getFileDetails} />
                 </Grid>
                 <Grid item xs={9}>
