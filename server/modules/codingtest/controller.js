@@ -1,15 +1,9 @@
 require("dotenv").config();
 
 const express = require("express");
-const jwt = require("jsonwebtoken");
-const multer = require("multer");
-
-var spawn = require("child_process").spawn;
-var fs = require("fs");
 
 const Models = require("./models");
 const UserApiModels = require("../userApi/models");
-const userMiddleware = require("../../middleware/user");
 
 const router = express.Router();
 
