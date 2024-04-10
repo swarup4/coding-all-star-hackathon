@@ -6,17 +6,10 @@ const objectId = Schema.ObjectId;
 // APIs
 const apis = {
     _id: { type: objectId, auto: true },
-    userId: { type: objectId, required: true },
-    name: { type: String, required: true },
+    submitedBy: { type: objectId, required: true },
+    apiId: { type: objectId, required: true },
     version: { type: String, required: true },
-    documentationLink: { type: String, required: true },
-    envVariables: String,
-    postmanExport: String,
-    videoLink: { type: String, required: true },
-    requirementApproach: String,
-    category: String,
-    description: String,
-    validation: String,
+    apiEndPoint: { type: String, required: true },
     createdAt: Date,
     updatedAt: Date,
     status: { type: Boolean, default: 1 }
@@ -24,31 +17,6 @@ const apis = {
 const apisSchema = new Schema(apis, { versionKey: false, timestamps: true });
 
 
-// Api Files
-const apiFiles = {
-    _id: { type: objectId, auto: true },
-    apiId: { type: objectId, required: true },
-    fileName: { type: String, required: true },
-    code: { type: String },
-    createdAt: Date,
-    updatedAt: Date
-};
-const apiFilesSchema = new Schema(apiFiles, { versionKey: false, timestamps: true });
-
-
-// Api Unit Test
-const apiUnitTestFiles = {
-    _id: { type: objectId, auto: true },
-    apiId: { type: objectId, required: true },
-    fileName: { type: String, required: true },
-    code: { type: String, required: true },
-    createdAt: Date,
-    updatedAt: Date
-};
-const apiUnitTestFilesSchema = new Schema(apiUnitTestFiles, { versionKey: false, timestamps: true });
-
 module.exports = {
-    APIs: mongoose.model("api", apisSchema),
-    Code: mongoose.model("apiFiles", apiFilesSchema),
-    UnitTest: mongoose.model("apiUnitTest", apiUnitTestFilesSchema),
+    APIs: mongoose.model("api", apisSchema)
 };
