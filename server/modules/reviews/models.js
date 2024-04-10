@@ -6,15 +6,17 @@ const objectId = Schema.ObjectId;
 // Review
 const review = {
     _id: { type: objectId, auto: true },
-    resourceName: String,
-    empId: String,
-    email: String,		
-    manager: String,
-    pLanguage: String,
-    ApiEndpoint: objectId,
+    apiId: { type: objectId, required: true },
+    reviewerId: { type: objectId, required: true },
     status: { type: Number, default: 1 },
     codeVerification: { type: Boolean, default: 1 },
-    CodeVerificationComment: String,
+    comment: { type: String, required: true },
+    reply: [{
+        userId: objectId,
+        comment: String,
+        createdAt: Date,
+        updatedAt: Date,
+    }],
     createdAt: Date,
     updatedAt: Date,
     

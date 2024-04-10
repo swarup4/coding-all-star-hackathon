@@ -1,121 +1,79 @@
 require('dotenv').config();
 
 const express = require('express');
-const jwt = require("jsonwebtoken");
-const multer = require('multer');
+const ObjectId = require("mongoose").Types.ObjectId;
 
-var spawn = require('child_process').spawn;
-var fs = require('fs');
-
-const User = require('./models');
+const Models = require('./models');
 const userMiddleware = require('../../middleware/user');
 
 const router = express.Router();
 
 
-router.post('/compile', function (req, res) {
-	
-	var code = req.body.code;
-	var username = req.body.username;
-	
-	fs.writeFile("code.c", code, function(err) {
-		if(err) {
-			return console.log(err);
+// Review 
+router.get('/getAllReview/:apiId', (req, res) => {
+	const apiId = req.params.apiId;
+	Models.Review.aggregate([
+		{
+			$match: {
+				apiId: new ObjectId(apiId)
+			}
+		}, {
+			$lookup: {
+				from: "users",
+				localField: "reviewerId",
+				foreignField: "_id",
+				as: "reviewer"
+			}
+		}, {
+			$unwind: "$reviewer"
+		}, {
+			$unset: ["reviewer._id", "reviewer.empId", "reviewer.password", "reviewer.email", "reviewer.reporty", "reviewer.status"],
 		}
-	}); 
-	
-	var compiler = spawn('g++', ['code.c', '-o', 'code']);
-
-	compiler.stdout.on('data', function (data) {
-		console.log('stdout: ' + data);
+	]).then(data => {
+		res.json(data);
+	}).catch(err => {
+		res.json(err);
 	});
+});
 
-	compiler.stderr.on('data', function (data) {
-		console.log("***COMPILATION ERROR***");
-		console.log(String(data));
-		//res.render('index', { outputmessage: "Compile error: " + data, startingcode: req.body.code })
-	});
-	
-	compiler.on('close', function (data) {
-		
-		if (data === 0) {
-			
-			var execute = spawn('./code', []);
-			
-			execute.stdout.on('data', function (output) {
-				
-				// get the currentlevel from their username
-				con.query("SELECT currentlevel as currentlevel, starcount as starcount FROM Accounts WHERE usernames = '" + username + "';", function (err, rows, fields) {
-					if (err) throw err;
 
-					var currentLevel = rows[0].currentlevel;
-					var starcount = rows[0].starcount;
-					
-					// get the activity that is equal to what level we are on
-					con.query("SELECT * FROM Activities WHERE level = '" + currentLevel + "';", function (err, rows, fields) {
-						if (err) throw err;
-
-						var correctAnswer = rows[0].CorrectAnswer;
-						var activityStars = rows[0].Stars;
-						var activityName = rows[0].Title;
-						var activityQuestion = rows[0].Question;
-
-						if (output == correctAnswer) {
-							res.render('home', { outputmessage: output, startingcode: req.body.code, success: true, navUsername: username, navStars: starcount, activityName: activityName, activityQuestion: activityQuestion, activityStars: activityStars });
-						} else {
-							res.render('home', { outputmessage: output, startingcode: req.body.code, success: false, navUsername: username, navStars: starcount, activityName: activityName, activityQuestion: activityQuestion, activityStars: activityStars });
-						}
-
-					});
-
-				});
-				
-			});
-			
-			execute.stderr.on('data', function (output) {
-				//console.log(String(output));
-			});
-			
-			execute.on('close', function (output) {
-				//console.log('stdout: ' + output);
-			})
+router.post('/addReview', async (req, res) => {
+	try {
+		let obj = req.body;
+		const model = new Models.Review(obj);
+		const review = await model.save();
+		if (review) {
+			res.json(review);
 		}
-	})
+	} catch (error) {
+		res.send(error);
+	}
+});
 
-})
+router.post('/addReply/:id', async (req, res) => {
+	try {
+		const reviewId = req.params.id;
+		const obj = req.body;
+		obj.createdAt = new Date();
+		obj.updatedAt = new Date();
 
-router.post('/next', function(req, res){
-	
-	var username = req.body.username;
-	
-	// get the currentlevel from their username
-	con.query("SELECT currentlevel as currentlevel, starcount as starcount FROM Accounts WHERE usernames = '" + username + "';", function (err, rows, fields) {
-		if (err) throw err;
-
-		var currentLevel = rows[0].currentlevel + 1;
-		var starcount = rows[0].starcount + 1;
-		
-		con.query("UPDATE Accounts SET currentlevel = currentlevel + 1, starcount = starcount + 1 WHERE usernames = '" + username + "';", function (err, result) {
-			if (err) throw err;
-		
-			// get the activity that is equal to what level we are on
-			con.query("SELECT * FROM Activities WHERE level = '" + currentLevel + "';", function (err, rows, fields) {
-				if (err) throw err;
-
-				var correctAnswer = rows[0].CorrectAnswer;
-				var activityStars = rows[0].Stars;
-				var activityName = rows[0].Title;
-				var activityQuestion = rows[0].Question;
-				var startingCode = rows[0].StartingCode;
-
-				res.render('home', { outputmessage: "", startingcode: startingCode, success: false, navUsername: username, navStars: starcount, activityName: activityName, activityQuestion: activityQuestion, activityStars: activityStars });
-
-			});
-
+		const review = await Models.Review.findOneAndUpdate({ _id: reviewId }, { $push: { reply: obj } }, {
+			new: true,
+			upsert: true // Make this update into an upsert
 		});
 
-	});
-	
-})
+		if (review) {
+			res.json({
+				success: true,
+				message: 'User has replied for the review'
+			});
+		}
+	} catch (error) {
+		res.send(error);
+	}
+
+});
+
+
 
 module.exports = router;
