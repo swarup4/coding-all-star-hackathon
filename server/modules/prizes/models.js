@@ -5,7 +5,11 @@ const objectId = Schema.ObjectId;
 // Project
 const prize = {
     _id: { type: objectId, auto: true },
+    hackathonId: { type: objectId, required: true },
     category: { type: String, required: true },
+    name: { type: String, required: true },
+    amount: { type: Number, required: true },
+    range: { type: Boolean, default: 0 },
     status: { type: Boolean, default: 1 },
     createdAt: Date,
     updatedAt: Date
