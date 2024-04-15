@@ -1,25 +1,70 @@
-import logo from './logo.svg';
-import './App.css';
+import './App.scss';
+import React from 'react';
+import {createBrowserRouter, Outlet, RouterProvider} from 'react-router-dom';
+
+import ProtectedRoute from './routes/ProtectedRoute';
+// import Home from './components/home/Home';
+// import HomePage from './components/home/HomePage';
+// import Login from './components/user/Login';
+// import Signup from './components/user/Signup';
+// import Error from './components/common/Error';
+// import AddProject from './components/admin/AddProject';
+// import AddCategory from './components/admin/AddCategory';
+// import ProductDetails from './components/product/ProductDetails';
+// import Cart from './components/cart/Cart';
+// import OrderList from './components/order/OrderList';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
 
+    const route = createBrowserRouter([{}
+        // {
+        //     path: 'admin',
+        //     element: <Home />,
+        //     errorElement: <Error />,
+        //     children: [
+        //         {
+        //             path: '',
+        //             element: <AddProject />
+        //         }, {
+        //             path: 'category',
+        //             element: <AddCategory />
+        //         }
+        //     ]
+        // }, {
+        //     path: 'dashboard',
+        //     element: <Home />,
+        //     errorElement: <Error />,
+        //     children: [
+        //         {
+        //             path: '',
+        //             element: <HomePage />
+        //         // }, {
+        //         //     path: 'product/details',
+        //         //     element: <ProductDetails />
+        //         }, {
+        //             path: 'user',
+        //             element: <ProtectedRoute><Outlet /></ProtectedRoute>,
+        //             // children: [
+        //             //     {
+        //             //         path: 'order',
+        //             //         element: <OrderList />
+        //             //     }, {
+        //             //         path: 'cart',
+        //             //         element: <Cart />
+        //             //     }
+        //             // ]
+        //         }
+        //     ]
+        // }, {
+        //     path: '',
+        //     element: <Login />
+        // }, {
+        //     path: 'signup',
+        //     element: <Signup />
+        // }
+    ])
+    return (
+        <RouterProvider router={route}></RouterProvider>
+    );
+}
 export default App;
