@@ -8,7 +8,7 @@ export default function HomePage() {
         <>
             <Header />
 
-            <section className="py-24 bg-white overflow-hidden" style={{ backgroundImage: 'url("flex-ui-assets/elements/pattern-white.svg")', backgroundPosition: 'center' }}>
+            <section className="py-24 bg-white overflow-hidden theme-background">
                 <div className="container px-4 mx-auto">
                     <div className="md:max-w-4xl mb-16 md:mb-20">
                         <span className="inline-block py-px px-2 mb-4 text-xs leading-5 text-yellow-500 bg-yellow-100 font-medium rounded-full shadow-sm">How all stars works</span>
@@ -68,7 +68,7 @@ export default function HomePage() {
                 </div>
             </section>
 
-            <section className="py-24 bg-white overflow-hidden" style={{ backgroundImage: 'url("flex-ui-assets/elements/pattern-white.svg")', backgroundPosition: 'center' }}>
+            <section className="py-24 bg-white overflow-hidden theme-background">
                 <div className="container px-4 mx-auto">
                     <div className="flex flex-wrap -mx-4">
                         <div className="w-full md:w-1/2 px-4 mb-20 lg:mb-0">
@@ -106,7 +106,7 @@ export default function HomePage() {
             </section>
 
 
-            <section className="py-20 xl:py-24 bg-white" style={{ backgroundImage: 'url("flex-ui-assets/elements/pattern-white.svg")', backgroundPosition: 'center' }}>
+            <section className="py-20 xl:py-24 bg-white theme-background">
                 <div className="container px-4 mx-auto">
                     <span className="inline-block py-px px-2 mb-4 text-xs leading-5 text-yellow-500 bg-yellow-100 font-medium rounded-9xl">ALL STAR AT A GLANCE</span>
                     <h3 className="mb-4 text-4xl md:text-5xl text-coolGray-900 font-bold tracking-tighter">We help our cusotmers overcome the limits of Time, Technology, and Budget</h3>
@@ -179,32 +179,37 @@ export default function HomePage() {
             <Faq />
 
 
-            <section className="py-20 xl:pt-24 bg-white" style={{ backgroundImage: 'url("flex-ui-assets/elements/pattern-white.svg")', backgroundPosition: 'center' }}><div className="container px-4 mx-auto">
-                <div className="mb-8 text-center">
-                    <h3 className="mb-4 text-4xl md:text-5xl text-coolGray-900 font-bold tracking-tighter" contentEditable="false">Builth with love for &amp; by</h3>
-                </div>
-                <div className="flex flex-wrap justify-center -mx-4">
-                    <div className="flex items-center h-32 md:h-36 px-4 md:px-8 rounded-md bg-coolGray-50 shadow-md">
-                        <img className="mx-auto" src="https://static.shuffle.dev/uploads/files/a4/a4fc302b23b342fd2989f185f7507831a1d74ff0/Trigent-Axlr8-Labs.png" alt="" contentEditable="false" />
-                    </div>
+            <section className="py-20 xl:pt-24 bg-white theme-background">
+                <div className="container px-4 mx-auto">
                     <div className="mb-8 text-center">
-                        <p className="text-lg md:text-xl text-coolGray-500 font-medium" contentEditable="false">Managed Hackathon platform that combines Industry Experience, Artificial Inteligence &amp; Community Engagement.</p>
+                        <h3 className="mb-4 text-4xl md:text-5xl text-coolGray-900 font-bold tracking-tighter" contentEditable="false">Builth with love for &amp; by</h3>
                     </div>
-                </div>
-            </div>
-            </section>
-
-
-            <section className="bg-coolGray-50 py-4"><div className="container px-4 mx-auto">
-                <div className="relative py-11 px-16 bg-yellow-500 rounded-md overflow-hidden">
-                    <img className="absolute z-10 left-4 top-4" src="flex-ui-assets/elements/dashboard/banners/dots-green.svg" alt="" /><img className="absolute z-10 right-4 bottom-4" src="flex-ui-assets/elements/dashboard/banners/dots-green.svg" alt="" /><img className="absolute h-64 left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 object-cover" src="flex-ui-assets/elements/dashboard/banners/wave-basic.svg" alt="" /><div className="relative z-20 flex flex-wrap items-center -m-3">
-                        <div className="w-full md:w-1/2 p-3">
-                            <h2 className="mb-6 text-4xl font-bold text-white tracking-tighter">Be part of Global Community of Developers</h2>
-                            <p className="font-semibold text-coolGray-200">Get Noticed &amp; Validated by your Peers</p>
+                    <div className="flex flex-wrap justify-center -mx-4">
+                        <div className="flex items-center h-32 md:h-36 px-4 md:px-8 rounded-md bg-coolGray-50 shadow-md">
+                            <img className="mx-auto" src="https://static.shuffle.dev/uploads/files/a4/a4fc302b23b342fd2989f185f7507831a1d74ff0/Trigent-Axlr8-Labs.png" alt="" contentEditable="false" />
+                        </div>
+                        <div className="mb-8 text-center">
+                            <p className="text-lg md:text-xl text-coolGray-500 font-medium" contentEditable="false">Managed Hackathon platform that combines Industry Experience, Artificial Inteligence &amp; Community Engagement.</p>
                         </div>
                     </div>
                 </div>
-            </div>
+            </section>
+
+
+            <section className="bg-coolGray-50 py-4">
+                <div className="container px-4 mx-auto">
+                    <div className="relative py-11 px-16 bg-yellow-500 rounded-md overflow-hidden">
+                        <img className="absolute z-10 left-4 top-4" src="flex-ui-assets/elements/dashboard/banners/dots-green.svg" alt="" />
+                        <img className="absolute z-10 right-4 bottom-4" src="flex-ui-assets/elements/dashboard/banners/dots-green.svg" alt="" />
+                        <img className="absolute h-64 left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 object-cover" src="flex-ui-assets/elements/dashboard/banners/wave-basic.svg" alt="" />
+                        <div className="relative z-20 flex flex-wrap items-center -m-3">
+                            <div className="w-full md:w-1/2 p-3">
+                                <h2 className="mb-6 text-4xl font-bold text-white tracking-tighter">Be part of Global Community of Developers</h2>
+                                <p className="font-semibold text-coolGray-200">Get Noticed &amp; Validated by your Peers</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </section>
 
 

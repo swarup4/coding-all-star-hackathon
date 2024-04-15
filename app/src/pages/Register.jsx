@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function Register() {
     return (
-        <section className="relative pt-16 pb-0 md:py-32 bg-white" style={{ backgroundImage: 'url("flex-ui-assets/elements/pattern-white.svg")', backgroundPosition: 'center' }}>
+        <section className="relative pt-16 pb-0 md:py-32 bg-white theme-background">
             <div className="container px-4 mx-auto mb-16">
                 <div className="w-full md:w-3/5 lg:w-1/2">
                     <div className="max-w-sm mx-auto">

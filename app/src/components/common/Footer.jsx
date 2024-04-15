@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function Footer() {
     return (
-        <section className="bg-white" style={{ backgroundImage: 'url("flex-ui-assets/elements/pattern-white.svg")', backgroundPosition: 'center' }}>
+        <section className="bg-white theme-background">
             <div className="container px-4 mx-auto">
                 <div className="pt-24 pb-11 mx-auto max-w-4xl">
                     <a className="block md:mx-auto mb-5 max-w-max" href="#">
