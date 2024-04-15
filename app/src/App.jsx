@@ -15,7 +15,7 @@ import ProtectedRoute from './routes/ProtectedRoute';
 
 import HomePage from './pages/HomePage';
 import Error from './components/common/Error';
-import LoginPage from './pages/LoginPage';
+import Login from './pages/Login';
 import Register from './pages/Register';
 
 function App() {
@@ -61,7 +61,7 @@ function App() {
         //     ]
         }, {
             path: 'login',
-            element: <LoginPage />
+            element: <Login />
         }, {
             path: 'signup',
             element: <Register />

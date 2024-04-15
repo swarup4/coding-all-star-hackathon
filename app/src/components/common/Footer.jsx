@@ -18,7 +18,7 @@ export default function Footer() {
                     </div>
                 </div>
             </div>
-            <div className="border-b border-coolGray-100" />
+            <div className="border-b border-coolGray-100"></div>
             <div className="container px-4 mx-auto">
                 <p className="py-10 md:pb-20 text-lg md:text-xl text-coolGray-400 font-medium text-center">© 2024 Trigent Software Inc. All rights reserved.</p>
             </div>

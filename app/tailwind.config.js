@@ -1,11 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
     content: [
-        "./src/**/*.{js,jsx,ts,tsx}", 
-        "./src/pug/*.pug",
-        "./src/html/*.html",
-        "./src/pages/*.js",
-        "./src/components/*/*.js",
+        "./src/**/*.{js,jsx,ts,tsx}",
         "./public/*.html"
     ],
     theme: {
@@ -19,7 +15,10 @@ module.exports = {
     },
     plugins: [
         require('@tailwindcss/forms'),
-        require('@tailwindcss/aspect-ratio'),
+        require('@tailwindcss/aspect-ratio')
+    ],
+
+    presets: [
         {
             theme: {
                 screens: {
@@ -611,5 +610,5 @@ module.exports = {
             corePlugins: {},
             plugins: [],
         }
-    ],
+    ]
 }
