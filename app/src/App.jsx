@@ -1,6 +1,6 @@
 import './App.scss';
 import React from 'react';
-import {createBrowserRouter, Outlet, RouterProvider} from 'react-router-dom';
+import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom';
 
 import ProtectedRoute from './routes/ProtectedRoute';
 
@@ -13,10 +13,12 @@ import ProtectedRoute from './routes/ProtectedRoute';
 // import Cart from './components/cart/Cart';
 // import OrderList from './components/order/OrderList';
 
-import HomePage from './pages/HomePage';
-import Error from './components/common/Error';
-import Login from './pages/Login';
-import Register from './pages/Register';
+import HomePage from './pages/HomePage'
+import Error from './components/common/Error'
+import Login from './pages/Login'
+import Register from './pages/Register'
+import Panels from './pages/Panels'
+
 
 function App() {
 
@@ -25,40 +27,35 @@ function App() {
             path: '',
             element: <HomePage />,
             errorElement: <Error />
-            // children: [
-            //     {
-            //         path: '',
-            //         element: <AddProject />
-            //     }, {
-            //         path: 'category',
-            //         element: <AddCategory />
-            //     }
-            // ]
         // }, {
         //     path: 'dashboard',
-        //     element: <Home />,
+        //     element: <ProtectedRoute><Outlet /></ProtectedRoute>,
         //     errorElement: <Error />,
         //     children: [
         //         {
         //             path: '',
         //             element: <HomePage />
-        //         // }, {
-        //         //     path: 'product/details',
-        //         //     element: <ProductDetails />
+        //         }, {
+        //             path: 'product/details',
+        //             element: <ProductDetails />
         //         }, {
         //             path: 'user',
         //             element: <ProtectedRoute><Outlet /></ProtectedRoute>,
-        //             // children: [
-        //             //     {
-        //             //         path: 'order',
-        //             //         element: <OrderList />
-        //             //     }, {
-        //             //         path: 'cart',
-        //             //         element: <Cart />
-        //             //     }
-        //             // ]
+        //             children: [
+        //                 {
+        //                     path: 'order',
+        //                     element: <OrderList />
+        //                 }, {
+        //                     path: 'cart',
+        //                     element: <Cart />
+        //                 }
+        //             ]
         //         }
         //     ]
+        }, {
+            path: 'panel',
+            element: <Panels />,
+            errorElement: <Error />,
         }, {
             path: 'login',
             element: <Login />
