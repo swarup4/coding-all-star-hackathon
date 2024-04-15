@@ -22,19 +22,6 @@ function App() {
 
     const route = createBrowserRouter([
         {
-        //     path: 'admin',
-        //     element: <Home />,
-        //     errorElement: <Error />,
-        //     children: [
-        //         {
-        //             path: '',
-        //             element: <AddProject />
-        //         }, {
-        //             path: 'category',
-        //             element: <AddCategory />
-        //         }
-        //     ]
-        // }, {
           path: '',
             element: <EditorPage />,
             // errorElement: <Error />
@@ -50,16 +37,6 @@ function App() {
                     element: <EditorPage />
                 }
             ]
-        //     errorElement: <Error />,
-        //     children: [
-        //         {
-        //             path: '',
-        //             element: <HomePage />
-        //         }, {
-        //             path: 'user',
-        //             element: <ProtectedRoute><Outlet /></ProtectedRoute>,
-        //         }
-        //     ]
         }, {
             path: 'login',
             element: <LoginPage />

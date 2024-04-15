@@ -43,13 +43,14 @@ export default function Signup() {
                     firstname: '',
                     lastname: '',
                     email: '',
-                    company: '',
+                    empId: '',
                     password: '',
                     submit: null
                 }}
                 validationSchema={Yup.object().shape({
                     firstname: Yup.string().max(255).required('First Name is required'),
                     lastname: Yup.string().max(255).required('Last Name is required'),
+                    empId: Yup.string().max(4).required('Employee ID is required'),
                     email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
                     password: Yup.string().max(255).required('Password is required')
                 })}
@@ -71,16 +72,8 @@ export default function Signup() {
                             <Grid item xs={12} md={6}>
                                 <Stack spacing={1}>
                                     <InputLabel htmlFor="firstname-signup">First Name*</InputLabel>
-                                    <OutlinedInput
-                                        id="firstname-login"
-                                        type="firstname"
-                                        value={values.firstname}
-                                        name="firstname"
-                                        onBlur={handleBlur}
-                                        onChange={handleChange}
-                                        placeholder="John"
-                                        fullWidth
-                                        error={Boolean(touched.firstname && errors.firstname)}
+                                    <OutlinedInput id="firstname-login" type="firstname" value={values.firstname} name="firstname" onBlur={handleBlur} onChange={handleChange}
+                                        placeholder="John" fullWidth error={Boolean(touched.firstname && errors.firstname)}
                                     />
                                     {touched.firstname && errors.firstname && (
                                         <FormHelperText error id="helper-text-firstname-signup">
@@ -92,17 +85,8 @@ export default function Signup() {
                             <Grid item xs={12} md={6}>
                                 <Stack spacing={1}>
                                     <InputLabel htmlFor="lastname-signup">Last Name*</InputLabel>
-                                    <OutlinedInput
-                                        fullWidth
-                                        error={Boolean(touched.lastname && errors.lastname)}
-                                        id="lastname-signup"
-                                        type="lastname"
-                                        value={values.lastname}
-                                        name="lastname"
-                                        onBlur={handleBlur}
-                                        onChange={handleChange}
-                                        placeholder="Doe"
-                                        inputProps={{}}
+                                    <OutlinedInput id="lastname-signup" type="lastname" value={values.lastname} name="lastname" onBlur={handleBlur} onChange={handleChange}
+                                        placeholder="Doe" inputProps={{}} fullWidth error={Boolean(touched.lastname && errors.lastname)}
                                     />
                                     {touched.lastname && errors.lastname && (
                                         <FormHelperText error id="helper-text-lastname-signup">
@@ -113,21 +97,13 @@ export default function Signup() {
                             </Grid>
                             <Grid item xs={12}>
                                 <Stack spacing={1}>
-                                    <InputLabel htmlFor="company-signup">Employee Id</InputLabel>
-                                    <OutlinedInput
-                                        fullWidth
-                                        error={Boolean(touched.company && errors.company)}
-                                        id="company-signup"
-                                        value={values.company}
-                                        name="company"
-                                        onBlur={handleBlur}
-                                        onChange={handleChange}
-                                        placeholder="Demo Inc."
-                                        inputProps={{}}
+                                    <InputLabel htmlFor="empId-signup">Employee Id</InputLabel>
+                                    <OutlinedInput id="empId-signup" value={values.empId} name="empId" onBlur={handleBlur} onChange={handleChange} placeholder="1234"
+                                        inputProps={{}} fullWidth error={Boolean(touched.empId && errors.empId)}
                                     />
-                                    {touched.company && errors.company && (
-                                        <FormHelperText error id="helper-text-company-signup">
-                                            {errors.company}
+                                    {touched.empId && errors.empId && (
+                                        <FormHelperText error id="helper-text-empId-signup">
+                                            {errors.empId}
                                         </FormHelperText>
                                     )}
                                 </Stack>
@@ -144,7 +120,7 @@ export default function Signup() {
                                         name="email"
                                         onBlur={handleBlur}
                                         onChange={handleChange}
-                                        placeholder="demo@company.com"
+                                        placeholder="demo@trigent.com"
                                         inputProps={{}}
                                     />
                                     {touched.email && errors.email && (
