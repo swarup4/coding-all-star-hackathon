@@ -24,16 +24,15 @@ export default function Login() {
         initialValues: initialValues,
         validationSchema: schema,
         onSubmit: (values, action) => {
-            debugger
             console.log(values)
-            // login(values);
+            login(values);
         }
     })
 
     function login(data) {
         const url = `${HOST_URL}user/login`
         axios.post(url, data).then(res => {
-            // console.log(res.data);
+            console.log(res.data);
             sessionStorage.auth = res.data.token;
             const location = sessionStorage.url;
             navigate(location);
@@ -53,6 +52,7 @@ export default function Login() {
                             <h3 className="mb-4 text-2xl md:text-3xl font-bold">Sign in to your account</h3>
                             <p className="text-lg text-coolGray-500 font-medium">Start your Hackathon Journey !</p>
                         </div>
+
                         <form onSubmit={handleSubmit}>
                             <div className="mb-6">
                                 <label className="block mb-2 text-coolGray-800 font-medium" htmlFor="">Organization</label>
@@ -62,6 +62,7 @@ export default function Login() {
                                     <p className='mt-1 text-red-500'>{errors.organization}</p>
                                 ) : ''}
                             </div>
+
                             <div className="mb-6">
                                 <label className="block mb-2 text-coolGray-800 font-medium" htmlFor="">Email</label>
                                 <input type="email" placeholder="dev@shuffle.dev" name="email" autoComplete="email" value={values.email} onChange={handleChange} onBlur={handleBlur}
@@ -70,14 +71,16 @@ export default function Login() {
                                     <p className='mt-1 text-red-500'>{errors.email}</p>
                                 ) : ''}
                             </div>
+
                             <div className="mb-4">
                                 <label className="block mb-2 text-coolGray-800 font-medium" htmlFor="">Password</label>
-                                <input type="password" placeholder="************" name="email" value={values.password} onChange={handleChange} onBlur={handleBlur}
+                                <input type="password" placeholder="************" name="password" value={values.password} onChange={handleChange} onBlur={handleBlur}
                                     className="appearance-none block w-full p-3 leading-5 text-coolGray-900 border border-coolGray-200 rounded-lg shadow-md placeholder-coolGray-400 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-50" />
                                 {errors.password && touched.password ? (
                                     <p className='mt-1 text-red-500'>{errors.password}</p>
                                 ) : ''}
                             </div>
+
                             <div className="flex flex-wrap items-center justify-between mb-6">
                                 <div className="w-full md:w-1/2">
                                     <label className="relative inline-flex items-center">
@@ -90,11 +93,11 @@ export default function Login() {
                                     <a className="inline-block text-xs font-medium text-yellow-500 hover:text-yellow-600" href="#">Forgot your password?</a>
                                 </div>
                             </div>
-                            
+
                             <button type="submit" className="inline-block py-3 px-7 mb-6 w-full text-base text-yellow-50 font-medium text-center leading-6 bg-yellow-500 hover:bg-yellow-600 focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-50 rounded-md shadow-sm">
                                 Sign in
                             </button>
-                            
+
                             <a className="inline-flex items-center justify-center py-3 px-7 mb-6 w-full text-base text-coolGray-500 font-medium text-center leading-6 bg-white border border-coolGray-100 hover:border-coolGray-200 rounded-md shadow-sm" href="#">
                                 <img className="mr-2" src="flex-ui-assets/elements/sign-up/google-icon-sign-up.svg" alt="" />
                                 <span>Sign in with Google</span>
