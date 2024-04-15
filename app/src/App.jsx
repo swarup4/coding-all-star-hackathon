@@ -3,8 +3,7 @@ import React from 'react';
 import {createBrowserRouter, Outlet, RouterProvider} from 'react-router-dom';
 
 import ProtectedRoute from './routes/ProtectedRoute';
-// import Home from './components/home/Home';
-// import HomePage from './components/home/HomePage';
+
 // import Login from './components/user/Login';
 // import Signup from './components/user/Signup';
 // import Error from './components/common/Error';
@@ -14,22 +13,27 @@ import ProtectedRoute from './routes/ProtectedRoute';
 // import Cart from './components/cart/Cart';
 // import OrderList from './components/order/OrderList';
 
+import HomePage from './pages/HomePage';
+import Error from './components/common/Error';
+import LoginPage from './pages/LoginPage';
+import Register from './pages/Register';
+
 function App() {
 
-    const route = createBrowserRouter([{}
-        // {
-        //     path: 'admin',
-        //     element: <Home />,
-        //     errorElement: <Error />,
-        //     children: [
-        //         {
-        //             path: '',
-        //             element: <AddProject />
-        //         }, {
-        //             path: 'category',
-        //             element: <AddCategory />
-        //         }
-        //     ]
+    const route = createBrowserRouter([
+        {
+            path: '',
+            element: <HomePage />,
+            errorElement: <Error />
+            // children: [
+            //     {
+            //         path: '',
+            //         element: <AddProject />
+            //     }, {
+            //         path: 'category',
+            //         element: <AddCategory />
+            //     }
+            // ]
         // }, {
         //     path: 'dashboard',
         //     element: <Home />,
@@ -55,13 +59,13 @@ function App() {
         //             // ]
         //         }
         //     ]
-        // }, {
-        //     path: '',
-        //     element: <Login />
-        // }, {
-        //     path: 'signup',
-        //     element: <Signup />
-        // }
+        }, {
+            path: 'login',
+            element: <LoginPage />
+        }, {
+            path: 'signup',
+            element: <Register />
+        }
     ])
     return (
         <RouterProvider router={route}></RouterProvider>
