@@ -256,7 +256,7 @@ router.put("/varification/:type/:id", userMiddleware.varifyToken, (req, res) => 
  * Insert User Details
  *  */
 // Insert Logged in User Details
-router.post("/insertUserDetails", userMiddleware.varifyToken, async (req, res) => {
+router.post("/insertUserDetails", async (req, res) => {
     try {
         const model = new User.Details(req.body);
         const user = await model.save();
@@ -272,7 +272,7 @@ router.post("/insertUserDetails", userMiddleware.varifyToken, async (req, res) =
 });
 
 // Get Logged in User Details
-router.get("/userDetails/:id", userMiddleware.varifyToken, async (req, res) => {
+router.get("/userDetails/:id", async (req, res) => {
     try {
         const id = req.params.id;
         const user = await User.Details.findOne({ userId: id });
@@ -288,7 +288,7 @@ router.get("/userDetails/:id", userMiddleware.varifyToken, async (req, res) => {
 });
 
 // Update User Details
-router.put("/updateUserDetails/:id", userMiddleware.varifyToken, async (req, res) => {
+router.put("/updateUserDetails/:id", async (req, res) => {
     try {
         const id = req.params.id;
         const obj = req.body;
@@ -307,20 +307,26 @@ router.put("/updateUserDetails/:id", userMiddleware.varifyToken, async (req, res
     }
 });
 
+// Add Social Media
+router.post('/addSocialMedia/:id', async (req, res) => {
+	try {
+		const userId = req.params.id;
+		const obj = req.body;
+		
+		const social = await User.Contacts.findOneAndUpdate({ _id: userId }, { $push: { socialMedia: obj } }, {
+			new: true,
+			upsert: true // Make this update into an upsert
+		});
 
-// router.post('/uploadProfilePics/:id', userMiddleware.varifyToken, upload.single("profile"), uploadMiddleware.uploadImage, (req, res) => {
-//     let obj = {
-//         userId: req.params.id,
-//         profilePics: req.file.originalname
-//     }
-//     let model = new user.ProfilePics(obj);
-//     model.save((err, profile) => {
-//         if (err) {
-//             res.send(err);
-//         } else {
-//             res.json('Profile picture uploaded successfully');
-//         }
-//     });
-// });
+		if (social) {
+			res.json({
+				success: true,
+				message: 'Users Social Media account has insert'
+			});
+		}
+	} catch (error) {
+		res.send(error);
+	}
+});
 
 module.exports = router;

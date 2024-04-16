@@ -36,7 +36,6 @@ router.get('/getAllReview/:apiId', (req, res) => {
 	});
 });
 
-
 router.post('/addReview', async (req, res) => {
 	try {
 		let obj = req.body;
@@ -71,9 +70,7 @@ router.post('/addReply/:id', async (req, res) => {
 	} catch (error) {
 		res.send(error);
 	}
-
 });
-
 
 
 module.exports = router;
