@@ -4,10 +4,35 @@ const Models = require('./models');
 const router = express.Router();
 
 
-// Prize
+// Hackathon
 router.get('/getHackathon', async (req, res) => {
     try {
-        const data = await Models.Hackathon.find({});
+        const data = await Models.Hackathon.aggregate([
+            {
+                $lookup: {
+                    from: "users",
+                    localField: "userId",
+                    foreignField: "_id",
+                    as: "user",
+                },
+            },
+            {
+                $lookup: {
+                    from: "users",
+                    localField: "panels",
+                    foreignField: "_id",
+                    as: "panels",
+                },
+            },
+            {
+                $lookup: {
+                    from: "users",
+                    localField: "appliedUser",
+                    foreignField: "_id",
+                    as: "appliedUser",
+                },
+            },
+        ]);
         res.json(data);
     } catch (error) {
         res.send(error);
@@ -45,7 +70,7 @@ router.put('/updateHackathon/:id', async (req, res) => {
 router.put('/deleteHackathon/:id', async (req, res) => {
     try {
         const id = req.params.id;
-        const data = await Models.Hackathon.findOneAndUpdate({ _id: id }, {status: 0});
+        const data = await Models.Hackathon.findOneAndUpdate({ _id: id }, { status: 0 });
         if (data) {
             res.json({
                 success: true,
