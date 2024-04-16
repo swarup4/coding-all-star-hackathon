@@ -41,6 +41,7 @@ router.get("/info/:id", async (req, res) => {
 router.post("/login", async (req, res) => {
     try {
         const obj = {
+            organization: req.body.organization,
             email: req.body.email,
             password: req.body.password,
             status: true
@@ -58,8 +59,7 @@ router.post("/login", async (req, res) => {
             res.json({
                 id: user._id,
                 email: user.email,
-                lname: user.lname,
-                fname: user.fname,
+                name: user.name,
                 token: token
             });
         }
@@ -93,6 +93,7 @@ router.post("/signup", async (req, res) => {
         res.send({
             id: user._id,
             email: user.email,
+            name: user.name,
             token: token
         });
     } catch (error) {

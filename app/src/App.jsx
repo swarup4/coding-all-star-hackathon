@@ -1,77 +1,71 @@
-import './App.css';
+import './App.scss';
 import React from 'react';
-import {createBrowserRouter, Outlet, RouterProvider} from 'react-router-dom';
+import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom';
 
 import ProtectedRoute from './routes/ProtectedRoute';
-// import Home from './components/home/Home';
-// import HomePage from './components/home/HomePage';
+
 // import Login from './components/user/Login';
 // import Signup from './components/user/Signup';
 // import Error from './components/common/Error';
 // import AddProject from './components/admin/AddProject';
 // import AddCategory from './components/admin/AddCategory';
-import ApiPage from './pages/ApiPage';
-import EditorPage from './pages/EditorPage';
-import LoginPage from './pages/LoginPage';
-import SignupPage from './pages/SignupPage';
-import MainLayout from './layout/MainLayout';
-import ThemeCustomization from './themes';
+// import ProductDetails from './components/product/ProductDetails';
+// import Cart from './components/cart/Cart';
+// import OrderList from './components/order/OrderList';
+
+import HomePage from './pages/HomePage'
+import Error from './components/common/Error'
+import Login from './pages/Login'
+import Register from './pages/Register'
+import Panels from './pages/Panels'
 
 
 function App() {
 
     const route = createBrowserRouter([
         {
-        //     path: 'admin',
-        //     element: <Home />,
-        //     errorElement: <Error />,
-        //     children: [
-        //         {
-        //             path: '',
-        //             element: <AddProject />
-        //         }, {
-        //             path: 'category',
-        //             element: <AddCategory />
-        //         }
-        //     ]
+            path: '',
+            element: <HomePage />,
+            errorElement: <Error />
         // }, {
-          path: '',
-            element: <EditorPage />,
-            // errorElement: <Error />
-        }, {
-            path: 'dashboard',
-            element: <MainLayout />,
-            children: [
-                {
-                    path: '',
-                    element: <ApiPage />
-                }, {
-                    path: 'editor',
-                    element: <EditorPage />
-                }
-            ]
+        //     path: 'dashboard',
+        //     element: <ProtectedRoute><Outlet /></ProtectedRoute>,
         //     errorElement: <Error />,
         //     children: [
         //         {
         //             path: '',
         //             element: <HomePage />
         //         }, {
+        //             path: 'product/details',
+        //             element: <ProductDetails />
+        //         }, {
         //             path: 'user',
         //             element: <ProtectedRoute><Outlet /></ProtectedRoute>,
+        //             children: [
+        //                 {
+        //                     path: 'order',
+        //                     element: <OrderList />
+        //                 }, {
+        //                     path: 'cart',
+        //                     element: <Cart />
+        //                 }
+        //             ]
         //         }
         //     ]
         }, {
+            path: 'panel',
+            element: <Panels />,
+            errorElement: <Error />,
+        }, {
             path: 'login',
-            element: <LoginPage />
+            element: <Login />
         }, {
             path: 'signup',
-            element: <SignupPage />
+            element: <Register />
         }
     ])
     return (
-        <ThemeCustomization>
-            <RouterProvider router={route}></RouterProvider>
-        </ThemeCustomization>
+        <RouterProvider router={route}></RouterProvider>
     );
 }
 export default App;

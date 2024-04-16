@@ -6,10 +6,10 @@ const objectId = Schema.ObjectId;
 // User
 const user = {
     _id: { type: objectId, auto: true },
-    fname: { type: String, require: true },
-    lname: { type: String, require: true },
-    role: { type: String, require: true },
-    empId: { type: Number, require: true },
+    name: { type: String, require: true },
+    organization: { type: String, require: true },
+    role: String,
+    empId: Number,
     email: { type: String, require: true },
     password: { type: String, require: true },
     manager: { type: objectId },
@@ -17,8 +17,8 @@ const user = {
     createdAt: Date,
     updatedAt: Date,
     status: { type: Boolean, default: 1 }
-};
-const userSchema = new Schema(user, { versionKey: false, timestamps: true });
+}
+const userSchema = new Schema(user, { versionKey: false, timestamps: true })
 
 // User Details
 const userDetails = {
@@ -41,8 +41,8 @@ const userProfilePics = {
     profilePics: String,
     createdAt: Date,
     updatedAt: Date
-};
-const userProfilePicsSchema = new Schema(userProfilePics, { versionKey: false, timestamps: true });
+}
+const userProfilePicsSchema = new Schema(userProfilePics, { versionKey: false, timestamps: true })
 
 // User Contact
 const userContact = {
