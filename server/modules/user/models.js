@@ -26,9 +26,9 @@ const userDetails = {
     userId: { type: objectId, required: true },
     primarySkill: [{ type: String }],
     secondarySkill: [{ type: String }],
-    City: { type: Number, require: true },
-    State: { type: String, require: true },
-    Country: { type: String, require: true },
+    city: { type: Number, require: true },
+    state: { type: String, require: true },
+    country: { type: String, require: true },
     createdAt: Date,
     updatedAt: Date,
 };

@@ -14,25 +14,31 @@ router.get('/getHackathon', async (req, res) => {
                     localField: "userId",
                     foreignField: "_id",
                     as: "user",
-                },
-            },
-            {
+                }
+            }, {
                 $lookup: {
                     from: "users",
                     localField: "panels",
                     foreignField: "_id",
                     as: "panels",
-                },
-            },
-            {
+                }
+            }, {
                 $lookup: {
                     from: "users",
                     localField: "appliedUser",
                     foreignField: "_id",
                     as: "appliedUser",
-                },
-            },
-        ]);
+                }
+            }, {
+                $unwind: "$user",
+            }, {
+                $unset: [
+                    "userId", "user.password", "user.reporty", "user.createdAt", "user.updatedAt",
+                    "panels.password", "panels.reporty", "panels.createdAt", "panels.updatedAt",
+                    "appliedUser.password", "appliedUser.reporty", "appliedUser.createdAt", "appliedUser.updatedAt"
+                ]
+            }
+        ])
         res.json(data);
     } catch (error) {
         res.send(error);

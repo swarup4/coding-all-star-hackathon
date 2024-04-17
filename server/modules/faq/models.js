@@ -7,8 +7,8 @@ const faq = {
     category: { type: String, required: true },
     question: { type: String, required: true },
     answer: { type: String, required: true },
-    createdDate: Date,
-    status: { type: Boolean, default: 1 }
+    status: { type: Boolean, default: 1 },
+    createdDate: Date
 }
 
 const faqSchema = new Schema(faq, { versionKey: false });
