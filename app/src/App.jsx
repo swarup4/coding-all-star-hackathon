@@ -1,8 +1,8 @@
-import './App.scss';
-import React from 'react';
-import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom';
+import './App.scss'
+import React from 'react'
+import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom'
 
-import ProtectedRoute from './routes/ProtectedRoute';
+import ProtectedRoute from './routes/ProtectedRoute'
 
 // import Login from './components/user/Login';
 // import Signup from './components/user/Signup';
@@ -18,6 +18,9 @@ import Error from './components/common/Error'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import Panels from './pages/Panels'
+import Hackathon from './pages/Hackathon'
+import Dashboard from './pages/Dashboard'
+import UserLayout from './layout/UserLayout'
 
 
 function App() {
@@ -27,35 +30,41 @@ function App() {
             path: '',
             element: <HomePage />,
             errorElement: <Error />
-        // }, {
-        //     path: 'dashboard',
-        //     element: <ProtectedRoute><Outlet /></ProtectedRoute>,
-        //     errorElement: <Error />,
-        //     children: [
-        //         {
-        //             path: '',
-        //             element: <HomePage />
-        //         }, {
-        //             path: 'product/details',
-        //             element: <ProductDetails />
-        //         }, {
-        //             path: 'user',
-        //             element: <ProtectedRoute><Outlet /></ProtectedRoute>,
-        //             children: [
-        //                 {
-        //                     path: 'order',
-        //                     element: <OrderList />
-        //                 }, {
-        //                     path: 'cart',
-        //                     element: <Cart />
-        //                 }
-        //             ]
-        //         }
-        //     ]
+        }, {
+            path: 'dashboard',
+            element: <UserLayout />,
+            errorElement: <Error />,
+            children: [{
+                path: '',
+                element: <ProtectedRoute><Outlet /></ProtectedRoute>,
+                children: [{
+                    path: '',
+                    element: <Dashboard />
+                }, {
+                    path: 'hackathon',
+                    element: <Hackathon />
+                }]
+            }    
+                // }, {
+                //     path: 'user',
+                //     element: <ProtectedRoute><Outlet /></ProtectedRoute>,
+                //     children: [
+                //         {
+                //             path: 'order',
+                //             element: <OrderList />
+                //         }, {
+                //             path: 'cart',
+                //             element: <Cart />
+                //         }
+                //     ]
+            ]
         }, {
             path: 'panel',
             element: <Panels />,
             errorElement: <Error />,
+        }, {
+            path: 'hackathon',
+            element: <Hackathon />
         }, {
             path: 'login',
             element: <Login />

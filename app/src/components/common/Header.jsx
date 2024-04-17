@@ -36,7 +36,7 @@ export default function Header() {
                         <nav className="relative p-6 h-full overflow-y-auto">
                             <div className="flex flex-col justify-between h-full">
                                 <a className="inline-block" href="#">
-                                    <img className="h-8" src="flex-ui-assets/logos/flex-ui-yellow-light.svg" alt="" />
+                                    <img className="h-8" src={window.location.origin + "/flex-ui-assets/logos/flex-ui-yellow-light.svg"} alt="" />
                                 </a>
                                 <ul className="py-6">
                                     <li><a className="block py-3 px-4 text-coolGray-500 hover:text-coolGray-900 font-medium hover:bg-coolGray-50 rounded-md" href="#">Product</a></li>

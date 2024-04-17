@@ -49,7 +49,7 @@ export default function Register() {
                     <div className="max-w-sm mx-auto">
                         <div className="mb-6 text-center">
                             <a className="inline-block mb-6" href="#">
-                                <img className="h-16" src="flex-ui-assets/logos/flex-circle-yellow.svg" alt="" /></a>
+                                <img className="h-16" src={window.location.origin + "/flex-ui-assets/logos/flex-circle-yellow.svg"} alt="" /></a>
                             <h3 className="mb-4 text-2xl md:text-3xl font-bold">Join our community</h3>
                             <p className="text-lg text-coolGray-500 font-medium">Become the next Hackathon Ninja !!!</p>
                         </div>
@@ -93,7 +93,7 @@ export default function Register() {
                                 <div className="w-full md:w-1/2">
                                     <label className="relative inline-flex items-center">
                                         <input className="form-checkbox appearance-none" type="checkbox" />
-                                        <img className="absolute top-1/2 transform -translate-y-1/2 left-0" src="flex-ui-assets/elements/sign-up/checkbox-icon.svg" alt="" />
+                                        <img className="absolute top-1/2 transform -translate-y-1/2 left-0" src={window.location.origin + "/flex-ui-assets/elements/sign-up/checkbox-icon.svg"} alt="" />
                                         <span className="ml-7 text-xs text-coolGray-800 font-medium">Remember me</span>
                                     </label>
                                 </div>
@@ -107,7 +107,7 @@ export default function Register() {
                             </button>
 
                             <a className="inline-flex items-center justify-center py-3 px-7 mb-6 w-full text-base text-coolGray-500 font-medium text-center leading-6 bg-white border border-coolGray-100 hover:border-coolGray-200 rounded-md shadow-sm" href="#">
-                                <img className="mr-2" src="flex-ui-assets/elements/sign-up/google-icon-sign-up.svg" alt="" />
+                                <img className="mr-2" src={window.location.origin + "/flex-ui-assets/elements/sign-up/google-icon-sign-up.svg"} alt="" />
                                 <span>Sign in with Google</span>
                             </a>
                             <p className="text-center">

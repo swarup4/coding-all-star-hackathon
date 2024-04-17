@@ -7,9 +7,9 @@ export default function Error() {
         <>
             <Header />
             
-            <section className="relative bg-white" style={{ backgroundImage: 'url("flex-ui-assets/elements/pattern-white.svg")', backgroundPosition: 'center' }}>
-                <img className="md:hidden w-full" src="flex-ui-assets/images/http-codes/dog-error-side.png" alt="" />
-                <img className="absolute top-0 left-0 hidden md:block h-full w-2/5 md:object-cover" src="flex-ui-assets/images/http-codes/dog-error-side.png" alt="" />
+            <section className="relative bg-white theme-background">
+                <img className="md:hidden w-full" src={window.location.origin + "/flex-ui-assets/images/http-codes/dog-error-side.png"} alt="" />
+                <img className="absolute top-0 left-0 hidden md:block h-full w-2/5 md:object-cover" src={window.location.origin + "/flex-ui-assets/images/http-codes/dog-error-side.png"} alt="" />
                 <div className="relative z-10 container px-4 mx-auto">
                     <div className="flex flex-wrap py-16 md:py-40 lg:py-72">
                         <div className="w-full md:w-1/2 ml-auto text-center md:text-left">
@@ -29,8 +29,8 @@ export default function Error() {
                         </div>
                     </div>
                 </div>
-                <img className="absolute right-6 top-6 hidden md:block w-24 md:w-auto" src="flex-ui-assets/elements/dots3-green.svg" alt="" />
-                <img className="absolute right-0 bottom-0 w-24 md:w-auto" src="flex-ui-assets/elements/wave3-red.svg" alt="" />
+                <img className="absolute right-6 top-6 hidden md:block w-24 md:w-auto" src={window.location.origin + "/flex-ui-assets/elements/dots3-green.svg"} alt="" />
+                <img className="absolute right-0 bottom-0 w-24 md:w-auto" src={window.location.origin + "/flex-ui-assets/elements/wave3-red.svg"} alt="" />
             </section>
             
             <Footer />

@@ -32,6 +32,45 @@ router.get("/info/:id", async (req, res) => {
         res.send(error);
     }
 });
+
+
+
+// Get Hirerchy List
+router.get("/hierarchicalData", async (req, res) => {
+    try {
+        const user = await User.Auth.aggregate([
+            {
+                $graphLookup: {
+                    from: "users",
+                    startWith: "$_id",
+                    connectFromField: "_id",
+                    connectToField: "manager",
+                    maxDepth: 5,
+                    depthField: "depth",
+                    as: "hierarchy"
+                }
+            },
+            {
+                $addFields: {
+                    hierarchy: {
+                        $filter: {
+                            input: "$hierarchy",
+                            cond: { $ne: ["$$this", null] } // Remove any null values from the hierarchy array
+                        }
+                    }
+                }
+            }
+        ]);
+        if (user) {
+            res.json({
+                success: true,
+                data: user
+            });
+        }
+    } catch (error) {
+        res.send(error);
+    }
+});
 /**
 {
     "username": "Swarup7",
@@ -310,24 +349,24 @@ router.put("/updateUserDetails/:id", async (req, res) => {
 
 // Add Social Media
 router.post('/addSocialMedia/:id', async (req, res) => {
-	try {
-		const userId = req.params.id;
-		const obj = req.body;
-		
-		const social = await User.Contacts.findOneAndUpdate({ _id: userId }, { $push: { socialMedia: obj } }, {
-			new: true,
-			upsert: true // Make this update into an upsert
-		});
+    try {
+        const userId = req.params.id;
+        const obj = req.body;
 
-		if (social) {
-			res.json({
-				success: true,
-				message: 'Users Social Media account has insert'
-			});
-		}
-	} catch (error) {
-		res.send(error);
-	}
+        const social = await User.Contacts.findOneAndUpdate({ _id: userId }, { $push: { socialMedia: obj } }, {
+            new: true,
+            upsert: true // Make this update into an upsert
+        });
+
+        if (social) {
+            res.json({
+                success: true,
+                message: 'Users Social Media account has insert'
+            });
+        }
+    } catch (error) {
+        res.send(error);
+    }
 });
 
 module.exports = router;

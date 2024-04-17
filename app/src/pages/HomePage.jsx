@@ -18,9 +18,9 @@ export default function HomePage() {
                     <div className="flex flex-wrap lg:items-center -mx-4">
                         <div className="w-full md:w-1/2 px-4 mb-8 md:mb-0">
                             <div className="relative mx-auto md:ml-0 max-w-max">
-                                <img className="absolute z-10 -left-8 -top-8 w-28 md:w-auto text-yellow-400" src="flex-ui-assets/elements/circle3-red.svg" alt="" />
-                                <img className="absolute z-10 -right-7 -bottom-8 w-28 md:w-auto text-blue-500" src="flex-ui-assets/elements/dots3-green.svg" alt="" />
-                                <img src="../flex-ui-assets/images/features/stock2.png" alt="" />
+                                <img className="absolute z-10 -left-8 -top-8 w-28 md:w-auto text-yellow-400" src={window.location.origin + "/flex-ui-assets/elements/circle3-red.svg"} alt="" />
+                                <img className="absolute z-10 -right-7 -bottom-8 w-28 md:w-auto text-blue-500" src={window.location.origin + "/flex-ui-assets/elements/dots3-green.svg"} alt="" />
+                                <img src={window.location.origin + "/flex-ui-assets/images/features/stock2.png"} alt="" />
                             </div>
                         </div>
                         <div className="w-full md:w-1/2 px-4">
@@ -77,15 +77,15 @@ export default function HomePage() {
                                 </h2>
                                 <ul className="mb-8">
                                     <li className="flex items-center mb-4">
-                                        <img className="mr-3" src="flex-ui-assets/elements/cta/checkbox-yellow.svg" alt="" />
+                                        <img className="mr-3" src={window.location.origin + "/flex-ui-assets/elements/cta/checkbox-yellow.svg"} alt="" />
                                         <span className="text-lg md:text-xl font-heading text-coolGray-500">Simple &amp; Fast Hackathons</span>
                                     </li>
                                     <li className="flex items-center mb-4">
-                                        <img className="mr-3" src="flex-ui-assets/elements/cta/checkbox-yellow.svg" alt="" />
+                                        <img className="mr-3" src={window.location.origin + "/flex-ui-assets/elements/cta/checkbox-yellow.svg"} alt="" />
                                         <span className="text-lg md:text-xl font-heading text-coolGray-500">Transparent with Cash Prices</span>
                                     </li>
                                     <li className="flex items-center">
-                                        <img className="mr-3" src="flex-ui-assets/elements/cta/checkbox-yellow.svg" alt="" />
+                                        <img className="mr-3" src={window.location.origin + "/flex-ui-assets/elements/cta/checkbox-yellow.svg"} alt="" />
                                         <span className="text-lg md:text-xl font-heading text-coolGray-500">Portfolio &amp; Community Support</span>
                                     </li>
                                 </ul>
@@ -96,9 +96,9 @@ export default function HomePage() {
                         </div>
                         <div className="w-full md:w-1/2 px-4">
                             <div className="relative max-w-max mx-auto">
-                                <img className="absolute top-0 right-0 -mt-6 lg:-mt-12 -mr-6 lg:-mr-12 w-20 lg:w-auto z-10" src="flex-ui-assets/elements/circle3-red.svg" alt="" />
-                                <img className="absolute bottom-0 left-0 -mb-6 lg:-mb-10-ml-6 lg:-ml-12 w-20 lg:w-auto" src="flex-ui-assets/elements/dots3-green.svg" alt="" />
-                                <img className="relative" src="flex-ui-assets/elements/cta/photo-laptop-ph.png" alt="" />
+                                <img className="absolute top-0 right-0 -mt-6 lg:-mt-12 -mr-6 lg:-mr-12 w-20 lg:w-auto z-10" src={window.location.origin + "/flex-ui-assets/elements/circle3-red.svg"} alt="" />
+                                <img className="absolute bottom-0 left-0 -mb-6 lg:-mb-10-ml-6 lg:-ml-12 w-20 lg:w-auto" src={window.location.origin + "/flex-ui-assets/elements/dots3-green.svg"} alt="" />
+                                <img className="relative" src={window.location.origin + "/flex-ui-assets/elements/cta/photo-laptop-ph.png"} alt="" />
                             </div>
                         </div>
                     </div>
@@ -137,7 +137,7 @@ export default function HomePage() {
                             </div>
                         </div>
                         <div className="w-full md:w-1/2 px-4">
-                            <img className="mx-auto md:mr-0" src="flex-ui-assets/images/numbers/work.png" alt="" />
+                            <img className="mx-auto md:mr-0" src={window.location.origin + "/flex-ui-assets/images/numbers/work.png"} alt="" />
                         </div>
                     </div>
                 </div>
@@ -147,23 +147,23 @@ export default function HomePage() {
             <section className="bg-coolGray-50 py-4">
                 <div className="container px-4 mx-auto">
                     <div className="relative py-11 px-16 bg-coolGray-900 rounded-md overflow-hidden">
-                        <img className="absolute z-10 left-4 top-4" src="flex-ui-assets/elements/dashboard/banners/dots-red.svg" alt="" />
-                        <img className="absolute z-10 right-4 bottom-4" src="flex-ui-assets/elements/dashboard/banners/dots-green.svg" alt="" />
-                        <img className="absolute h-64 left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 object-cover" src="flex-ui-assets/elements/dashboard/banners/wave.svg" alt="" />
+                        <img className="absolute z-10 left-4 top-4" src={window.location.origin + "/flex-ui-assets/elements/dashboard/banners/dots-red.svg"} alt="" />
+                        <img className="absolute z-10 right-4 bottom-4" src={window.location.origin + "/flex-ui-assets/elements/dashboard/banners/dots-green.svg"} alt="" />
+                        <img className="absolute h-64 left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 object-cover" src={window.location.origin + "/flex-ui-assets/elements/dashboard/banners/wave.svg"} alt="" />
                         <div className="relative z-20 flex flex-wrap items-center -m-3">
                             <div className="w-full md:w-1/2 p-3">
                                 <h2 className="mb-6 text-4xl font-bold text-white tracking-tighter">Hackathon's for Developers by Developers</h2>
                                 <ul className="flex flex-wrap">
                                     <li className="flex items-center mr-6 text-sm text-coolGray-300 font-semibold">
-                                        <img className="relative top-px mr-2" src="flex-ui-assets/elements/dashboard/banners/checkbox-green.svg" />
+                                        <img className="relative top-px mr-2" src={window.location.origin + "/flex-ui-assets/elements/dashboard/banners/checkbox-green.svg"} />
                                         <span>Leader Board</span>
                                     </li>
                                     <li className="flex items-center mr-6 text-sm text-coolGray-300 font-semibold">
-                                        <img className="relative top-px mr-2" src="flex-ui-assets/elements/dashboard/banners/checkbox-green.svg" />
+                                        <img className="relative top-px mr-2" src={window.location.origin + "/flex-ui-assets/elements/dashboard/banners/checkbox-green.svg"} />
                                         <span>Merit Based</span>
                                     </li>
                                     <li className="flex items-center mr-6 text-sm text-coolGray-300 font-semibold">
-                                        <img className="relative top-px mr-2" src="flex-ui-assets/elements/dashboard/banners/checkbox-green.svg" />
+                                        <img className="relative top-px mr-2" src={window.location.origin + "/flex-ui-assets/elements/dashboard/banners/checkbox-green.svg"} />
                                         <span>Transparent</span>
                                     </li>
                                 </ul>
@@ -199,9 +199,9 @@ export default function HomePage() {
             <section className="bg-coolGray-50 py-4">
                 <div className="container px-4 mx-auto">
                     <div className="relative py-11 px-16 bg-yellow-500 rounded-md overflow-hidden">
-                        <img className="absolute z-10 left-4 top-4" src="flex-ui-assets/elements/dashboard/banners/dots-green.svg" alt="" />
-                        <img className="absolute z-10 right-4 bottom-4" src="flex-ui-assets/elements/dashboard/banners/dots-green.svg" alt="" />
-                        <img className="absolute h-64 left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 object-cover" src="flex-ui-assets/elements/dashboard/banners/wave-basic.svg" alt="" />
+                        <img className="absolute z-10 left-4 top-4" src={window.location.origin + "/flex-ui-assets/elements/dashboard/banners/dots-green.svg"} alt="" />
+                        <img className="absolute z-10 right-4 bottom-4" src={window.location.origin + "/flex-ui-assets/elements/dashboard/banners/dots-green.svg"} alt="" />
+                        <img className="absolute h-64 left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 object-cover" src={window.location.origin + "/flex-ui-assets/elements/dashboard/banners/wave-basic.svg"} alt="" />
                         <div className="relative z-20 flex flex-wrap items-center -m-3">
                             <div className="w-full md:w-1/2 p-3">
                                 <h2 className="mb-6 text-4xl font-bold text-white tracking-tighter">Be part of Global Community of Developers</h2>

@@ -3,7 +3,7 @@ import React from 'react'
 export default function Panels() {
     return (
         <>
-            <section className="relative py-24 bg-white" style={{ backgroundImage: 'url("flex-ui-assets/elements/pattern-white.svg")', backgroundPosition: 'center' }}>
+            <section className="relative py-24 bg-white theme-background">
                 <div className="relative container px-4 mx-auto">
                     <div className="mb-16 text-center">
                         <span className="inline-block py-px px-2 mb-4 text-xs leading-5 text-yellow-500 bg-yellow-100 font-medium uppercase rounded-9xl">Team</span>
@@ -13,7 +13,7 @@ export default function Panels() {
                     <div className="flex flex-wrap -mx-4">
                         <div className="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 px-4 mb-10">
                             <div className="text-center max-w-xs mx-auto">
-                                <img className="w-24 h-24 mx-auto mb-6 rounded-full" src="flex-ui-assets/images/teams/avatar1.png" alt="" />
+                                <img className="w-24 h-24 mx-auto mb-6 rounded-full" src={window.location.origin + "/flex-ui-assets/images/teams/avatar1.png"} alt="" />
                                 <h3 className="mb-1 text-lg text-coolGray-800 font-semibold">Macauley Herring</h3>
                                 <span className="inline-block mb-6 text-lg font-medium text-yellow-500">CEO &amp; Founder</span>
                                 <div className="flex items-center justify-center">
@@ -37,7 +37,7 @@ export default function Panels() {
                         </div>
                         <div className="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 px-4 mb-10">
                             <div className="text-center max-w-xs mx-auto">
-                                <img className="w-24 h-24 mx-auto mb-6 rounded-full" src="flex-ui-assets/images/teams/avatar2.png" alt="" />
+                                <img className="w-24 h-24 mx-auto mb-6 rounded-full" src={window.location.origin + "/flex-ui-assets/images/teams/avatar2.png"} alt="" />
                                 <h3 className="mb-1 text-lg text-coolGray-800 font-semibold">Ivan Mathews</h3>
                                 <span className="inline-block mb-6 text-lg font-medium text-yellow-500">CTO</span>
                                 <div className="flex items-center justify-center">
@@ -61,7 +61,7 @@ export default function Panels() {
                         </div>
                         <div className="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 px-4 mb-10">
                             <div className="text-center max-w-xs mx-auto">
-                                <img className="w-24 h-24 mx-auto mb-6 rounded-full" src="flex-ui-assets/images/teams/avatar3.png" alt="" />
+                                <img className="w-24 h-24 mx-auto mb-6 rounded-full" src={window.location.origin + "/flex-ui-assets/images/teams/avatar3.png"} alt="" />
                                 <h3 className="mb-1 text-lg text-coolGray-800 font-semibold">Elen Benitez</h3>
                                 <span className="inline-block mb-6 text-lg font-medium text-yellow-500">CPO</span>
                                 <div className="flex items-center justify-center">
@@ -85,7 +85,7 @@ export default function Panels() {
                         </div>
                         <div className="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 px-4 mb-10">
                             <div className="text-center max-w-xs mx-auto">
-                                <img className="w-24 h-24 mx-auto mb-6 rounded-full" src="flex-ui-assets/images/teams/avatar4.png" alt="" />
+                                <img className="w-24 h-24 mx-auto mb-6 rounded-full" src={window.location.origin + "/flex-ui-assets/images/teams/avatar4.png"} alt="" />
                                 <h3 className="mb-1 text-lg text-coolGray-800 font-semibold">Kacy Wade</h3>
                                 <span className="inline-block mb-6 text-lg font-medium text-yellow-500">Customer Success</span>
                                 <div className="flex items-center justify-center">
@@ -109,7 +109,7 @@ export default function Panels() {
                         </div>
                         <div className="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 px-4 mb-10 xl:mb-0">
                             <div className="text-center max-w-xs mx-auto">
-                                <img className="w-24 h-24 mx-auto mb-6 rounded-full" src="flex-ui-assets/images/teams/avatar5.png" alt="" />
+                                <img className="w-24 h-24 mx-auto mb-6 rounded-full" src={window.location.origin + "/flex-ui-assets/images/teams/avatar5.png"} alt="" />
                                 <h3 className="mb-1 text-lg text-coolGray-800 font-semibold">Alya Levine</h3>
                                 <span className="inline-block mb-6 text-lg font-medium text-yellow-500">Backend Developer</span>
                                 <div className="flex items-center justify-center">
@@ -133,7 +133,7 @@ export default function Panels() {
                         </div>
                         <div className="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 px-4 mb-10 xl:mb-0">
                             <div className="text-center max-w-xs mx-auto">
-                                <img className="w-24 h-24 mx-auto mb-6 rounded-full" src="flex-ui-assets/images/teams/avatar6.png" alt="" />
+                                <img className="w-24 h-24 mx-auto mb-6 rounded-full" src={window.location.origin + "/flex-ui-assets/images/teams/avatar6.png"} alt="" />
                                 <h3 className="mb-1 text-lg text-coolGray-800 font-semibold">Rosemary Hernandez</h3>
                                 <span className="inline-block mb-6 text-lg font-medium text-yellow-500">IOS Developer</span>
                                 <div className="flex items-center justify-center">
@@ -157,36 +157,36 @@ export default function Panels() {
                         </div>
                         <div className="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 px-4 mb-10 md:mb-0">
                             <div className="text-center max-w-xs mx-auto">
-                                <img className="w-24 h-24 mx-auto mb-6 rounded-full" src="flex-ui-assets/images/teams/avatar7.png" alt="" />
+                                <img className="w-24 h-24 mx-auto mb-6 rounded-full" src={window.location.origin + "/flex-ui-assets/images/teams/avatar7.png"} alt="" />
                                 <h3 className="mb-1 text-lg text-coolGray-800 font-semibold">Theo Morales</h3>
                                 <span className="inline-block mb-6 text-lg font-medium text-yellow-500">Frontend Developer</span>
                                 <div className="flex items-center justify-center">
                                     <a className="inline-block mr-4 hover:opacity-80" href="#">
-                                        <img src="flex-ui-assets/brands/facebook.svg" alt="" />
+                                        <img src={window.location.origin + "/flex-ui-assets/brands/facebook.svg"} alt="" />
                                     </a>
                                     <a className="inline-block mr-4 hover:opacity-80" href="#">
-                                        <img src="flex-ui-assets/brands/twitter.svg" alt="" />
+                                        <img src={window.location.origin + "/flex-ui-assets/brands/twitter.svg"} alt="" />
                                     </a>
                                     <a className="inline-block hover:opacity-80" href="#">
-                                        <img src="flex-ui-assets/brands/instagram.svg" alt="" />
+                                        <img src={window.location.origin + "/flex-ui-assets/brands/instagram.svg"} alt="" />
                                     </a>
                                 </div>
                             </div>
                         </div>
                         <div className="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 px-4">
                             <div className="text-center max-w-xs mx-auto">
-                                <img className="w-24 h-24 mx-auto mb-6 rounded-full" src="flex-ui-assets/images/teams/avatar8.png" alt="" />
+                                <img className="w-24 h-24 mx-auto mb-6 rounded-full" src={window.location.origin + "/flex-ui-assets/images/teams/avatar8.png"} alt="" />
                                 <h3 className="mb-1 text-lg text-coolGray-800 font-semibold">Ishmael Dunlop</h3>
                                 <span className="inline-block mb-6 text-lg font-medium text-yellow-500">Product Designer</span>
                                 <div className="flex items-center justify-center">
                                     <a className="inline-block mr-4 hover:opacity-80" href="#">
-                                        <img src="flex-ui-assets/brands/facebook.svg" alt="" />
+                                        <img src={window.location.origin + "/flex-ui-assets/brands/facebook.svg"} alt="" />
                                     </a>
                                     <a className="inline-block mr-4 hover:opacity-80" href="#">
-                                        <img src="flex-ui-assets/brands/twitter.svg" alt="" />
+                                        <img src={window.location.origin + "/flex-ui-assets/brands/twitter.svg"} alt="" />
                                     </a>
                                     <a className="inline-block hover:opacity-80" href="#">
-                                        <img src="flex-ui-assets/brands/instagram.svg" alt="" />
+                                        <img src={window.location.origin + "/flex-ui-assets/brands/instagram.svg"} alt="" />
                                     </a>
                                 </div>
                             </div>
@@ -215,7 +215,7 @@ export default function Panels() {
                         <div className="flex flex-wrap items-center w-full xl:w-1/2 px-4 mb-8 md:-mx-4">
                             <div className="w-full md:w-auto md:px-4">
                                 <a className="inline-block mb-6 md:mb-0 overflow-hidden rounded-md" href="#">
-                                    <img src="flex-ui-assets/images/blog/effect3.jpg" alt="" />
+                                    <img src={window.location.origin + "/flex-ui-assets/images/blog/effect3.jpg"} alt="" />
                                 </a>
                             </div>
                             <div className="w-full md:flex-1 md:px-4">
@@ -232,7 +232,7 @@ export default function Panels() {
                         <div className="flex flex-wrap items-center w-full xl:w-1/2 px-4 mb-8 md:-mx-4">
                             <div className="w-full md:w-auto md:px-4">
                                 <a className="inline-block mb-6 md:mb-0 overflow-hidden rounded-md" href="#">
-                                    <img src="flex-ui-assets/images/blog/work3.jpg" alt="" />
+                                    <img src={window.location.origin + "/flex-ui-assets/images/blog/work3.jpg"} alt="" />
                                 </a>
                             </div>
                             <div className="w-full md:flex-1 md:px-4">
@@ -249,7 +249,7 @@ export default function Panels() {
                         <div className="flex flex-wrap items-center w-full xl:w-1/2 px-4 mb-8 md:-mx-4">
                             <div className="w-full md:w-auto md:px-4">
                                 <a className="inline-block mb-6 md:mb-0 overflow-hidden rounded-md" href="#">
-                                    <img src="flex-ui-assets/images/blog/work4.jpg" alt="" />
+                                    <img src={window.location.origin + "/flex-ui-assets/images/blog/work4.jpg"} alt="" />
                                 </a>
                             </div>
                             <div className="w-full md:flex-1 md:px-4">
@@ -266,7 +266,7 @@ export default function Panels() {
                         <div className="flex flex-wrap items-center w-full xl:w-1/2 px-4 mb-8 md:-mx-4">
                             <div className="w-full md:w-auto md:px-4">
                                 <a className="inline-block mb-6 md:mb-0 overflow-hidden rounded-md" href="#">
-                                    <img src="flex-ui-assets/images/blog/effect4.jpg" alt="" />
+                                    <img src={window.location.origin + "/flex-ui-assets/images/blog/effect4.jpg"} alt="" />
                                 </a>
                             </div>
                             <div className="w-full md:flex-1 md:px-4">
@@ -283,7 +283,7 @@ export default function Panels() {
                         <div className="flex flex-wrap items-center w-full xl:w-1/2 px-4 mb-8 xl:mb-0 md:-mx-4">
                             <div className="w-full md:w-auto md:px-4">
                                 <a className="inline-block mb-6 md:mb-0 overflow-hidden rounded-md" href="#">
-                                    <img src="flex-ui-assets/images/blog/learn2.jpg" alt="" />
+                                    <img src={window.location.origin + "/flex-ui-assets/images/blog/learn2.jpg"} alt="" />
                                 </a>
                             </div>
                             <div className="w-full md:flex-1 md:px-4">
@@ -300,7 +300,7 @@ export default function Panels() {
                         <div className="flex flex-wrap items-center w-full xl:w-1/2 px-4 md:-mx-4">
                             <div className="w-full md:w-auto md:px-4">
                                 <a className="inline-block mb-6 md:mb-0 overflow-hidden rounded-md" href="#">
-                                    <img src="flex-ui-assets/images/blog/macbook2.jpg" alt="" />
+                                    <img src={window.location.origin + "/flex-ui-assets/images/blog/macbook2.jpg"} alt="" />
                                 </a>
                             </div>
                             <div className="w-full md:flex-1 md:px-4">
@@ -336,7 +336,7 @@ export default function Panels() {
 
             <section className="py-24 bg-coolGray-900">
                 <div className="container px-4 mx-auto">
-                    <div className="relative py-16 md:py-32 px-6 text-center bg-white overflow-hidden rounded-7xl" style={{ backgroundImage: 'url("flex-ui-assets/elements/pattern-white.svg")', backgroundPosition: 'center' }}>
+                    <div className="relative py-16 md:py-32 px-6 text-center bg-white overflow-hidden rounded-7xl theme-background">
                         <div className="relative z-10 mx-auto md:max-w-2xl">
                             <h3 className="mb-4 text-3xl md:text-4xl leading-tight font-bold tracking-tighter">Join the change !!!</h3>
                             <p className="mb-8 text-lg md:text-xl text-coolGray-500 font-medium">Stay in the loop with everything you need to know.</p>
@@ -353,10 +353,10 @@ export default function Panels() {
                                 </span>
                             </div>
                         </div>
-                        <img className="absolute top-0 left-0 w-28 md:w-auto" src="flex-ui-assets/elements/wave2-yellow.svg" alt="" />
-                        <img className="absolute right-6 top-6 w-28 md:w-auto" src="flex-ui-assets/elements/dots3-green.svg" alt="" />
-                        <img className="absolute right-0 bottom-0 w-28 md:w-auto" src="flex-ui-assets/elements/wave3-red.svg" alt="" />
-                        <img className="absolute left-6 bottom-6 w-28 md:w-auto" src="flex-ui-assets/elements/dots3-violet.svg" alt="" />
+                        <img className="absolute top-0 left-0 w-28 md:w-auto" src={window.location.origin + "/flex-ui-assets/elements/wave2-yellow.svg"} alt="" />
+                        <img className="absolute right-6 top-6 w-28 md:w-auto" src={window.location.origin + "/flex-ui-assets/elements/dots3-green.svg"} alt="" />
+                        <img className="absolute right-0 bottom-0 w-28 md:w-auto" src={window.location.origin + "/flex-ui-assets/elements/wave3-red.svg"} alt="" />
+                        <img className="absolute left-6 bottom-6 w-28 md:w-auto" src={window.location.origin + "/flex-ui-assets/elements/dots3-violet.svg"} alt="" />
                     </div>
                 </div>
             </section>
