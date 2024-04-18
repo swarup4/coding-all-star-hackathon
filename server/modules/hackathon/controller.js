@@ -88,4 +88,22 @@ router.put('/deleteHackathon/:id', async (req, res) => {
     }
 });
 
+
+router.put('/applyHackathon/:id', async (req, res) => {
+	try {
+		const id = req.params.id;
+		const userId = req.body.userId;
+		const apply = await Models.Hackathon.findOneAndUpdate({ _id: id }, { $push: { appliedUser: userId } });
+
+		if (apply) {
+			res.json({
+				success: true,
+				message: 'User has applied for the Hackathon'
+			});
+		}
+	} catch (error) {
+		res.send(error);
+	}
+});
+
 module.exports = router;

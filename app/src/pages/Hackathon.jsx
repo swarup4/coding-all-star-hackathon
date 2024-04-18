@@ -1,6 +1,7 @@
+import React, { useEffect, useState } from 'react'
+import axios from 'axios'
+import { HOST_URL } from '../constants'
 
-import React from 'react'
-import UserHeader from '../components/common/UserHeader'
 
 export default function Hackathon() {
 
