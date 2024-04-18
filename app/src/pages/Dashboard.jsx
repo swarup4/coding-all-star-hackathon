@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import moment from 'moment'
+import { useDispatch } from 'react-redux'
+import { selectProject } from '../store/hackathon/hackathonSlice'
 import { HOST_URL } from '../constants'
 
 
@@ -9,9 +12,11 @@ export default function Dashboard() {
     const [allHackathon, setAllHackathon] = useState([])
     const [hackathon, setHackathon] = useState([]);
     const [tab, setTab] = useState(0);
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     useEffect(() => {
-        const url = `${HOST_URL}hackathon/getHackathon`
+        const url = `${HOST_URL}hackathon/getHackathonList`
         axios.get(url).then(res => {
             setHackathon(res.data);
             setAllHackathon(res.data)
@@ -33,7 +38,6 @@ export default function Dashboard() {
 
     function selectTab(id){
         setTab(id)
-
         if(id != 0){
             const list = allHackathon.filter(x => x.status == id);
             setHackathon(list)
@@ -46,6 +50,11 @@ export default function Dashboard() {
         setTab(0)
         const searchList = allHackathon.filter(x => x.name.includes(text));
         setHackathon(searchList);
+    }
+
+    function select(project){
+        dispatch(selectProject(project))
+        navigate(`hackathon/${project._id}`)
     }
 
     return (
@@ -71,7 +80,7 @@ export default function Dashboard() {
                     <div className="flex flex-wrap -mx-4 mb-12 md:mb-20">
                         {hackathon.map((item, ind) => (
                             <div className="w-full md:w-1/2 px-4 mb-8" key={ind}>
-                                <a className="block mb-6 overflow-hidden rounded-md" href="#">
+                                <a className="block mb-6 overflow-hidden rounded-md" onClick={() => select(item)}>
                                     <img className="w-full" src={window.location.origin + "/flex-ui-assets/banner/" + item.banner[0]} alt="" style={{height: '400px'}} />
                                 </a>
                                 <div className="mb-4">

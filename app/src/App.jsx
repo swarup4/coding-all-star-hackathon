@@ -41,23 +41,10 @@ function App() {
                     path: '',
                     element: <Dashboard />
                 }, {
-                    path: 'hackathon',
+                    path: 'hackathon/:id',
                     element: <Hackathon />
                 }]
-            }    
-                // }, {
-                //     path: 'user',
-                //     element: <ProtectedRoute><Outlet /></ProtectedRoute>,
-                //     children: [
-                //         {
-                //             path: 'order',
-                //             element: <OrderList />
-                //         }, {
-                //             path: 'cart',
-                //             element: <Cart />
-                //         }
-                //     ]
-            ]
+            }]
         }, {
             path: 'panel',
             element: <Panels />,

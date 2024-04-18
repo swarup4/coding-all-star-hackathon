@@ -1,14 +1,60 @@
 const express = require('express');
+const ObjectId = require("mongoose").Types.ObjectId;
 const Models = require('./models');
 
 const router = express.Router();
 
 
 // Hackathon
-router.get('/getHackathon', async (req, res) => {
+router.get('/getHackathonList', async (req, res) => {
     try {
         const data = await Models.Hackathon.aggregate([
             {
+                $lookup: {
+                    from: "users",
+                    localField: "userId",
+                    foreignField: "_id",
+                    as: "user",
+                }
+            }, {
+                $lookup: {
+                    from: "users",
+                    localField: "panels",
+                    foreignField: "_id",
+                    as: "panels",
+                }
+            }, {
+                $lookup: {
+                    from: "users",
+                    localField: "appliedUser",
+                    foreignField: "_id",
+                    as: "appliedUser",
+                }
+            }, {
+                $unwind: "$user",
+            }, {
+                $unset: [
+                    "userId", "user.password", "user.reporty", "user.createdAt", "user.updatedAt",
+                    "panels.password", "panels.reporty", "panels.createdAt", "panels.updatedAt",
+                    "appliedUser.password", "appliedUser.reporty", "appliedUser.createdAt", "appliedUser.updatedAt"
+                ]
+            }
+        ])
+        res.json(data);
+    } catch (error) {
+        res.send(error);
+    }
+});
+
+router.get('/getHackathon/:id', async (req, res) => {
+    const id = req.params.id;
+    try {
+        const data = await Models.Hackathon.aggregate([
+            {
+                $match: {
+                    _id: new ObjectId(id),
+                }
+            }, {
                 $lookup: {
                     from: "users",
                     localField: "userId",
@@ -90,20 +136,20 @@ router.put('/deleteHackathon/:id', async (req, res) => {
 
 
 router.put('/applyHackathon/:id', async (req, res) => {
-	try {
-		const id = req.params.id;
-		const userId = req.body.userId;
-		const apply = await Models.Hackathon.findOneAndUpdate({ _id: id }, { $push: { appliedUser: userId } });
+    try {
+        const id = req.params.id;
+        const userId = req.body.userId;
+        const apply = await Models.Hackathon.findOneAndUpdate({ _id: id }, { $push: { appliedUser: userId } });
 
-		if (apply) {
-			res.json({
-				success: true,
-				message: 'User has applied for the Hackathon'
-			});
-		}
-	} catch (error) {
-		res.send(error);
-	}
+        if (apply) {
+            res.json({
+                success: true,
+                message: 'User has applied for the Hackathon'
+            });
+        }
+    } catch (error) {
+        res.send(error);
+    }
 });
 
 module.exports = router;

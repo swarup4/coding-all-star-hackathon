@@ -1,6 +1,7 @@
 import React, { Fragment, useEffect, useState } from 'react'
-import { Popover, Transition } from '@headlessui/react'
+import { useSelector } from 'react-redux'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { Popover, Transition } from '@headlessui/react'
 
 import {
     ArrowPathIcon,
@@ -10,6 +11,7 @@ import {
     SquaresPlusIcon,
 } from '@heroicons/react/24/outline'
 import { ChevronDownIcon, PhoneIcon, PlayCircleIcon } from '@heroicons/react/20/solid'
+
 
 
 // const solutions = [
@@ -42,15 +44,9 @@ export default function UserHeader() {
         setIsOpen(false);
     }
 
-
-    const [user, setUser] = useState({})
-    const navigate = useNavigate();
+    const user = useSelector(store => store.user.data)
+    // const navigate = useNavigate();
     const location = useLocation();
-
-    useEffect(() => {
-        let userData = JSON.parse(sessionStorage.user)
-        setUser(userData);
-    }, [])
 
     function redirectPage() {
         sessionStorage.url = location.pathname;
