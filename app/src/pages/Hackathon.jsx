@@ -4,13 +4,21 @@ import moment from 'moment'
 import { HOST_URL } from '../constants'
 import { useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
+import Leaderboard from '../components/hackathon/Leaderboard'
+import Panel from '../components/hackathon/Panel'
+import Participants from '../components/hackathon/Participants'
+import Prices from '../components/hackathon/Prices'
+import Reviews from '../components/hackathon/Reviews'
+import Schedule from '../components/hackathon/Schedule'
 
 
 export default function Hackathon() {
 
     const project = useSelector(store => store.hackathon.project);
-    const [projectDetails, setProjectDetails] = useState({});
     const { id } = useParams();
+    const [projectDetails, setProjectDetails] = useState({});
+    const [tab, setTab] = useState('');
+    const [tabData, setTabData] = useState('');
 
     useEffect(() => {
         if (Object.keys(project).length == 0) {
@@ -61,31 +69,22 @@ export default function Hackathon() {
                         <div className="flex flex-wrap -mx-4">
                             <div className="w-full md:w-5/12 lg:w-4/12 xl:w-3/12 px-4 mb-8">
                                 <ul className="pb-6 mb-8 border-b border-coolGray-100">
-                                    <li><a className="inline-block py-3 text-coolGray-400 hover:text-coolGray-500 font-semibold" href="#"
-                                        contentEditable="false" autoComplete="off">Leaderboard</a></li>
-                                    <li className="mb-2"><a className="inline-block py-2 text-coolGray-400 hover:text-coolGray-500 font-semibold"
-                                        href="#" contentEditable="false">Overview</a></li>
-                                    <li className="mb-2"><a className="inline-block py-2 text-coolGray-400 hover:text-coolGray-500 font-semibold"
-                                        href="#" contentEditable="false">Prices</a></li>
-                                    <li className="mb-2"><a className="inline-block py-2 text-coolGray-400 hover:text-coolGray-500 font-semibold"
-                                        href="#" contentEditable="false">Panel</a></li>
-                                    <li><a className="inline-block py-3 text-coolGray-400 hover:text-coolGray-500 font-semibold" href="#"
-                                        contentEditable="false" autoComplete="off">Schedule</a></li>
-                                    <li><a className="inline-block py-3 text-coolGray-400 hover:text-coolGray-500 font-semibold" href="#"
-                                        contentEditable="false" autoComplete="off">Participants</a></li>
-                                    <li><a className="inline-block py-3 text-coolGray-400 hover:text-coolGray-500 font-semibold" href="#"
-                                        contentEditable="false" autoComplete="off">Reviews</a></li>
-
-
+                                    <li onClick={() => setTab('')} className={`text-coolGray-400 hover:text-coolGray-500 cursor-pointer ${tab == '' ? 'tab-active' : ''}`}><a className="inline-block py-2 px-2 font-semibold">Overview</a></li>
+                                    <li onClick={() => setTab('leaderboard')} className={`text-coolGray-400 hover:text-coolGray-500 cursor-pointer ${tab == 'leaderboard' ? 'tab-active' : ''}`}><a className="inline-block py-2 px-2 font-semibold">Leaderboard</a></li>
+                                    <li onClick={() => setTab('prices')} className={`text-coolGray-400 hover:text-coolGray-500 cursor-pointer ${tab == 'prices' ? 'tab-active' : ''}`}><a className="inline-block py-2 px-2 font-semibold">Prices</a></li>
+                                    <li onClick={() => setTab('panel', projectDetails.panels)} className={`text-coolGray-400 hover:text-coolGray-500 cursor-pointer ${tab == 'panel' ? 'tab-active' : ''}`}><a className="inline-block py-2 px-2 font-semibold">Panel</a></li>
+                                    <li onClick={() => setTab('schedule')} className={`text-coolGray-400 hover:text-coolGray-500 cursor-pointer ${tab == 'schedule' ? 'tab-active' : ''}`}><a className="inline-block py-2 px-2 font-semibold">Schedule</a></li>
+                                    <li onClick={() => setTab('participants')} className={`text-coolGray-400 hover:text-coolGray-500 cursor-pointer ${tab == 'participants' ? 'tab-active' : ''}`}><a className="inline-block py-2 px-2 font-semibold">Participants</a></li>
+                                    <li onClick={() => setTab('reviews')} className={`text-coolGray-400 hover:text-coolGray-500 cursor-pointer ${tab == 'reviews' ? 'tab-active' : ''}`}><a className="inline-block py-2 px-2 font-semibold">Reviews</a></li>
                                 </ul>
                                 <div className="flex items-center">
-                                    <a className="inline-flex mr-4 items-center justify-center py-2 px-4 text-coolGray-300 border border-coolGray-200 hover:border-coolGray-300 rounded-md shadow-md transition duration-200"
-                                        href="#">
+                                    <a className="inline-flex mr-4 items-center justify-center py-2 px-4 text-coolGray-300 border border-coolGray-200 hover:border-coolGray-300 rounded-md shadow-md transition duration-200" href="#">
                                         <svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path
-                                                d="M15 13.8333H5C4.33696 13.8333 3.70108 13.5699 3.23224 13.1011C2.76339 12.6323 2.5 11.9964 2.5 11.3333V4.66667C2.5 4.44565 2.41221 4.23369 2.25592 4.07741C2.09964 3.92113 1.88768 3.83333 1.66667 3.83333C1.44566 3.83333 1.23369 3.92113 1.07741 4.07741C0.921133 4.23369 0.833336 4.44565 0.833336 4.66667V11.3333C0.833336 12.4384 1.27232 13.4982 2.05372 14.2796C2.44063 14.6665 2.89996 14.9734 3.40549 15.1828C3.91101 15.3922 4.45283 15.5 5 15.5H15C15.221 15.5 15.433 15.4122 15.5893 15.2559C15.7455 15.0996 15.8333 14.8877 15.8333 14.6667C15.8333 14.4457 15.7455 14.2337 15.5893 14.0774C15.433 13.9211 15.221 13.8333 15 13.8333ZM19.1667 6.28333C19.158 6.20678 19.1412 6.13136 19.1167 6.05833V5.98333C19.0766 5.89765 19.0232 5.81889 18.9583 5.75V5.75L13.9583 0.75C13.8894 0.68518 13.8107 0.631734 13.725 0.591667H13.65L13.3833 0.5H6.66667C6.00363 0.5 5.36774 0.763392 4.8989 1.23223C4.43006 1.70107 4.16667 2.33696 4.16667 3V9.66667C4.16667 10.3297 4.43006 10.9656 4.8989 11.4344C5.36774 11.9033 6.00363 12.1667 6.66667 12.1667H16.6667C17.3297 12.1667 17.9656 11.9033 18.4344 11.4344C18.9033 10.9656 19.1667 10.3297 19.1667 9.66667V6.33333C19.1667 6.33333 19.1667 6.33333 19.1667 6.28333ZM14.1667 3.34167L16.325 5.5H15C14.779 5.5 14.567 5.4122 14.4107 5.25592C14.2545 5.09964 14.1667 4.88768 14.1667 4.66667V3.34167ZM17.5 9.66667C17.5 9.88768 17.4122 10.0996 17.2559 10.2559C17.0996 10.4122 16.8877 10.5 16.6667 10.5H6.66667C6.44565 10.5 6.23369 10.4122 6.07741 10.2559C5.92113 10.0996 5.83334 9.88768 5.83334 9.66667V3C5.83334 2.77899 5.92113 2.56702 6.07741 2.41074C6.23369 2.25446 6.44565 2.16667 6.66667 2.16667H12.5V4.66667C12.5 5.32971 12.7634 5.96559 13.2322 6.43443C13.7011 6.90327 14.337 7.16667 15 7.16667H17.5V9.66667Z"
-                                                fill="currentColor"></path>
-                                        </svg><span className="ml-2 text-sm text-coolGray-500 font-medium">Copy Link</span>
+                                            <path d="M15 13.8333H5C4.33696 13.8333 3.70108 13.5699 3.23224 13.1011C2.76339 12.6323 2.5 11.9964 2.5 11.3333V4.66667C2.5 4.44565 2.41221 4.23369 2.25592 4.07741C2.09964 3.92113 1.88768 3.83333 1.66667 3.83333C1.44566 3.83333 1.23369 3.92113 1.07741 4.07741C0.921133 4.23369 0.833336 4.44565 0.833336 4.66667V11.3333C0.833336 12.4384 1.27232 13.4982 2.05372 14.2796C2.44063 14.6665 2.89996 14.9734 3.40549 15.1828C3.91101 15.3922 4.45283 15.5 5 15.5H15C15.221 15.5 15.433 15.4122 15.5893 15.2559C15.7455 15.0996 15.8333 14.8877 15.8333 14.6667C15.8333 14.4457 15.7455 14.2337 15.5893 14.0774C15.433 13.9211 15.221 13.8333 15 13.8333ZM19.1667 6.28333C19.158 6.20678 19.1412 6.13136 19.1167 6.05833V5.98333C19.0766 5.89765 19.0232 5.81889 18.9583 5.75V5.75L13.9583 0.75C13.8894 0.68518 13.8107 0.631734 13.725 0.591667H13.65L13.3833 0.5H6.66667C6.00363 0.5 5.36774 0.763392 4.8989 1.23223C4.43006 1.70107 4.16667 2.33696 4.16667 3V9.66667C4.16667 10.3297 4.43006 10.9656 4.8989 11.4344C5.36774 11.9033 6.00363 12.1667 6.66667 12.1667H16.6667C17.3297 12.1667 17.9656 11.9033 18.4344 11.4344C18.9033 10.9656 19.1667 10.3297 19.1667 9.66667V6.33333C19.1667 6.33333 19.1667 6.33333 19.1667 6.28333ZM14.1667 3.34167L16.325 5.5H15C14.779 5.5 14.567 5.4122 14.4107 5.25592C14.2545 5.09964 14.1667 4.88768 14.1667 4.66667V3.34167ZM17.5 9.66667C17.5 9.88768 17.4122 10.0996 17.2559 10.2559C17.0996 10.4122 16.8877 10.5 16.6667 10.5H6.66667C6.44565 10.5 6.23369 10.4122 6.07741 10.2559C5.92113 10.0996 5.83334 9.88768 5.83334 9.66667V3C5.83334 2.77899 5.92113 2.56702 6.07741 2.41074C6.23369 2.25446 6.44565 2.16667 6.66667 2.16667H12.5V4.66667C12.5 5.32971 12.7634 5.96559 13.2322 6.43443C13.7011 6.90327 14.337 7.16667 15 7.16667H17.5V9.66667Z"
+                                                fill="currentColor">
+                                            </path>
+                                        </svg>
+                                        <span className="ml-2 text-sm text-coolGray-500 font-medium">Copy Link</span>
                                     </a>
                                     <a className="inline-flex mr-2 h-9 w-9 items-center justify-center text-coolGray-500 border border-coolGray-200 hover:border-coolGray-300 rounded-md shadow-md transition duration-200"
                                         href="#">
@@ -110,57 +109,48 @@ export default function Hackathon() {
                                         </svg></a>
                                 </div>
                             </div>
+
+
+
+
+                            {/* {tabData ? (
+                                <div className="w-full md:flex-1 px-4">
+                                    {tabData}
+                                </div>
+                            ): (
+                                <div className="w-full md:flex-1 px-4">
+                                    
+                                </div>
+                            )} */}
+
                             <div className="w-full md:flex-1 px-4">
-                                {/* <p className="mb-8 pb-10 text-lg md:text-xl font-medium text-coolGray-500 border-b border-coolGray-100"
-                                    contentEditable="false" autoComplete="off">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-                                    ullamcorper mattis lorem non. Ultrices praesent amet ipsum justo massa. Eu dolor aliquet risus gravida
-                                    nunc at feugiat consequat purus. Non massa enim vitae duis mattis. Vel in ultricies vel fringilla.</p>
-                                <h3 className="mb-4 text-2xl md:text-3xl font-semibold text-coolGray-800">Header 1</h3>
-                                <p className="mb-4 text-base md:text-lg text-coolGray-500">Lorem ipsum dolor sit amet, consectetur adipiscing
-                                    elit. Donec ullamcorper mattis lorem non. Ultrices praesent amet ipsum justo massa. Eu dolor aliquet risus
-                                    gravida nunc at feugiat consequat purus. Non massa enim vitae duis mattis. Vel in ultricies vel fringilla.
-                                </p>
-                                <div className="mb-6 p-6 border-l-2 border-yellow-500">
-                                    <p className="mb-4 text-xl md:text-2xl leading-tight font-medium text-coolGray-800">Lorem ipsum dolor sit
-                                        amet, consectetur adipiscing elit. Donec ullamcorper mattis lorem non. Ultrices praesent amet ipsum
-                                        justo massa. Eu dolor aliquet risus gravida nunc at feugiat consequat purus.</p>
-                                    <span className="text-base md:text-lg text-coolGray-400 font-medium">— John Doe, CEO &amp; Founder</span>
-                                </div>
-                                <p className="mb-6 text-base md:text-lg text-coolGray-500">Lorem ipsum dolor sit amet, consectetur adipiscing
-                                    elit. Donec ullamcorper mattis lorem non. Ultrices praesent amet ipsum justo massa. Eu dolor aliquet risus
-                                    gravida nunc at feugiat consequat purus. Non massa enim vitae duis mattis. Vel in ultricies vel fringilla.
-                                </p>
-                                <div className="mb-4 max-w-max overflow-hidden rounded-md">
-                                    <img src={window.location.origin + "/flex-ui-assets/images/blog-content/content-photo2.jpg"} alt="" />
-                                </div>
-                                <p className="mb-8 text-base md:text-lg text-coolGray-400 font-medium">
-                                    <span>Non massa enim vitae duis mattis. Vel in</span>
-                                    <a className="hover:text-coolGray-600 underline" href="#">ultricies</a>
-                                    <span>vel fringilla.</span>
-                                </p>
-                                <h3 className="mb-4 text-2xl md:text-3xl font-semibold text-coolGray-800">Header 1</h3>
-                                <p className="mb-14 text-base md:text-lg text-coolGray-500">Lorem ipsum dolor sit amet, consectetur adipiscing
-                                    elit. Donec ullamcorper mattis lorem non. Ultrices praesent amet ipsum justo massa. Eu dolor aliquet risus
-                                    gravida nunc at feugiat consequat purus. Non massa enim vitae duis mattis. Vel in ultricies vel fringilla.
-                                </p>
-                                <p className="mb-4 text-base md:text-lg text-coolGray-500">Sagittis et eu at elementum, quis in. Proin praesent
-                                    volutpat egestas sociis sit lorem nunc nunc sit. Eget diam curabitur mi ac. Auctor rutrum lacus malesuada
-                                    massa ornare et. Vulputate consectetur ac ultrices at diam dui eget fringilla tincidunt. Arcu sit
-                                    dignissim massa erat cursus vulputate gravida id. Sed quis auctor vulputate hac elementum gravida cursus
-                                    dis.</p>
-                                <ol className="list-decimal list-inside md:px-5 text-base md:text-lg text-coolGray-500">
-                                    <li>Lectus id duis vitae porttitor enim gravida morbi.</li>
-                                    <li>Eu turpis posuere semper feugiat volutpat elit, ultrices suspendisse. Auctor vel in vitae placerat.
-                                    </li>
-                                    <li>Suspendisse maecenas ac donec scelerisque diam sed est duis purus.</li>
-                                </ol> */}
-                                {/* {projectDetails.description} */}
+                                {tab == '' ? (
+                                    <p dangerouslySetInnerHTML={{__html: projectDetails.description}} className="mb-8 pb-10 text-lg md:text-xl font-medium text-coolGray-500 border-b border-coolGray-100"></p>
+                                ) : ''}
 
-                                <p dangerouslySetInnerHTML={{__html: projectDetails.description}} className="mb-8 pb-10 text-lg md:text-xl font-medium text-coolGray-500 border-b border-coolGray-100">
+                                {tab == 'leaderboard' ? (
+                                    <Leaderboard />
+                                ) : ''}
 
-                                    </p>
-                                {/* <div ></div> */}
+                                {tab == 'prices' ? (
+                                    <Prices />
+                                ) : ''}
 
+                                {tab == 'panel' ? (
+                                    <Panel data={projectDetails.panels} />
+                                ) : ''}
+
+                                {tab == 'schedule' ? (
+                                    <Schedule />
+                                ) : ''}
+
+                                {tab == 'participants' ? (
+                                    <Participants />
+                                ) : ''}
+
+                                {tab == 'reviews' ? (
+                                    <Reviews />
+                                ) : ''}
                             </div>
                         </div>
                     </div>
