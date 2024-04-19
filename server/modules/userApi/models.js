@@ -7,6 +7,7 @@ const objectId = Schema.ObjectId;
 const apis = {
     _id: { type: objectId, auto: true },
     userId: { type: objectId, required: true },
+    hackathonId: { type: objectId, required: true },
     name: { type: String, required: true },
     apiEndPoint: { type: String, required: true },
     version: { type: String, required: true },

@@ -64,4 +64,21 @@ router.post("/submitApi", checkApiExist, getApiInfo, async (req, res) => {
     }
 });
 
+
+router.put('/getSubmissionDetails/:id', async (req, res) => {
+    try {
+        const id = req.params.id;
+        const body = req.body;
+        const data = await Models.Hackathon.findOneAndUpdate({ _id: id }, body);
+        if (data) {
+            res.json({
+                success: true,
+                data: data
+            });
+        };
+    } catch (error) {
+        res.send(error);
+    }
+});
+
 module.exports = router;
