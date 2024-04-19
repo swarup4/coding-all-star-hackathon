@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 
 const user = require('./user/controller');
-const codingtest = require('./codingtest/controller');
+const code = require('./code/controller');
 const userApi = require('./userApi/controller');
 const faq = require('./faq/controller');
 const review = require('./reviews/controller');
