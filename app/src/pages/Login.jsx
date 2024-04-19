@@ -37,7 +37,8 @@ export default function Login() {
             sessionStorage.user = JSON.stringify({
                 email: res.data.email,
                 id: res.data.id,
-                name: res.data.name
+                name: res.data.name,
+                profilePics: res.data.profilePics
             })
             // const location = sessionStorage.url;
             navigate("/dashboard");

@@ -50,7 +50,7 @@ export default function Hackathon() {
                                 </p>
                                 <div className="flex items-center -mx-2">
                                     <div className="w-auto px-2">
-                                        <img src={window.location.origin + "/flex-ui-assets/images/blog/avatar.png"} alt="" />
+                                        <img src={window.location.origin + "/flex-ui-assets/images/user/" + projectDetails.user.profilePics} alt="" className='rounded-full h-20' />
                                     </div>
                                     <div className="w-auto px-2">
                                         <h4 className="text-base md:text-lg font-bold text-coolGray-800">{projectDetails.user.name}</h4>

@@ -14,6 +14,7 @@ const user = {
     password: { type: String, require: true },
     manager: { type: objectId },
     // reporty: [{ type: objectId }],
+    profilePics: String,
     createdAt: Date,
     updatedAt: Date,
     status: { type: Boolean, default: 1 }
@@ -34,16 +35,6 @@ const userDetails = {
 };
 const userDetailsSchema = new Schema(userDetails, { versionKey: false, timestamps: true });
 
-// User Profile Pics
-const userProfilePics = {
-    _id: { type: objectId, auto: true },
-    userId: { type: objectId, required: true },
-    profilePics: String,
-    createdAt: Date,
-    updatedAt: Date
-}
-const userProfilePicsSchema = new Schema(userProfilePics, { versionKey: false, timestamps: true })
-
 // User Contact
 const userContact = {
     _id: { type: objectId, auto: true },
@@ -61,6 +52,5 @@ const userContactSchema = new Schema(userContact, { versionKey: false, timestamp
 module.exports = {
     Auth: mongoose.model("user", userSchema),
     Details: mongoose.model("userDetails", userDetailsSchema),
-    ProfilePics: mongoose.model("userProfilePics", userProfilePicsSchema),
     Contacts: mongoose.model("userContact", userContactSchema)
 };

@@ -99,6 +99,7 @@ router.post("/login", async (req, res) => {
                 id: user._id,
                 email: user.email,
                 name: user.name,
+                profilePics: user.profilePics,
                 token: token
             });
         }
@@ -367,6 +368,26 @@ router.post('/addSocialMedia/:id', async (req, res) => {
     } catch (error) {
         res.send(error);
     }
+});
+
+
+// router.post('/uploadProfilePics/:id', userMiddleware.varifyToken, upload.single("profile"), uploadMiddleware.uploadImage, (req, res) => {
+router.put('/uploadProfilePics/:id', async (req, res) => {
+    try {
+        let id = req.params.id
+        const profile = await User.Auth.findOneAndUpdate({ _id: id }, req.body, {
+            timestamps: { createdAt: false, updatedAt: true }
+        });
+        if (profile) {
+            res.json({
+                success: true,
+                message: 'Profile picture uploaded successfully'
+            });
+        }
+    } catch(error) {
+        res.send(error);
+    }
+    
 });
 
 module.exports = router;

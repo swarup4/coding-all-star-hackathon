@@ -10,7 +10,7 @@ const prize = require('./prizes/controller');
 const hackathon = require('./hackathon/controller');
 
 app.use('/user', user);
-app.use('/code', codingtest);
+app.use('/code', code);
 app.use('/userApi', userApi);
 app.use('/faq', faq);
 app.use('/review', review);

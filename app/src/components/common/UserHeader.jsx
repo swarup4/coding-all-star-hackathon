@@ -137,7 +137,7 @@ export default function UserHeader() {
                                         <div className="w-auto p-2">
                                             <div className="flex flex-wrap -m-2">
                                                 <div className="w-auto p-2">
-                                                    <img src={window.location.origin + "/flex-ui-assets/images/dashboard/navigations/avatar.png"} alt="" />
+                                                    <img src={window.location.origin + "/flex-ui-assets/images/user/" + user.profilePics} alt="" className='rounded-full h-11' />
                                                 </div>
                                                 <div className="w-auto p-2">
                                                     <h2 className="text-sm font-semibold text-coolGray-800">{user.name}</h2>
@@ -474,7 +474,7 @@ export default function UserHeader() {
                                     <div className="w-auto">
                                         <div className="flex flex-wrap -mx-2">
                                             <div className="w-auto p-2">
-                                                <img src={window.location.origin + "/flex-ui-assets/images/dashboard/navigations/avatar.png"} alt="" />
+                                                <img src={window.location.origin + "/flex-ui-assets/images/user/" + user.profilePics} alt="" />
                                             </div>
                                             <div className="w-auto p-2">
                                                 <h2 className="text-sm font-semibold text-coolGray-800">John Doe</h2>
