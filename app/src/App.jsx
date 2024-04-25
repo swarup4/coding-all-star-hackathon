@@ -21,6 +21,7 @@ import Panels from './pages/Panels'
 import Hackathon from './pages/Hackathon'
 import Dashboard from './pages/Dashboard'
 import UserLayout from './layout/UserLayout'
+import Leaderboard from './pages/Leaderboard'
 
 
 function App() {
@@ -44,6 +45,10 @@ function App() {
                     path: 'hackathon/:id',
                     element: <Hackathon />
                 }]
+            }, {
+                path: 'leaderboard',
+                element: <Leaderboard />,
+                errorElement: <Error />
             }]
         }, {
             path: 'panel',

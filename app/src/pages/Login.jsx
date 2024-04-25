@@ -6,7 +6,7 @@ import { object, string } from 'yup'
 import { HOST_URL } from '../constants'
 
 const initialValues = {
-    organization: '',
+    organization: 'Trigent Software',
     email: '',
     password: ''
 }
