@@ -13,6 +13,7 @@
     "@testing-library/user-event": "^13.5.0",
     "autoprefixer": "^10.4.19",
     "axios": "^1.6.8",
+    "daisyui": "^4.10.2",
     "formik": "^2.4.5",
     "localforage": "^1.10.0",
     "moment": "^2.30.1",

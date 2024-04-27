@@ -5,16 +5,18 @@ import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom'
 import ProtectedRoute from './routes/ProtectedRoute'
 
 import UserLayout from './layout/UserLayout'
+import AdminLayout from './layout/AdminLayout'
 import HomePage from './pages/HomePage'
 import Error from './components/common/Error'
 import Login from './pages/Login'
 import Register from './pages/Register'
-import Panels from './pages/Panels'
+import PanelList from './pages/PanelList'
 import Hackathon from './pages/Hackathon'
 import Dashboard from './pages/Dashboard'
 import Submission from './pages/Submission'
 import Admin from './pages/Admin'
 import Leaderboard from './pages/Leaderboard'
+import Panel from './pages/Panel'
 
 
 function App() {
@@ -48,7 +50,15 @@ function App() {
             }]
         }, {
             path: 'admin',
-            element: <Admin />
+            element: <AdminLayout />,
+            children: [{
+                path: '',
+                element: <Admin />
+            }, {
+                path: 'panel',
+                element: <Panel />
+            }]
+            
             // element: <UserLayout />,
             // errorElement: <Error />,
             // children: [{
@@ -67,7 +77,7 @@ function App() {
             // }]
         }, {
             path: 'panel',
-            element: <Panels />,
+            element: <PanelList />,
             errorElement: <Error />,
         }, {
             path: 'hackathon',

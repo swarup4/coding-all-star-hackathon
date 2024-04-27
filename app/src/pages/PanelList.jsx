@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function Panels() {
+export default function PanelList() {
     return (
         <>
             <section className="relative py-24 bg-white theme-background">
