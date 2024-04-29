@@ -24,6 +24,20 @@ export default function Admin() {
                                                 <p>Save</p>
                                             </button>
                                         </div>
+                                        {/* modal code starts */}
+                                    <button className="btn bg-yellow-500 hover:bg-yellow-600 font-medium text-sm text-white border border-yellow-500 rounded-md shadow-button border-none" onClick={()=>document.getElementById('my-modal').showModal()}>Open modal</button>
+                                    <dialog id="my-modal" className="modal">
+                                    <div className="modal-box bg-white">
+                                        <h3 className="font-bold text-lg">Hello!</h3>
+                                        <p className="py-4">Press ESC key or click the button below to close</p>
+                                        <div className="modal-action">
+                                        <form method="dialog">
+                                            <button className="btn  bg-yellow-500 hover:bg-yellow-600 font-medium text-sm text-white border border-yellow-500 rounded-md shadow-button border-none">Close</button>
+                                        </form>
+                                        </div>
+                                    </div>
+                                    </dialog>
+                                     {/* modal code ends */}
                                     </div>
                                 </div>
                             </div>
