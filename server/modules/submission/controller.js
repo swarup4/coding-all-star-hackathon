@@ -1,18 +1,52 @@
-require('dotenv').config();
+require("dotenv").config();
 
-const express = require('express');
-const jwt = require("jsonwebtoken");
-const multer = require('multer');
+const express = require("express");
 
-var spawn = require('child_process').spawn;
-var fs = require('fs');
-
-const Models = require('./models');
-const userMiddleware = require('../../middleware/user');
+const Models = require("./models");
+const UserApiModels = require("../userApi/models");
 
 const router = express.Router();
 
-// API 
+function checkApiExist(req, res, next) {
+    const endPoint = req.body.apiEndPoint;
+    const version = req.body.version;
+
+    Models.APIs.find({
+        apiEndPoint: endPoint, version: version
+    }).then(api => {
+        if (api.length > 0) {
+            console.log("More than 1 ===>>> ", api);
+            res.json({
+                status: 200,
+                data: "Someone already Submit the API"
+            })
+        } else {
+            console.log("Empty Data ===>>> ", api);
+            next()
+        }
+    }).catch(err => {
+        console.log("Error ===>>> ", err);
+        res.send(err);
+    });
+}
+
+function getApiInfo(req, res, next) {
+    const endPoint = req.body.apiEndPoint;
+    const version = req.body.version;
+    const userId = req.body.userId;
+
+    UserApiModels.UserAPIs.findOne({
+        apiEndPoint: endPoint, version: version, userId: userId
+    }).then(api => {
+        req.apiData = api;
+        next()
+    }).catch(err => {
+        res.send(err);
+    });
+}
+
+
+// User API 
 router.post('/addApi', async (req, res) => {
     try {
         const model = new Models.UserAPIs(req.body);
@@ -37,9 +71,6 @@ router.get('/getApiList/:id', async (req, res) => {
     }
 })
 
-
-
-// API Files
 router.post('/addApiFile', async (req, res) => {
     try {
         const model = new Models.Code(req.body);
@@ -92,9 +123,6 @@ router.put('/saveCode/:id', async (req, res) => {
     }
 })
 
-
-
-// API Test Files
 router.get('/getTestFileList/:id', async (req, res) => {
     try {
         const id = req.params.id;
@@ -147,5 +175,48 @@ router.put('/saveUnitTestCode/:id', async (req, res) => {
         res.send(error);
     }
 })
+
+
+
+
+
+
+
+
+// API Submission
+router.post("/submitApi", checkApiExist, getApiInfo, async (req, res) => {
+    try {
+        let obj = {
+            submitedBy: req.apiData.userId,
+            apiId: req.apiData._id,
+            version: req.apiData.version,
+            apiEndPoint: req.apiData.apiEndPoint,
+        }
+        const model = new Models.APIs(obj);
+        const api = await model.save();
+        if (api) {
+            res.json(api);
+        }
+    } catch (error) {
+        res.send(error);
+    }
+});
+
+
+router.put('/getSubmissionDetails/:id', async (req, res) => {
+    try {
+        const id = req.params.id;
+        const body = req.body;
+        const data = await Models.Hackathon.findOneAndUpdate({ _id: id }, body);
+        if (data) {
+            res.json({
+                success: true,
+                data: data
+            });
+        };
+    } catch (error) {
+        res.send(error);
+    }
+});
 
 module.exports = router;

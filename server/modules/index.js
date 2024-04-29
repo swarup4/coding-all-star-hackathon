@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 
 const user = require('./user/controller');
-const code = require('./code/controller');
+const submission = require('./submission/controller');
 const userApi = require('./userApi/controller');
 const faq = require('./faq/controller');
 const review = require('./reviews/controller');
@@ -10,7 +10,7 @@ const prize = require('./prizes/controller');
 const hackathon = require('./hackathon/controller');
 
 app.use('/user', user);
-app.use('/code', code);
+app.use('/submission', submission);
 app.use('/userApi', userApi);
 app.use('/faq', faq);
 app.use('/review', review);
