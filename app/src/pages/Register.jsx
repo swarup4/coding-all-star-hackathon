@@ -6,7 +6,7 @@ import { object, string } from 'yup'
 import { HOST_URL } from '../constants'
 
 const initialValues = {
-    organization: '',
+    organization: 'Trigent Software',
     name: '',
     email: '',
     password: ''
@@ -26,7 +26,7 @@ export default function Register() {
         validationSchema: schema,
         onSubmit: (values, action) => {
             console.log(values)
-            // signup(values);
+            signup(values);
         }
     })
 
