@@ -152,4 +152,35 @@ router.put('/applyHackathon/:id', async (req, res) => {
     }
 });
 
+router.get('/getAllPanelist', async (req, res) => {
+    try {
+        const panels = await Models.Hackathon.aggregate([
+            {
+                $unwind: "$panels"
+            }, {
+                $group: {
+                    _id: "$panels"
+                },
+            }, {
+                $lookup: {
+                    from: "users",
+                    localField: "_id",
+                    foreignField: "_id",
+                    as: "panel"
+                }
+            }, {
+                $unset: "_id"
+            }, {
+                $unwind: "$panel"
+            }
+        ]);
+
+        if (panels) {
+            res.json(panels);
+        }
+    } catch (error) {
+        res.send(error);
+    }
+})
+
 module.exports = router;

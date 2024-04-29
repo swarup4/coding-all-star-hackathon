@@ -10,7 +10,6 @@ import HomePage from './pages/HomePage'
 import Error from './components/common/Error'
 import Login from './pages/Login'
 import Register from './pages/Register'
-import PanelList from './pages/PanelList'
 import Hackathon from './pages/Hackathon'
 import Dashboard from './pages/Dashboard'
 import Submission from './pages/Submission'
@@ -75,10 +74,6 @@ function App() {
             //         element: <Submission />
             //     }]
             // }]
-        }, {
-            path: 'panel',
-            element: <PanelList />,
-            errorElement: <Error />,
         }, {
             path: 'hackathon',
             element: <Hackathon />

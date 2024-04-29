@@ -3,7 +3,7 @@ import React from 'react'
 export default function Faq() {
     return (
         <>
-            <section className="py-24 bg-white theme-background">
+            <section className="py-12 bg-white theme-background">
                 <div className="container px-4 mx-auto">
                     <div className="max-w-4xl mx-auto text-center">
                         <span className="inline-block py-px px-2 mb-4 text-xs leading-5 text-yellow-500 bg-yellow-100 font-medium rounded-full shadow-sm">FAQ</span>

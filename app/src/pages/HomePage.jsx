@@ -1,6 +1,7 @@
 import React from 'react'
 import Header from '../components/common/Header'
 import Faq from '../components/home/Faq'
+import Panels from '../components/home/Panels'
 import Footer from '../components/common/Footer'
 
 export default function HomePage() {
@@ -176,6 +177,8 @@ export default function HomePage() {
                 </div>
             </section>
 
+            <Panels />
+            
             <Faq />
 
 
