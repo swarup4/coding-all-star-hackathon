@@ -26,7 +26,7 @@ export default function Header() {
                         <div className="hidden xl:block xl:w-1/3">
                             <ul className="flex justify-center">
                                 <li className="mr-12"><Link to='/dashboard' className="text-coolGray-500 hover:text-coolGray-900 font-medium">Dashboard</Link></li>
-                                <li className="mr-12"><Link to='/leaderboard' className="text-coolGray-500 hover:text-coolGray-900 font-medium">Leaderboard</Link></li>
+                                <li className="mr-12"><Link to='/dashboard/leaderboard' className="text-coolGray-500 hover:text-coolGray-900 font-medium">Leaderboard</Link></li>
                                 {/* <li className="mr-12"><Link to='/login' className="text-coolGray-500 hover:text-coolGray-900 font-medium" href="#">Resources</Link></li>
                                 <li><Link className="text-coolGray-500 hover:text-coolGray-900 font-medium" href="#">Organize</Link></li> */}
                             </ul>
