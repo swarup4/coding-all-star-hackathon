@@ -1,7 +1,18 @@
-import React from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
+
 import { Link } from 'react-router-dom'
 
 export default function Header() {
+
+    const [user, setUser] = useState({})
+
+    useEffect(() => {
+        const userToken = sessionStorage.getItem("user")
+        if(userToken){
+            setUser(JSON.parse(userToken))
+        }
+    }, [])
+
     return (
         <>
             <section className="bg-white">
@@ -14,17 +25,29 @@ export default function Header() {
                         </div>
                         <div className="hidden xl:block xl:w-1/3">
                             <ul className="flex justify-center">
-                                <li className="mr-12"><a className="text-coolGray-500 hover:text-coolGray-900 font-medium" href="#">Hackathons</a></li>
-                                <li className="mr-12"><a className="text-coolGray-500 hover:text-coolGray-900 font-medium" href="#">About</a></li>
-                                <li className="mr-12"><a className="text-coolGray-500 hover:text-coolGray-900 font-medium" href="#">Resources</a></li>
-                                <li><a className="text-coolGray-500 hover:text-coolGray-900 font-medium" href="#">Organize</a></li>
+                                <li className="mr-12"><Link to='/dashboard' className="text-coolGray-500 hover:text-coolGray-900 font-medium">Dashboard</Link></li>
+                                <li className="mr-12"><Link to='/leaderboard' className="text-coolGray-500 hover:text-coolGray-900 font-medium">Leaderboard</Link></li>
+                                {/* <li className="mr-12"><Link to='/login' className="text-coolGray-500 hover:text-coolGray-900 font-medium" href="#">Resources</Link></li>
+                                <li><Link className="text-coolGray-500 hover:text-coolGray-900 font-medium" href="#">Organize</Link></li> */}
                             </ul>
                         </div>
                         <div className="hidden xl:block xl:w-1/3">
-                            <div className="flex items-center justify-end">
-                                <Link Link to='/login' className="inline-block py-2 px-4 mr-2 leading-5 text-coolGray-500 hover:text-coolGray-900 bg-transparent font-medium rounded-md" href="#">Sign In</Link>
-                                <Link Link to='/signup' className="inline-block py-2 px-4 text-sm leading-5 text-yellow-50 bg-yellow-500 hover:bg-yellow-600 font-medium focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-50 rounded-md" href="#">Create an account</Link>
-                            </div>
+                            {Object.keys(user).length > 0 ? (
+                                <div className="flex items-center justify-end">
+                                    <div className="w-auto p-2">
+                                        <img src={window.location.origin + "/flex-ui-assets/images/user/" + user.profilePics} alt="" className='rounded-full h-11' />
+                                    </div>
+                                    <div className="w-auto p-2">
+                                        <h2 className="text-sm font-semibold text-coolGray-800">{user.name}</h2>
+                                        <p className="text-sm font-medium text-coolGray-500">{user.email}</p>
+                                    </div>
+                                </div>
+                            ) : (
+                                <div className="flex items-center justify-end">
+                                    <Link to='/login' className="inline-block py-2 px-4 mr-2 leading-5 text-coolGray-500 hover:text-coolGray-900 bg-transparent font-medium rounded-md">Sign In</Link>
+                                    <Link to='/signup' className="inline-block py-2 px-4 text-sm leading-5 text-yellow-50 bg-yellow-500 hover:bg-yellow-600 font-medium focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-50 rounded-md">Create an account</Link>
+                                </div>
+                            )}
                         </div>
                     </div>
                     <button className="navbar-burger self-center xl:hidden">

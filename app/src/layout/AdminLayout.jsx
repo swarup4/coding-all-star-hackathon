@@ -1,7 +1,11 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 import { Outlet } from 'react-router-dom'
 
 export default function AdminLayout() {
+
+    const user = useSelector(store => store.user.data)
+
     return (
         <section className="overflow-hidden min-h-full">
                 <div className="navbar-menu z-50 fixed top-0 hidden flex xl:flex flex-col justify-between bg-coolGray-900 max-w-xs w-9/12 h-full overflow-y-auto">
@@ -196,11 +200,11 @@ export default function AdminLayout() {
                                             <div className="w-auto p-2">
                                                 <div className="flex flex-wrap -m-2">
                                                     <div className="w-auto p-2">
-                                                        <img src="flex-ui-assets/images/dashboard/navigations/avatar.png" alt="" />
+                                                        <img src={window.location.origin + "/flex-ui-assets/images/user/" + user.profilePics} alt="" className='rounded-full h-11' />
                                                     </div>
                                                     <div className="w-auto p-2">
-                                                        <h2 className="text-sm font-semibold text-coolGray-800">John Doe</h2>
-                                                        <p className="text-sm font-medium text-coolGray-500">johndoe@flex.co</p>
+                                                        <h2 className="text-sm font-semibold text-coolGray-800">{user.name}</h2>
+                                                        <p className="text-sm font-medium text-coolGray-500">{user.email}</p>
                                                     </div>
                                                 </div>
                                             </div>

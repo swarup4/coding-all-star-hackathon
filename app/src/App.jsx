@@ -52,31 +52,15 @@ function App() {
             element: <AdminLayout />,
             children: [{
                 path: '',
-                element: <Admin />
-            }, {
-                path: 'panel',
-                element: <Panel />
-            }]
-            
-            // element: <UserLayout />,
-            // errorElement: <Error />,
-            // children: [{
-            //     path: '',
-            //     element: <ProtectedRoute><Outlet /></ProtectedRoute>,
-            //     children: [{
-            //         path: '',
-            //         element: <Dashboard />
-            //     }, {
-            //         path: 'hackathon/:id',
-            //         element: <Hackathon />
-            //     }, {
-            //         path: 'submission/:id',
-            //         element: <Submission />
-            //     }]
-            // }]
-        }, {
-            path: 'hackathon',
-            element: <Hackathon />
+                element: <ProtectedRoute><Outlet /></ProtectedRoute>,
+                children: [{
+                    path: '',
+                    element: <Admin />
+                }, {
+                    path: 'panel',
+                    element: <Panel />
+                }]
+            }],
         }, {
             path: 'login',
             element: <Login />

@@ -10,7 +10,6 @@ export default function Panels() {
     useEffect(() => {
         const url = `${HOST_URL}hackathon/getAllPanelist`
         axios.get(url).then(res => {
-            debugger
             setPanels(res.data)
         }).catch(err => {
             console.log(err)

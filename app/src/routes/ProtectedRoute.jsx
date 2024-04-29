@@ -11,7 +11,7 @@ export default function ProtectedRoute(props) {
 
     function checkUserToken() {
         sessionStorage.url = location.pathname;
-        const userToken = sessionStorage.getItem('auth');
+        const userToken = sessionStorage.getItem('auth')
         dispatch(setUser(JSON.parse(sessionStorage.user)))
 
         if (!userToken || userToken === undefined) {
