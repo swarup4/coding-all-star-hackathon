@@ -152,4 +152,12 @@ router.put("/submitApi/:id", updateApiStatus, getApiInfo, async (req, res) => {
 
 router.put('/updateSubmissionStatus/:id', updateApiSubmission);
 
+router.get('/getStatusCount', (req, res) => {
+    Models.UserAPIs.find({ status: 1 }).count().then(data => {
+        res.json(data)
+    }).catch(err => {
+        res.json(err);
+    })
+})
+
 module.exports = router;

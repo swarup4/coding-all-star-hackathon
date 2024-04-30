@@ -1,6 +1,20 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import axios from 'axios'
+import { HOST_URL } from '../../constants'
 
 export default function Status() {
+
+    const [submission, setSubmission] = useState(0);
+
+    useEffect(() => {
+        const url = `${HOST_URL}submission/getStatusCount`
+        axios.get(url).then(res => {
+            setSubmission(res.data)
+        }).catch(err => {
+            console.log(err)
+        })
+    }, [])
+
     return (
         <section className="bg-coolGray-50 py-4">
             <div className="container px-4 mx-auto">
@@ -21,7 +35,7 @@ export default function Status() {
                             </div>
                             <div className="flex flex-wrap items-center justify-between -m-1">
                                 <div className="w-auto p-1">
-                                    <h2 className="font-medium text-3xl text-black tracking-tighter">62</h2>
+                                    <h2 className="font-medium text-3xl text-black tracking-tighter">{submission}</h2>
                                 </div>
                                 <div className="w-auto p-1">
                                     <div className="flex items-center px-2 py-1 text-green-500 font-medium text-xs bg-green-100 rounded-full shadow-sm">

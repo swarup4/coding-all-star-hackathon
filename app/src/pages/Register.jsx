@@ -28,7 +28,7 @@ export default function Register() {
     })
 
     useEffect(() => {
-        const timer = setTimeout(() => setNotification({popup: false}), 10000)
+        const timer = setTimeout(() => setNotification({ popup: false }), 10000)
 
         return () => {
             clearTimeout(timer);
@@ -48,13 +48,13 @@ export default function Register() {
     function signup(data) {
         const url = `${HOST_URL}user/signup`
         axios.post(url, data).then(res => {
-            if(res.data.status == 409){
+            if (res.data.status == 409) {
                 setNotification({
                     popup: true,
                     status: 'error',
                     message: res.data.message
                 })
-            } else{
+            } else {
                 console.log(res.data);
                 sessionStorage.auth = res.data.token;
                 const location = sessionStorage.url;
@@ -68,9 +68,9 @@ export default function Register() {
     return (
         <>
             {notification.popup ? (
-                <Notification status={notification.status} message={notification.message} />
+                <Notification status={notification.status} message={notification.message} close={setNotification} />
             ) : ''}
-            
+
             <section className="relative pt-16 pb-0 md:py-32 bg-white theme-background">
                 <div className="container px-4 mx-auto mb-16">
                     <div className="w-full md:w-3/5 lg:w-1/2">
