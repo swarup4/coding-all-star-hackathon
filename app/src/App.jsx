@@ -16,6 +16,7 @@ import Submission from './pages/Submission'
 import Admin from './pages/Admin'
 import Leaderboard from './pages/Leaderboard'
 import Panel from './pages/Panel'
+import Profile from './pages/Profile'
 
 
 function App() {
@@ -44,6 +45,10 @@ function App() {
                 }, {
                     path: 'leaderboard',
                     element: <Leaderboard />,
+                    errorElement: <Error />
+                }, {
+                    path: 'profile',
+                    element: <Profile />,
                     errorElement: <Error />
                 }]
             }]

@@ -52,7 +52,10 @@ export default function UserHeader() {
         sessionStorage.url = location.pathname;
     }
 
-    const dropdownMenu = ["Item 1", "Item 2", "Item 3", "Item 4"];
+    // const dropdownMenu = [{"Item 1"}, "Item 2", "Item 3", "Item 4"];
+    const dropdownMenu = [
+        {name: "Profile", url: 'profile'}
+    ];
     
 
     return (
@@ -149,119 +152,15 @@ export default function UserHeader() {
                                                     </svg>
                                                 </a>
                                             <ul className="p-2 shadow menu dropdown-content z-[1] bg-white rounded-box w-52">
-                                                {dropdownMenu.map((item , index) => <li key={index}><a>{item}</a></li>)}
+                                                {dropdownMenu.map((item , index) => (
+                                                    <li key={index}>
+                                                        <Link to={item.url}>{item.name}</Link>
+                                                    </li>
+                                                ))}
                                             </ul>
                                         </div>
-                                    
 
-
-                                        <div className="w-auto p-2">
-                                            {/* {user ? (
-                                                <Disclosure as="div" className="-mx-3">
-                                                    {({ open }) => (
-                                                        <>
-                                                            <Disclosure.Button className="flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">
-                                                                User
-                                                                <ChevronDownIcon className={classNames(open ? 'rotate-180' : '', 'h-5 w-5 flex-none')} aria-hidden="true" />
-                                                            </Disclosure.Button>
-                                                            <Disclosure.Panel className="mt-2 space-y-2">
-                                                                {solutions.map((item) => (
-                                                                    <Disclosure.Button key={item.name} as="a" href={item.href}
-                                                                        className="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                                                                    >
-                                                                        {item.name}
-                                                                    </Disclosure.Button>
-                                                                ))}
-                                                            </Disclosure.Panel>
-                                                        </>
-                                                    )}
-                                                </Disclosure>
-                                            ) : (
-                                                <>
-                                                    <div className="flow-root">
-                                                        <Link to='/login' onClick={redirectPage} className="-m-2 block p-2 font-medium text-gray-900">
-                                                            Sign in
-                                                        </Link>
-                                                    </div>
-                                                    <div className="flow-root">
-                                                        <Link to='/signup' onClick={redirectPage} className="-m-2 block p-2 font-medium text-gray-900">
-                                                            Create account
-                                                        </Link>
-                                                    </div>
-                                                </>
-                                            )} */}
-
-                                            {/* <div className="relative group" nBlur={closeDropdown}>
-                                                <button className="px-4 py-2 text-gray-700" onClick={toggleDropdown}>
-                                                    Dropdown
-                                                    <svg className="w-4 h-4 inline-block ml-2 fill-current" viewBox="0 0 20 20">
-                                                        <path d="M10 12l-7-7h14z" />
-                                                    </svg>
-                                                </button>
-
-                                                {isOpen && (
-                                                    <div className="absolute mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
-                                                        <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-                                                            <a href="#" className="block px-4 py-2 text-gray-700 hover:bg-gray-100" role="menuitem">Item 1</a>
-                                                            <a href="#" className="block px-4 py-2 text-gray-700 hover:bg-gray-100" role="menuitem">Item 2</a>
-                                                            <a href="#" className="block px-4 py-2 text-gray-700 hover:bg-gray-100" role="menuitem">Item 3</a>
-                                                        </div>
-                                                    </div>
-                                                )}
-                                            </div> */}
-
-                                            {/* <Popover className="relative">
-                                                    <Popover.Button className="inline-flex items-center gap-x-1 text-sm font-semibold leading-6 text-gray-900">
-                                                        <span>Solutions</span>
-                                                        <ChevronDownIcon className="h-5 w-5" aria-hidden="true" />
-                                                    </Popover.Button>
-
-                                                    <Transition
-                                                        as={Fragment}
-                                                        enter="transition ease-out duration-200"
-                                                        enterFrom="opacity-0 translate-y-1"
-                                                        enterTo="opacity-100 translate-y-0"
-                                                        leave="transition ease-in duration-150"
-                                                        leaveFrom="opacity-100 translate-y-0"
-                                                        leaveTo="opacity-0 translate-y-1"
-                                                    >
-                                                        <Popover.Panel className="absolute left-1/2 z-10 mt-5 flex w-screen max-w-max -translate-x-1/2 px-4">
-                                                            <div className="w-screen max-w-md flex-auto overflow-hidden rounded-3xl bg-white text-sm leading-6 shadow-lg ring-1 ring-gray-900/5">
-                                                                <div className="p-4">
-                                                                    {solutions.map((item) => (
-                                                                        <div key={item.name} className="group relative flex gap-x-6 rounded-lg p-4 hover:bg-gray-50">
-                                                                            <div className="mt-1 flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
-                                                                                <item.icon className="h-6 w-6 text-gray-600 group-hover:text-indigo-600" aria-hidden="true" />
-                                                                            </div>
-                                                                            <div>
-                                                                                <a href={item.href} className="font-semibold text-gray-900">
-                                                                                    {item.name}
-                                                                                    <span className="absolute inset-0" />
-                                                                                </a>
-                                                                                <p className="mt-1 text-gray-600">{item.description}</p>
-                                                                            </div>
-                                                                        </div>
-                                                                    ))}
-                                                                </div>
-                                                                <div className="grid grid-cols-2 divide-x divide-gray-900/5 bg-gray-50">
-                                                                    {callsToAction.map((item) => (
-                                                                        <a
-                                                                            key={item.name}
-                                                                            href={item.href}
-                                                                            className="flex items-center justify-center gap-x-2.5 p-3 font-semibold text-gray-900 hover:bg-gray-100"
-                                                                        >
-                                                                            <item.icon className="h-5 w-5 flex-none text-gray-400" aria-hidden="true" />
-                                                                            {item.name}
-                                                                        </a>
-                                                                    ))}
-                                                                </div>
-                                                            </div>
-                                                        </Popover.Panel>
-                                                    </Transition>
-                                                </Popover> */}
-
-
-                                        </div>
+                                        {/* <div className="w-auto p-2"></div> */}
 
                                     </div>
                                 </div>

@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function panel(props) {
+export default function Panel(props) {
     return (
         <section className="relative pb-24 bg-white theme-background">
             <div className="relative container px-4 mx-auto">

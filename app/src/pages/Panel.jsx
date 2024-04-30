@@ -3,40 +3,40 @@ import React from 'react'
 export default function Panel() {
     return (
         <div>
-            <section class="bg-coolGray-50 py-4">
-                <div class="container px-4 mx-auto">
-                    <div class="flex flex-wrap -m-3">
-                        <div class="w-full md:w-1/2 xl:w-1/4 p-3">
-                            <div class="h-full border border-coolGray-100 bg-white rounded-md shadow-dashboard">
-                                <div class="p-8 px-6 pb-0">
-                                    <div class="flex flex-wrap items-center justify-between -m-2 mb-0">
-                                        <div class="w-auto p-2">
-                                            <h2 class="text-coolGray-900 text-lg font-semibold">Request</h2>
+            <section className="bg-coolGray-50 py-4">
+                <div className="container px-4 mx-auto">
+                    <div className="flex flex-wrap -m-3">
+                        <div className="w-full md:w-1/2 xl:w-1/4 p-3">
+                            <div className="h-full border border-coolGray-100 bg-white rounded-md shadow-dashboard">
+                                <div className="p-8 px-6 pb-0">
+                                    <div className="flex flex-wrap items-center justify-between -m-2 mb-0">
+                                        <div className="w-auto p-2">
+                                            <h2 className="text-coolGray-900 text-lg font-semibold">Request</h2>
                                         </div>
-                                        <div class="w-auto p-2">
-                                            <p class="px-2 py-1 text-xs text-darkCoolGray-500 font-medium bg-darkCoolGray-100 rounded-full">30 days</p>
+                                        <div className="w-auto p-2">
+                                            <p className="px-2 py-1 text-xs text-darkCoolGray-500 font-medium bg-darkCoolGray-100 rounded-full">30 days</p>
                                         </div>
                                     </div>
-                                    <div class="chart-chart5-radial-bar-blue" style={{minHeight: '173.7px'}}>
-                                        <div id="apexcharts6imqatc9" class="apexcharts-canvas apexcharts6imqatc9 apexcharts-theme-light" style={{width: '182px', height: '173.7px'}}>
+                                    <div className="chart-chart5-radial-bar-blue" style={{minHeight: '173.7px'}}>
+                                        <div id="apexcharts6imqatc9" className="apexcharts-canvas apexcharts6imqatc9 apexcharts-theme-light" style={{width: '182px', height: '173.7px'}}>
                                             <div className="radial-progress text-primary" style={{ "--value": 70 }} role="progressbar">70%</div>
-                                            {/* <div class="radial-progress text-primary" style="--value:70;" role="progressbar">70%</div> */}
+                                            {/* <div className="radial-progress text-primary" style="--value:70;" role="progressbar">70%</div> */}
                                         </div>
                                     </div>
-                                    <div class="flex flex-wrap">
-                                        <div class="w-full">
-                                            <div class="py-4 border-b border-coolGray-100">
-                                                <div class="flex flex-wrap justify-between -m-2">
-                                                    <div class="w-auto p-2">
-                                                        <div class="flex items-center">
-                                                            <div class="mr-2 w-2 h-2 bg-yellow-500 rounded-full"></div>
-                                                            <p class="text-xs text-coolGray-500 font-medium">New</p>
+                                    <div className="flex flex-wrap">
+                                        <div className="w-full">
+                                            <div className="py-4 border-b border-coolGray-100">
+                                                <div className="flex flex-wrap justify-between -m-2">
+                                                    <div className="w-auto p-2">
+                                                        <div className="flex items-center">
+                                                            <div className="mr-2 w-2 h-2 bg-yellow-500 rounded-full"></div>
+                                                            <p className="text-xs text-coolGray-500 font-medium">New</p>
                                                         </div>
                                                     </div>
-                                                    <div class="w-auto p-2">
-                                                        <p class="text-xs text-coolGray-500 font-medium uppercase">
+                                                    <div className="w-auto p-2">
+                                                        <p className="text-xs text-coolGray-500 font-medium uppercase">
                                                             <span>4,550</span>
-                                                            <span class="text-coolGray-300">65%</span>
+                                                            <span className="text-coolGray-300">65%</span>
                                                         </p>
                                                     </div>
                                                 </div>
@@ -44,25 +44,25 @@ export default function Panel() {
                                         </div>
                                     </div>
                                 </div>
-                                <div class="py-4 border-b border-coolGray-100">
-                                    <div class="flex flex-wrap justify-between px-6 -m-2">
-                                        <div class="w-auto p-2">
-                                            <div class="flex items-center">
-                                                <div class="mr-2 w-2 h-2 bg-yellow-300 rounded-full"></div>
-                                                <p class="text-xs text-coolGray-500 font-medium">Returning</p>
+                                <div className="py-4 border-b border-coolGray-100">
+                                    <div className="flex flex-wrap justify-between px-6 -m-2">
+                                        <div className="w-auto p-2">
+                                            <div className="flex items-center">
+                                                <div className="mr-2 w-2 h-2 bg-yellow-300 rounded-full"></div>
+                                                <p className="text-xs text-coolGray-500 font-medium">Returning</p>
                                             </div>
                                         </div>
-                                        <div class="w-auto p-2">
-                                            <p class="text-xs text-coolGray-500 font-medium uppercase">
+                                        <div className="w-auto p-2">
+                                            <p className="text-xs text-coolGray-500 font-medium uppercase">
                                                 <span>1,675</span>
-                                                <span class="text-coolGray-300">35%</span>
+                                                <span className="text-coolGray-300">35%</span>
                                             </p>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="p-4">
-                                    <a class="flex items-center text-xs text-yellow-500 hover:text-yellow-600 font-medium" href="#">
-                                        <p class="mr-1">Learn more</p>
+                                <div className="p-4">
+                                    <a className="flex items-center text-xs text-yellow-500 hover:text-yellow-600 font-medium" href="#">
+                                        <p className="mr-1">Learn more</p>
                                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M11.9467 7.74671C11.9149 7.66487 11.8674 7.59011 11.8067 7.52671L8.47333 4.19338C8.41117 4.13122 8.33738 4.08191 8.25617 4.04827C8.17495 4.01463 8.08791 3.99731 8 3.99731C7.82246 3.99731 7.6522 4.06784 7.52667 4.19338C7.46451 4.25553 7.4152 4.32933 7.38156 4.41054C7.34792 4.49176 7.33061 4.5788 7.33061 4.66671C7.33061 4.84424 7.40113 5.01451 7.52667 5.14004L9.72667 7.33338H4.66667C4.48986 7.33338 4.32029 7.40361 4.19526 7.52864C4.07024 7.65366 4 7.82323 4 8.00004C4 8.17685 4.07024 8.34642 4.19526 8.47145C4.32029 8.59647 4.48986 8.66671 4.66667 8.66671H9.72667L7.52667 10.86C7.46418 10.922 7.41458 10.9958 7.38074 11.077C7.34689 11.1582 7.32947 11.2454 7.32947 11.3334C7.32947 11.4214 7.34689 11.5085 7.38074 11.5898C7.41458 11.671 7.46418 11.7447 7.52667 11.8067C7.58864 11.8692 7.66238 11.9188 7.74361 11.9526C7.82485 11.9865 7.91199 12.0039 8 12.0039C8.08801 12.0039 8.17514 11.9865 8.25638 11.9526C8.33762 11.9188 8.41136 11.8692 8.47333 11.8067L11.8067 8.47337C11.8674 8.40997 11.9149 8.33521 11.9467 8.25338C12.0133 8.09107 12.0133 7.90902 11.9467 7.74671Z" fill="currentColor"></path>
                                         </svg>
@@ -70,37 +70,37 @@ export default function Panel() {
                                 </div>
                             </div>
                         </div>
-                        <div class="w-full md:w-1/2 xl:w-1/4 p-3">
-                            <div class="h-full border border-coolGray-100 bg-white rounded-md shadow-dashboard">
-                                <div class="p-8 px-6 pb-0">
-                                    <div class="flex flex-wrap items-center justify-between -m-2 mb-0">
-                                        <div class="w-auto p-2">
-                                            <h2 class="text-coolGray-900 text-lg font-semibold">Pending</h2>
+                        <div className="w-full md:w-1/2 xl:w-1/4 p-3">
+                            <div className="h-full border border-coolGray-100 bg-white rounded-md shadow-dashboard">
+                                <div className="p-8 px-6 pb-0">
+                                    <div className="flex flex-wrap items-center justify-between -m-2 mb-0">
+                                        <div className="w-auto p-2">
+                                            <h2 className="text-coolGray-900 text-lg font-semibold">Pending</h2>
                                         </div>
-                                        <div class="w-auto p-2">
-                                            <p class="px-2 py-1 text-xs text-darkCoolGray-500 font-medium bg-darkCoolGray-100 rounded-full">30 days</p>
+                                        <div className="w-auto p-2">
+                                            <p className="px-2 py-1 text-xs text-darkCoolGray-500 font-medium bg-darkCoolGray-100 rounded-full">30 days</p>
                                         </div>
                                     </div>
-                                    <div class="chart-chart5-radial-bar-green" style={{minHeight: '173.7px'}}>
-                                        <div id="apexcharts9zwdtyu2" class="apexcharts-canvas apexcharts9zwdtyu2 apexcharts-theme-light" style={{width: '182px', height: '173.7px'}}>
+                                    <div className="chart-chart5-radial-bar-green" style={{minHeight: '173.7px'}}>
+                                        <div id="apexcharts9zwdtyu2" className="apexcharts-canvas apexcharts9zwdtyu2 apexcharts-theme-light" style={{width: '182px', height: '173.7px'}}>
                                         <div className="radial-progress text-primary" style={{"--value":70}} role="progressbar">70%</div>
-                                        {/* <div class="radial-progress text-primary" style="--value:70;" role="progressbar">70%</div> */}
+                                        {/* <div className="radial-progress text-primary" style="--value:70;" role="progressbar">70%</div> */}
                                         </div>
                                     </div>
-                                    <div class="flex flex-wrap">
-                                        <div class="w-full">
-                                            <div class="py-4 border-b border-coolGray-100">
-                                                <div class="flex flex-wrap justify-between -m-2">
-                                                    <div class="w-auto p-2">
-                                                        <div class="flex items-center">
-                                                            <div class="mr-2 w-2 h-2 bg-green-500 rounded-full"></div>
-                                                            <p class="text-xs text-coolGray-500 font-medium">Male</p>
+                                    <div className="flex flex-wrap">
+                                        <div className="w-full">
+                                            <div className="py-4 border-b border-coolGray-100">
+                                                <div className="flex flex-wrap justify-between -m-2">
+                                                    <div className="w-auto p-2">
+                                                        <div className="flex items-center">
+                                                            <div className="mr-2 w-2 h-2 bg-green-500 rounded-full"></div>
+                                                            <p className="text-xs text-coolGray-500 font-medium">Male</p>
                                                         </div>
                                                     </div>
-                                                    <div class="w-auto p-2">
-                                                        <p class="text-xs text-coolGray-500 font-medium uppercase">
+                                                    <div className="w-auto p-2">
+                                                        <p className="text-xs text-coolGray-500 font-medium uppercase">
                                                             <span>2,550</span>
-                                                            <span class="text-coolGray-300">50%</span>
+                                                            <span className="text-coolGray-300">50%</span>
                                                         </p>
                                                     </div>
                                                 </div>
@@ -108,25 +108,25 @@ export default function Panel() {
                                         </div>
                                     </div>
                                 </div>
-                                <div class="py-4 border-b border-coolGray-100">
-                                    <div class="flex flex-wrap justify-between px-6 -m-2">
-                                        <div class="w-auto p-2">
-                                            <div class="flex items-center">
-                                                <div class="mr-2 w-2 h-2 bg-green-300 rounded-full"></div>
-                                                <p class="text-xs text-coolGray-500 font-medium">Female</p>
+                                <div className="py-4 border-b border-coolGray-100">
+                                    <div className="flex flex-wrap justify-between px-6 -m-2">
+                                        <div className="w-auto p-2">
+                                            <div className="flex items-center">
+                                                <div className="mr-2 w-2 h-2 bg-green-300 rounded-full"></div>
+                                                <p className="text-xs text-coolGray-500 font-medium">Female</p>
                                             </div>
                                         </div>
-                                        <div class="w-auto p-2">
-                                            <p class="text-xs text-coolGray-500 font-medium uppercase">
+                                        <div className="w-auto p-2">
+                                            <p className="text-xs text-coolGray-500 font-medium uppercase">
                                                 <span>2,550</span>
-                                                <span class="text-coolGray-300">50%</span>
+                                                <span className="text-coolGray-300">50%</span>
                                             </p>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="p-4">
-                                    <a class="flex items-center text-xs text-yellow-500 hover:text-yellow-600 font-medium" href="#">
-                                        <p class="mr-1">Learn more</p>
+                                <div className="p-4">
+                                    <a className="flex items-center text-xs text-yellow-500 hover:text-yellow-600 font-medium" href="#">
+                                        <p className="mr-1">Learn more</p>
                                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M11.9467 7.74671C11.9149 7.66487 11.8674 7.59011 11.8067 7.52671L8.47333 4.19338C8.41117 4.13122 8.33738 4.08191 8.25617 4.04827C8.17495 4.01463 8.08791 3.99731 8 3.99731C7.82246 3.99731 7.6522 4.06784 7.52667 4.19338C7.46451 4.25553 7.4152 4.32933 7.38156 4.41054C7.34792 4.49176 7.33061 4.5788 7.33061 4.66671C7.33061 4.84424 7.40113 5.01451 7.52667 5.14004L9.72667 7.33338H4.66667C4.48986 7.33338 4.32029 7.40361 4.19526 7.52864C4.07024 7.65366 4 7.82323 4 8.00004C4 8.17685 4.07024 8.34642 4.19526 8.47145C4.32029 8.59647 4.48986 8.66671 4.66667 8.66671H9.72667L7.52667 10.86C7.46418 10.922 7.41458 10.9958 7.38074 11.077C7.34689 11.1582 7.32947 11.2454 7.32947 11.3334C7.32947 11.4214 7.34689 11.5085 7.38074 11.5898C7.41458 11.671 7.46418 11.7447 7.52667 11.8067C7.58864 11.8692 7.66238 11.9188 7.74361 11.9526C7.82485 11.9865 7.91199 12.0039 8 12.0039C8.08801 12.0039 8.17514 11.9865 8.25638 11.9526C8.33762 11.9188 8.41136 11.8692 8.47333 11.8067L11.8067 8.47337C11.8674 8.40997 11.9149 8.33521 11.9467 8.25338C12.0133 8.09107 12.0133 7.90902 11.9467 7.74671Z" fill="currentColor"></path>
                                         </svg>
@@ -134,37 +134,37 @@ export default function Panel() {
                                 </div>
                             </div>
                         </div>
-                        <div class="w-full md:w-1/2 xl:w-1/4 p-3">
-                            <div class="h-full border border-coolGray-100 bg-white rounded-md shadow-dashboard">
-                                <div class="p-8 px-6 pb-0">
-                                    <div class="flex flex-wrap items-center justify-between -m-2 mb-0">
-                                        <div class="w-auto p-2">
-                                            <h2 class="text-coolGray-900 text-lg font-semibold">Approve</h2>
+                        <div className="w-full md:w-1/2 xl:w-1/4 p-3">
+                            <div className="h-full border border-coolGray-100 bg-white rounded-md shadow-dashboard">
+                                <div className="p-8 px-6 pb-0">
+                                    <div className="flex flex-wrap items-center justify-between -m-2 mb-0">
+                                        <div className="w-auto p-2">
+                                            <h2 className="text-coolGray-900 text-lg font-semibold">Approve</h2>
                                         </div>
-                                        <div class="w-auto p-2">
-                                            <p class="px-2 py-1 text-xs text-darkCoolGray-500 font-medium bg-darkCoolGray-100 rounded-full">30 days</p>
+                                        <div className="w-auto p-2">
+                                            <p className="px-2 py-1 text-xs text-darkCoolGray-500 font-medium bg-darkCoolGray-100 rounded-full">30 days</p>
                                         </div>
                                     </div>
-                                    <div class="chart-chart5-radial-bar-yellow" style={{minHeight: '173.7px'}}>
-                                        <div id="apexcharts1ccn4a4" class="apexcharts-canvas apexcharts1ccn4a4 apexcharts-theme-light" style={{width: '182px', height: '173.7px'}}>
+                                    <div className="chart-chart5-radial-bar-yellow" style={{minHeight: '173.7px'}}>
+                                        <div id="apexcharts1ccn4a4" className="apexcharts-canvas apexcharts1ccn4a4 apexcharts-theme-light" style={{width: '182px', height: '173.7px'}}>
                                         <div className="radial-progress text-primary" style={{"--value":70}} role="progressbar">70%</div>
-                                        {/* <div class="radial-progress text-primary" style="--value:70;" role="progressbar">70%</div> */}
+                                        {/* <div className="radial-progress text-primary" style="--value:70;" role="progressbar">70%</div> */}
                                         </div>
                                     </div>
-                                    <div class="flex flex-wrap">
-                                        <div class="w-full">
-                                            <div class="py-4 border-b border-coolGray-100">
-                                                <div class="flex flex-wrap justify-between -m-2">
-                                                    <div class="w-auto p-2">
-                                                        <div class="flex items-center">
-                                                            <div class="mr-2 w-2 h-2 bg-yellow-500 rounded-full"></div>
-                                                            <p class="text-xs text-coolGray-500 font-medium">Over 30</p>
+                                    <div className="flex flex-wrap">
+                                        <div className="w-full">
+                                            <div className="py-4 border-b border-coolGray-100">
+                                                <div className="flex flex-wrap justify-between -m-2">
+                                                    <div className="w-auto p-2">
+                                                        <div className="flex items-center">
+                                                            <div className="mr-2 w-2 h-2 bg-yellow-500 rounded-full"></div>
+                                                            <p className="text-xs text-coolGray-500 font-medium">Over 30</p>
                                                         </div>
                                                     </div>
-                                                    <div class="w-auto p-2">
-                                                        <p class="text-xs text-coolGray-500 font-medium uppercase">
+                                                    <div className="w-auto p-2">
+                                                        <p className="text-xs text-coolGray-500 font-medium uppercase">
                                                             <span>4,550</span>
-                                                            <span class="text-coolGray-300">25%</span>
+                                                            <span className="text-coolGray-300">25%</span>
                                                         </p>
                                                     </div>
                                                 </div>
@@ -172,25 +172,25 @@ export default function Panel() {
                                         </div>
                                     </div>
                                 </div>
-                                <div class="py-4 border-b border-coolGray-100">
-                                    <div class="flex flex-wrap justify-between px-6 -m-2">
-                                        <div class="w-auto p-2">
-                                            <div class="flex items-center">
-                                                <div class="mr-2 w-2 h-2 bg-yellow-300 rounded-full"></div>
-                                                <p class="text-xs text-coolGray-500 font-medium">Under 30</p>
+                                <div className="py-4 border-b border-coolGray-100">
+                                    <div className="flex flex-wrap justify-between px-6 -m-2">
+                                        <div className="w-auto p-2">
+                                            <div className="flex items-center">
+                                                <div className="mr-2 w-2 h-2 bg-yellow-300 rounded-full"></div>
+                                                <p className="text-xs text-coolGray-500 font-medium">Under 30</p>
                                             </div>
                                         </div>
-                                        <div class="w-auto p-2">
-                                            <p class="text-xs text-coolGray-500 font-medium uppercase">
+                                        <div className="w-auto p-2">
+                                            <p className="text-xs text-coolGray-500 font-medium uppercase">
                                                 <span>1,675</span>
-                                                <span class="text-coolGray-300">75%</span>
+                                                <span className="text-coolGray-300">75%</span>
                                             </p>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="p-4">
-                                    <a class="flex items-center text-xs text-yellow-500 hover:text-yellow-600 font-medium" href="#">
-                                        <p class="mr-1">Learn more</p>
+                                <div className="p-4">
+                                    <a className="flex items-center text-xs text-yellow-500 hover:text-yellow-600 font-medium" href="#">
+                                        <p className="mr-1">Learn more</p>
                                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M11.9467 7.74671C11.9149 7.66487 11.8674 7.59011 11.8067 7.52671L8.47333 4.19338C8.41117 4.13122 8.33738 4.08191 8.25617 4.04827C8.17495 4.01463 8.08791 3.99731 8 3.99731C7.82246 3.99731 7.6522 4.06784 7.52667 4.19338C7.46451 4.25553 7.4152 4.32933 7.38156 4.41054C7.34792 4.49176 7.33061 4.5788 7.33061 4.66671C7.33061 4.84424 7.40113 5.01451 7.52667 5.14004L9.72667 7.33338H4.66667C4.48986 7.33338 4.32029 7.40361 4.19526 7.52864C4.07024 7.65366 4 7.82323 4 8.00004C4 8.17685 4.07024 8.34642 4.19526 8.47145C4.32029 8.59647 4.48986 8.66671 4.66667 8.66671H9.72667L7.52667 10.86C7.46418 10.922 7.41458 10.9958 7.38074 11.077C7.34689 11.1582 7.32947 11.2454 7.32947 11.3334C7.32947 11.4214 7.34689 11.5085 7.38074 11.5898C7.41458 11.671 7.46418 11.7447 7.52667 11.8067C7.58864 11.8692 7.66238 11.9188 7.74361 11.9526C7.82485 11.9865 7.91199 12.0039 8 12.0039C8.08801 12.0039 8.17514 11.9865 8.25638 11.9526C8.33762 11.9188 8.41136 11.8692 8.47333 11.8067L11.8067 8.47337C11.8674 8.40997 11.9149 8.33521 11.9467 8.25338C12.0133 8.09107 12.0133 7.90902 11.9467 7.74671Z" fill="currentColor"></path>
                                         </svg>
@@ -198,37 +198,37 @@ export default function Panel() {
                                 </div>
                             </div>
                         </div>
-                        <div class="w-full md:w-1/2 xl:w-1/4 p-3">
-                            <div class="h-full border border-coolGray-100 bg-white rounded-md shadow-dashboard">
-                                <div class="p-8 px-6 pb-0">
-                                    <div class="flex flex-wrap items-center justify-between -m-2 mb-0">
-                                        <div class="w-auto p-2">
-                                            <h2 class="text-coolGray-900 text-lg font-semibold">Reject</h2>
+                        <div className="w-full md:w-1/2 xl:w-1/4 p-3">
+                            <div className="h-full border border-coolGray-100 bg-white rounded-md shadow-dashboard">
+                                <div className="p-8 px-6 pb-0">
+                                    <div className="flex flex-wrap items-center justify-between -m-2 mb-0">
+                                        <div className="w-auto p-2">
+                                            <h2 className="text-coolGray-900 text-lg font-semibold">Reject</h2>
                                         </div>
-                                        <div class="w-auto p-2">
-                                            <p class="px-2 py-1 text-xs text-darkCoolGray-500 font-medium bg-darkCoolGray-100 rounded-full">30 days</p>
+                                        <div className="w-auto p-2">
+                                            <p className="px-2 py-1 text-xs text-darkCoolGray-500 font-medium bg-darkCoolGray-100 rounded-full">30 days</p>
                                         </div>
                                     </div>
-                                    <div class="chart-chart5-radial-bar-violet" style={{minHeight: '173.7px'}}>
-                                        <div id="apexchartsqjpnf0t3" class="apexcharts-canvas apexchartsqjpnf0t3 apexcharts-theme-light" style={{width: '182px', height: '173.7px'}}>
+                                    <div className="chart-chart5-radial-bar-violet" style={{minHeight: '173.7px'}}>
+                                        <div id="apexchartsqjpnf0t3" className="apexcharts-canvas apexchartsqjpnf0t3 apexcharts-theme-light" style={{width: '182px', height: '173.7px'}}>
                                         <div className="radial-progress text-primary" style={{"--value":70}} role="progressbar">70%</div>
-                                        {/* <div class="radial-progress text-primary" style="--value:70;" role="progressbar">70%</div> */}
+                                        {/* <div className="radial-progress text-primary" style="--value:70;" role="progressbar">70%</div> */}
                                         </div>
                                     </div>
-                                    <div class="flex flex-wrap">
-                                        <div class="w-full">
-                                            <div class="py-4 border-b border-coolGray-100">
-                                                <div class="flex flex-wrap justify-between -m-2">
-                                                    <div class="w-auto p-2">
-                                                        <div class="flex items-center">
-                                                            <div class="mr-2 w-2 h-2 bg-violet-500 rounded-full"></div>
-                                                            <p class="text-xs text-coolGray-500 font-medium">England</p>
+                                    <div className="flex flex-wrap">
+                                        <div className="w-full">
+                                            <div className="py-4 border-b border-coolGray-100">
+                                                <div className="flex flex-wrap justify-between -m-2">
+                                                    <div className="w-auto p-2">
+                                                        <div className="flex items-center">
+                                                            <div className="mr-2 w-2 h-2 bg-violet-500 rounded-full"></div>
+                                                            <p className="text-xs text-coolGray-500 font-medium">England</p>
                                                         </div>
                                                     </div>
-                                                    <div class="w-auto p-2">
-                                                        <p class="text-xs text-coolGray-500 font-medium uppercase">
+                                                    <div className="w-auto p-2">
+                                                        <p className="text-xs text-coolGray-500 font-medium uppercase">
                                                             <span>4,550</span>
-                                                            <span class="text-coolGray-300">50%</span>
+                                                            <span className="text-coolGray-300">50%</span>
                                                         </p>
                                                     </div>
                                                 </div>
@@ -236,25 +236,25 @@ export default function Panel() {
                                         </div>
                                     </div>
                                 </div>
-                                <div class="py-4 border-b border-coolGray-100">
-                                    <div class="flex flex-wrap justify-between px-6 -m-2">
-                                        <div class="w-auto p-2">
-                                            <div class="flex items-center">
-                                                <div class="mr-2 w-2 h-2 bg-violet-300 rounded-full"></div>
-                                                <p class="text-xs text-coolGray-500 font-medium">Other</p>
+                                <div className="py-4 border-b border-coolGray-100">
+                                    <div className="flex flex-wrap justify-between px-6 -m-2">
+                                        <div className="w-auto p-2">
+                                            <div className="flex items-center">
+                                                <div className="mr-2 w-2 h-2 bg-violet-300 rounded-full"></div>
+                                                <p className="text-xs text-coolGray-500 font-medium">Other</p>
                                             </div>
                                         </div>
-                                        <div class="w-auto p-2">
-                                            <p class="text-xs text-coolGray-500 font-medium uppercase">
+                                        <div className="w-auto p-2">
+                                            <p className="text-xs text-coolGray-500 font-medium uppercase">
                                                 <span>1,675</span>
-                                                <span class="text-coolGray-300">25%</span>
+                                                <span className="text-coolGray-300">25%</span>
                                             </p>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="p-4">
-                                    <a class="flex items-center text-xs text-yellow-500 hover:text-yellow-600 font-medium" href="#">
-                                        <p class="mr-1">Learn more</p>
+                                <div className="p-4">
+                                    <a className="flex items-center text-xs text-yellow-500 hover:text-yellow-600 font-medium" href="#">
+                                        <p className="mr-1">Learn more</p>
                                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M11.9467 7.74671C11.9149 7.66487 11.8674 7.59011 11.8067 7.52671L8.47333 4.19338C8.41117 4.13122 8.33738 4.08191 8.25617 4.04827C8.17495 4.01463 8.08791 3.99731 8 3.99731C7.82246 3.99731 7.6522 4.06784 7.52667 4.19338C7.46451 4.25553 7.4152 4.32933 7.38156 4.41054C7.34792 4.49176 7.33061 4.5788 7.33061 4.66671C7.33061 4.84424 7.40113 5.01451 7.52667 5.14004L9.72667 7.33338H4.66667C4.48986 7.33338 4.32029 7.40361 4.19526 7.52864C4.07024 7.65366 4 7.82323 4 8.00004C4 8.17685 4.07024 8.34642 4.19526 8.47145C4.32029 8.59647 4.48986 8.66671 4.66667 8.66671H9.72667L7.52667 10.86C7.46418 10.922 7.41458 10.9958 7.38074 11.077C7.34689 11.1582 7.32947 11.2454 7.32947 11.3334C7.32947 11.4214 7.34689 11.5085 7.38074 11.5898C7.41458 11.671 7.46418 11.7447 7.52667 11.8067C7.58864 11.8692 7.66238 11.9188 7.74361 11.9526C7.82485 11.9865 7.91199 12.0039 8 12.0039C8.08801 12.0039 8.17514 11.9865 8.25638 11.9526C8.33762 11.9188 8.41136 11.8692 8.47333 11.8067L11.8067 8.47337C11.8674 8.40997 11.9149 8.33521 11.9467 8.25338C12.0133 8.09107 12.0133 7.90902 11.9467 7.74671Z" fill="currentColor"></path>
                                         </svg>
@@ -291,13 +291,13 @@ export default function Panel() {
                 </div>
             </section>
             <section className="py-24 bg-white" style={{ backgroundImage: 'url("flex-ui-assets/elements/pattern-white.svg")', backgroundRepeat: 'no-repeat', backgroundPosition: 'left top' }}><div className="container px-4 mx-auto">
-                {/*<div class="mb-8 md:mb-16 md:max-w-5xl"> <span class="inline-block py-px px-2 mb-4 text-xs leading-5 text-yellow-500 bg-yellow-100 font-medium uppercase rounded-full shadow-sm">Blog</span> <h3 class="mb-4 text-3xl md:text-5xl leading-tight text-darkCoolGray-900 font-bold tracking-tighter">Our mission is to make knowledge and news accessible for everyone.</h3> <p class="text-lg md:text-xl text-coolGray-500 font-medium">With our integrated CRM, project management, collaboration and invoicing capabilities, you can manage your business in one secure platform.</p> </div>
-    <ul class="flex flex-wrap mb-8 -mx-2 text-center">
-      <li class="w-full md:w-auto px-2"><a class="inline-block w-full py-2 px-4 mb-4 md:mb-0 text-sm text-coolGray-400 hover:text-yellow-500 hover:bg-yellow-200 font-bold rounded-md hover:shadow-sm" href="#">All Categories</a></li>
-      <li class="w-full md:w-auto px-2"><a class="inline-block w-full py-2 px-4 mb-4 md:mb-0 text-sm text-coolGray-400 hover:text-yellow-500 hover:bg-yellow-200 font-bold rounded-md hover:shadow-sm" href="#">Technology</a></li>
-      <li class="w-full md:w-auto px-2"><a class="inline-block w-full py-2 px-4 mb-4 md:mb-0 text-sm text-coolGray-400 hover:text-yellow-500 hover:bg-yellow-200 font-bold rounded-md hover:shadow-sm" href="#">Development</a></li>
-      <li class="w-full md:w-auto px-2"><a class="inline-block w-full py-2 px-4 mb-4 md:mb-0 text-sm text-coolGray-400 hover:text-yellow-500 hover:bg-yellow-200 font-bold rounded-md hover:shadow-sm" href="#">Marketing</a></li>
-      <li class="w-full md:w-auto px-2"><a class="inline-block w-full py-2 px-4 text-sm text-coolGray-400 hover:text-yellow-500 hover:bg-yellow-200 font-bold rounded-md hover:shadow-sm" href="#">Start-up</a></li>
+                {/*<div className="mb-8 md:mb-16 md:max-w-5xl"> <span className="inline-block py-px px-2 mb-4 text-xs leading-5 text-yellow-500 bg-yellow-100 font-medium uppercase rounded-full shadow-sm">Blog</span> <h3 className="mb-4 text-3xl md:text-5xl leading-tight text-darkCoolGray-900 font-bold tracking-tighter">Our mission is to make knowledge and news accessible for everyone.</h3> <p className="text-lg md:text-xl text-coolGray-500 font-medium">With our integrated CRM, project management, collaboration and invoicing capabilities, you can manage your business in one secure platform.</p> </div>
+    <ul className="flex flex-wrap mb-8 -mx-2 text-center">
+      <li className="w-full md:w-auto px-2"><a className="inline-block w-full py-2 px-4 mb-4 md:mb-0 text-sm text-coolGray-400 hover:text-yellow-500 hover:bg-yellow-200 font-bold rounded-md hover:shadow-sm" href="#">All Categories</a></li>
+      <li className="w-full md:w-auto px-2"><a className="inline-block w-full py-2 px-4 mb-4 md:mb-0 text-sm text-coolGray-400 hover:text-yellow-500 hover:bg-yellow-200 font-bold rounded-md hover:shadow-sm" href="#">Technology</a></li>
+      <li className="w-full md:w-auto px-2"><a className="inline-block w-full py-2 px-4 mb-4 md:mb-0 text-sm text-coolGray-400 hover:text-yellow-500 hover:bg-yellow-200 font-bold rounded-md hover:shadow-sm" href="#">Development</a></li>
+      <li className="w-full md:w-auto px-2"><a className="inline-block w-full py-2 px-4 mb-4 md:mb-0 text-sm text-coolGray-400 hover:text-yellow-500 hover:bg-yellow-200 font-bold rounded-md hover:shadow-sm" href="#">Marketing</a></li>
+      <li className="w-full md:w-auto px-2"><a className="inline-block w-full py-2 px-4 text-sm text-coolGray-400 hover:text-yellow-500 hover:bg-yellow-200 font-bold rounded-md hover:shadow-sm" href="#">Start-up</a></li>
     </ul>*/}
                 <div className="flex flex-wrap items-center -mx-4 mb-12 md:mb-16">
                     <div className="flex flex-wrap items-center w-full xl:w-1/2 px-4 mb-8 md:-mx-4">

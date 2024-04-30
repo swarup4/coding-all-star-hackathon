@@ -21,6 +21,20 @@ const schema = object({
 
 export default function Register() {
     const navigate = useNavigate()
+    const [notification, setNotification] = useState({
+        popup: false,
+        status: '',
+        message: ''
+    })
+
+    useEffect(() => {
+        const timer = setTimeout(() => setNotification({popup: false}), 10000)
+
+        return () => {
+            clearTimeout(timer);
+        }
+    }, [notification.popup])
+
 
     const { values, errors, handleBlur, handleChange, handleSubmit, touched } = useFormik({
         initialValues: initialValues,
@@ -34,10 +48,18 @@ export default function Register() {
     function signup(data) {
         const url = `${HOST_URL}user/signup`
         axios.post(url, data).then(res => {
-            console.log(res.data);
-            sessionStorage.auth = res.data.token;
-            const location = sessionStorage.url;
-            navigate(location);
+            if(res.data.status == 409){
+                setNotification({
+                    popup: true,
+                    status: 'error',
+                    message: res.data.message
+                })
+            } else{
+                console.log(res.data);
+                sessionStorage.auth = res.data.token;
+                const location = sessionStorage.url;
+                navigate(location);
+            }
         }).catch(err => {
             console.log(err)
         })
@@ -45,7 +67,10 @@ export default function Register() {
 
     return (
         <>
-            <Notification />
+            {notification.popup ? (
+                <Notification status={notification.status} message={notification.message} />
+            ) : ''}
+            
             <section className="relative pt-16 pb-0 md:py-32 bg-white theme-background">
                 <div className="container px-4 mx-auto mb-16">
                     <div className="w-full md:w-3/5 lg:w-1/2">
