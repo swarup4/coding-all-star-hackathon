@@ -27,88 +27,28 @@ let loginObj = {
         })
     },
 
-    generateSecurityCode: () => {
-        return Math.floor(Math.random() * 8999 + 1000);
-    },
-
-    // Check Username for User is Exist or Not. & Also Check User Status.
+    // Check Email for User is Exist or Not. & Also Check User Status.
     // Params Or Object : Username
     checkExestingUser: async (req, res, next) => {
         try {
-            let obj = req.body;
-            let conObj;
-            if ('email' in obj) {
-                conObj = { email: obj.email };
-            } else {
-                conObj = { phone: obj.phone };
-            }
-            let data = await User.Auth.findOne(conObj);
+            let email = req.body.email;
+            
+            let data = await User.Auth.findOne({
+                email: email
+            })
             if (data) {
-                let emailMsg = "", userMsg = "";
-                if (data.email == obj.email) {
-                    emailMsg = "Email is Already Exist.";
-                }
-                if (data.phone == obj.phone) {
-                    userMsg = "Phone is Already Exist.";
-                }
-                res.send(emailMsg + " " + userMsg);
+                res.json({
+                    status: 409,
+                    message: "Email is already Exist."
+                })
             } else {
-                next();
+                next()
             }
         } catch (err) {
             res.send(err.message);
         }
-
     },
-
-    // Check Username for User is Exist or Not. & Also Check User Status.
-    // Params Or Object : Username
-    // checkExestingAdmin: (req, res, next) => {
-    //     let obj = req.body;
-    //     let conObj;
-    //     if ('email' in obj) {
-    //         conObj = { email: obj.email };
-    //     } else {
-    //         conObj = { phone: obj.phone };
-    //     }
-    //     Admin.Auth.findOne(conObj, (err, data) => {
-    //         if (err) {
-    //             res.send(err.message);
-    //         } else {
-    //             if (data) {
-    //                 let emailMsg = "", userMsg = "";
-    //                 if (data.email == obj.email) {
-    //                     emailMsg = "Email is Already Exist.";
-    //                 }
-    //                 if (data.phone == obj.phone) {
-    //                     userMsg = "Phone is Already Exist.";
-    //                 }
-    //                 res.send(emailMsg + " " + userMsg);
-    //             } else {
-    //                 next();
-    //             }
-    //         }
-    //     })
-    // },
-    // Check Username for User is Exist or Not. & Also Check User Status.
-    // Params Or Object : Username
-    checkExestingUsername: (req, res, next) => {
-        User.Auth.findOne({ username: req.body.username }, (err, data) => {
-            if (err) {
-                res.send(err.message);
-            } else {
-                if (data) {
-                    let errorMsg = "";
-                    if (data.username == req.body.username) {
-                        errorMsg = "Username is already exist.";
-                    }
-                    res.send(errorMsg);
-                } else {
-                    next();
-                }
-            }
-        })
-    },
+    
     varifyToken: (req, res, next) => {
         // var token = req.headers['x-access-token'];
         let token = req.headers.authorization;

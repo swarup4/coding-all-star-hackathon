@@ -120,10 +120,9 @@ router.post("/login", async (req, res) => {
         "phone": 9035845781
  * }
  */
-router.post("/signup", async (req, res) => {
+router.post("/signup", userMiddleware.checkExestingUser, async (req, res) => {
     try {
         const model = new User.Auth(req.body);
-        console.log(model);
         const user = await model.save();
         const obj = { id: user._id, email: user.email };
         const token = jwt.sign(obj, process.env.SECRATE_KEY, {
@@ -141,7 +140,7 @@ router.post("/signup", async (req, res) => {
     }
 });
 
-router.put("/addUsername/:id", userMiddleware.checkExestingUsername, async (req, res) => {
+router.put("/addUsername/:id", async (req, res) => {
     try {
         const id = req.params.id;
         const user = await User.Auth.findOneAndUpdate({ _id: id }, { username: req.body.username }, {
