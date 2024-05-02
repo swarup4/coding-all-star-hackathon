@@ -40,9 +40,6 @@ function App() {
                     path: 'hackathon/:id',
                     element: <Hackathon />
                 }, {
-                    path: 'submission/:id',
-                    element: <Submission />
-                }, {
                     path: 'leaderboard',
                     element: <Leaderboard />,
                     errorElement: <Error />
@@ -50,6 +47,9 @@ function App() {
                     path: 'profile',
                     element: <Profile />,
                     errorElement: <Error />
+                }, {
+                    path: 'submission/:id',
+                    element: <Submission />
                 }]
             }]
         }, {

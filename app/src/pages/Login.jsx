@@ -38,6 +38,7 @@ export default function Login() {
                 email: res.data.email,
                 id: res.data.id,
                 name: res.data.name,
+                role: res.data.role,
                 profilePics: res.data.profilePics
             })
             // const location = sessionStorage.url;

@@ -41,17 +41,16 @@ export default function Dashboard() {
 
     function participate(id) {
         const url = `${HOST_URL}hackathon/applyHackathon/${id}`;
-        // const user = JSON.parse(sessionStorage.user)
         const body = { userId: user.id }
-        // axios.put(url, body).then(res => {
-        //     setNotification({
-        //         popup: true,
-        //         status: 'success',
-        //         message: res.data.message
-        //     })
-        // }).catch(err => {
-        //     console.log(err);
-        // })
+        axios.put(url, body).then(res => {
+            setNotification({
+                popup: true,
+                status: 'success',
+                message: res.data.message
+            })
+        }).catch(err => {
+            console.log(err);
+        })
     }
 
     function selectTab(id) {

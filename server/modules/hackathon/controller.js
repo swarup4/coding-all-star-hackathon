@@ -91,6 +91,18 @@ router.get('/getHackathon/:id', async (req, res) => {
     }
 });
 
+
+router.get('/getApplyHackathon/:userId', async (req, res) => {
+    const userId = req.params.userId;
+    try {
+        const data = await Models.Hackathon.find({appliedUser: userId})
+        res.json(data);
+    } catch (error) {
+        res.send(error);
+    }
+});
+
+
 router.post('/addHackathon', async (req, res) => {
     try {
         const model = new Models.Hackathon(req.body);
@@ -182,5 +194,6 @@ router.get('/getAllPanelist', async (req, res) => {
         res.send(error);
     }
 })
+
 
 module.exports = router;
