@@ -21,7 +21,6 @@ const submission = {
     requirementApproach: String,
     category: String,
     description: String,
-    validation: String,
     status: { type: Boolean, default: 0 },
     createdAt: Date,
     updatedAt: Date
