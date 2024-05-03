@@ -14,7 +14,7 @@ const initialValues = {
     apiVersion: '',
     documentationLink: '',
     programmingLanguage: '',
-    requirementApproach: '',
+    // requirementApproach: '',
     description: '',
 }
 const schema = object().shape({
@@ -35,32 +35,27 @@ export default function SubmissionForm() {
         initialValues: initialValues,
         validationSchema: schema,
         onSubmit: (values, action) => {
-            // debugger;
-            // alert("Hello")
             console.log(values)
-            // signup(values);
+            addApiInfo(values)
         }
     })
 
-    // function signup(data) {
-    //     const url = `${HOST_URL}user/signup`
-    //     axios.post(url, data).then(res => {
-    //         if (res.data.status == 409) {
-    //             setNotification({
-    //                 popup: true,
-    //                 status: 'error',
-    //                 message: res.data.message
-    //             })
-    //         } else {
-    //             console.log(res.data);
-    //             sessionStorage.auth = res.data.token;
-    //             const location = sessionStorage.url;
-    //             navigate(location);
-    //         }
-    //     }).catch(err => {
-    //         console.log(err)
-    //     })
-    // }
+    function addApiInfo(data) {
+        const url = `${HOST_URL}submission/addApi`
+        axios.post(url, data).then(res => {
+                // setNotification({
+                //     popup: true,
+                //     status: 'error',
+                //     message: res.data.message
+                // })
+                alert("Data Insert");
+            // } else {
+                console.log(res.data);
+            // }
+        }).catch(err => {
+            console.log(err)
+        })
+    }
 
 
     return (
@@ -205,7 +200,6 @@ export default function SubmissionForm() {
                         </div>
                     </div>
                 </div>
-
                 <div className="py-6 border-b border-coolGray-100">
                     <div className="w-full md:w-9/12">
                         <div className="flex flex-wrap -m-3">

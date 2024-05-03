@@ -13,6 +13,7 @@ import Register from './pages/Register'
 import Hackathon from './pages/Hackathon'
 import Dashboard from './pages/Dashboard'
 import Submission from './pages/Submission'
+import ApiDetails from './pages/ApiDetails'
 import Admin from './pages/Admin'
 import Leaderboard from './pages/Leaderboard'
 import Panel from './pages/Panel'
@@ -50,6 +51,9 @@ function App() {
                 }, {
                     path: 'submission/:id',
                     element: <Submission />
+                }, {
+                    path: 'details/:id',
+                    element: <ApiDetails />
                 }]
             }]
         }, {

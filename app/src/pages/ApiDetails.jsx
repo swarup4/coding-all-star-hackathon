@@ -1,27 +1,19 @@
-import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
+import React from 'react'
 import Code from '../components/submission/Code'
 import EnvFile from '../components/submission/EnvFile'
 import TestCase from '../components/submission/TestCase'
-import SubmissionForm from '../components/submission/SubmissionForm'
+import SubmissionDetails from '../components/submission/SubmissionDetails'
 
-export default function Submission() {
-
-    const { id } = useParams();
-    const user = useSelector(store => store.user.data)
-
+export default function ApiDetails() {
     return (
         <section className="bg-coolGray-50 py-4 ">
             <div className="container px-4 mx-auto">
                 <div className="p-6 h-full border border-coolGray-100 overflow-hidden bg-white rounded-md shadow-dashboard">
-                    
-                    <SubmissionForm />
+                    <SubmissionDetails />
 
                     <Code />
                     <EnvFile />
                     <TestCase />
-
                 </div>
             </div>
         </section>
