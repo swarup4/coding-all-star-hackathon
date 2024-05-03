@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { Link, useNavigate } from 'react-router-dom'
 import { useFormik } from 'formik'
-import { object, string } from 'yup'
+import {object, string} from 'yup';
 import { HOST_URL } from '../../constants'
 // import Notification from '../components/common/Notification'
 
@@ -17,7 +17,7 @@ const initialValues = {
     requirementApproach: '',
     description: '',
 }
-const schema = object({
+const schema = object().shape({
     name: string().required('Enter your API Name'),
     category: string().required('Enter your Project Category'),
     apiEndPoint: string().required('Enter API End point'),
@@ -25,7 +25,7 @@ const schema = object({
     apiVersion: string().required('Enter your API End Point Version'),
     documentationLink: string().required('Enter your API Documentation Link'),
     programmingLanguage: string().required('Select your Programming Language'),
-    requirementApproach: string().required('Enter your API requirment approach'),
+    // requirementApproach: string().required('Enter your API requirment approach'),   // field was not added in the form, ie why not submitting it.
     description: string().required('Enter your API description'),
 })
 
@@ -35,8 +35,8 @@ export default function SubmissionForm() {
         initialValues: initialValues,
         validationSchema: schema,
         onSubmit: (values, action) => {
-            debugger;
-            alert("Hello")
+            // debugger;
+            // alert("Hello")
             console.log(values)
             // signup(values);
         }
