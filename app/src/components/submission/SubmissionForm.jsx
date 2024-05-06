@@ -29,19 +29,22 @@ const schema = object().shape({
     description: string().required('Enter your API description'),
 })
 
-export default function SubmissionForm() {
+export default function SubmissionForm(props) {
 
     const { values, errors, handleBlur, handleChange, handleSubmit, touched } = useFormik({
         initialValues: initialValues,
         validationSchema: schema,
         onSubmit: (values, action) => {
-            console.log(values)
             addApiInfo(values)
+
         }
     })
 
     function addApiInfo(data) {
         const url = `${HOST_URL}submission/addApi`
+        data.hackathonId = props.hackathonId
+        data.userId = props.userId
+
         axios.post(url, data).then(res => {
                 // setNotification({
                 //     popup: true,

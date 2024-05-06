@@ -7,10 +7,11 @@ const Models = require("./models");
 const router = express.Router();
 
 function checkApiExist(req, res, next) {
+    
     const endPoint = req.body.apiEndPoint;
     const version = req.body.apiVersion;
 
-    Models.APIs.find({
+    Models.UserAPIs.find({
         apiEndPoint: endPoint, apiVersion: version
     }).then(api => {
         if (api.length > 0) {
@@ -86,6 +87,35 @@ router.get('/getApiList/:id', async (req, res) => {
         if (api) {
             res.json(api);
         }
+    } catch (error) {
+        res.send(error);
+    }
+})
+
+router.get('/getApiDetails/:id', async (req, res) => {
+    try {
+        const id = req.params.id;
+        const api = await Models.UserAPIs.findOne({ _id: id })
+        if (api) {
+            res.json(api);
+        }
+    } catch (error) {
+        res.send(error);
+    }
+})
+
+router.put('/updateApiDetails/:id', async (req, res) => {
+    try {
+        const id = req.params.id
+        const body = req.body
+        console.log(body);
+        const code = await Models.UserAPIs.findOneAndUpdate({ _id: id }, body)
+        if (code) {
+            res.json({
+                success: true,
+                data: code
+            });
+        };
     } catch (error) {
         res.send(error);
     }
