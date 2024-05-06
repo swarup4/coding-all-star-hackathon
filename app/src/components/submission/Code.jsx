@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { Link, useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 import { useFormik } from 'formik'
 import { object, string } from 'yup'
 import { HOST_URL } from '../../constants'
@@ -17,6 +18,7 @@ const schema = object({
 export default function Code() {
 
     const [apiCodes, setApiCodes] = useState('')
+    const submission = useSelector(store => store.submission.data)
 
     const { values, errors, handleBlur, handleChange, handleSubmit, touched } = useFormik({
         initialValues: initialValues,
@@ -27,7 +29,12 @@ export default function Code() {
     })
 
     function saveCode() {
-        console.log(apiCodes);
+        let body = { code: apiCodes }
+        axios.put(`http://localhost:3001/submission/saveCode/${submission._id}`, body).then(res => {
+            console.log(res.data.data);
+        }).catch(err => {
+            console.log(err);
+        })
     }
 
     return (
