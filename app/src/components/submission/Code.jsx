@@ -38,11 +38,9 @@ export default function Code() {
                     <a className=" px-4 py-2 font-medium text-sm text-coolGray-500 hover:text-coolGray-600 border border-coolGray-200 hover:border-coolGray-300 bg-white rounded-md shadow-button">x</a>
                 </div>
                 <Editor code={apiCodes} setCode={setApiCodes} />
-
+                
+                <button onClick={() => saveCode()} className="flex flex-wrap justify-center w-full px-4 py-2 bg-yellow-500 hover:bg-yellow-600 font-medium text-sm text-white border border-yellow-500 rounded-md shadow-button">Submit</button>
             </div>
-            <form method="dialog" className="modal-backdrop">
-                <button onClick={() => saveCode()}>Submit</button>
-            </form>
         </dialog>
     )
 }
