@@ -29,7 +29,7 @@ export default function Code() {
     })
 
     function saveCode() {
-        let body = { code: apiCodes }
+        let body = { code: apiCodes, status: true }
         axios.put(`http://localhost:3001/submission/saveCode/${submission._id}`, body).then(res => {
             console.log(res.data.data);
         }).catch(err => {
