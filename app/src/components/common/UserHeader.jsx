@@ -1,62 +1,36 @@
 import React, { Fragment, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
+import axios from 'axios'
+import { HOST_URL } from '../../constants'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { Popover, Transition } from '@headlessui/react'
 
-import {
-    ArrowPathIcon,
-    ChartPieIcon,
-    CursorArrowRaysIcon,
-    FingerPrintIcon,
-    SquaresPlusIcon,
-} from '@heroicons/react/24/outline'
-import { ChevronDownIcon, PhoneIcon, PlayCircleIcon } from '@heroicons/react/20/solid'
-
-
-
-// const solutions = [
-//     { name: 'Analytics', description: 'Get a better understanding of your traffic', href: '#', icon: ChartPieIcon },
-//     { name: 'Engagement', description: 'Speak directly to your customers', href: '#', icon: CursorArrowRaysIcon },
-//     { name: 'Security', description: "Your customers' data will be safe and secure", href: '#', icon: FingerPrintIcon },
-//     { name: 'Integrations', description: 'Connect with third-party tools', href: '#', icon: SquaresPlusIcon },
-//     { name: 'Automations', description: 'Build strategic funnels that will convert', href: '#', icon: ArrowPathIcon },
-// ]
-// const callsToAction = [
-//     { name: 'Watch demo', href: '#', icon: PlayCircleIcon },
-//     { name: 'Contact sales', href: '#', icon: PhoneIcon },
-// ]
-
-
-
-// function classNames(...classes) {
-//     return classes.filter(Boolean).join(' ')
-// }
-
 export default function UserHeader() {
 
-    // const [open, setOpen] = useState(true)
-
-    const [isOpen, setIsOpen] = useState(false);
-    const toggleDropdown = () => {
-        setIsOpen(!isOpen);
-    }
-    const closeDropdown = () => {
-        setIsOpen(false);
-    }
-
+    const [open, setOpen] = useState(true)
+    const [reviewPoint, setReviewPoint] = useState(0)
+    const userInfo = JSON.parse(sessionStorage.user)
     const user = useSelector(store => store.user.data)
-    // const navigate = useNavigate();
-    const location = useLocation();
+    const location = useLocation()
 
     function redirectPage() {
-        sessionStorage.url = location.pathname;
+        sessionStorage.url = location.pathname
     }
 
-    // const dropdownMenu = [{"Item 1"}, "Item 2", "Item 3", "Item 4"];
     const dropdownMenu = [
-        {name: "Profile", url: 'profile'}
-    ];
-    
+        { name: "Profile", url: 'profile' }
+    ]
+
+    useEffect(() => {
+        const url = `${HOST_URL}submission/getSubmissionCount/${userInfo.id}`
+        axios.get(url).then(res => {
+            const totalReviewPoint = (res.data?.submission * 2) - res.data.review
+            setReviewPoint(totalReviewPoint)
+        }).catch(err => {
+            console.log(err)
+        })
+    }, [])
+
 
     return (
         <section>
@@ -65,7 +39,8 @@ export default function UserHeader() {
                     <div className="flex items-center justify-between -m-2">
                         <div className="flex flex-wrap items-center w-auto p-2">
                             <a className="block max-w-max xl:mr-14" href="#">
-                                <img src={window.location.origin + "/flex-ui-assets/logos/dashboard/flex-ui-black-yellow.svg"} alt="" />
+                                {/* <img src={window.location.origin + "/flex-ui-assets/logos/dashboard/flex-ui-black-yellow.svg"} alt="" /> */}
+                                <svg xmlns="http://www.w3.org/2000/svg" width={112} viewBox="0 0 84 30" height={40} version={1.0} className="text-yellow-500"><defs><clipPath id="a"><path d="M24.969 4.004h3.11v1.941h-3.11zm0 0" /></clipPath><clipPath id="b"><path d="M14.621 3.453h2.77v2.492h-2.77zm0 0" /></clipPath><clipPath id="c"><path d="M10.355 3.453h3.012v2.492h-3.012zm0 0" /></clipPath><clipPath id="d"><path d="M25.336 4.004h1.996V6h-1.996zm0 0" /></clipPath><clipPath id="e"><path d="M14.621 4.004h1.996V6h-1.996zm0 0" /></clipPath><clipPath id="f"><path d="M10.906 4.004h1.992V6h-1.992zm0 0" /></clipPath><clipPath id="g"><path d="M5.578 20.777h11.496v4.535H5.578zm0 0" /></clipPath><clipPath id="h"><path d="M58.316 20.777h11.496v4.535H58.316zm0 0" /></clipPath><clipPath id="i"><path d="M59.164 19.805h6.738v5.992h-6.738zm0 0" /></clipPath><clipPath id="j"><path d="M6.133 19.805h6.742v5.992H6.133zm0 0" /></clipPath></defs><path d="M8.109 7.05c-.438 0-.836-.086-1.188-.266a2.027 2.027 0 0 1-.812-.734 2.018 2.018 0 0 1-.281-1.063c0-.394.093-.75.28-1.062.196-.313.47-.555.813-.734.352-.176.75-.266 1.188-.266.457 0 .847.102 1.172.297.332.2.566.469.703.812l-1.078.547c-.188-.351-.453-.531-.797-.531-.25 0-.461.086-.625.25-.168.168-.25.398-.25.687 0 .305.082.54.25.704.164.168.375.25.625.25.344 0 .61-.176.797-.532l1.078.547a1.618 1.618 0 0 1-.703.813c-.325.187-.715.281-1.172.281zm0 0" fill="#f5af32" /><path d="M11.825 7.05c-.43 0-.813-.086-1.157-.266a2.027 2.027 0 0 1-.812-.734 2.018 2.018 0 0 1-.281-1.063c0-.394.093-.75.28-1.062.196-.313.462-.555.798-.734a2.538 2.538 0 0 1 1.172-.266c.425 0 .812.09 1.156.266.344.18.61.421.797.734.195.312.297.668.297 1.062 0 .399-.102.75-.297 1.063a1.935 1.935 0 0 1-.797.734 2.46 2.46 0 0 1-1.156.266zm0-1.11a.776.776 0 0 0 .593-.25c.164-.163.25-.398.25-.703 0-.289-.086-.519-.25-.687a.79.79 0 0 0-.593-.25.806.806 0 0 0-.61.25c-.156.168-.234.398-.234.687 0 .305.078.54.234.704.156.168.36.25.61.25zm0 0" fill="#f5af32" /><path d="M18.27 1.534v5.453h-1.328v-.39c-.262.305-.653.453-1.172.453-.367 0-.7-.082-1-.25a1.831 1.831 0 0 1-.703-.719 2.202 2.202 0 0 1-.266-1.094c0-.414.086-.773.266-1.078.175-.312.41-.55.703-.718.3-.176.633-.266 1-.266.476 0 .847.14 1.11.422V1.534zm-2.203 4.407a.776.776 0 0 0 .593-.25c.157-.164.235-.399.235-.704 0-.289-.078-.519-.235-.687a.79.79 0 0 0-.593-.25.806.806 0 0 0-.61.25c-.156.168-.234.398-.234.687 0 .305.078.54.234.704.156.168.36.25.61.25zM18.482 3.003h1.39v3.984h-1.39zm.703-.453c-.262 0-.469-.066-.625-.203a.694.694 0 0 1-.235-.531c0-.207.079-.383.235-.532.156-.144.363-.218.625-.218.25 0 .453.07.61.203a.656.656 0 0 1 .234.515c0 .23-.079.418-.235.563-.156.137-.36.203-.61.203zM22.688 2.925c.5 0 .894.152 1.187.453.3.293.453.734.453 1.328v2.281h-1.39V4.941c0-.551-.22-.829-.657-.829a.748.748 0 0 0-.578.235c-.148.156-.219.398-.219.719v1.921h-1.39V3.003h1.328v.438c.156-.164.336-.29.547-.375.219-.094.457-.141.719-.141zm0 0" fill="#f5af32" /><path d="M28.807 3.003v3.25c0 .738-.203 1.297-.61 1.672-.398.375-.968.562-1.718.562-.399 0-.766-.046-1.11-.14a2.466 2.466 0 0 1-.875-.39l.5-.97c.164.125.367.223.61.297.25.082.5.125.75.125.363 0 .628-.086.796-.25.176-.156.266-.394.266-.718v-.125c-.273.312-.668.468-1.187.468-.356 0-.684-.078-.985-.234a1.884 1.884 0 0 1-.703-.688c-.18-.289-.266-.628-.266-1.015 0-.375.086-.707.266-1 .176-.29.41-.516.703-.672.301-.164.63-.25.985-.25.57 0 .988.187 1.25.562v-.484zm-2.25 2.672a.88.88 0 0 0 .625-.234.784.784 0 0 0 .25-.594.745.745 0 0 0-.25-.578c-.157-.145-.367-.219-.625-.219-.25 0-.461.074-.625.219a.732.732 0 0 0-.25.578.77.77 0 0 0 .25.594.874.874 0 0 0 .625.234zm0 0" fill="#f5af32" /><g clipPath="url(#a)"><path fill="#f5af32" d="M24.969 4.004h3.113v1.941h-3.113zm0 0" /></g><g clipPath="url(#b)"><path fill="#f5af32" d="M14.621 3.453h2.77v2.492h-2.77zm0 0" /></g><g clipPath="url(#c)"><path fill="#f5af32" d="M10.355 3.453h3.012v2.492h-3.012zm0 0" /></g><g clipPath="url(#d)" fill="#fff"><path d="m26.336 4.012.305.652.687.106-.496.511.117.719-.613-.34-.617.34.117-.719-.496-.511.687-.106zm0 0" /><path d="m26.332 4.004.305.656.687.106-.496.507.117.72-.613-.34-.617.34.117-.72-.496-.507.687-.106zm0 0" /><path d="m26.332 4.004.305.656.687.106-.496.507.117.72-.613-.34-.617.34.117-.72-.496-.507.687-.106zm0 0" /><path d="m26.332 4.004.305.656.687.106-.496.507.117.72-.613-.34-.617.34.117-.72-.496-.507.687-.106zm0 0" /></g><g clipPath="url(#e)" fill="#fff"><path d="m15.621 4.012.309.652.687.106-.5.511.121.719-.617-.34-.613.34.117-.719-.496-.511.687-.106zm0 0" /><path d="m15.617 4.004.309.656.687.106-.5.507.117.72-.613-.34-.613.34.117-.72-.5-.507.688-.106zm0 0" /><path d="m15.617 4.004.309.656.687.106-.5.507.117.72-.613-.34-.613.34.117-.72-.5-.507.688-.106zm0 0" /><path d="m15.617 4.004.309.656.687.106-.5.507.117.72-.613-.34-.613.34.117-.72-.5-.507.688-.106zm0 0" /></g><g clipPath="url(#f)" fill="#fff"><path d="m11.906 4.012.305.652.687.106-.496.511.118.719-.614-.34-.617.34.117-.719-.496-.511.688-.106zm0 0" /><path d="m11.898 4.004.309.656.688.106-.497.507.118.72-.618-.34-.613.34.117-.72-.496-.507.688-.106zm0 0" /><path d="m11.898 4.004.309.656.688.106-.497.507.118.72-.618-.34-.613.34.117-.72-.496-.507.688-.106zm0 0" /><path d="m11.898 4.004.309.656.688.106-.497.507.118.72-.618-.34-.613.34.117-.72-.496-.507.688-.106zm0 0" /></g><g clipPath="url(#g)"><path fill="#202020" d="M5.578 20.777h11.5v4.535h-11.5zm0 0" /></g><g clipPath="url(#h)"><path fill="#202020" d="M58.316 20.777h11.5v4.535h-11.5zm0 0" /></g><path d="M9.79 12.434c2.446 0 4.313.559 5.595 1.672 1.289 1.117 1.937 2.828 1.937 5.14v8.188H12.51v-1.906c-.75 1.437-2.203 2.156-4.36 2.156-1.148 0-2.136-.2-2.968-.594-.836-.406-1.465-.945-1.891-1.625-.43-.687-.64-1.46-.64-2.328 0-1.394.534-2.476 1.609-3.25 1.07-.77 2.722-1.156 4.953-1.156h2.937c-.086-1.563-1.125-2.344-3.125-2.344-.71 0-1.43.117-2.156.344-.719.219-1.336.531-1.844.937l-1.75-3.515c.82-.54 1.817-.961 2.985-1.266 1.164-.3 2.343-.453 3.53-.453zm-.202 11.984c.601 0 1.129-.144 1.578-.437.457-.29.785-.719.984-1.281v-1.282H9.916c-1.5 0-2.25.5-2.25 1.5 0 .45.172.813.516 1.094.343.274.812.406 1.406.406zM18.023 7.23h5.172v20.204h-5.172zM23.981 7.23h5.172v20.204h-5.172zM40.658 27.684c-1.23 0-2.445-.14-3.64-.422-1.2-.281-2.164-.648-2.891-1.11l1.563-3.53c.664.417 1.46.75 2.39 1 .926.242 1.844.359 2.75.359.832 0 1.426-.082 1.781-.25.352-.176.532-.43.532-.766 0-.32-.215-.55-.641-.687-.43-.133-1.105-.266-2.031-.39-1.18-.145-2.184-.337-3.016-.579a4.606 4.606 0 0 1-2.125-1.313c-.594-.632-.89-1.52-.89-2.656 0-.945.28-1.785.843-2.515.563-.739 1.38-1.32 2.453-1.75 1.082-.426 2.375-.641 3.875-.641 1.07 0 2.133.11 3.188.328 1.05.219 1.93.527 2.64.922L45.894 17.2a8.642 8.642 0 0 0-4.25-1.094c-.813 0-1.414.101-1.797.297-.375.187-.563.437-.563.75 0 .343.207.586.625.718.414.137 1.102.278 2.063.422 1.219.18 2.222.387 3.015.625.801.23 1.493.664 2.079 1.297.593.625.89 1.5.89 2.625 0 .918-.281 1.746-.844 2.485-.562.742-1.39 1.32-2.484 1.734-1.094.414-2.418.625-3.969.625zm0 0" fill="#202020" /><path d="M57.811 26.84c-.437.274-.968.48-1.593.625a8.866 8.866 0 0 1-2 .219c-1.93 0-3.407-.469-4.438-1.406-1.031-.946-1.547-2.36-1.547-4.235V17.09h-2.156v-3.86h2.156V9.388h5.172v3.844h3.375v3.86h-3.375v4.905c0 .524.14.934.422 1.235.281.305.656.453 1.125.453a2.74 2.74 0 0 0 1.578-.469zm0 0" fill="#202020" /><path d="M63.525 12.434c2.445 0 4.312.559 5.594 1.672 1.289 1.117 1.937 2.828 1.937 5.14v8.188h-4.812v-1.906c-.75 1.437-2.203 2.156-4.36 2.156-1.148 0-2.136-.2-2.968-.594-.836-.406-1.465-.945-1.891-1.625-.43-.687-.64-1.46-.64-2.328 0-1.394.534-2.476 1.609-3.25 1.07-.77 2.722-1.156 4.953-1.156h2.937c-.086-1.563-1.125-2.344-3.125-2.344-.71 0-1.43.117-2.156.344-.719.219-1.336.531-1.844.937l-1.75-3.515c.82-.54 1.817-.961 2.985-1.266 1.164-.3 2.343-.453 3.53-.453zm-.203 11.984c.601 0 1.129-.144 1.578-.437.457-.29.785-.719.984-1.281v-1.282H63.65c-1.5 0-2.25.5-2.25 1.5 0 .45.172.813.516 1.094.343.274.812.406 1.406.406zM76.694 14.45c.52-.664 1.204-1.164 2.047-1.5.844-.344 1.813-.516 2.907-.516v4.656c-.48-.05-.872-.078-1.172-.078-1.118 0-1.985.305-2.61.906-.625.594-.937 1.508-.937 2.735v6.781h-5.172v-14.75h4.937zm0 0" fill="#202020" /><g clipPath="url(#i)" fill="#f5af32"><path d="m62.36 19.824.98 1.992 2.2.32-1.59 1.552.374 2.19-1.965-1.034-1.968 1.035.375-2.192-1.59-1.55 2.199-.32zm0 0" /><path d="m62.344 19.809.984 1.988 2.195.32-1.59 1.551.376 2.191-1.965-1.035-1.965 1.035.375-2.191-1.59-1.55 2.195-.321zm0 0" /><path d="m62.344 19.809.984 1.988 2.195.32-1.59 1.551.376 2.191-1.965-1.035-1.965 1.035.375-2.191-1.59-1.55 2.195-.321zm0 0" /><path d="m62.344 19.809.984 1.988 2.195.32-1.59 1.551.376 2.191-1.965-1.035-1.965 1.035.375-2.191-1.59-1.55 2.195-.321zm0 0" /></g><g clipPath="url(#j)" fill="#f5af32"><path d="m9.332 19.824.98 1.992 2.2.32-1.59 1.552.375 2.19-1.965-1.034-1.969 1.035.375-2.192-1.59-1.55 2.2-.32zm0 0" /><path d="m9.316 19.809.985 1.988 2.195.32-1.59 1.551.375 2.191-1.965-1.035-1.968 1.035.379-2.191-1.594-1.55 2.199-.321zm0 0" /><path d="m9.316 19.809.985 1.988 2.195.32-1.59 1.551.375 2.191-1.965-1.035-1.968 1.035.379-2.191-1.594-1.55 2.199-.321zm0 0" /><path d="m9.316 19.809.985 1.988 2.195.32-1.59 1.551.375 2.191-1.965-1.035-1.968 1.035.379-2.191-1.594-1.55 2.199-.321zm0 0" /></g></svg>
                             </a>
                             <ul className="hidden xl:flex flex-wrap">
                                 <li className="mr-8">
@@ -79,29 +54,7 @@ export default function UserHeader() {
                                         <p className="text-coolGray-800">Dashboard</p>
                                     </Link>
                                 </li>
-                                <li className="mr-8">
-                                    <a className="flex flex-wrap items-center py-8 text-base font-medium text-coolGray-500 hover:text-yellow-500 border-b-2 border-transparent hover:border-yellow-500"
-                                        href="#">
-                                        <svg className="mr-2" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path
-                                                d="M2.50003 8.86L11.5 14.06C11.6521 14.1478 11.8245 14.194 12 14.194C12.1756 14.194 12.348 14.1478 12.5 14.06L21.5 8.86C21.6512 8.77275 21.7768 8.64746 21.8646 8.49659C21.9523 8.34572 21.999 8.17452 22 8C22.0007 7.82379 21.9549 7.65053 21.8671 7.49775C21.7792 7.34497 21.6526 7.21811 21.5 7.13L12.5 1.94C12.348 1.85224 12.1756 1.80603 12 1.80603C11.8245 1.80603 11.6521 1.85224 11.5 1.94L2.50003 7.13C2.34743 7.21811 2.22081 7.34497 2.13301 7.49775C2.04521 7.65053 1.99933 7.82379 2.00003 8C2.00108 8.17452 2.04779 8.34572 2.13551 8.49659C2.22322 8.64746 2.34889 8.77275 2.50003 8.86ZM12 4L19 8L12 12L5.00003 8L12 4ZM20.5 11.17L12 16L3.50003 11.13C3.3859 11.0639 3.25981 11.021 3.12903 11.0038C2.99825 10.9866 2.86537 10.9955 2.73803 11.0299C2.61069 11.0643 2.49141 11.1235 2.38706 11.2042C2.28271 11.2849 2.19536 11.3854 2.13003 11.5C1.99966 11.7296 1.96539 12.0015 2.03471 12.2563C2.10403 12.5111 2.2713 12.7281 2.50003 12.86L11.5 18.06C11.6521 18.1478 11.8245 18.194 12 18.194C12.1756 18.194 12.348 18.1478 12.5 18.06L21.5 12.86C21.7288 12.7281 21.896 12.5111 21.9654 12.2563C22.0347 12.0015 22.0004 11.7296 21.87 11.5C21.8047 11.3854 21.7173 11.2849 21.613 11.2042C21.5087 11.1235 21.3894 11.0643 21.262 11.0299C21.1347 10.9955 21.0018 10.9866 20.871 11.0038C20.7402 11.021 20.6142 11.0639 20.5 11.13V11.17ZM20.5 15.17L12 20L3.50003 15.13C3.3859 15.0639 3.25981 15.021 3.12903 15.0038C2.99825 14.9866 2.86537 14.9955 2.73803 15.0299C2.61069 15.0643 2.49141 15.1235 2.38706 15.2042C2.28271 15.2849 2.19536 15.3854 2.13003 15.5C1.99966 15.7296 1.96539 16.0015 2.03471 16.2563C2.10403 16.5111 2.2713 16.7281 2.50003 16.86L11.5 22.06C11.6521 22.1478 11.8245 22.194 12 22.194C12.1756 22.194 12.348 22.1478 12.5 22.06L21.5 16.86C21.7288 16.7281 21.896 16.5111 21.9654 16.2563C22.0347 16.0015 22.0004 15.7296 21.87 15.5C21.8047 15.3854 21.7173 15.2849 21.613 15.2042C21.5087 15.1235 21.3894 15.0643 21.262 15.0299C21.1347 14.9955 21.0018 14.9866 20.871 15.0038C20.7402 15.021 20.6142 15.0639 20.5 15.13V15.17Z"
-                                                fill="currentColor"></path>
-                                        </svg>
-                                        <p className="text-coolGray-800">Projects</p>
-                                    </a>
-                                </li>
-                                <li className="mr-8">
-                                    <a className="flex flex-wrap items-center py-8 text-base font-medium text-coolGray-500 hover:text-yellow-500 border-b-2 border-transparent hover:border-yellow-500"
-                                        href="#">
-                                        <svg xmlns="http://www.w3.org/2000/svg" className="mr-2" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                            <path
-                                                d="M10.21 14.75C10.303 14.8437 10.4136 14.9181 10.5354 14.9689C10.6573 15.0197 10.788 15.0458 10.92 15.0458C11.052 15.0458 11.1827 15.0197 11.3046 14.9689C11.4264 14.9181 11.537 14.8437 11.63 14.75L15.71 10.67C15.8983 10.4817 16.0041 10.2263 16.0041 9.96C16.0041 9.6937 15.8983 9.4383 15.71 9.25C15.5217 9.0617 15.2663 8.95591 15 8.95591C14.7337 8.95591 14.4783 9.0617 14.29 9.25L10.92 12.63L9.71 11.41C9.5217 11.2217 9.2663 11.1159 9 11.1159C8.7337 11.1159 8.4783 11.2217 8.29 11.41C8.1017 11.5983 7.99591 11.8537 7.99591 12.12C7.99591 12.3863 8.1017 12.6417 8.29 12.83L10.21 14.75ZM21 2H3C2.73478 2 2.48043 2.10536 2.29289 2.29289C2.10536 2.48043 2 2.73478 2 3V21C2 21.2652 2.10536 21.5196 2.29289 21.7071C2.48043 21.8946 2.73478 22 3 22H21C21.2652 22 21.5196 21.8946 21.7071 21.7071C21.8946 21.5196 22 21.2652 22 21V3C22 2.73478 21.8946 2.48043 21.7071 2.29289C21.5196 2.10536 21.2652 2 21 2ZM20 20H4V4H20V20Z"
-                                                fill="currentColor"></path>
-                                        </svg>
-                                        <p className="text-coolGray-800">Tasks</p>
-                                    </a>
-                                </li>
+                                
                                 <li className="mr-8">
                                     <Link to='leaderboard' className="flex flex-wrap items-center py-8 text-base font-medium text-coolGray-500 hover:text-yellow-500 border-b-2 border-transparent hover:border-yellow-500">
                                         <svg xmlns="http://www.w3.org/2000/svg" className="mr-2 h-6" width="24" height="24" viewBox="0 0 24 24" fill="none" strokeWidth="2" stroke="currentColor" aria-hidden="true">
@@ -115,20 +68,15 @@ export default function UserHeader() {
                         <div className="w-auto p-2">
                             <div className="hidden xl:flex flex-wrap items-center -m-3">
                                 <div className="w-auto p-3">
-                                    <a className="block max-w-max text-coolGray-500 hover:text-coolGray-600" href="#">
-                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M19 4H5C4.20435 4 3.44129 4.31607 2.87868 4.87868C2.31607 5.44129 2 6.20435 2 7V17C2 17.7956 2.31607 18.5587 2.87868 19.1213C3.44129 19.6839 4.20435 20 5 20H19C19.7956 20 20.5587 19.6839 21.1213 19.1213C21.6839 18.5587 22 17.7956 22 17V7C22 6.20435 21.6839 5.44129 21.1213 4.87868C20.5587 4.31607 19.7956 4 19 4ZM5 6H19C19.2652 6 19.5196 6.10536 19.7071 6.29289C19.8946 6.48043 20 6.73478 20 7L12 11.88L4 7C4 6.73478 4.10536 6.48043 4.29289 6.29289C4.48043 6.10536 4.73478 6 5 6ZM20 17C20 17.2652 19.8946 17.5196 19.7071 17.7071C19.5196 17.8946 19.2652 18 19 18H5C4.73478 18 4.48043 17.8946 4.29289 17.7071C4.10536 17.5196 4 17.2652 4 17V9.28L11.48 13.85C11.632 13.9378 11.8045 13.984 11.98 13.984C12.1555 13.984 12.328 13.9378 12.48 13.85L20 9.28V17Z" fill="currentColor"></path>
-                                        </svg>
-                                    </a>
-                                </div>
-                                <div className="w-auto p-3">
-                                    <a className="block max-w-max text-coolGray-500 hover:text-coolGray-600" href="#">
-                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path
-                                                d="M18 13.18V10C17.9986 8.58312 17.4958 7.21247 16.5806 6.13077C15.6655 5.04908 14.3971 4.32615 13 4.09V3C13 2.73478 12.8946 2.48043 12.7071 2.29289C12.5196 2.10536 12.2652 2 12 2C11.7348 2 11.4804 2.10536 11.2929 2.29289C11.1054 2.48043 11 2.73478 11 3V4.09C9.60294 4.32615 8.33452 5.04908 7.41939 6.13077C6.50425 7.21247 6.00144 8.58312 6 10V13.18C5.41645 13.3863 4.911 13.7681 4.55294 14.2729C4.19488 14.7778 4.00174 15.3811 4 16V18C4 18.2652 4.10536 18.5196 4.29289 18.7071C4.48043 18.8946 4.73478 19 5 19H8.14C8.37028 19.8474 8.873 20.5954 9.5706 21.1287C10.2682 21.6621 11.1219 21.951 12 21.951C12.8781 21.951 13.7318 21.6621 14.4294 21.1287C15.127 20.5954 15.6297 19.8474 15.86 19H19C19.2652 19 19.5196 18.8946 19.7071 18.7071C19.8946 18.5196 20 18.2652 20 18V16C19.9983 15.3811 19.8051 14.7778 19.4471 14.2729C19.089 13.7681 18.5835 13.3863 18 13.18ZM8 10C8 8.93913 8.42143 7.92172 9.17157 7.17157C9.92172 6.42143 10.9391 6 12 6C13.0609 6 14.0783 6.42143 14.8284 7.17157C15.5786 7.92172 16 8.93913 16 10V13H8V10ZM12 20C11.651 19.9979 11.3086 19.9045 11.0068 19.7291C10.7051 19.5536 10.4545 19.3023 10.28 19H13.72C13.5455 19.3023 13.2949 19.5536 12.9932 19.7291C12.6914 19.9045 12.349 19.9979 12 20ZM18 17H6V16C6 15.7348 6.10536 15.4804 6.29289 15.2929C6.48043 15.1054 6.73478 15 7 15H17C17.2652 15 17.5196 15.1054 17.7071 15.2929C17.8946 15.4804 18 15.7348 18 16V17Z"
-                                                fill="currentColor"></path>
-                                        </svg>
-                                    </a>
+                                    <Link to='review' className="block max-w-max text-coolGray-500 hover:text-coolGray-600">
+                                        <div className='rounded-lg h-10 w-32 flex flex-wrap items-center'>
+                                            <div className='h-8 w-8 items-center flex justify-center text-green-600 bg-green-200 rounded-full'>{reviewPoint}</div>
+                                            <div className='h-8 flex-1 flex flex-wrap ml-2 text-xs rounded-lg'>
+                                                <div className='flex'>Review Points </div>
+                                                <div className='flex'>Available</div>
+                                            </div>
+                                        </div>
+                                    </Link>
                                 </div>
                                 <div className="w-auto p-3">
                                     <div className="flex flex-wrap items-center -m-2">
@@ -138,8 +86,8 @@ export default function UserHeader() {
                                                     <img src={window.location.origin + "/flex-ui-assets/images/user/" + user.profilePics} alt="" className='rounded-full h-11' />
                                                 </div>
                                                 <div className="w-auto p-2">
-                                                    <h2 className="text-sm font-semibold text-coolGray-800">{user.name}</h2>
-                                                    <p className="text-sm font-medium text-coolGray-500">{user.email}</p>
+                                                    <h2 className="text-xs font-semibold text-coolGray-800">{user.name}</h2>
+                                                    <p className="text-xs font-medium text-coolGray-500">{user.email}</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -152,15 +100,13 @@ export default function UserHeader() {
                                                 </svg>
                                             </a>
                                             <ul className="p-2 shadow menu dropdown-content z-[1] bg-white rounded-box w-52">
-                                                {dropdownMenu.map((item , index) => (
+                                                {dropdownMenu.map((item, index) => (
                                                     <li key={index}>
                                                         <Link to={item.url}>{item.name}</Link>
                                                     </li>
                                                 ))}
                                             </ul>
                                         </div>
-
-                                        {/* <div className="w-auto p-2"></div> */}
 
                                     </div>
                                 </div>
@@ -228,7 +174,7 @@ export default function UserHeader() {
                                         </div>
                                     </a>
                                 </li>
-                                <li>
+                                {/* <li>
                                     <a className="p-3 py-4 flex items-center justify-between text-coolGray-500 hover:text-yellow-500 hover:bg-coolGray-50 rounded-md"
                                         href="#">
                                         <div className="flex items-center">
@@ -255,12 +201,12 @@ export default function UserHeader() {
                                             <p className="text-coolGray-800 font-medium text-base">Tasks</p>
                                         </div>
                                     </a>
-                                </li>
+                                </li> */}
                                 <li>
                                     <a className="p-3 py-4 flex items-center justify-between text-coolGray-500 hover:text-yellow-500 hover:bg-coolGray-50 rounded-md"
                                         href="#">
                                         <div className="flex items-center">
-                                            
+
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" aria-hidden="true" className="mr-2 h-6">
                                                 <path strokeLinecap="round" strokeLinejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
                                             </svg>

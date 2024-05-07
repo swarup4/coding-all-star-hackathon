@@ -3,11 +3,12 @@ require("dotenv").config();
 const express = require("express");
 
 const Models = require("./models");
+const ReviewModel = require("../reviews/models");
 
 const router = express.Router();
 
 function checkApiExist(req, res, next) {
-    
+
     const endPoint = req.body.apiEndPoint;
     const version = req.body.apiVersion;
 
@@ -32,8 +33,8 @@ function checkApiExist(req, res, next) {
 
 function updateApiStatus(req, res, next) {
     const id = req.params.id;
-
-    Models.UserAPIs.findOneAndUpdate({ _id: id }, { status: 1 }).then(res => {
+    
+    Models.UserAPIs.findOneAndUpdate({ _id: id }, { submitStatus: 1 }).then(res => {
         next()
     }).catch(err => {
         res.send(err);
@@ -137,6 +138,14 @@ router.put('/saveCode/:id', async (req, res) => {
     }
 })
 
+router.get('/getStatusCount', (req, res) => {
+    Models.UserAPIs.find({ status: 1 }).count().then(data => {
+        res.json(data)
+    }).catch(err => {
+        res.json(err);
+    })
+})
+
 router.put('/saveUnitTestCode/:id', async (req, res) => {
     try {
         const id = req.params.id;
@@ -160,14 +169,12 @@ router.put('/saveUnitTestCode/:id', async (req, res) => {
 router.put("/submitApi/:id", updateApiStatus, getApiInfo, async (req, res) => {
     try {
         const id = req.params.id;
-        const version = req.body.version;
 
         let obj = {
             submitedBy: req.apiData.userId,
             apiId: id,
             hackathonId: req.apiData.hackathonId,
-            endPointVersion: req.apiData.version,
-            version: version,
+            endPointVersion: req.apiData.apiVersion,
             apiEndPoint: req.apiData.apiEndPoint,
         }
         const model = new Models.SubmissionKey(obj);
@@ -180,14 +187,59 @@ router.put("/submitApi/:id", updateApiStatus, getApiInfo, async (req, res) => {
     }
 });
 
+router.get("/getAllSubmittedApiList", async (req, res) => {
+    try {
+        // const reviewList = await Models.SubmissionKey.find({apiStatus: 0})
+        const reviewList = await Models.SubmissionKey.aggregate([
+            {
+              $match: {
+                  apiStatus: 0
+                }
+            }, {
+              $lookup: {
+                from: "users",
+                localField: "submitedBy",
+                foreignField: "_id",
+                as: "user"
+              }
+            }, {
+              $lookup: {
+                from: "submissions",
+                localField: "apiId",
+                foreignField: "_id",
+                as: "api"
+              }
+            }, {
+              $unwind: "$user"
+            }, {
+              $unwind: "$api"
+            }, {
+              $unset: [ "userId", "user.password", "user.reporty", "user.createdAt", "user.updatedAt", "apiId" ]
+            }
+          ])
+        res.json(reviewList)
+    } catch (error) {
+        res.send(error)
+    }
+})
+
+
 router.put('/updateSubmissionStatus/:id', updateApiSubmission);
 
-router.get('/getStatusCount', (req, res) => {
-    Models.UserAPIs.find({ status: 1 }).count().then(data => {
-        res.json(data)
-    }).catch(err => {
-        res.json(err);
-    })
+router.get('/getSubmissionCount/:id', async (req, res) => {
+    try {
+        const userId = req.params.id
+
+        const submissionCount = await Models.SubmissionKey.find({ submitedBy: userId }).count();
+        const reviewCount = await ReviewModel.Review.find({ reviewerId: userId }).count();
+
+        res.json({
+            submission: submissionCount,
+            review: reviewCount,
+        })
+    } catch (error) {
+        res.json(error)
+    }
 })
 
 module.exports = router;

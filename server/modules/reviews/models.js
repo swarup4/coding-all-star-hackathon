@@ -8,19 +8,20 @@ const review = {
     _id: { type: objectId, auto: true },
     apiId: { type: objectId, required: true },
     reviewerId: { type: objectId, required: true },
-    status: { type: Number, default: 1 },
-    codeVerification: { type: Boolean, default: 1 },
-    comment: { type: String, required: true },
+    codeVerification: { type: Number, default: 0 },
+    comment: String,
     reply: [{
-        userId: objectId,
+        _id: { type: objectId, auto: true },
+        reviewId: { type: objectId, auto: true },
+        userId: { type: objectId, required: true },
+        dispute: { type: Boolean, default: 0 },
         comment: String,
         createdAt: Date,
         updatedAt: Date,
     }],
     createdAt: Date,
-    updatedAt: Date,
-    
-};
+    updatedAt: Date   
+}
 const reviewSchema = new Schema(review, { versionKey: false, timestamps: true });
 
 

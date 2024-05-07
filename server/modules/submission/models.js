@@ -10,7 +10,6 @@ const submission = {
     hackathonId: { type: objectId, required: true },
     name: { type: String, required: true },
     apiEndPoint: { type: String, required: true },
-    version: { type: String, required: true },
     apiVersion: { type: String, required: true },
     documentationLink: { type: String, required: true },
     programmingLanguage: { type: String, required: true },
@@ -21,6 +20,7 @@ const submission = {
     requirementApproach: String,
     category: String,
     description: String,
+    submitStatus: { type: Boolean, default: 0 },
     status: { type: Boolean, default: 0 },
     createdAt: Date,
     updatedAt: Date
@@ -35,7 +35,6 @@ const submissionKey = {
     apiId: { type: objectId, required: true },
     hackathonId: { type: objectId, required: true },
     endPointVersion: { type: String, required: true },
-    version: { type: String },
     apiEndPoint: { type: String, required: true },
     apiStatus: { type: Number, default: 0 },
     createdAt: Date,

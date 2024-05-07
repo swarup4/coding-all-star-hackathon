@@ -18,6 +18,7 @@ import Admin from './pages/Admin'
 import Leaderboard from './pages/Leaderboard'
 import Panel from './pages/Panel'
 import Profile from './pages/Profile'
+import Review from './pages/Review'
 
 
 function App() {
@@ -54,6 +55,9 @@ function App() {
                 }, {
                     path: 'details/:id',
                     element: <ApiDetails />
+                }, {
+                    path: 'review',
+                    element: <Review />
                 }]
             }]
         }, {
