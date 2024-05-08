@@ -4,9 +4,43 @@ const express = require('express');
 const ObjectId = require("mongoose").Types.ObjectId;
 
 const Models = require('./models');
-const userMiddleware = require('../../middleware/user');
+const PointModels = require('../points/models');
 
+const pointMiddleware = require('../../middleware/point');
 const router = express.Router();
+
+
+async function approveApi(req) {
+	let body = req.body;
+	const model = new Models.Review(body);
+	const review = await model.save();
+	if (review) {
+		return review;
+	}
+}
+
+async function rejectApi(req, res, next) {
+	try {
+		let body = req.body;
+		if (body.codeVerification == 2) {
+			let addReview = await approveApi(req);
+			let obj = {
+				userId: body.apiUserId,
+				apiId: body.apiId,
+				point: -1,
+				category: "review",
+			}
+
+			let point = await pointMiddleware.addPoint(obj, res)
+			res.json("Reject Point Add")
+		} else {
+			next()
+		}
+	} catch (error) {
+		res.json(error)
+	}
+}
+
 
 
 // Review 
@@ -36,14 +70,40 @@ router.get('/getAllReview/:apiId', (req, res) => {
 	});
 });
 
-router.post('/addReview', async (req, res) => {
+router.post('/addReview', rejectApi, async (req, res) => {
 	try {
-		let obj = req.body;
-		const model = new Models.Review(obj);
-		const review = await model.save();
-		if (review) {
-			res.json(review);
+		let body = req.body;
+		let reviewData = await Models.Review.find({ apiId: body.apiId });
+
+
+		if (reviewData.length == 0) {
+			let reviews = await approveApi(req)
+			res.json(reviews)
+		} else {
+
+			// If One people give approveal the code
+			if (reviewData[0].codeVerification == 1) {
+				let reviews = await approveApi(req)
+
+				if(reviews){
+					let obj = {
+						userId: body.apiUserId,
+						apiId: body.apiId,
+						point: 2,
+						category: "review",
+					}
+					let point = await pointMiddleware.addPoint(obj, res)
+					res.json("Point added");
+				}
+			} else {
+				let reviews = await approveApi(req)
+				if(reviews){
+					res.json("Point added After One Reject");
+				}
+			}
 		}
+
+
 	} catch (error) {
 		res.send(error);
 	}

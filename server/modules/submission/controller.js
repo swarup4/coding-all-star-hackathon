@@ -33,7 +33,7 @@ function checkApiExist(req, res, next) {
 
 function updateApiStatus(req, res, next) {
     const id = req.params.id;
-    
+
     Models.UserAPIs.findOneAndUpdate({ _id: id }, { submitStatus: 1 }).then(res => {
         next()
     }).catch(err => {
@@ -193,8 +193,8 @@ router.get("/getAllSubmittedApiList", async (req, res) => {
         const reviewList = await Models.SubmissionKey.aggregate([
             {
               $match: {
-                  apiStatus: 0
-                }
+                apiStatus: 0
+              }
             }, {
               $lookup: {
                 from: "users",
@@ -210,11 +210,39 @@ router.get("/getAllSubmittedApiList", async (req, res) => {
                 as: "api"
               }
             }, {
+              $lookup: {
+                from: "reviews",
+                localField: "api._id",
+                foreignField: "apiId",
+                as: "review"
+              }
+            }, {
               $unwind: "$user"
+            }, {
+              $lookup: {
+                from: "users",
+                localField: "user.manager",
+                foreignField: "_id",
+                as: "managerInfo"
+              }
+            }, {
+              $unwind: "$managerInfo",
             }, {
               $unwind: "$api"
             }, {
-              $unset: [ "userId", "user.password", "user.reporty", "user.createdAt", "user.updatedAt", "apiId" ]
+              $project: {
+                userId: "$submitedBy",
+                apiId: "$apiId",
+                hackathonId: "$hackathonId",
+                name: "$user.name",
+                email: "$user.email",
+                manager: "$managerInfo.name",
+                apiName: "$api.name",
+                apiEndPoint: "$api.apiEndPoint",
+                apiVersion: "$api.apiVersion",
+                programmingLanguage: "$api.programmingLanguage",
+                review: "$review"
+              }
             }
           ])
         res.json(reviewList)

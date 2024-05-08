@@ -1,9 +1,10 @@
 import React, { Fragment, useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import axios from 'axios'
 import { HOST_URL } from '../../constants'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { Popover, Transition } from '@headlessui/react'
+import { setReview } from '../../store/review/reviewSlice'
 
 export default function UserHeader() {
 
@@ -11,7 +12,8 @@ export default function UserHeader() {
     const [reviewPoint, setReviewPoint] = useState(0)
     const userInfo = JSON.parse(sessionStorage.user)
     const user = useSelector(store => store.user.data)
-    const location = useLocation()
+    const location = useLocation();
+    const dispatch = useDispatch()
 
     function redirectPage() {
         sessionStorage.url = location.pathname
@@ -26,6 +28,7 @@ export default function UserHeader() {
         axios.get(url).then(res => {
             const totalReviewPoint = (res.data?.submission * 2) - res.data.review
             setReviewPoint(totalReviewPoint)
+            dispatch(setReview({totalReviewPoint: totalReviewPoint}))
         }).catch(err => {
             console.log(err)
         })
