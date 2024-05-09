@@ -4,6 +4,7 @@ const express = require("express");
 
 const Models = require("./models");
 const ReviewModel = require("../reviews/models");
+const pointMiddleware = require('../../middleware/point');
 
 const router = express.Router();
 
@@ -22,7 +23,6 @@ function checkApiExist(req, res, next) {
                 data: "Someone already Submit the API"
             })
         } else {
-            console.log("Empty Data ===>>> ", api);
             next()
         }
     }).catch(err => {
@@ -164,7 +164,6 @@ router.put('/saveUnitTestCode/:id', async (req, res) => {
 
 
 
-
 // API Submission
 router.put("/submitApi/:id", updateApiStatus, getApiInfo, async (req, res) => {
     try {
@@ -179,9 +178,16 @@ router.put("/submitApi/:id", updateApiStatus, getApiInfo, async (req, res) => {
         }
         const model = new Models.SubmissionKey(obj);
         const api = await model.save();
-        if (api) {
-            res.json(api);
+
+        let pointObj = {
+            userId: req.apiData.userId,
+            apiId: id,
+            point: 1,
+            category: "submit",
         }
+        let point = await pointMiddleware.addPoint(pointObj, res)
+        res.json(api);
+        
     } catch (error) {
         res.send(error);
     }

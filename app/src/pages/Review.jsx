@@ -92,12 +92,15 @@ export default function Review() {
     }
 
     function reviewEligible(review) {
-        if (review.length > 0 && review.length < 2) {
-            for (const item of review) {
-                return (item.reviewerId != user.id) ? true : false
+        if (review.length == 0 || review.length == 1) {
+            if (review.length == 1){
+                for (const item of review) {
+                    return (item.reviewerId != user.id) ? true : false
+                }
             }
-        } else {
             return true
+        } else {
+            return false
         }
     }
 
@@ -181,13 +184,13 @@ export default function Review() {
                 </div>
             </section >
 
-            <CommonDialog dialog='large' open={isOpen} close={setIsOpen} submitText='Approve' rejectText='Reject' submit={approveCode} reject={rejectDialog}>
+            <CommonDialog heading="Add Code" dialog='large' open={isOpen} close={setIsOpen} submitText='Approve' rejectText='Reject' submit={approveCode} reject={rejectDialog}>
                 <CodeView id={apiId} />
             </CommonDialog>
 
             {
                 reject ? (
-                    <CommonDialog open={reject} close={setIsOpen} submitText='Sumbit' submit={rejectCode}>
+                    <CommonDialog heading="Comment" open={reject} close={setIsOpen} submitText='Sumbit' submit={rejectCode}>
                         <textarea name='comment' placeholder="Give rejection comment" value={comment} onChange={ev => setComment(ev.target.value)}
                             className="w-full px-4 py-2.5 text-base text-coolGray-900 font-normal outline-none focus:border-yellow-500 border border-coolGray-200 rounded-lg shadow-input"></textarea>
                     </CommonDialog>

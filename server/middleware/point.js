@@ -11,6 +11,16 @@ const Points = {
         } catch (error) {
             res.json(error)
         }
+    },
+    getPoint: async (body, res) => {
+        try {
+            let point = await Model.Point.find({ apiId: body.apiId });
+            if (point) {
+                return point;
+            }
+        } catch (error) {
+            res.json(error)
+        }
     }
 };
 

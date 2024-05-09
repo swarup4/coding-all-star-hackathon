@@ -31,8 +31,13 @@ async function rejectApi(req, res, next) {
 				category: "review",
 			}
 
-			let point = await pointMiddleware.addPoint(obj, res)
-			res.json("Reject Point Add")
+			let point = await pointMiddleware.getPoint(obj, res)
+			if(point.length == 0) {
+				let addPoint = await pointMiddleware.addPoint(obj, res)
+				res.json("Reject Point Add")
+			} else {
+				res.json("API Already Rejected")
+			}
 		} else {
 			next()
 		}
@@ -80,7 +85,6 @@ router.post('/addReview', rejectApi, async (req, res) => {
 			let reviews = await approveApi(req)
 			res.json(reviews)
 		} else {
-
 			// If One people give approveal the code
 			if (reviewData[0].codeVerification == 1) {
 				let reviews = await approveApi(req)
@@ -92,6 +96,7 @@ router.post('/addReview', rejectApi, async (req, res) => {
 						point: 2,
 						category: "review",
 					}
+
 					let point = await pointMiddleware.addPoint(obj, res)
 					res.json("Point added");
 				}
@@ -102,8 +107,6 @@ router.post('/addReview', rejectApi, async (req, res) => {
 				}
 			}
 		}
-
-
 	} catch (error) {
 		res.send(error);
 	}
