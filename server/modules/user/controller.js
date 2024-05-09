@@ -34,7 +34,6 @@ router.get("/info/:id", async (req, res) => {
 });
 
 
-
 // Get Hirerchy List
 router.get("/hierarchicalData", async (req, res) => {
     try {
@@ -71,6 +70,7 @@ router.get("/hierarchicalData", async (req, res) => {
         res.send(error);
     }
 });
+
 /**
 {
     "username": "Swarup7",
@@ -141,41 +141,60 @@ router.post("/signup", userMiddleware.checkExestingUser, async (req, res) => {
     }
 });
 
-router.put("/addUsername/:id", async (req, res) => {
+router.get('/userList', async (req, res) => {
     try {
-        const id = req.params.id;
-        const user = await User.Auth.findOneAndUpdate({ _id: id }, { username: req.body.username }, {
-            timestamps: { createdAt: false, updatedAt: true }
-        });
+        let userList = await User.Auth.find({}, { name: 1 })
+        res.json(userList);
+    } catch (error) {
 
-        if (user) {
+    }
+})
+
+
+router.put('/updateUserDetails/:id', async (req, res) => {
+    try {
+        let userId = req.params.id;
+        let body = req.body;
+
+        let authObj = {
+            role: body.role,
+            empId: Number(body.empId),
+            manager: body.manager,
+        }
+
+        if (Object.keys(body.profilePics).length > 0) {
+            authObj.profilePics = body.profilePics?.file?.name
+        }
+
+        const auth = await User.Auth.findOneAndUpdate({ _id: userId }, authObj, {
+            returnOriginal: false
+        })
+
+        let detailsObj = {
+            userId: userId,
+            primarySkill: [body.primarySkill],
+            secondarySkill: [body.secondarySkill],
+            city: body.city,
+            state: body.state,
+            country: body.country
+        }
+
+        const details = await User.Details.findOneAndUpdate({ userId: userId }, detailsObj, {
+            new: true,
+            upsert: true
+        })
+
+        if (details) {
             res.json({
                 success: true,
-                data: user
+                data: auth
             });
         }
     } catch (error) {
-        res.send(error);
+        res.json(error)
     }
-});
+})
 
-router.put("/addUserInfo/:id", userMiddleware.varifyToken, async (req, res) => {
-    try {
-        const id = req.params.id;
-        const user = await User.Auth.findOneAndUpdate({ _id: id }, req.body, {
-            timestamps: { createdAt: false, updatedAt: true }
-        });
-
-        if (user) {
-            res.json({
-                success: true,
-                data: user
-            });
-        }
-    } catch (error) {
-        res.send(error);
-    }
-});
 
 //Change Password
 router.post('/changePassword', userMiddleware.varifyToken, async (req, res) => {
@@ -293,61 +312,6 @@ router.put("/varification/:type/:id", userMiddleware.varifyToken, (req, res) => 
     });
 });
 
-/**
- * Insert User Details
- *  */
-// Insert Logged in User Details
-router.post("/insertUserDetails", async (req, res) => {
-    try {
-        const model = new User.Details(req.body);
-        const user = await model.save();
-        if (user) {
-            res.json({
-                success: true,
-                message: 'User details has addded'
-            });
-        }
-    } catch (error) {
-        res.send(error);
-    }
-});
-
-// Get Logged in User Details
-router.get("/userDetails/:id", async (req, res) => {
-    try {
-        const id = req.params.id;
-        const user = await User.Details.findOne({ userId: id });
-        if (user) {
-            res.json({
-                success: true,
-                data: user
-            });
-        }
-    } catch (error) {
-        res.send(error);
-    }
-});
-
-// Update User Details
-router.put("/updateUserDetails/:id", async (req, res) => {
-    try {
-        const id = req.params.id;
-        const obj = req.body;
-        const user = await User.Details.findOneAndUpdate({ userId: id }, obj, {
-            timestamps: { createdAt: false, updatedAt: true }
-        });
-
-        if (user) {
-            res.json({
-                success: true,
-                message: "Data Updated Successfully"
-            });
-        }
-    } catch (error) {
-        res.send(error);
-    }
-});
-
 // Add Social Media
 router.post('/addSocialMedia/:id', async (req, res) => {
     try {
@@ -384,10 +348,9 @@ router.put('/uploadProfilePics/:id', async (req, res) => {
                 message: 'Profile picture uploaded successfully'
             });
         }
-    } catch(error) {
+    } catch (error) {
         res.send(error);
     }
-    
 });
 
 module.exports = router;

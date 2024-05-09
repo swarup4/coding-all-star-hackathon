@@ -121,13 +121,14 @@ router.post('/addReply/:id', async (req, res) => {
 
 		const review = await Models.Review.findOneAndUpdate({ _id: reviewId }, { $push: { reply: obj } }, {
 			new: true,
-			upsert: true // Make this update into an upsert
+			upsert: true, // Make this update into an upsert
+			returnOriginal: false
 		});
 
 		if (review) {
 			res.json({
 				success: true,
-				message: 'User has replied for the review'
+				data: review
 			});
 		}
 	} catch (error) {

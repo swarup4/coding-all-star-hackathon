@@ -34,7 +34,9 @@ function checkApiExist(req, res, next) {
 function updateApiStatus(req, res, next) {
     const id = req.params.id;
 
-    Models.UserAPIs.findOneAndUpdate({ _id: id }, { submitStatus: 1 }).then(res => {
+    Models.UserAPIs.findOneAndUpdate({ _id: id }, { submitStatus: 1 }, {
+        returnOriginal: false
+    }).then(res => {
         next()
     }).catch(err => {
         res.send(err);
@@ -58,7 +60,9 @@ function updateApiSubmission(req, res) {
     const id = req.params.id
     const body = req.body
 
-    Models.SubmissionKey.findOneAndUpdate({ _id: id }, body).then(res => {
+    Models.SubmissionKey.findOneAndUpdate({ _id: id }, body, {
+        returnOriginal: false
+    }).then(res => {
         res.json({
             status: 200,
             message: "success"
@@ -110,7 +114,9 @@ router.put('/updateApiDetails/:id', async (req, res) => {
         const id = req.params.id
         const body = req.body
         console.log(body);
-        const code = await Models.UserAPIs.findOneAndUpdate({ _id: id }, body)
+        const code = await Models.UserAPIs.findOneAndUpdate({ _id: id }, body, {
+            returnOriginal: false
+        })
         if (code) {
             res.json({
                 success: true,
@@ -126,7 +132,9 @@ router.put('/saveCode/:id', async (req, res) => {
     try {
         const id = req.params.id
         const body = req.body
-        const code = await Models.UserAPIs.findOneAndUpdate({ _id: id }, body)
+        const code = await Models.UserAPIs.findOneAndUpdate({ _id: id }, body, {
+            returnOriginal: false
+        })
         if (code) {
             res.json({
                 success: true,
@@ -150,7 +158,9 @@ router.put('/saveUnitTestCode/:id', async (req, res) => {
     try {
         const id = req.params.id;
         const body = req.body;
-        const code = await Models.UnitTest.findOneAndUpdate({ _id: id }, body);
+        const code = await Models.UnitTest.findOneAndUpdate({ _id: id }, body, {
+            returnOriginal: false
+        });
         if (code) {
             res.json({
                 success: true,

@@ -19,6 +19,7 @@ import Leaderboard from './pages/Leaderboard'
 import Panel from './pages/Panel'
 import Profile from './pages/Profile'
 import Review from './pages/Review'
+import ProfileInfo from './pages/ProfileInfo'
 
 
 function App() {
@@ -76,10 +77,16 @@ function App() {
             }],
         }, {
             path: 'login',
-            element: <Login />
+            element: <Login />,
+            errorElement: <Error />
         }, {
             path: 'signup',
-            element: <Register />
+            element: <Register />,
+            errorElement: <Error />
+        }, {
+            path: 'user',
+            element: <ProfileInfo />,
+            errorElement: <Error />
         }
     ])
     return (

@@ -57,8 +57,12 @@ export default function Register() {
             } else {
                 console.log(res.data);
                 sessionStorage.auth = res.data.token;
-                const location = sessionStorage.url;
-                navigate(location);
+                sessionStorage.user = JSON.stringify({
+                    email: res.data.email,
+                    id: res.data.id,
+                    name: res.data.name
+                })
+                navigate("/user");
             }
         }).catch(err => {
             console.log(err)

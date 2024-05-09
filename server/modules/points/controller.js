@@ -1,14 +1,48 @@
 const express = require('express');
-const ObjectId = require("mongoose").Types.ObjectId;
-const SubmissionModels = require('../submission/models');
+const Model = require('./models');
 
 const router = express.Router();
 
-// Hackathon
-router.get('/totalPoints/:id', async (req, res) => {
+// LeaderBoard
+router.get('/getLeaderboard', async (req, res) => {
     try {
-        const userId = req.params.id
-        const data = await SubmissionModels.SubmissionKey.find({submitedBy: userId}).count()
+        const data = await Model.Point.aggregate([
+            {
+                $group: {
+                    _id: "$userId",
+                    totalPoint: {
+                        $sum: "$point"
+                    }
+                }
+            }, {
+                $lookup: {
+                    from: "users",
+                    localField: "_id",
+                    foreignField: "_id",
+                    as: "user"
+                }
+            }, {
+                $unwind: "$user"
+            }, {
+                $project: {
+                    name: "$user.name",
+                    email: "$user.email",
+                    point: "$totalPoint"
+                }
+            }, {
+                $setWindowFields: {
+                    partitionBy: "$_id",
+                    sortBy: {
+                        point: -1
+                    },
+                    output: {
+                        rank: {
+                            $denseRank: {}
+                        }
+                    }
+                }
+            }
+        ])
         res.json(data);
     } catch (error) {
         res.send(error);

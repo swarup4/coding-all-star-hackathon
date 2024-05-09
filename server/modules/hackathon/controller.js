@@ -119,7 +119,9 @@ router.put('/updateHackathon/:id', async (req, res) => {
     try {
         const id = req.params.id;
         const body = req.body;
-        const data = await Models.Hackathon.findOneAndUpdate({ _id: id }, body);
+        const data = await Models.Hackathon.findOneAndUpdate({ _id: id }, body, {
+            returnOriginal: false
+        });
         if (data) {
             res.json({
                 success: true,
@@ -134,7 +136,9 @@ router.put('/updateHackathon/:id', async (req, res) => {
 router.put('/deleteHackathon/:id', async (req, res) => {
     try {
         const id = req.params.id;
-        const data = await Models.Hackathon.findOneAndUpdate({ _id: id }, { status: 0 });
+        const data = await Models.Hackathon.findOneAndUpdate({ _id: id }, { status: 0 }, {
+            returnOriginal: false
+        });
         if (data) {
             res.json({
                 success: true,
@@ -151,7 +155,9 @@ router.put('/applyHackathon/:id', async (req, res) => {
     try {
         const id = req.params.id;
         const userId = req.body.userId;
-        const apply = await Models.Hackathon.findOneAndUpdate({ _id: id }, { $push: { appliedUser: userId } });
+        const apply = await Models.Hackathon.findOneAndUpdate({ _id: id }, { $push: { appliedUser: userId } }, {
+            returnOriginal: false
+        });
 
         if (apply) {
             res.json({

@@ -10,7 +10,6 @@ const initialValues = {
     name: '',
     category: '',
     apiEndPoint: '',
-    version: '',
     apiVersion: '',
     documentationLink: '',
     programmingLanguage: '',
@@ -21,7 +20,6 @@ const schema = object().shape({
     name: string().required('Enter your API Name'),
     category: string().required('Enter your Project Category'),
     apiEndPoint: string().required('Enter API End point'),
-    version: string().required('Enter your API Version'),
     apiVersion: string().required('Enter your API End Point Version'),
     documentationLink: string().required('Enter your API Documentation Link'),
     programmingLanguage: string().required('Select your Programming Language'),
@@ -146,22 +144,6 @@ export default function SubmissionForm(props) {
                                     className="w-full px-4 py-2.5 text-base text-coolGray-900 font-normal outline-none focus:border-yellow-500 border border-coolGray-200 rounded-lg shadow-input" />
                                 {errors.apiVersion && touched.apiVersion ? (
                                     <p className='mt-1 text-red-500'>{errors.apiVersion}</p>
-                                ) : ''}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className="py-6 border-b border-coolGray-100">
-                    <div className="w-full md:w-9/12">
-                        <div className="flex flex-wrap -m-3">
-                            <div className="w-full md:w-1/3 p-3">
-                                <p className="text-sm text-coolGray-800 font-semibold">Version</p>
-                            </div>
-                            <div className="w-full md:flex-1 p-3">
-                                <input type="text" name='version' placeholder="API Version" value={values.version} onChange={handleChange} onBlur={handleBlur}
-                                    className="w-full px-4 py-2.5 text-base text-coolGray-900 font-normal outline-none focus:border-yellow-500 border border-coolGray-200 rounded-lg shadow-input" />
-                                {errors.version && touched.version ? (
-                                    <p className='mt-1 text-red-500'>{errors.version}</p>
                                 ) : ''}
                             </div>
                         </div>

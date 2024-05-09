@@ -114,18 +114,6 @@ export default function SubmissionDetails() {
                                 <div className="w-full md:w-9/12">
                                     <div className="flex flex-wrap -m-3">
                                         <div className="w-full md:w-1/4 p-3">
-                                            <p className="text-sm text-coolGray-800 font-semibold">Version</p>
-                                        </div>
-                                        <div className="w-full md:flex-1 p-3">
-                                            {api.version}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="py-6 border-b border-coolGray-100">
-                                <div className="w-full md:w-9/12">
-                                    <div className="flex flex-wrap -m-3">
-                                        <div className="w-full md:w-1/4 p-3">
                                             <p className="text-sm text-coolGray-800 font-semibold">API Version</p>
                                         </div>
                                         <div className="w-full md:flex-1 p-3">
