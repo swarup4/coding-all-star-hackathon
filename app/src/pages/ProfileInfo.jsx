@@ -180,9 +180,7 @@ export default function ProfileInfo() {
                                                 <span>or drag and drop</span>
                                             </p>
                                             <p className="text-xs text-coolGray-500 font-medium">PNG, JPG, GIF or up to 10MB</p>
-                                            {Object.keys(userProfilePics).length > 0 ? (
-                                                <p className="text-xs text-coolGray-500 font-medium">{userProfilePics.file.name}</p>
-                                            ) : ''}
+                                            <p className="text-xs text-coolGray-500 font-medium">{userProfilePics?.file?.name ?? ''}</p>
                                             <input type="file" name='profilePics' onChange={(ev) => setUserProfilePics({ "file": ev.currentTarget.files[0] })} className="absolute top-0 left-0 w-full h-full opacity-0" />
                                         </div>
                                     </div>

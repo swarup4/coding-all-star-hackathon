@@ -14,7 +14,7 @@ export default function Editor(props) {
     }, []);
 
     useEffect(() => {
-        if(props.language == 'js' && props.code == ''){
+        if((props.language == 'js' || props.language == 'nodejs') && props.code == ''){
             props.setCode("console.log('hello world!');")
         }else if(props.language == 'java' && props.code == ''){
             props.setCode('System.out.println("hello world!");')
@@ -53,22 +53,22 @@ func main() {
         <div>
             {props.language === 'js' && (
                 <div>
-                    <CodeMirror value={props.code} height="200px" onChange={onChange} options={codeOptions} theme={sublime} extensions={[javascript({ jsx: true })]} />
+                    <CodeMirror value={props.code} height="calc(100vh - 180px)" onChange={onChange} options={codeOptions} theme={sublime} extensions={[javascript({ jsx: true })]} />
                 </div>
             )}
             {props.language === 'java' && (
                 <div>
-                    <CodeMirror value={props.code} height="200px" onChange={onChange} options={codeOptions} theme={sublime} extensions={[java()]} />
+                    <CodeMirror value={props.code} height="calc(100vh - 180px)" onChange={onChange} options={codeOptions} theme={sublime} extensions={[java()]} />
                 </div>
             )}
             {props.language === 'html' && (
                 <div>
-                    <CodeMirror value={props.code} height="200px" onChange={onChange} options={codeOptions} theme={sublime} extensions={[html({ matchClosingTags: true })]} />
+                    <CodeMirror value={props.code} height="calc(100vh - 180px)" onChange={onChange} options={codeOptions} theme={sublime} extensions={[html({ matchClosingTags: true })]} />
                 </div>
             )}
             {props.language === 'go' && (
                 <div>
-                    <CodeMirror value={props.code} height="200px" onChange={onChange} options={codeOptions} theme={sublime} extensions={[StreamLanguage.define(go)]} />;
+                    <CodeMirror value={props.code} height="calc(100vh - 180px)" onChange={onChange} options={codeOptions} theme={sublime} extensions={[StreamLanguage.define(go)]} />;
                 </div>
             )}
         </div>

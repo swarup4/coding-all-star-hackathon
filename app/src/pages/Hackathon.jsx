@@ -3,19 +3,22 @@ import axios from 'axios'
 import moment from 'moment'
 import { HOST_URL } from '../constants'
 import { useSelector } from 'react-redux'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import Leaderboard from '../components/hackathon/Leaderboard'
 import Panel from '../components/hackathon/Panel'
 import Participants from '../components/hackathon/Participants'
 import Prices from '../components/hackathon/Prices'
 import Reviews from '../components/hackathon/Reviews'
 import Schedule from '../components/hackathon/Schedule'
+import ApiList from '../components/hackathon/ApiList'
 
 
 export default function Hackathon() {
 
+    const { id } = useParams()
+    const navigate = useNavigate()
     const project = useSelector(store => store.hackathon.project);
-    const { id } = useParams();
+    const user = useSelector(store => store.user.data)
     const [projectDetails, setProjectDetails] = useState({});
     const [tab, setTab] = useState('');
     const [tabData, setTabData] = useState('');
@@ -32,6 +35,15 @@ export default function Hackathon() {
             setProjectDetails(project);
         }
     }, [])
+
+    function getParticipate(applied) {
+        for (let i of applied) {
+            if (i._id == user.id) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     return (
         <>
@@ -56,12 +68,25 @@ export default function Hackathon() {
                                 <p className="mb-8 md:mb-12 text-lg md:text-xl font-medium text-coolGray-500">
                                     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                                 </p>
-                                <div className="flex items-center -mx-2">
-                                    <div className="w-auto px-2">
-                                        <img src={window.location.origin + "/flex-ui-assets/images/user/" + projectDetails.user.profilePics} alt="" className='rounded-full h-20' />
+                                <div className="flex items-center justify-between flex-wrap -mx-2">
+                                    <div className="w-9/12 flex">
+                                        <div className="w-auto px-2">
+                                            <img src={window.location.origin + "/flex-ui-assets/images/user/" + projectDetails.user.profilePics} alt="" className='rounded-full h-20' />
+                                        </div>
+                                        <div className="w-auto px-2 flex items-center">
+                                            <h4 className="text-base md:text-lg font-bold text-coolGray-800">{projectDetails.user.name}</h4>
+                                        </div>
                                     </div>
-                                    <div className="w-auto px-2">
-                                        <h4 className="text-base md:text-lg font-bold text-coolGray-800">{projectDetails.user.name}</h4>
+                                    <div className="w-auto">
+                                        {getParticipate(projectDetails.appliedUser) ? (
+                                            <button type="button" onClick={() => navigate(`/dashboard/submission/${id}`)} className="float-right inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium bg-yellow-500 hover:bg-yellow-600 font-medium text-sm text-white border border-yellow-500 rounded-md shadow-button">
+                                                Add Api
+                                            </button>
+                                        ) : (
+                                            <button type="button" className="float-right inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium bg-yellow-500 hover:bg-yellow-600 font-medium text-sm text-white border border-yellow-500 rounded-md shadow-button">
+                                                Participate
+                                            </button>
+                                        )}
                                     </div>
                                 </div>
                             </div>
@@ -70,6 +95,7 @@ export default function Hackathon() {
                             <div className="w-full md:w-5/12 lg:w-4/12 xl:w-3/12 px-4 mb-8">
                                 <ul className="pb-6 mb-8 border-b border-coolGray-100">
                                     <li onClick={() => setTab('')} className={`text-coolGray-400 hover:text-coolGray-500 cursor-pointer ${tab == '' ? 'tab-active' : ''}`}><a className="inline-block py-2 px-2 font-semibold">Overview</a></li>
+                                    <li onClick={() => setTab('apilist')} className={`text-coolGray-400 hover:text-coolGray-500 cursor-pointer ${tab == 'apilist' ? 'tab-active' : ''}`}><a className="inline-block py-2 px-2 font-semibold">API List</a></li>
                                     <li onClick={() => setTab('leaderboard')} className={`text-coolGray-400 hover:text-coolGray-500 cursor-pointer ${tab == 'leaderboard' ? 'tab-active' : ''}`}><a className="inline-block py-2 px-2 font-semibold">Leaderboard</a></li>
                                     <li onClick={() => setTab('prices')} className={`text-coolGray-400 hover:text-coolGray-500 cursor-pointer ${tab == 'prices' ? 'tab-active' : ''}`}><a className="inline-block py-2 px-2 font-semibold">Prices</a></li>
                                     <li onClick={() => setTab('panel', projectDetails.panels)} className={`text-coolGray-400 hover:text-coolGray-500 cursor-pointer ${tab == 'panel' ? 'tab-active' : ''}`}><a className="inline-block py-2 px-2 font-semibold">Panel</a></li>
@@ -125,7 +151,11 @@ export default function Hackathon() {
 
                             <div className="w-full md:flex-1 px-4">
                                 {tab == '' ? (
-                                    <p dangerouslySetInnerHTML={{__html: projectDetails.description}} className="mb-8 pb-10 text-lg md:text-xl font-medium text-coolGray-500 border-b border-coolGray-100"></p>
+                                    <p dangerouslySetInnerHTML={{ __html: projectDetails.description }} className="mb-8 pb-10 text-lg md:text-xl font-medium text-coolGray-500 border-b border-coolGray-100"></p>
+                                ) : ''}
+
+                                {tab == 'apilist' ? (
+                                    <ApiList />
                                 ) : ''}
 
                                 {tab == 'leaderboard' ? (

@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 
 import CodeMirror from "@uiw/react-codemirror";
 import { StreamLanguage } from '@codemirror/language';
@@ -17,28 +17,32 @@ export default function Editor(props) {
     }, []);
 
     useEffect(() => {
-        if((submission.programmingLanguage == 'nodejs' || submission.programmingLanguage == 'js' ) && props.code == ''){
-            props.setCode("console.log('hello world!');")
-        }else if(submission.programmingLanguage == 'java' && props.code == ''){
-            props.setCode('System.out.println("hello world!");')
-        }
-        else if(props.programmingLanguage == 'html' && props.code == ''){
-            props.setCode(`<html>
-    <head>
-        <title>index page</title>
-    </head>
-    <body>
-        <h1>Hello</h1>
-    </body>
-<html>`)
-        }
-        else if(submission.programmingLanguage == 'go' && props.code == ''){
-            props.setCode(`package main
-import "fmt"
-                
-func main() {
-    fmt.Println("Hello, 世界")
-}`)
+        if (props.type == 'code' || props.type == 'test') {
+            if ((submission.programmingLanguage == 'nodejs' || submission.programmingLanguage == 'js') && props.code == '') {
+                props.setCode("console.log('hello world!');")
+            } else if (submission.programmingLanguage == 'java' && props.code == '') {
+                props.setCode('System.out.println("hello world!");')
+            }
+            else if (props.programmingLanguage == 'html' && props.code == '') {
+                props.setCode(`<html>
+        <head>
+            <title>index page</title>
+        </head>
+        <body>
+            <h1>Hello</h1>
+        </body>
+    <html>`)
+            }
+            else if (submission.programmingLanguage == 'go' && props.code == '') {
+                props.setCode(`package main
+    import "fmt"
+                    
+    func main() {
+        fmt.Println("Hello, 世界")
+    }`)
+            }
+        } else {
+            props.setCode('')
         }
     }, [submission.programmingLanguage])
 
@@ -55,24 +59,16 @@ func main() {
 
         <div>
             {submission.programmingLanguage == 'nodejs' && (
-                <div>
-                    <CodeMirror value={props.code} height="calc(100vh - 247px)" onChange={onChange} options={codeOptions} theme={sublime} extensions={[javascript({ jsx: true })]} />
-                </div>
+                <CodeMirror value={props.code} height="calc(100vh - 247px)" onChange={onChange} options={codeOptions} theme={sublime} extensions={[javascript({ jsx: true })]} />
             )}
             {submission.programmingLanguage == 'java' && (
-                <div>
-                    <CodeMirror value={props.code} height="calc(100vh - 247px)" onChange={onChange} options={codeOptions} theme={sublime} extensions={[java()]} />
-                </div>
+                <CodeMirror value={props.code} height="calc(100vh - 247px)" onChange={onChange} options={codeOptions} theme={sublime} extensions={[java()]} />
             )}
             {submission.programmingLanguage == 'html' && (
-                <div>
-                    <CodeMirror value={props.code} height="calc(100vh - 247px)" onChange={onChange} options={codeOptions} theme={sublime} extensions={[html({ matchClosingTags: true })]} />
-                </div>
+                <CodeMirror value={props.code} height="calc(100vh - 247px)" onChange={onChange} options={codeOptions} theme={sublime} extensions={[html({ matchClosingTags: true })]} />
             )}
             {submission.programmingLanguage == 'go' && (
-                <div>
-                    <CodeMirror value={props.code} height="calc(100vh - 247px)" onChange={onChange} options={codeOptions} theme={sublime} extensions={[StreamLanguage.define(go)]} />;
-                </div>
+                <CodeMirror value={props.code} height="calc(100vh - 247px)" onChange={onChange} options={codeOptions} theme={sublime} extensions={[StreamLanguage.define(go)]} />
             )}
         </div>
     );

@@ -9,12 +9,12 @@ import { setReview } from '../../store/review/reviewSlice'
 export default function UserHeader() {
 
     const [open, setOpen] = useState(true)
-    const [reviewPoint, setReviewPoint] = useState(0)
     const userInfo = JSON.parse(sessionStorage.user)
-    const user = useSelector(store => store.user.data)
     const location = useLocation();
     const dispatch = useDispatch()
-
+    const user = useSelector(store => store.user.data)
+    const reviewPoint = useSelector(store => store.review.data)
+    
     function redirectPage() {
         sessionStorage.url = location.pathname
     }
@@ -27,7 +27,6 @@ export default function UserHeader() {
         const url = `${HOST_URL}submission/getSubmissionCount/${userInfo.id}`
         axios.get(url).then(res => {
             const totalReviewPoint = (res.data?.submission * 2) - res.data.review
-            setReviewPoint(totalReviewPoint)
             dispatch(setReview({totalReviewPoint: totalReviewPoint}))
         }).catch(err => {
             console.log(err)
@@ -82,7 +81,7 @@ export default function UserHeader() {
                                 <div className="w-auto p-3">
                                     <Link to='review' className="block max-w-max text-coolGray-500 hover:text-coolGray-600">
                                         <div className='rounded-lg h-10 w-32 flex flex-wrap items-center'>
-                                            <div className='h-8 w-8 items-center flex justify-center text-green-600 bg-green-200 rounded-full'>{reviewPoint}</div>
+                                            <div className='h-8 w-8 items-center flex justify-center text-green-600 bg-green-200 rounded-full'>{reviewPoint?.totalReviewPoint ?? 0}</div>
                                             <div className='h-8 flex-1 flex flex-wrap ml-2 text-xs rounded-lg'>
                                                 <div className='flex'>Review Points </div>
                                                 <div className='flex'>Available</div>

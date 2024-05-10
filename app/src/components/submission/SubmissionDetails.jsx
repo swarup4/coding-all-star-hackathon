@@ -1,21 +1,23 @@
 import { Fragment, useState, useEffect } from 'react'
 import axios from 'axios'
 import { useParams } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { PlusCircleIcon } from '@heroicons/react/20/solid'
 import { Dialog, Transition } from '@headlessui/react'
 import { setSubmission } from '../../store/submission/submissionSlice'
+import { setReview } from '../../store/review/reviewSlice'
 
 import { HOST_URL } from '../../constants'
 
 import AddCode from './AddCode'
 
-export default function SubmissionDetails() {
-    let [isOpen, setIsOpen] = useState(false)
+export default function SubmissionDetails(props) {
+    const [isOpen, setIsOpen] = useState(false)
     const [api, getApi] = useState({});
     const [videoUrl, setVideoUrl] = useState('')
     const { id } = useParams();
     const dispatch = useDispatch()
+    const reviewPoint = useSelector(store => store.review.data)
 
     function closeModal() {
         setIsOpen(false)
@@ -23,6 +25,14 @@ export default function SubmissionDetails() {
 
     function openModal() {
         setIsOpen(true)
+    }
+
+    function codeDialogs(type){
+        let obj = {
+            isOpen: true,
+            type: type
+        }
+        props.codeDialog(obj)
     }
 
     useEffect(() => {
@@ -48,6 +58,16 @@ export default function SubmissionDetails() {
         })
     }
 
+    function submitApi () {
+        const url = `${HOST_URL}submission/submitApi/${id}`;
+        axios.put(url).then(res => {
+            let pointInc = (reviewPoint?.totalReviewPoint ?? 0) + 2
+            dispatch(setReview({totalReviewPoint: pointInc}))
+        }).catch(err => {
+            console.log(err);
+        })
+    }
+
     return (
         <div>
 
@@ -60,7 +80,7 @@ export default function SubmissionDetails() {
                     <div className="w-full md:w-auto p-2">
                         <div className="flex flex-wrap justify-between -m-1.5">
                             <div className="w-full md:w-auto p-1.5">
-                                <button type="submit" className="flex flex-wrap justify-center w-full px-4 py-2 bg-yellow-500 hover:bg-yellow-600 font-medium text-sm text-white border border-yellow-500 rounded-md shadow-button">
+                                <button type="submit" onClick={() => submitApi()} className="flex flex-wrap justify-center w-full px-4 py-2 bg-yellow-500 hover:bg-yellow-600 font-medium text-sm text-white border border-yellow-500 rounded-md shadow-button">
                                     <p>Submit API</p>
                                 </button>
                             </div>
@@ -181,7 +201,7 @@ export default function SubmissionDetails() {
                                         <div className="w-3/5 p-3">
                                             <p className="text-sm text-coolGray-800 font-semibold">API Code</p>
                                         </div>
-                                        <a className="flex-1 p-3 cursor-pointer" onClick={() => document.getElementById('code').showModal()}>
+                                        <a className="flex-1 p-3 cursor-pointer" onClick={() => codeDialogs('code')}>
                                             <PlusCircleIcon className='w-7 text-yellow-500 hover:text-yellow-600' />
                                         </a>
                                     </div>
@@ -193,7 +213,7 @@ export default function SubmissionDetails() {
                                         <div className="w-3/5 p-3">
                                             <p className="text-sm text-coolGray-800 font-semibold">API Env Variable</p>
                                         </div>
-                                        <a className="flex-1 p-3 cursor-pointer" onClick={() => document.getElementById('env-file').showModal()}>
+                                        <a className="flex-1 p-3 cursor-pointer" onClick={() => codeDialogs('env')}>
                                             <PlusCircleIcon className='w-7 text-yellow-500 hover:text-yellow-600' />
                                         </a>
                                     </div>
@@ -203,9 +223,9 @@ export default function SubmissionDetails() {
                                     <div className="flex flex-wrap -m-3">
                                         <div className="w-1/5 p-3"></div>
                                         <div className="w-3/5 p-3">
-                                            <p className="text-sm text-coolGray-800 font-semibold">API Test Cases</p>
+                                            <p className="text-sm text-coolGray-800 font-semibold">API Unit Test Cases</p>
                                         </div>
-                                        <a className="flex-1 p-3 cursor-pointer" onClick={() => document.getElementById('test-case').showModal()}>
+                                        <a className="flex-1 p-3 cursor-pointer" onClick={() => codeDialogs('test')}>
                                             <PlusCircleIcon className='w-7 text-yellow-500 hover:text-yellow-600' />
                                         </a>
                                     </div>
