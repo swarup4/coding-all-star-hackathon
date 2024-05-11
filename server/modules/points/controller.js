@@ -27,6 +27,7 @@ router.get('/getLeaderboard', async (req, res) => {
                 $project: {
                     name: "$user.name",
                     email: "$user.email",
+                    profilePics: "$user.profilePics",
                     point: "$totalPoint"
                 }
             }, {

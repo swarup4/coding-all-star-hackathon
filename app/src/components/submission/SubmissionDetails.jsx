@@ -9,8 +9,6 @@ import { setReview } from '../../store/review/reviewSlice'
 
 import { HOST_URL } from '../../constants'
 
-import AddCode from './AddCode'
-
 export default function SubmissionDetails(props) {
     const [isOpen, setIsOpen] = useState(false)
     const [api, getApi] = useState({});
@@ -248,8 +246,6 @@ export default function SubmissionDetails(props) {
                 </div>
             ) : ''}
 
-
-            {/* <AddCode dialog={isOpen} close={setIsOpen} /> */}
 
             <Transition appear show={isOpen} as={Fragment}>
                 <Dialog as="div" className="relative z-10" onClose={closeModal}>

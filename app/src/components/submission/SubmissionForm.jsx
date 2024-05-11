@@ -29,6 +29,8 @@ const schema = object().shape({
 
 export default function SubmissionForm(props) {
 
+    const navigate = useNavigate()
+
     const { values, errors, handleBlur, handleChange, handleSubmit, touched } = useFormik({
         initialValues: initialValues,
         validationSchema: schema,
@@ -44,12 +46,14 @@ export default function SubmissionForm(props) {
         data.userId = props.userId
 
         axios.post(url, data).then(res => {
+            debugger;
                 // setNotification({
                 //     popup: true,
                 //     status: 'error',
                 //     message: res.data.message
                 // })
                 alert("Data Insert");
+                navigate(`/dashboard/details/${res.data._id}`)
             // } else {
                 console.log(res.data);
             // }
