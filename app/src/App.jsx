@@ -1,8 +1,10 @@
 import './App.scss'
 import React from 'react'
 import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 import ProtectedRoute from './routes/ProtectedRoute'
+import Notification from './components/common/Notification'
 
 import UserLayout from './layout/UserLayout'
 import AdminLayout from './layout/AdminLayout'
@@ -24,6 +26,8 @@ import ProfileInfo from './pages/ProfileInfo'
 
 function App() {
 
+    const notification = useSelector(store => store.notification.popup)
+    
     const route = createBrowserRouter([
         {
             path: '',
@@ -90,7 +94,10 @@ function App() {
         }
     ])
     return (
-        <RouterProvider router={route}></RouterProvider>
+        <>
+            <Notification notification={notification} />
+            <RouterProvider router={route}></RouterProvider>
+        </>
     );
 }
 export default App;

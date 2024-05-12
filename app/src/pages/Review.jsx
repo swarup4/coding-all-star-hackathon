@@ -120,7 +120,7 @@ export default function Review() {
                         </div>
                         <div className="w-full md:w-1/2 p-2">
                             <div className="relative md:max-w-max md:ml-auto">
-                                <MagnifyingGlassIcon className="absolute left-3 transform top-1/2 -translate-y-1/2" width="16" height="16" />
+                                <MagnifyingGlassIcon className="absolute left-3 transform top-1/2 -translate-y-1/2 stroke-2" width="16" height="16" />
                                 <input type="text" name='search' placeholder="Search" onChange={ev => searchText(ev.target.value)} className="w-full md:w-64 pl-8 pr-4 py-2 text-sm text-coolGray-400 font-medium outline-none focus:border-yellow-500 border border-coolGray-200 rounded-lg shadow-input" />
                             </div>
                         </div>
@@ -166,10 +166,10 @@ export default function Review() {
                                                     <>
                                                         {reviewEligible(item.review) ? (
                                                             <a className='cursor-pointer' onClick={() => viewDialog(item.apiId, item.userId)}>
-                                                                <EyeIcon className='ml-auto h-4 w-4 text-coolGray-400' />
+                                                                <EyeIcon className='ml-auto h-4 w-4 text-coolGray-400 stroke-2' />
                                                             </a>
                                                         ) : (
-                                                            <CheckIcon className='text-green-500 font-bold' />
+                                                            <CheckIcon className='text-green-500 stroke-2' />
                                                         )}
                                                     </>
                                                 ) : ''}
