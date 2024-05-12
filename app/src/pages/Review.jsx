@@ -92,10 +92,10 @@ export default function Review() {
     }
 
     function reviewEligible(review) {
-        if (review.length == 0 || review.length == 1) {
-            if (review.length == 1){
+        if (review.length === 0 || review.length === 1) {
+            if (review.length === 1){
                 for (const item of review) {
-                    return (item.reviewerId != user.id) ? true : false
+                    return (item.reviewerId !== user.id) ? true : false
                 }
             }
             return true

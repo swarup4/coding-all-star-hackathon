@@ -21,10 +21,9 @@ export default function Hackathon() {
     const user = useSelector(store => store.user.data)
     const [projectDetails, setProjectDetails] = useState({});
     const [tab, setTab] = useState('');
-    const [tabData, setTabData] = useState('');
 
     useEffect(() => {
-        if (Object.keys(project).length == 0) {
+        if (Object.keys(project).length === 0) {
             const url = `${HOST_URL}hackathon/getHackathon/${id}`
             axios.get(url).then(res => {
                 setProjectDetails(res.data[0]);
@@ -38,7 +37,7 @@ export default function Hackathon() {
 
     function getParticipate(applied) {
         for (let i of applied) {
-            if (i._id == user.id) {
+            if (i._id === user.id) {
                 return true;
             }
         }
@@ -94,14 +93,14 @@ export default function Hackathon() {
                         <div className="flex flex-wrap -mx-4">
                             <div className="w-full md:w-5/12 lg:w-4/12 xl:w-3/12 px-4 mb-8">
                                 <ul className="pb-6 mb-8 border-b border-coolGray-100">
-                                    <li onClick={() => setTab('')} className={`text-coolGray-400 hover:text-coolGray-500 cursor-pointer ${tab == '' ? 'tab-active' : ''}`}><a className="inline-block py-2 px-2 font-semibold">Overview</a></li>
-                                    <li onClick={() => setTab('apilist')} className={`text-coolGray-400 hover:text-coolGray-500 cursor-pointer ${tab == 'apilist' ? 'tab-active' : ''}`}><a className="inline-block py-2 px-2 font-semibold">API List</a></li>
-                                    <li onClick={() => setTab('leaderboard')} className={`text-coolGray-400 hover:text-coolGray-500 cursor-pointer ${tab == 'leaderboard' ? 'tab-active' : ''}`}><a className="inline-block py-2 px-2 font-semibold">Leaderboard</a></li>
-                                    <li onClick={() => setTab('prices')} className={`text-coolGray-400 hover:text-coolGray-500 cursor-pointer ${tab == 'prices' ? 'tab-active' : ''}`}><a className="inline-block py-2 px-2 font-semibold">Prices</a></li>
-                                    <li onClick={() => setTab('panel', projectDetails.panels)} className={`text-coolGray-400 hover:text-coolGray-500 cursor-pointer ${tab == 'panel' ? 'tab-active' : ''}`}><a className="inline-block py-2 px-2 font-semibold">Panel</a></li>
-                                    <li onClick={() => setTab('schedule')} className={`text-coolGray-400 hover:text-coolGray-500 cursor-pointer ${tab == 'schedule' ? 'tab-active' : ''}`}><a className="inline-block py-2 px-2 font-semibold">Schedule</a></li>
-                                    <li onClick={() => setTab('participants')} className={`text-coolGray-400 hover:text-coolGray-500 cursor-pointer ${tab == 'participants' ? 'tab-active' : ''}`}><a className="inline-block py-2 px-2 font-semibold">Participants</a></li>
-                                    <li onClick={() => setTab('reviews')} className={`text-coolGray-400 hover:text-coolGray-500 cursor-pointer ${tab == 'reviews' ? 'tab-active' : ''}`}><a className="inline-block py-2 px-2 font-semibold">Reviews</a></li>
+                                    <li onClick={() => setTab('')} className={`text-coolGray-400 hover:text-coolGray-500 cursor-pointer ${tab === '' ? 'tab-active' : ''}`}><a className="inline-block py-2 px-2 font-semibold">Overview</a></li>
+                                    <li onClick={() => setTab('apilist')} className={`text-coolGray-400 hover:text-coolGray-500 cursor-pointer ${tab === 'apilist' ? 'tab-active' : ''}`}><a className="inline-block py-2 px-2 font-semibold">API List</a></li>
+                                    <li onClick={() => setTab('leaderboard')} className={`text-coolGray-400 hover:text-coolGray-500 cursor-pointer ${tab === 'leaderboard' ? 'tab-active' : ''}`}><a className="inline-block py-2 px-2 font-semibold">Leaderboard</a></li>
+                                    <li onClick={() => setTab('prices')} className={`text-coolGray-400 hover:text-coolGray-500 cursor-pointer ${tab === 'prices' ? 'tab-active' : ''}`}><a className="inline-block py-2 px-2 font-semibold">Prices</a></li>
+                                    <li onClick={() => setTab('panel', projectDetails.panels)} className={`text-coolGray-400 hover:text-coolGray-500 cursor-pointer ${tab === 'panel' ? 'tab-active' : ''}`}><a className="inline-block py-2 px-2 font-semibold">Panel</a></li>
+                                    <li onClick={() => setTab('schedule')} className={`text-coolGray-400 hover:text-coolGray-500 cursor-pointer ${tab === 'schedule' ? 'tab-active' : ''}`}><a className="inline-block py-2 px-2 font-semibold">Schedule</a></li>
+                                    <li onClick={() => setTab('participants')} className={`text-coolGray-400 hover:text-coolGray-500 cursor-pointer ${tab === 'participants' ? 'tab-active' : ''}`}><a className="inline-block py-2 px-2 font-semibold">Participants</a></li>
+                                    <li onClick={() => setTab('reviews')} className={`text-coolGray-400 hover:text-coolGray-500 cursor-pointer ${tab === 'reviews' ? 'tab-active' : ''}`}><a className="inline-block py-2 px-2 font-semibold">Reviews</a></li>
                                 </ul>
                                 <div className="flex items-center">
                                     <a className="inline-flex mr-4 items-center justify-center py-2 px-4 text-coolGray-300 border border-coolGray-200 hover:border-coolGray-300 rounded-md shadow-md transition duration-200" href="#">
@@ -150,35 +149,35 @@ export default function Hackathon() {
                             )} */}
 
                             <div className="w-full md:flex-1 px-4">
-                                {tab == '' ? (
+                                {tab === '' ? (
                                     <p dangerouslySetInnerHTML={{ __html: projectDetails.description }} className="mb-8 pb-10 text-lg md:text-xl font-medium text-coolGray-500 border-b border-coolGray-100"></p>
                                 ) : ''}
 
-                                {tab == 'apilist' ? (
+                                {tab === 'apilist' ? (
                                     <ApiList />
                                 ) : ''}
 
-                                {tab == 'leaderboard' ? (
+                                {tab === 'leaderboard' ? (
                                     <Leaderboard appliedUser={projectDetails.appliedUser} />
                                 ) : ''}
 
-                                {tab == 'prices' ? (
+                                {tab === 'prices' ? (
                                     <Prices />
                                 ) : ''}
 
-                                {tab == 'panel' ? (
+                                {tab === 'panel' ? (
                                     <Panel data={projectDetails.panels} />
                                 ) : ''}
 
-                                {tab == 'schedule' ? (
+                                {tab === 'schedule' ? (
                                     <Schedule />
                                 ) : ''}
 
-                                {tab == 'participants' ? (
+                                {tab === 'participants' ? (
                                     <Participants data={projectDetails.appliedUser} />
                                 ) : ''}
 
-                                {tab == 'reviews' ? (
+                                {tab === 'reviews' ? (
                                     <Reviews />
                                 ) : ''}
                             </div>

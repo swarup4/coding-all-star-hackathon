@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { useDispatch } from 'react-redux'
 import axios from 'axios'
 import { Link, useNavigate } from 'react-router-dom'
@@ -36,7 +36,7 @@ export default function Register() {
     function signup(data) {
         const url = `${HOST_URL}user/signup`
         axios.post(url, data).then(res => {
-            if (res.data.status == 409) {
+            if (res.data.status === 409) {
                 dispatch(setNotification({
                     popup: true,
                     status: 'error',

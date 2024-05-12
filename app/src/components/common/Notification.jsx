@@ -22,7 +22,7 @@ export default function Notification(props) {
                 <section className="fixed mt-3 z-50 w-full animate-top">
                     <div className="container px-4 mx-auto w-4/12">
 
-                        {props.notification.status == 'error' ? (
+                        {props.notification.status === 'error' ? (
                             <div className="p-6 bg-red-100 border border-red-200 rounded-md">
                                 <div className="flex flex-wrap justify-between -m-2">
                                     <div className="flex-1 p-2">

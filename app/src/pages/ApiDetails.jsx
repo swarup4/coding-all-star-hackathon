@@ -17,9 +17,9 @@ export default function ApiDetails() {
     function dialogType(data) {
         setIsOpen(data.isOpen)
         setType(data.type)
-        if (data.type == 'code') {
+        if (data.type === 'code') {
             setHeading("Add API Code")
-        } else if (data.type == 'env') {
+        } else if (data.type === 'env') {
             setHeading("Add Env Variable")
         } else {
             setHeading("Add API Test Case")
@@ -28,9 +28,9 @@ export default function ApiDetails() {
 
     function saveCode() {
         let body = { status: true }
-        if(type == 'code'){
+        if(type === 'code'){
             body.code = apiCodes
-        } else if(type == 'env') {
+        } else if(type === 'env') {
             body.envVariable = apiCodes
         } else {
             body.unitTest = apiCodes
