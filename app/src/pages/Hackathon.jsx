@@ -175,7 +175,7 @@ export default function Hackathon() {
                                 ) : ''}
 
                                 {tab == 'participants' ? (
-                                    <Participants />
+                                    <Participants data={projectDetails.appliedUser} />
                                 ) : ''}
 
                                 {tab == 'reviews' ? (

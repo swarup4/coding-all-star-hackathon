@@ -1,6 +1,6 @@
 import { Fragment, useState, useEffect } from 'react'
 import axios from 'axios'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { PlusCircleIcon } from '@heroicons/react/20/solid'
 import { Dialog, Transition } from '@headlessui/react'
@@ -10,12 +10,14 @@ import { setReview } from '../../store/review/reviewSlice'
 import { HOST_URL } from '../../constants'
 
 export default function SubmissionDetails(props) {
+    const navigate = useNavigate()
     const [isOpen, setIsOpen] = useState(false)
     const [api, getApi] = useState({});
     const [videoUrl, setVideoUrl] = useState('')
     const { id } = useParams();
     const dispatch = useDispatch()
     const reviewPoint = useSelector(store => store.review.data)
+    const submission = useSelector(store => store.submission.data)
 
     function closeModal() {
         setIsOpen(false)
@@ -61,6 +63,7 @@ export default function SubmissionDetails(props) {
         axios.put(url).then(res => {
             let pointInc = (reviewPoint?.totalReviewPoint ?? 0) + 2
             dispatch(setReview({totalReviewPoint: pointInc}))
+            navigate(`/dashboard/hackathon/${submission.hackathonId}`)
         }).catch(err => {
             console.log(err);
         })

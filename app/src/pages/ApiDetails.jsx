@@ -50,7 +50,7 @@ export default function ApiDetails() {
         <section className="bg-coolGray-50 py-4 ">
             <div className="container px-4 mx-auto">
                 <div className="p-6 h-full border border-coolGray-100 overflow-hidden bg-white rounded-md shadow-dashboard">
-                    <SubmissionDetails codeDialog={dialogType} />
+                    <SubmissionDetails codeDialogs={dialogType} />
 
                     <CommonDialog heading={heading} dialog='large' open={isOpen} close={setIsOpen} submitText='Submit' submit={saveCode}>
                         {/* <CodePanel  /> */}
