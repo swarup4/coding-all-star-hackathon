@@ -21,7 +21,7 @@ export default function Review() {
     const reviewPoint = useSelector(store => store.review.data?.totalReviewPoint)
 
     function getSubmittedApiList() {
-        const url = `${HOST_URL}submission/getAllSubmittedApiList`
+        const url = `${HOST_URL}submission/getAllSubmittedApiList/${user.id}`
         axios.get(url).then(res => {
             setApiList(res.data)
             setAllApiList(res.data)

@@ -1,7 +1,7 @@
 require("dotenv").config();
 
 const express = require("express");
-
+const ObjectId = require("mongoose").Types.ObjectId;
 const Models = require("./models");
 const ReviewModel = require("../reviews/models");
 const pointMiddleware = require('../../middleware/point');
@@ -197,70 +197,73 @@ router.put("/submitApi/:id", updateApiStatus, getApiInfo, async (req, res) => {
         }
         let point = await pointMiddleware.addPoint(pointObj, res)
         res.json(api);
-        
+
     } catch (error) {
         res.send(error);
     }
 });
 
-router.get("/getAllSubmittedApiList", async (req, res) => {
+router.get("/getAllSubmittedApiList/:id", async (req, res) => {
     try {
-        // const reviewList = await Models.SubmissionKey.find({apiStatus: 0})
+        const id = req.params.id;
         const reviewList = await Models.SubmissionKey.aggregate([
             {
-              $match: {
-                apiStatus: 0
-              }
+                $match: {
+                    apiStatus: 0,
+                    submitedBy: {
+                        $ne: new ObjectId(id)
+                    }
+                }
             }, {
-              $lookup: {
-                from: "users",
-                localField: "submitedBy",
-                foreignField: "_id",
-                as: "user"
-              }
+                $lookup: {
+                    from: "users",
+                    localField: "submitedBy",
+                    foreignField: "_id",
+                    as: "user"
+                }
             }, {
-              $lookup: {
-                from: "submissions",
-                localField: "apiId",
-                foreignField: "_id",
-                as: "api"
-              }
+                $lookup: {
+                    from: "submissions",
+                    localField: "apiId",
+                    foreignField: "_id",
+                    as: "api"
+                }
             }, {
-              $lookup: {
-                from: "reviews",
-                localField: "api._id",
-                foreignField: "apiId",
-                as: "review"
-              }
+                $lookup: {
+                    from: "reviews",
+                    localField: "api._id",
+                    foreignField: "apiId",
+                    as: "review"
+                }
             }, {
-              $unwind: "$user"
+                $unwind: "$user"
             }, {
-              $lookup: {
-                from: "users",
-                localField: "user.manager",
-                foreignField: "_id",
-                as: "managerInfo"
-              }
+                $lookup: {
+                    from: "users",
+                    localField: "user.manager",
+                    foreignField: "_id",
+                    as: "managerInfo"
+                }
             }, {
-              $unwind: "$managerInfo",
+                $unwind: "$managerInfo",
             }, {
-              $unwind: "$api"
+                $unwind: "$api"
             }, {
-              $project: {
-                userId: "$submitedBy",
-                apiId: "$apiId",
-                hackathonId: "$hackathonId",
-                name: "$user.name",
-                email: "$user.email",
-                manager: "$managerInfo.name",
-                apiName: "$api.name",
-                apiEndPoint: "$api.apiEndPoint",
-                apiVersion: "$api.apiVersion",
-                programmingLanguage: "$api.programmingLanguage",
-                review: "$review"
-              }
+                $project: {
+                    userId: "$submitedBy",
+                    apiId: "$apiId",
+                    hackathonId: "$hackathonId",
+                    name: "$user.name",
+                    email: "$user.email",
+                    manager: "$managerInfo.name",
+                    apiName: "$api.name",
+                    apiEndPoint: "$api.apiEndPoint",
+                    apiVersion: "$api.apiVersion",
+                    programmingLanguage: "$api.programmingLanguage",
+                    review: "$review"
+                }
             }
-          ])
+        ])
         res.json(reviewList)
     } catch (error) {
         res.send(error)

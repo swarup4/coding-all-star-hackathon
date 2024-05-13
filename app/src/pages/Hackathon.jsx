@@ -9,7 +9,7 @@ import Leaderboard from '../components/hackathon/Leaderboard'
 import Panel from '../components/hackathon/Panel'
 import Participants from '../components/hackathon/Participants'
 import Prices from '../components/hackathon/Prices'
-import Reviews from '../components/hackathon/Reviews'
+// import Reviews from '../components/hackathon/Reviews'
 import Schedule from '../components/hackathon/Schedule'
 import ApiList from '../components/hackathon/ApiList'
 
@@ -106,7 +106,7 @@ export default function Hackathon() {
                                     <li onClick={() => setTab('panel', projectDetails.panels)} className={`text-coolGray-400 hover:text-coolGray-500 cursor-pointer ${tab === 'panel' ? 'tab-active' : ''}`}><a className="inline-block py-2 px-2 font-semibold">Panel</a></li>
                                     <li onClick={() => setTab('schedule')} className={`text-coolGray-400 hover:text-coolGray-500 cursor-pointer ${tab === 'schedule' ? 'tab-active' : ''}`}><a className="inline-block py-2 px-2 font-semibold">Schedule</a></li>
                                     <li onClick={() => setTab('participants')} className={`text-coolGray-400 hover:text-coolGray-500 cursor-pointer ${tab === 'participants' ? 'tab-active' : ''}`}><a className="inline-block py-2 px-2 font-semibold">Participants</a></li>
-                                    <li onClick={() => setTab('reviews')} className={`text-coolGray-400 hover:text-coolGray-500 cursor-pointer ${tab === 'reviews' ? 'tab-active' : ''}`}><a className="inline-block py-2 px-2 font-semibold">Reviews</a></li>
+                                    {/* <li onClick={() => setTab('reviews')} className={`text-coolGray-400 hover:text-coolGray-500 cursor-pointer ${tab === 'reviews' ? 'tab-active' : ''}`}><a className="inline-block py-2 px-2 font-semibold">Reviews</a></li> */}
                                 </ul>
                                 <div className="flex items-center">
                                     <a className="inline-flex mr-4 items-center justify-center py-2 px-4 text-coolGray-300 border border-coolGray-200 hover:border-coolGray-300 rounded-md shadow-md transition duration-200" href="#">
@@ -183,9 +183,9 @@ export default function Hackathon() {
                                     <Participants data={projectDetails.appliedUser} />
                                 ) : ''}
 
-                                {tab === 'reviews' ? (
+                                {/* {tab === 'reviews' ? (
                                     <Reviews />
-                                ) : ''}
+                                ) : ''} */}
                             </div>
                         </div>
                     </div>
