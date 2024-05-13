@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import moment from 'moment'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useParams, useNavigate } from 'react-router-dom'
 import { HOST_URL } from '../constants'
 import { getInitial } from '../components/helper'
@@ -12,27 +12,27 @@ import Prices from '../components/hackathon/Prices'
 // import Reviews from '../components/hackathon/Reviews'
 import Schedule from '../components/hackathon/Schedule'
 import ApiList from '../components/hackathon/ApiList'
+import { setNotification } from '../store/notification/notificationSlice'
+import { selectProject } from '../store/hackathon/hackathonSlice'
 
 
 export default function Hackathon() {
 
     const { id } = useParams()
+    const dispatch = useDispatch()
     const navigate = useNavigate()
     const project = useSelector(store => store.hackathon.project);
     const user = useSelector(store => store.user.data)
-    const [projectDetails, setProjectDetails] = useState({});
     const [tab, setTab] = useState('');
 
     useEffect(() => {
         if (Object.keys(project).length === 0) {
             const url = `${HOST_URL}hackathon/getHackathon/${id}`
             axios.get(url).then(res => {
-                setProjectDetails(res.data[0]);
+                dispatch(selectProject(res.data[0]))
             }).catch(err => {
                 console.log(err)
             })
-        } else {
-            setProjectDetails(project);
         }
     }, [])
 
@@ -45,50 +45,64 @@ export default function Hackathon() {
         return false;
     }
 
+    function participate(id) {
+        const url = `${HOST_URL}hackathon/applyHackathon/${id}`;
+        const body = { userId: user.id }
+        axios.put(url, body).then(res => {
+            dispatch(setNotification({
+                popup: true,
+                status: 'success',
+                message: res.data.message
+            }))
+            dispatch(selectProject(res.data.data))
+        }).catch(err => {
+            console.log(err);
+        })
+    }
+
     return (
         <>
-            {Object.keys(projectDetails).length > 0 ? (
+            {Object.keys(project).length > 0 ? (
                 <section className="py-16 md:py-24 bg-white"
                     style={{ backgroundImage: 'url("../assets/flex-ui-assets/elements/pattern-white.svg")', backgroundRepeat: 'no-repeat', backgroundPosition: 'center top' }}>
                     <div className="container px-4 mx-auto">
                         <div className="flex flex-wrap lg:items-center mb-12 -mx-4">
                             <div className="w-full md:w-1/2 2xl:w-5/12 px-4 mb-8 md:mb-0">
                                 <div className="mx-auto md:ml-0 max-w-max overflow-hidden rounded-lg">
-                                    <img src={window.location.origin + "/flex-ui-assets/banner/" + projectDetails.banner[0]} alt="" />
+                                    <img src={window.location.origin + "/flex-ui-assets/banner/" + project.banner[0]} alt="" />
                                 </div>
                             </div>
                             <div className="w-full md:w-1/2 px-4">
-                                <div className="inline-block py-1 px-3 mb-6 text-xs leading-5 text-yellow-500 font-medium uppercase bg-yellow-100 rounded-full shadow-sm">{projectDetails.theme}</div>
+                                <div className="inline-block py-1 px-3 mb-6 text-xs leading-5 text-yellow-500 font-medium uppercase bg-yellow-100 rounded-full shadow-sm">{project.theme}</div>
                                 <div className="flex items-center">
-                                    <p className="inline-block text-yellow-500 font-medium">{projectDetails.user.name}</p>
+                                    <p className="inline-block text-yellow-500 font-medium">{project.user.name}</p>
                                     <span className="mx-1 text-yellow-500">•</span>
-                                    <p className="inline-block text-yellow-500 font-medium">{moment(projectDetails.createdAt).format('Do MMMM YYYY')}</p>
+                                    <p className="inline-block text-yellow-500 font-medium">{moment(project.createdAt).format('Do MMMM YYYY')}</p>
                                 </div>
-                                <h2 className="mb-4 text-3xl md:text-4xl lg:text-5xl leading-tight text-darkCoolGray-900 font-bold tracking-tighter">{projectDetails.name}</h2>
+                                <h2 className="mb-4 text-3xl md:text-4xl lg:text-5xl leading-tight text-darkCoolGray-900 font-bold tracking-tighter">{project.name}</h2>
                                 <p className="mb-8 md:mb-12 text-lg md:text-xl font-medium text-coolGray-500">
                                     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                                 </p>
                                 <div className="flex items-center justify-between flex-wrap -mx-2">
                                     <div className="w-9/12 flex">
                                         <div className="w-auto px-2">
-                                            {/* <img src={window.location.origin + "/flex-ui-assets/images/user/" + projectDetails.user.profilePics} className='rounded-full h-20' /> */}
-                                            {projectDetails.user.profilePics ? (
-                                                <img src={window.location.origin + "/flex-ui-assets/images/user/" + projectDetails.user.profilePics} className='rounded-full h-20' />
+                                            {project.user.profilePics ? (
+                                                <img src={window.location.origin + "/flex-ui-assets/images/user/" + project.user.profilePics} className='rounded-full h-20' />
                                             ) : (
-                                                <div className={`flex items-center justify-center w-20 h-20 text-base font-medium rounded-full text-yellow-600 bg-yellow-200`}>{getInitial(projectDetails.user.name)}</div>
+                                                <div className={`flex items-center justify-center w-20 h-20 text-base font-medium rounded-full text-yellow-600 bg-yellow-200`}>{getInitial(project.user.name)}</div>
                                             )}
                                         </div>
                                         <div className="w-auto px-2 flex items-center">
-                                            <h4 className="text-base md:text-lg font-bold text-coolGray-800">{projectDetails.user.name}</h4>
+                                            <h4 className="text-base md:text-lg font-bold text-coolGray-800">{project.user.name}</h4>
                                         </div>
                                     </div>
                                     <div className="w-auto">
-                                        {getParticipate(projectDetails.appliedUser) ? (
+                                        {getParticipate(project.appliedUser) ? (
                                             <button type="button" onClick={() => navigate(`/dashboard/submission/${id}`)} className="float-right inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium bg-yellow-500 hover:bg-yellow-600 font-medium text-sm text-white border border-yellow-500 rounded-md shadow-button">
                                                 Add Api
                                             </button>
                                         ) : (
-                                            <button type="button" className="float-right inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium bg-yellow-500 hover:bg-yellow-600 font-medium text-sm text-white border border-yellow-500 rounded-md shadow-button">
+                                            <button type="button" onClick={() => participate(id)} className="float-right inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium bg-yellow-500 hover:bg-yellow-600 font-medium text-sm text-white border border-yellow-500 rounded-md shadow-button">
                                                 Participate
                                             </button>
                                         )}
@@ -103,7 +117,7 @@ export default function Hackathon() {
                                     <li onClick={() => setTab('apilist')} className={`text-coolGray-400 hover:text-coolGray-500 cursor-pointer ${tab === 'apilist' ? 'tab-active' : ''}`}><a className="inline-block py-2 px-2 font-semibold">API List</a></li>
                                     <li onClick={() => setTab('leaderboard')} className={`text-coolGray-400 hover:text-coolGray-500 cursor-pointer ${tab === 'leaderboard' ? 'tab-active' : ''}`}><a className="inline-block py-2 px-2 font-semibold">Leaderboard</a></li>
                                     <li onClick={() => setTab('prices')} className={`text-coolGray-400 hover:text-coolGray-500 cursor-pointer ${tab === 'prices' ? 'tab-active' : ''}`}><a className="inline-block py-2 px-2 font-semibold">Prices</a></li>
-                                    <li onClick={() => setTab('panel', projectDetails.panels)} className={`text-coolGray-400 hover:text-coolGray-500 cursor-pointer ${tab === 'panel' ? 'tab-active' : ''}`}><a className="inline-block py-2 px-2 font-semibold">Panel</a></li>
+                                    <li onClick={() => setTab('panel', project.panels)} className={`text-coolGray-400 hover:text-coolGray-500 cursor-pointer ${tab === 'panel' ? 'tab-active' : ''}`}><a className="inline-block py-2 px-2 font-semibold">Panel</a></li>
                                     <li onClick={() => setTab('schedule')} className={`text-coolGray-400 hover:text-coolGray-500 cursor-pointer ${tab === 'schedule' ? 'tab-active' : ''}`}><a className="inline-block py-2 px-2 font-semibold">Schedule</a></li>
                                     <li onClick={() => setTab('participants')} className={`text-coolGray-400 hover:text-coolGray-500 cursor-pointer ${tab === 'participants' ? 'tab-active' : ''}`}><a className="inline-block py-2 px-2 font-semibold">Participants</a></li>
                                     {/* <li onClick={() => setTab('reviews')} className={`text-coolGray-400 hover:text-coolGray-500 cursor-pointer ${tab === 'reviews' ? 'tab-active' : ''}`}><a className="inline-block py-2 px-2 font-semibold">Reviews</a></li> */}
@@ -141,22 +155,9 @@ export default function Hackathon() {
                                 </div>
                             </div>
 
-
-
-
-                            {/* {tabData ? (
-                                <div className="w-full md:flex-1 px-4">
-                                    {tabData}
-                                </div>
-                            ): (
-                                <div className="w-full md:flex-1 px-4">
-                                    
-                                </div>
-                            )} */}
-
                             <div className="w-full md:flex-1 px-4">
                                 {tab === '' ? (
-                                    <p dangerouslySetInnerHTML={{ __html: projectDetails.description }} className="mb-8 pb-10 text-lg md:text-xl font-medium text-coolGray-500 border-b border-coolGray-100"></p>
+                                    <p dangerouslySetInnerHTML={{ __html: project.description }} className="mb-8 pb-10 text-lg md:text-xl font-medium text-coolGray-500 border-b border-coolGray-100"></p>
                                 ) : ''}
 
                                 {tab === 'apilist' ? (
@@ -164,7 +165,7 @@ export default function Hackathon() {
                                 ) : ''}
 
                                 {tab === 'leaderboard' ? (
-                                    <Leaderboard appliedUser={projectDetails.appliedUser} />
+                                    <Leaderboard appliedUser={project.appliedUser} />
                                 ) : ''}
 
                                 {tab === 'prices' ? (
@@ -172,7 +173,7 @@ export default function Hackathon() {
                                 ) : ''}
 
                                 {tab === 'panel' ? (
-                                    <Panel data={projectDetails.panels} />
+                                    <Panel data={project.panels} />
                                 ) : ''}
 
                                 {tab === 'schedule' ? (
@@ -180,7 +181,7 @@ export default function Hackathon() {
                                 ) : ''}
 
                                 {tab === 'participants' ? (
-                                    <Participants data={projectDetails.appliedUser} />
+                                    <Participants data={project.appliedUser} />
                                 ) : ''}
 
                                 {/* {tab === 'reviews' ? (

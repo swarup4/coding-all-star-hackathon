@@ -39,7 +39,6 @@ export default function Dashboard() {
                 status: 'success',
                 message: res.data.message
             }))
-            // setApply(id)
             getHackathonList()
         }).catch(err => {
             console.log(err);

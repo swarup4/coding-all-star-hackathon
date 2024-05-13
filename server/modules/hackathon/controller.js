@@ -159,10 +159,49 @@ router.put('/applyHackathon/:id', async (req, res) => {
             returnOriginal: false
         });
 
-        if (apply) {
+        let pipeline = [
+            {
+                $match: {
+                    _id: new ObjectId(id),
+                }
+            }, {
+                $lookup: {
+                    from: "users",
+                    localField: "userId",
+                    foreignField: "_id",
+                    as: "user",
+                }
+            }, {
+                $lookup: {
+                    from: "users",
+                    localField: "panels",
+                    foreignField: "_id",
+                    as: "panels",
+                }
+            }, {
+                $lookup: {
+                    from: "users",
+                    localField: "appliedUser",
+                    foreignField: "_id",
+                    as: "appliedUser",
+                }
+            }, {
+                $unwind: "$user",
+            }, {
+                $unset: [
+                    "userId", "user.password", "user.reporty", "user.createdAt", "user.updatedAt",
+                    "panels.password", "panels.reporty", "panels.createdAt", "panels.updatedAt",
+                    "appliedUser.password", "appliedUser.reporty", "appliedUser.createdAt", "appliedUser.updatedAt"
+                ]
+            }
+        ]
+        const data = await Models.Hackathon.aggregate(pipeline)
+
+        if (data) {
             res.json({
                 success: true,
-                message: 'User has applied for the Hackathon'
+                message: 'User has applied for the Hackathon',
+                data: data[0]
             });
         }
     } catch (error) {
