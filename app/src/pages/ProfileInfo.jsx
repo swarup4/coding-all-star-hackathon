@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { Link, useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 import { useFormik } from 'formik'
 import { object, string } from 'yup';
 import { HOST_URL } from '../constants'
+import { setNotification } from '../store/notification/notificationSlice'
 
 
 const initialValues = {
@@ -29,7 +31,7 @@ const schema = object().shape({
 
 
 export default function ProfileInfo() {
-
+    const dispatch = useDispatch()
     const navigate = useNavigate()
     const [userList, setUserList] = useState([])
     const [userProfilePics, setUserProfilePics] = useState({})
@@ -57,18 +59,17 @@ export default function ProfileInfo() {
         const url = `${HOST_URL}user/updateUserDetails/${user.id}`
 
         axios.put(url, data).then(res => {
-            // setNotification({
-            //     popup: true,
-            //     status: 'error',
-            //     message: res.data.message
-            // })
-            // } else {
+            dispatch(setNotification({
+                popup: true,
+                status: 'success',
+                message: 'User Details has Added'
+            }))
+
             let userData = JSON.parse(sessionStorage.user)
             sessionStorage.user = JSON.stringify({
                 ...userData, role: res.data.data.role, profilePics: res.data.data.profilePics
             })
             navigate("/dashboard");
-            // }
         }).catch(err => {
             console.log(err)
         })

@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 import { useFormik } from 'formik'
-import {object, string} from 'yup';
+import { object, string } from 'yup';
 import { HOST_URL } from '../../constants'
-// import Notification from '../components/common/Notification'
+import { setNotification } from '../../store/notification/notificationSlice'
 
 const initialValues = {
     name: '',
@@ -28,8 +29,8 @@ const schema = object().shape({
 })
 
 export default function SubmissionForm(props) {
-
     const navigate = useNavigate()
+    const dispatch = useDispatch()
 
     const { values, errors, handleBlur, handleChange, handleSubmit, touched } = useFormik({
         initialValues: initialValues,
@@ -46,17 +47,12 @@ export default function SubmissionForm(props) {
         data.userId = props.userId
 
         axios.post(url, data).then(res => {
-            debugger;
-                // setNotification({
-                //     popup: true,
-                //     status: 'error',
-                //     message: res.data.message
-                // })
-                alert("Data Insert");
-                navigate(`/dashboard/details/${res.data._id}`)
-            // } else {
-                console.log(res.data);
-            // }
+            dispatch(setNotification({
+                popup: true,
+                status: 'success',
+                message: 'Api has created'
+            }))
+            navigate(`/dashboard/details/${res.data._id}`)
         }).catch(err => {
             console.log(err)
         })

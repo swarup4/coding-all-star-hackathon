@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { HOST_URL } from '../constants'
 import { EyeIcon, CheckIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline'
 import CommonDialog from '../components/common/CommonDialog'
 import CodeView from '../components/review/CodeView'
+import { setNotification } from '../store/notification/notificationSlice'
 
 export default function Review() {
+    const dispatch = useDispatch()
     const [allApiList, setAllApiList] = useState([]);
     const [apiList, setApiList] = useState([]);
     const [isOpen, setIsOpen] = useState(false)
@@ -64,7 +66,13 @@ export default function Review() {
         }
         const url = `${HOST_URL}review/addReview`
         axios.post(url, body).then(res => {
-            alert("Code Approve")
+            // alert("Code Approve")
+            dispatch(setNotification({
+                popup: true,
+                status: 'success',
+                message: 'Code Approve'
+            }))
+
             setIsOpen(false)
         }).catch(err => {
             console.log(err)
@@ -80,6 +88,11 @@ export default function Review() {
         }
         const url = `${HOST_URL}review/addReview`
         axios.post(url, body).then(res => {
+            dispatch(setNotification({
+                popup: true,
+                status: 'success',
+                message: 'Code Rejected'
+            }))
             setReject(false)
         }).catch(err => {
             console.log(err)

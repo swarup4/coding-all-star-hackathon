@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useParams } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 import SubmissionDetails from '../components/submission/SubmissionDetails'
 import CommonDialog from '../components/common/CommonDialog'
 import Editor from '../components/submission/Editor'
+import { setNotification } from '../store/notification/notificationSlice'
 
 
 export default function ApiDetails() {
     const { id } = useParams();
+    const dispatch = useDispatch()
     const [isOpen, setIsOpen] = useState(false)
     const [heading, setHeading] = useState('')
     const [type, setType] = useState('')
@@ -38,6 +41,11 @@ export default function ApiDetails() {
 
         axios.put(`http://localhost:3001/submission/saveCode/${id}`, body).then(res => {
             console.log(res.data.data);
+            dispatch(setNotification({
+                popup: true,
+                status: 'success',
+                message: 'Code has submitted'
+            }))
             setApiCodes('')
             setIsOpen(false)
         }).catch(err => {

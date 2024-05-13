@@ -6,6 +6,7 @@ import { PlusCircleIcon } from '@heroicons/react/20/solid'
 import { Dialog, Transition } from '@headlessui/react'
 import { setSubmission } from '../../store/submission/submissionSlice'
 import { setReview } from '../../store/review/reviewSlice'
+import { setNotification } from '../../store/notification/notificationSlice'
 
 import { HOST_URL } from '../../constants'
 
@@ -51,8 +52,12 @@ export default function SubmissionDetails(props) {
             videoLink: videoUrl
         }
         axios.put(url, obj).then(res => {
+            dispatch(setNotification({
+                popup: true,
+                status: 'success',
+                message: "Video Link has updated"
+            }))
             closeModal()
-            alert("Video Link has updated")
         }).catch(err => {
             console.log(err);
         })
@@ -63,6 +68,11 @@ export default function SubmissionDetails(props) {
         axios.put(url).then(res => {
             let pointInc = (reviewPoint?.totalReviewPoint ?? 0) + 2
             dispatch(setReview({totalReviewPoint: pointInc}))
+            dispatch(setNotification({
+                popup: true,
+                status: 'success',
+                message: "API has submitted"
+            }))
             navigate(`/dashboard/hackathon/${submission.hackathonId}`)
         }).catch(err => {
             console.log(err);

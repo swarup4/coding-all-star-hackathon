@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { HOST_URL } from '../../constants'
 import { Link, useNavigate } from 'react-router-dom'
 import { setReview } from '../../store/review/reviewSlice'
+import { setNotification } from '../../store/notification/notificationSlice'
 import { PencilSquareIcon } from '@heroicons/react/24/outline'
 
 export default function ApiList() {
@@ -28,6 +29,11 @@ export default function ApiList() {
         axios.put(url).then(res => {
             let pointInc = (reviewPoint?.totalReviewPoint ?? 0) + 2
             dispatch(setReview({ totalReviewPoint: pointInc }))
+            dispatch(setNotification({
+                popup: true,
+                status: 'success',
+                message: 'API has submitted'
+            }))
         }).catch(err => {
             console.log(err);
         })
