@@ -14,7 +14,7 @@ const Points = {
     },
     getPoint: async (body, res) => {
         try {
-            let point = await Model.Point.find({ apiId: body.apiId });
+            let point = await Model.Point.find({ apiId: body.apiId, category: "review" });
             if (point) {
                 return point;
             }

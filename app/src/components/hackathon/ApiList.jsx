@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux'
 import { HOST_URL } from '../../constants'
+import { getInitial } from '../helper'
 import { Link, useNavigate } from 'react-router-dom'
 import { setReview } from '../../store/review/reviewSlice'
 import { setNotification } from '../../store/notification/notificationSlice'
@@ -94,6 +95,22 @@ export default function ApiList() {
                                 <div className="text-center">
                                     <p className="mb-1 text-xs text-coolGray-900 font-semibold">Status</p>
                                     <p className="text-xs text-coolGray-400 font-medium">{item.status ? 'Submitted' : 'In Progress'}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="flex flex-wrap p-2 justify-between">
+                            <div className="w-full md:w-1/3 p-2">
+                                <div className="text-center">
+                                    <p className="mb-1 text-xs text-coolGray-900 font-semibold">Reviewer</p>
+                                </div>
+                            </div>
+                            <div className="w-full md:w-1/3 p-2">
+                                <div className="text-center">
+                                    <p className="flex mb-1 place-content-around text-xs text-coolGray-900 font-semibold items-center">
+                                        {item.reviewUser.map((x, i) => (
+                                            <div className={`flex items-center justify-center w-7 h-7 font-medium rounded-full text-yellow-600 bg-yellow-200`} key={i}>{getInitial(x.name)}</div>
+                                        ))}
+                                    </p>
                                 </div>
                             </div>
                         </div>

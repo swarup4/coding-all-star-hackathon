@@ -10,8 +10,7 @@ const pointMiddleware = require('../../middleware/point');
 const router = express.Router();
 
 
-async function approveApi(req) {
-	let body = req.body;
+async function approveApi(body) {
 	const model = new Models.Review(body);
 	const review = await model.save();
 	if (review) {
@@ -23,7 +22,8 @@ async function rejectApi(req, res, next) {
 	try {
 		let body = req.body;
 		if (body.codeVerification == 2) {
-			let addReview = await approveApi(req);
+			console.log("Line no 25")
+			let addReview = await approveApi(body);
 			let obj = {
 				userId: body.apiUserId,
 				apiId: body.apiId,
@@ -32,10 +32,13 @@ async function rejectApi(req, res, next) {
 			}
 
 			let point = await pointMiddleware.getPoint(obj, res)
+			console.log(point.length)
+			
 			if(point.length == 0) {
 				let addPoint = await pointMiddleware.addPoint(obj, res)
 				res.json("Reject Point Add")
 			} else {
+				console.log(point[0])
 				res.json("API Already Rejected")
 			}
 		} else {
@@ -82,12 +85,12 @@ router.post('/addReview', rejectApi, async (req, res) => {
 
 
 		if (reviewData.length == 0) {
-			let reviews = await approveApi(req)
+			let reviews = await approveApi(body)
 			res.json(reviews)
 		} else {
 			// If One people give approveal the code
 			if (reviewData[0].codeVerification == 1) {
-				let reviews = await approveApi(req)
+				let reviews = await approveApi(body)
 
 				if(reviews){
 					let obj = {
@@ -101,7 +104,7 @@ router.post('/addReview', rejectApi, async (req, res) => {
 					res.json("Point added");
 				}
 			} else {
-				let reviews = await approveApi(req)
+				let reviews = await approveApi(body)
 				if(reviews){
 					res.json("Point added After One Reject");
 				}

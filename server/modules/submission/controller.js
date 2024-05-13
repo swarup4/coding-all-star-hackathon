@@ -88,7 +88,28 @@ router.post('/addApi', checkApiExist, async (req, res) => {
 router.get('/getApiList/:id', async (req, res) => {
     try {
         const id = req.params.id;
-        const api = await Models.UserAPIs.find({ userId: id })
+        const api = await Models.UserAPIs.aggregate([
+            {
+                $match: {
+                    userId: new ObjectId(id)
+                }
+            }, {
+                $lookup: {
+                    from: "reviews",
+                    localField: "_id",
+                    foreignField: "apiId",
+                    as: "review"
+                }
+            }, {
+                $lookup: {
+                    from: "users",
+                    localField: "review.reviewerId",
+                    foreignField: "_id",
+                    as: "reviewUser"
+                }
+            }
+        ])
+
         if (api) {
             res.json(api);
         }
