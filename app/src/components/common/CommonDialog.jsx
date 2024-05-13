@@ -12,7 +12,7 @@ export default function CommonDialog(props) {
                 <div className="fixed inset-0 overflow-y-auto">
                     <div className="flex min-h-full w-screen items-center justify-center p-4 text-center">
                         <Transition.Child as={Fragment} enter="ease-out duration-300" enterFrom="opacity-0 scale-95" enterTo="opacity-100 scale-100" leave="ease-in duration-200" leaveFrom="opacity-100 scale-100" leaveTo="opacity-0 scale-95">
-                            <Dialog.Panel className={`w-full ${props.dialog == 'large' ? 'max-w-full' : 'max-w-lg' } transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-4xl transition-all`}>
+                            <Dialog.Panel className={`w-full ${props.dialog == 'large' ? 'max-w-full' : 'max-w-lg'} transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-4xl transition-all`}>
                                 <Dialog.Title as="h3" className="text-lg font-medium leading-6 text-gray-900" >
                                     {props.heading}
                                 </Dialog.Title>
@@ -23,12 +23,15 @@ export default function CommonDialog(props) {
                                 </div>
 
                                 <div className="mt-4">
-                                    <button type="button" onClick={() => props.submit()}
-                                        className="float-right inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium bg-yellow-500 hover:bg-yellow-600 font-medium text-sm text-white border border-yellow-500 rounded-md shadow-button">
-                                        {props.submitText}
-                                    </button>
+                                    {props.submitText ? (
+                                        <button type="button" onClick={() => props.submit()}
+                                            className="float-right inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium bg-yellow-500 hover:bg-yellow-600 font-medium text-sm text-white border border-yellow-500 rounded-md shadow-button">
+                                            {props.submitText}
+                                        </button>
+                                    ) : ''}
+
                                     {props.rejectText ? (
-                                        <button type="button" onClick={() => props.reject()} 
+                                        <button type="button" onClick={() => props.reject()}
                                             className="mr-3 float-right inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium bg-red-500 hover:bg-red-600 font-medium text-sm text-white border border-red-500 rounded-md shadow-button">
                                             {props.rejectText}
                                         </button>

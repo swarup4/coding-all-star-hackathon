@@ -221,13 +221,12 @@ export default function Review() {
                 <CodeView id={apiId} />
             </CommonDialog>
 
-            {
-                reject ? (
-                    <CommonDialog heading="Comment" open={reject} close={setIsOpen} submitText='Sumbit' submit={rejectCode}>
-                        <textarea name='comment' placeholder="Give rejection comment" value={comment} onChange={ev => setComment(ev.target.value)}
-                            className="w-full px-4 py-2.5 text-base text-coolGray-900 font-normal outline-none focus:border-yellow-500 border border-coolGray-200 rounded-lg shadow-input"></textarea>
-                    </CommonDialog>
-                ) : ''
+            {reject ? (
+                <CommonDialog heading="Comment" open={reject} close={setIsOpen} submitText='Sumbit' submit={rejectCode}>
+                    <textarea name='comment' placeholder="Give rejection comment" value={comment} onChange={ev => setComment(ev.target.value)}
+                        className="w-full px-4 py-2.5 text-base text-coolGray-900 font-normal outline-none focus:border-yellow-500 border border-coolGray-200 rounded-lg shadow-input"></textarea>
+                </CommonDialog>
+            ) : ''
             }
         </>
     )
