@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
+import { useDispatch } from 'react-redux'
 import { HOST_URL } from '../../constants'
+import { setNotification } from '../../store/notification/notificationSlice'
 
 import CodeMirror from "@uiw/react-codemirror";
 import { StreamLanguage } from '@codemirror/language';
@@ -12,6 +14,7 @@ import { sublime } from '@uiw/codemirror-theme-sublime';
 
 
 export default function CodeView(props) {
+    const dispatch = useDispatch()
     const [code, setCode] = useState('');
     const [extensions, setExtensions] = useState([]);
 
@@ -22,6 +25,11 @@ export default function CodeView(props) {
             getExtensions(res.data?.programmingLanguage)
         }).catch(err => {
             console.log(err)
+            dispatch(setNotification({
+                popup: true,
+                status: 'error',
+                message: err.response.data
+            }))
         })
     }, [])
 

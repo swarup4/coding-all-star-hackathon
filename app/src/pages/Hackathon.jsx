@@ -32,6 +32,11 @@ export default function Hackathon() {
                 dispatch(selectProject(res.data[0]))
             }).catch(err => {
                 console.log(err)
+                dispatch(setNotification({
+                    popup: true,
+                    status: 'error',
+                    message: err.response.data
+                }))
             })
         }
     }, [])
@@ -57,6 +62,11 @@ export default function Hackathon() {
             dispatch(selectProject(res.data.data))
         }).catch(err => {
             console.log(err);
+            dispatch(setNotification({
+                popup: true,
+                status: 'error',
+                message: err.response.data
+            }))
         })
     }
 

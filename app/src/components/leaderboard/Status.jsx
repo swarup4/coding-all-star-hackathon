@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
+import { useDispatch, useSelector } from 'react-redux'
 import { HOST_URL } from '../../constants'
+import { setNotification } from '../../store/notification/notificationSlice'
 
 export default function Status() {
-
+    
+    const dispatch = useDispatch()
     const [submission, setSubmission] = useState(0);
 
     useEffect(() => {
@@ -12,6 +15,11 @@ export default function Status() {
             setSubmission(res.data)
         }).catch(err => {
             console.log(err)
+            dispatch(setNotification({
+                popup: true,
+                status: 'error',
+                message: err.response.data
+            }))
         })
     }, [])
 

@@ -3,9 +3,10 @@ import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux'
 import { HOST_URL } from '../../constants'
 import { Link, useNavigate } from 'react-router-dom'
+import { setNotification } from '../../store/notification/notificationSlice'
 
 export default function ProjectList() {
-
+    const dispatch = useDispatch()
     const navigate = useNavigate()
     const [tab, setTab] = useState(0)
     const [project, setProject] = useState([])
@@ -40,6 +41,11 @@ export default function ProjectList() {
             setProject(res.data);
         }).catch(err => {
             console.log(err);
+            dispatch(setNotification({
+                popup: true,
+                status: 'error',
+                message: err.response.data
+            }))
         })
     }
 
@@ -49,6 +55,11 @@ export default function ProjectList() {
             setProjectList(res.data)
         }).catch(err => {
             console.log(err);
+            dispatch(setNotification({
+                popup: true,
+                status: 'error',
+                message: err.response.data
+            }))
         })
     }
 
@@ -58,6 +69,11 @@ export default function ProjectList() {
             alert("Success")
         }).catch(err => {
             console.log(err);
+            dispatch(setNotification({
+                popup: true,
+                status: 'error',
+                message: err.response.data
+            }))
         })
     }
 

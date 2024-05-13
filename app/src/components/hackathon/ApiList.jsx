@@ -21,6 +21,11 @@ export default function ApiList() {
             setWorkingProject(res.data)
         }).catch(err => {
             console.log(err);
+            dispatch(setNotification({
+                popup: true,
+                status: 'error',
+                message: err.response.data
+            }))
         })
     }, [])
 
@@ -36,6 +41,11 @@ export default function ApiList() {
             }))
         }).catch(err => {
             console.log(err);
+            dispatch(setNotification({
+                popup: true,
+                status: 'error',
+                message: err.response.data
+            }))
         })
     }
 

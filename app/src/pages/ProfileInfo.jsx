@@ -52,6 +52,11 @@ export default function ProfileInfo() {
             setUserList(res.data)
         }).catch(err => {
             console.log(err)
+            dispatch(setNotification({
+                popup: true,
+                status: 'error',
+                message: err.response.data
+            }))
         })
     }, [])
 
@@ -72,6 +77,11 @@ export default function ProfileInfo() {
             navigate("/dashboard");
         }).catch(err => {
             console.log(err)
+            dispatch(setNotification({
+                popup: true,
+                status: 'error',
+                message: err.response.data
+            }))
         })
     }
 

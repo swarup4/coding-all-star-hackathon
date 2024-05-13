@@ -84,14 +84,11 @@ router.post("/login", async (req, res) => {
             email: req.body.email,
             password: req.body.password,
             status: true
-        };
-
+        }
+        
         const user = await User.Auth.findOne(obj);
         if (user == null) {
-            res.statusCode(401).json({
-                status: 401,
-                message: "Username & password is not Valid" 
-            });
+            res.status(401).send("Username & password is not Valid")
         } else {
             const obj = { id: user._id, email: user.email };
             const token = jwt.sign(obj, process.env.SECRATE_KEY, {

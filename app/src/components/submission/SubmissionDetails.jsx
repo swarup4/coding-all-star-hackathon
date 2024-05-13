@@ -43,6 +43,11 @@ export default function SubmissionDetails(props) {
             dispatch(setSubmission(res.data))
         }).catch(err => {
             console.log(err);
+            dispatch(setNotification({
+                popup: true,
+                status: 'error',
+                message: err.response.data
+            }))
         })
     }, [])
 
@@ -60,6 +65,11 @@ export default function SubmissionDetails(props) {
             closeModal()
         }).catch(err => {
             console.log(err);
+            dispatch(setNotification({
+                popup: true,
+                status: 'error',
+                message: err.response.data
+            }))
         })
     }
 
@@ -76,6 +86,11 @@ export default function SubmissionDetails(props) {
             navigate(`/dashboard/hackathon/${submission.hackathonId}`)
         }).catch(err => {
             console.log(err);
+            dispatch(setNotification({
+                popup: true,
+                status: 'error',
+                message: err.response.data
+            }))
         })
     }
 

@@ -27,7 +27,6 @@ export default function Login() {
         initialValues: initialValues,
         validationSchema: schema,
         onSubmit: (values, action) => {
-            console.log(values)
             login(values);
         }
     })
@@ -35,7 +34,6 @@ export default function Login() {
     function login(data) {
         const url = `${HOST_URL}user/login`
         axios.post(url, data).then(res => {
-            debugger;
             if(res.status == 200) {
                 console.log(res.data);
                 sessionStorage.auth = res.data.token;
@@ -48,15 +46,14 @@ export default function Login() {
                 })
                 // const location = sessionStorage.url;
                 navigate("/dashboard");
-            } else {
-                dispatch(setNotification({
-                    popup: true,
-                    status: 'error',
-                    message: res.data.message
-                }))
             }
         }).catch(err => {
-            console.log(err)
+            console.log(err.response.status)
+            dispatch(setNotification({
+                popup: true,
+                status: 'error',
+                message: err.response.data
+            }))
         })
     }
 

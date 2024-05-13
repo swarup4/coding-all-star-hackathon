@@ -8,10 +8,18 @@ export default function Header() {
 
     useEffect(() => {
         const userToken = sessionStorage.getItem("user")
-        if(userToken){
+        if (userToken) {
             setUser(JSON.parse(userToken))
         }
     }, [])
+
+    // function logout() {
+    //     sessionStorage.removeItem('auth');
+    //     sessionStorage.removeItem('url');
+    //     sessionStorage.removeItem('user');
+    //     setUser(false);
+    //     navigate('/')
+    // }
 
     return (
         <>

@@ -50,6 +50,11 @@ export default function ApiDetails() {
             setIsOpen(false)
         }).catch(err => {
             console.log(err);
+            dispatch(setNotification({
+                popup: true,
+                status: 'error',
+                message: err.response.data
+            }))
         })
     }
 

@@ -4,8 +4,9 @@ import axios from 'axios'
 import { HOST_URL } from '../../constants'
 import { getInitial } from '../helper'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { Popover, Transition } from '@headlessui/react'
 import { setReview } from '../../store/review/reviewSlice'
+import { setNotification } from '../../store/notification/notificationSlice'
+// import {setUser} from '../user/'
 
 export default function UserHeader() {
 
@@ -31,9 +32,21 @@ export default function UserHeader() {
             dispatch(setReview({ totalReviewPoint: totalReviewPoint }))
         }).catch(err => {
             console.log(err)
+            dispatch(setNotification({
+                popup: true,
+                status: 'error',
+                message: err.response.data
+            }))
         })
     }, [])
 
+    // function logout() {
+    //     sessionStorage.removeItem('auth');
+    //     sessionStorage.removeItem('url');
+    //     sessionStorage.removeItem('user');
+    //     dispatch(setReview({ totalReviewPoint: totalReviewPoint }))
+    //     navigate('/')
+    // }
 
     return (
         <section>

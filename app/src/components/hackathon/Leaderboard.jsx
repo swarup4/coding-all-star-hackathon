@@ -3,9 +3,11 @@ import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux'
 import { HOST_URL } from '../../constants'
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline'
+import { setNotification } from '../../store/notification/notificationSlice'
 
 export default function Leaderboard(props) {
 
+    const dispatch = useDispatch()
     const [point, setPoint] = useState([])
     const [allPoint, setAllPoint] = useState([]);
 
@@ -16,6 +18,11 @@ export default function Leaderboard(props) {
             setAllPoint(res.data)
         }).catch(err => {
             console.log(err);
+            dispatch(setNotification({
+                popup: true,
+                status: 'error',
+                message: err.response.data
+            }))
         })
     }, [])
 

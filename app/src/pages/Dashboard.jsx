@@ -24,6 +24,11 @@ export default function Dashboard() {
             setAllHackathon(res.data)
         }).catch(err => {
             console.log(err)
+            dispatch(setNotification({
+                popup: true,
+                status: 'error',
+                message: err.response.data
+            }))
         })
     }
     useEffect(() => {
@@ -42,6 +47,11 @@ export default function Dashboard() {
             getHackathonList()
         }).catch(err => {
             console.log(err);
+            dispatch(setNotification({
+                popup: true,
+                status: 'error',
+                message: err.response.data
+            }))
         })
     }
 

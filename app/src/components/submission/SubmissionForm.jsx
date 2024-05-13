@@ -55,6 +55,11 @@ export default function SubmissionForm(props) {
             navigate(`/dashboard/details/${res.data._id}`)
         }).catch(err => {
             console.log(err)
+            dispatch(setNotification({
+                popup: true,
+                status: 'error',
+                message: err.response.data
+            }))
         })
     }
 

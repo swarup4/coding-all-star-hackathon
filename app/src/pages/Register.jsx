@@ -36,14 +36,7 @@ export default function Register() {
     function signup(data) {
         const url = `${HOST_URL}user/signup`
         axios.post(url, data).then(res => {
-            if (res.data.status === 409) {
-                dispatch(setNotification({
-                    popup: true,
-                    status: 'error',
-                    message: res.data.message
-                }))
-            } else {
-                console.log(res.data);
+            if(res.status == 200) {
                 sessionStorage.auth = res.data.token;
                 sessionStorage.user = JSON.stringify({
                     email: res.data.email,
@@ -54,6 +47,11 @@ export default function Register() {
             }
         }).catch(err => {
             console.log(err)
+            dispatch(setNotification({
+                popup: true,
+                status: 'error',
+                message: err.response.data
+            }))
         })
     }
 

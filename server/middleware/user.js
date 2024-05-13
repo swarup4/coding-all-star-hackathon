@@ -37,10 +37,7 @@ let loginObj = {
                 email: email
             })
             if (data) {
-                res.json({
-                    status: 409,
-                    message: "Email is already Exist."
-                })
+                res.status(409).send("Email is already Exist.")
             } else {
                 next()
             }

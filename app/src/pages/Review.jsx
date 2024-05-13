@@ -27,6 +27,11 @@ export default function Review() {
             setAllApiList(res.data)
         }).catch(err => {
             console.log(err)
+            dispatch(setNotification({
+                popup: true,
+                status: 'error',
+                message: err.response.data
+            }))
         })
     }
 
@@ -81,6 +86,11 @@ export default function Review() {
             setIsOpen(false)
         }).catch(err => {
             console.log(err)
+            dispatch(setNotification({
+                popup: true,
+                status: 'error',
+                message: err.response.data
+            }))
         })
     }
     function rejectCode() {
@@ -101,6 +111,11 @@ export default function Review() {
             setReject(false)
         }).catch(err => {
             console.log(err)
+            dispatch(setNotification({
+                popup: true,
+                status: 'error',
+                message: err.response.data
+            }))
         })
     }
 

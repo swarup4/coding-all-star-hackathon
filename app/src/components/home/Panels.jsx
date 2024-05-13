@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
+import { useDispatch, useSelector } from 'react-redux'
 import { HOST_URL } from '../../constants'
+import { setNotification } from '../../store/notification/notificationSlice'
 
 
 export default function Panels() {
 
+    const dispatch = useDispatch()
     const [panels, setPanels] = useState([]);
 
     useEffect(() => {
@@ -13,6 +16,11 @@ export default function Panels() {
             setPanels(res.data)
         }).catch(err => {
             console.log(err)
+            dispatch(setNotification({
+                popup: true,
+                status: 'error',
+                message: err.response.data
+            }))
         })
     }, [])
 
