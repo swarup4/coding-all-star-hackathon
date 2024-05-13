@@ -6,7 +6,7 @@ function classNames(...classes) {
 }
 
 export default function Prices() {
-    let [categories] = useState({
+    let [categories, setCategories] = useState({
         First: [
             {
                 id: 1,

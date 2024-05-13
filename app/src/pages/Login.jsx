@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
+import { useDispatch } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 import { useFormik } from 'formik'
 import { object, string } from 'yup'
 import { HOST_URL } from '../constants'
+import { setNotification } from '../store/notification/notificationSlice'
 
 const initialValues = {
     organization: 'Trigent Software',
@@ -19,6 +21,7 @@ const schema = object({
 export default function Login() {
 
     const navigate = useNavigate()
+    const dispatch = useDispatch()
 
     const { values, errors, handleBlur, handleChange, handleSubmit, touched } = useFormik({
         initialValues: initialValues,
@@ -32,17 +35,26 @@ export default function Login() {
     function login(data) {
         const url = `${HOST_URL}user/login`
         axios.post(url, data).then(res => {
-            console.log(res.data);
-            sessionStorage.auth = res.data.token;
-            sessionStorage.user = JSON.stringify({
-                email: res.data.email,
-                id: res.data.id,
-                name: res.data.name,
-                role: res.data.role,
-                profilePics: res.data.profilePics
-            })
-            // const location = sessionStorage.url;
-            navigate("/dashboard");
+            debugger;
+            if(res.status == 200) {
+                console.log(res.data);
+                sessionStorage.auth = res.data.token;
+                sessionStorage.user = JSON.stringify({
+                    email: res.data.email,
+                    id: res.data.id,
+                    name: res.data.name,
+                    role: res.data.role,
+                    profilePics: res.data.profilePics
+                })
+                // const location = sessionStorage.url;
+                navigate("/dashboard");
+            } else {
+                dispatch(setNotification({
+                    popup: true,
+                    status: 'error',
+                    message: res.data.message
+                }))
+            }
         }).catch(err => {
             console.log(err)
         })
