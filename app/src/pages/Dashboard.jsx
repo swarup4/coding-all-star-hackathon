@@ -5,7 +5,7 @@ import moment from 'moment'
 import { useDispatch, useSelector } from 'react-redux'
 import { selectProject } from '../store/hackathon/hackathonSlice'
 import { HOST_URL } from '../constants'
-import Notification from '../components/common/Notification'
+import { setNotification } from '../store/notification/notificationSlice'
 
 
 export default function Dashboard() {
@@ -16,20 +16,8 @@ export default function Dashboard() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const user = useSelector(store => store.user.data)
-    const [notification, setNotification] = useState({
-        popup: false,
-        status: '',
-        message: ''
-    })
 
-    useEffect(() => {
-        const timer = setTimeout(() => setNotification({ popup: false }), 10000)
-        return () => {
-            clearTimeout(timer);
-        }
-    }, [notification.popup])
-
-    useEffect(() => {
+    function getHackathonList() {
         const url = `${HOST_URL}hackathon/getHackathonList`
         axios.get(url).then(res => {
             setHackathon(res.data);
@@ -37,17 +25,22 @@ export default function Dashboard() {
         }).catch(err => {
             console.log(err)
         })
+    }
+    useEffect(() => {
+        getHackathonList()
     }, [])
 
     function participate(id) {
         const url = `${HOST_URL}hackathon/applyHackathon/${id}`;
         const body = { userId: user.id }
         axios.put(url, body).then(res => {
-            setNotification({
+            dispatch(setNotification({
                 popup: true,
                 status: 'success',
                 message: res.data.message
-            })
+            }))
+            // setApply(id)
+            getHackathonList()
         }).catch(err => {
             console.log(err);
         })
@@ -84,10 +77,6 @@ export default function Dashboard() {
 
     return (
         <div>
-            {notification.popup ? (
-                <Notification status={notification.status} message={notification.message} close={setNotification} />
-            ) : ''}
-
             <section className="relative py-24 bg-white">
                 <div className="absolute top-0 left-0 w-full h-full theme-background"></div>
                 <div className="container relative z-10 px-4 mx-auto">

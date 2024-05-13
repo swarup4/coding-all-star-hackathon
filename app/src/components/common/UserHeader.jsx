@@ -2,6 +2,7 @@ import React, { Fragment, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import axios from 'axios'
 import { HOST_URL } from '../../constants'
+import { getInitial } from '../helper'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { Popover, Transition } from '@headlessui/react'
 import { setReview } from '../../store/review/reviewSlice'
@@ -14,7 +15,7 @@ export default function UserHeader() {
     const dispatch = useDispatch()
     const user = useSelector(store => store.user.data)
     const reviewPoint = useSelector(store => store.review.data)
-    
+
     function redirectPage() {
         sessionStorage.url = location.pathname
     }
@@ -27,7 +28,7 @@ export default function UserHeader() {
         const url = `${HOST_URL}submission/getSubmissionCount/${userInfo.id}`
         axios.get(url).then(res => {
             const totalReviewPoint = (res.data?.submission * 2) - res.data.review
-            dispatch(setReview({totalReviewPoint: totalReviewPoint}))
+            dispatch(setReview({ totalReviewPoint: totalReviewPoint }))
         }).catch(err => {
             console.log(err)
         })
@@ -56,7 +57,7 @@ export default function UserHeader() {
                                         <p className="text-coolGray-800">Dashboard</p>
                                     </Link>
                                 </li>
-                                
+
                                 <li className="mr-8">
                                     <Link to='leaderboard' className="flex flex-wrap items-center py-8 text-base font-medium text-coolGray-500 hover:text-yellow-500 border-b-2 border-transparent hover:border-yellow-500">
                                         <svg xmlns="http://www.w3.org/2000/svg" className="mr-2 h-6" width="24" height="24" viewBox="0 0 24 24" fill="none" strokeWidth="2" stroke="currentColor" aria-hidden="true">
@@ -94,7 +95,15 @@ export default function UserHeader() {
                                         <div className="w-auto p-2">
                                             <div className="flex flex-wrap -m-2">
                                                 <div className="w-auto p-2">
-                                                    <img src={window.location.origin + "/flex-ui-assets/images/user/" + user.profilePics} alt="" className='rounded-full h-11' />
+                                                    {user.profilePics ? (
+                                                        <>
+                                                            <img src={window.location.origin + "/flex-ui-assets/images/user/" + user.profilePics} className='rounded-full h-11' />
+                                                        </>
+                                                    ) : (
+                                                        <>
+                                                            <div className={`flex items-center justify-center w-11 h-11 text-base font-medium rounded-full text-yellow-600 bg-yellow-200`}>{getInitial(user.name)}</div>
+                                                        </>
+                                                    )}
                                                 </div>
                                                 <div className="w-auto p-2">
                                                     <h2 className="text-xs font-semibold text-coolGray-800">{user.name}</h2>
@@ -327,7 +336,11 @@ export default function UserHeader() {
                                     <div className="w-auto">
                                         <div className="flex flex-wrap -mx-2">
                                             <div className="w-auto p-2">
-                                                <img src={window.location.origin + "/flex-ui-assets/images/user/" + user.profilePics} alt="" />
+                                                {user.profilePics ? (
+                                                    <img src={window.location.origin + "/flex-ui-assets/images/user/" + user.profilePics} className='rounded-full h-11' />
+                                                ) : (
+                                                    <div className={`flex items-center justify-center w-11 h-11 text-base font-medium rounded-full text-yellow-600 bg-yellow-200`}>{getInitial(user.name)}</div>
+                                                )}
                                             </div>
                                             <div className="w-auto p-2">
                                                 <h2 className="text-sm font-semibold text-coolGray-800">John Doe</h2>

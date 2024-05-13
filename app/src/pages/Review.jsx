@@ -6,6 +6,7 @@ import { EyeIcon, CheckIcon, MagnifyingGlassIcon } from '@heroicons/react/24/out
 import CommonDialog from '../components/common/CommonDialog'
 import CodeView from '../components/review/CodeView'
 import { setNotification } from '../store/notification/notificationSlice'
+import { setReview } from '../store/review/reviewSlice'
 
 export default function Review() {
     const dispatch = useDispatch()
@@ -19,7 +20,7 @@ export default function Review() {
     const user = useSelector(store => store.user.data)
     const reviewPoint = useSelector(store => store.review.data?.totalReviewPoint)
 
-    useEffect(() => {
+    function getSubmittedApiList() {
         const url = `${HOST_URL}submission/getAllSubmittedApiList`
         axios.get(url).then(res => {
             setApiList(res.data)
@@ -27,6 +28,10 @@ export default function Review() {
         }).catch(err => {
             console.log(err)
         })
+    }
+
+    useEffect(() => {
+        getSubmittedApiList()
     }, [])
 
     function viewDialog(id, userId) {
@@ -66,13 +71,13 @@ export default function Review() {
         }
         const url = `${HOST_URL}review/addReview`
         axios.post(url, body).then(res => {
-            // alert("Code Approve")
             dispatch(setNotification({
                 popup: true,
                 status: 'success',
                 message: 'Code Approve'
             }))
-
+            dispatch(setReview({ totalReviewPoint: (reviewPoint - 1) }))
+            getSubmittedApiList()
             setIsOpen(false)
         }).catch(err => {
             console.log(err)
@@ -106,7 +111,7 @@ export default function Review() {
 
     function reviewEligible(review) {
         if (review.length === 0 || review.length === 1) {
-            if (review.length === 1){
+            if (review.length === 1) {
                 for (const item of review) {
                     return (item.reviewerId !== user.id) ? true : false
                 }

@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from 'react'
-
 import { Link } from 'react-router-dom'
+import { getInitial } from '../helper'
 
 export default function Header() {
 
@@ -35,7 +35,11 @@ export default function Header() {
                             {Object.keys(user).length > 0 ? (
                                 <div className="flex items-center justify-end">
                                     <div className="w-auto p-2">
-                                        <img src={window.location.origin + "/flex-ui-assets/images/user/" + user.profilePics} alt="" className='rounded-full h-11' />
+                                        {user.profilePics ? (
+                                            <img src={window.location.origin + "/flex-ui-assets/images/user/" + user.profilePics} className='rounded-full h-11' />
+                                        ) : (
+                                            <div className={`flex items-center justify-center w-11 h-11 text-base font-medium rounded-full text-yellow-600 bg-yellow-200`}>{getInitial(user.name)}</div>
+                                        )}
                                     </div>
                                     <div className="w-auto p-2">
                                         <h2 className="text-sm font-semibold text-coolGray-800">{user.name}</h2>

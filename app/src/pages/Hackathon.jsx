@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import moment from 'moment'
-import { HOST_URL } from '../constants'
 import { useSelector } from 'react-redux'
 import { useParams, useNavigate } from 'react-router-dom'
+import { HOST_URL } from '../constants'
+import { getInitial } from '../components/helper'
 import Leaderboard from '../components/hackathon/Leaderboard'
 import Panel from '../components/hackathon/Panel'
 import Participants from '../components/hackathon/Participants'
@@ -70,7 +71,12 @@ export default function Hackathon() {
                                 <div className="flex items-center justify-between flex-wrap -mx-2">
                                     <div className="w-9/12 flex">
                                         <div className="w-auto px-2">
-                                            <img src={window.location.origin + "/flex-ui-assets/images/user/" + projectDetails.user.profilePics} alt="" className='rounded-full h-20' />
+                                            {/* <img src={window.location.origin + "/flex-ui-assets/images/user/" + projectDetails.user.profilePics} className='rounded-full h-20' /> */}
+                                            {projectDetails.user.profilePics ? (
+                                                <img src={window.location.origin + "/flex-ui-assets/images/user/" + projectDetails.user.profilePics} className='rounded-full h-20' />
+                                            ) : (
+                                                <div className={`flex items-center justify-center w-20 h-20 text-base font-medium rounded-full text-yellow-600 bg-yellow-200`}>{getInitial(projectDetails.user.name)}</div>
+                                            )}
                                         </div>
                                         <div className="w-auto px-2 flex items-center">
                                             <h4 className="text-base md:text-lg font-bold text-coolGray-800">{projectDetails.user.name}</h4>
