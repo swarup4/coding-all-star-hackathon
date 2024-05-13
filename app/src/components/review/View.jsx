@@ -1,120 +1,205 @@
-import { useState } from 'react'
-import { Tab } from '@headlessui/react'
+import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
+import { useDispatch, useSelector } from 'react-redux'
+import { HOST_URL } from '../../constants'
+import { setNotification } from '../../store/notification/notificationSlice'
 
 
-function classNames(...classes) {
-    return classes.filter(Boolean).join(' ')
-}
+export default function View(props) {
 
-export default function View() {
-    const categories = [
-        {
-            name: 'Recent',
-            posts: [
-                {
-                    id: 1,
-                    title: 'Does drinking coffee make you smarter?',
-                    date: '5h ago',
-                    commentCount: 5,
-                    shareCount: 2,
-                },
-                {
-                    id: 2,
-                    title: "So you've bought coffee... now what?",
-                    date: '2h ago',
-                    commentCount: 3,
-                    shareCount: 2,
-                },
-            ],
-        },
-        {
-            name: 'Popular',
-            posts: [
-                {
-                    id: 1,
-                    title: 'Is tech making coffee better or worse?',
-                    date: 'Jan 7',
-                    commentCount: 29,
-                    shareCount: 16,
-                },
-                {
-                    id: 2,
-                    title: 'The most innovative things happening in coffee',
-                    date: 'Mar 19',
-                    commentCount: 24,
-                    shareCount: 12,
-                },
-            ],
-        },
-        {
-            name: 'Trending',
-            posts: [
-                {
-                    id: 1,
-                    title: 'Ask Me Anything: 10 answers to your questions about coffee',
-                    date: '2d ago',
-                    commentCount: 9,
-                    shareCount: 5,
-                },
-                {
-                    id: 2,
-                    title: "The worst advice we've ever heard about coffee",
-                    date: '4d ago',
-                    commentCount: 1,
-                    shareCount: 2,
-                },
-            ],
-        },
-    ]
+    // const [allHackathon, setAllHackathon] = useState([])
+    // const [hackathon, setHackathon] = useState([]);
+    const [tab, setTab] = useState(0);
+    // const dispatch = useDispatch()
+    // const navigate = useNavigate()
+    // const user = useSelector(store => store.user.data)
+
+
+    useEffect(() => {
+        const url = `${HOST_URL}submission/getApiDetails/${id}`
+        axios.get(url).then(res => {
+            setApi(res.data)
+            // dispatch(setSubmission(res.data))
+        }).catch(err => {
+            console.log(err);
+            // dispatch(setNotification({
+            //     popup: true,
+            //     status: 'error',
+            //     message: err.response.data
+            // }))
+        })
+    }, [])
+
+    function selectTab(id) {
+        setTab(id)
+        // if (id != 0) {
+        //     const list = allHackathon.filter(x => x.status == id);
+        //     setHackathon(list)
+        // } else {
+        //     setHackathon(allHackathon);
+        // }
+    }
+
 
     return (
-        <div className="w-full max-w-md px-2 py-16 sm:px-0">
-            <Tab.Group>
-                <Tab.List className="flex space-x-1 rounded-xl bg-blue-900/20 p-1">
-                    {categories.map((category) => (
-                        <Tab key={category} className={({ selected }) =>
-                            classNames(
-                                'w-full rounded-lg py-2.5 text-sm font-medium leading-5',
-                                'ring-white/60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2',
-                                selected
-                                    ? 'bg-white text-blue-700 shadow'
-                                    : 'text-blue-100 hover:bg-white/[0.12] hover:text-white'
-                            )
-                        }>{category}</Tab>
-                    ))}
-                </Tab.List>
-                <Tab.Panels className="mt-2">
-                    {categories.map((posts, idx) => (
-                        <Tab.Panel key={idx} className={classNames(
-                            'rounded-xl bg-white p-3',
-                            'ring-white/60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2'
-                        )}>
-                            <ul>
-                                {posts.map((post) => (
-                                    <li key={post.id} className="relative rounded-md p-3 hover:bg-gray-100">
-                             swarup
-                                        <h3 className="text-sm font-medium leading-5">
-                                            {post.title}
-                                        </h3>
-                                        <ul className="mt-1 flex space-x-1 text-xs font-normal leading-4 text-gray-500">
-                                            <li>{post.date}</li>
-                                            <li>&middot;</li>
-                                            <li>{post.commentCount} comments</li>
-                                            <li>&middot;</li>
-                                            <li>{post.shareCount} shares</li>
-                                        </ul>
+        <section className="relative py-24 bg-white">
+            <div className="absolute top-0 left-0 w-full h-full theme-background"></div>
+            <div className="container relative z-10 px-4 mx-auto">
+                <ul className="flex flex-wrap mb-8 -mx-2 text-center">
+                    <li className="w-full md:w-auto px-2 cursor-pointer"><a onClick={() => selectTab(0)} className={`inline-block w-full py-2 px-4 mb-4 md:mb-0 text-sm text-coolGray-400 hover:text-yellow-500 hover:bg-yellow-200 font-bold rounded-md hover:shadow-sm ${tab == 0 ? 'tab-active' : ''}`}>Details</a></li>
+                    <li className="w-full md:w-auto px-2 cursor-pointer"><a onClick={() => selectTab(1)} className={`inline-block w-full py-2 px-4 mb-4 md:mb-0 text-sm text-coolGray-400 hover:text-yellow-500 hover:bg-yellow-200 font-bold rounded-md hover:shadow-sm ${tab == 1 ? 'tab-active' : ''}`}>Code</a></li>
+                </ul>
+                <div className="flex flex-wrap -mx-4 mb-12 md:mb-20">
+                    {Object.keys(api).length > 0 ? (
+                        <div className="w-full md:w-full">
+                            <div className="flex flex-wrap -m-3">
 
-                                        <a href="#" className={classNames(
-                                            'absolute inset-0 rounded-md',
-                                            'ring-blue-400 focus:z-10 focus:outline-none focus:ring-2'
-                                        )} />
-                                    </li>
-                                ))}
-                            </ul>
-                        </Tab.Panel>
-                    ))}
-                </Tab.Panels>
-            </Tab.Group>
-        </div>
+                                <div className="w-full md:w-2/3 p-3">
+                                    <div className="py-6 border-b border-coolGray-100">
+                                        <div className="w-full md:w-9/12">
+                                            <div className="flex flex-wrap -m-3">
+                                                <div className="w-full md:w-1/4 p-3">
+                                                    <p className="text-sm text-coolGray-800 font-semibold">Name</p>
+                                                </div>
+                                                <div className="w-full md:flex-1 p-3">
+                                                    {api.name}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="py-6 border-b border-coolGray-100">
+                                        <div className="w-full md:w-9/12">
+                                            <div className="flex flex-wrap -m-3">
+                                                <div className="w-full md:w-1/4 p-3">
+                                                    <p className="text-sm text-coolGray-800 font-semibold">Category</p>
+                                                </div>
+                                                <div className="w-full md:flex-1 p-3">
+                                                    {api.category}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="py-6 border-b border-coolGray-100">
+                                        <div className="w-full md:w-9/12">
+                                            <div className="flex flex-wrap -m-3">
+                                                <div className="w-full md:w-1/4 p-3">
+                                                    <p className="text-sm text-coolGray-800 font-semibold">API End Point</p>
+                                                </div>
+                                                <div className="w-full md:flex-1 p-3">
+                                                    {api.apiEndPoint}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="py-6 border-b border-coolGray-100">
+                                        <div className="w-full md:w-9/12">
+                                            <div className="flex flex-wrap -m-3">
+                                                <div className="w-full md:w-1/4 p-3">
+                                                    <p className="text-sm text-coolGray-800 font-semibold">API Version</p>
+                                                </div>
+                                                <div className="w-full md:flex-1 p-3">
+                                                    {api.apiVersion}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="py-6 border-b border-coolGray-100">
+                                        <div className="w-full md:w-9/12">
+                                            <div className="flex flex-wrap -m-3">
+                                                <div className="w-full md:w-1/4 p-3">
+                                                    <p className="text-sm text-coolGray-800 font-semibold">Documentation Link</p>
+                                                </div>
+                                                <div className="w-full md:flex-1 p-3">
+                                                    {api.documentationLink}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="py-6 border-b border-coolGray-100">
+                                        <div className="w-full md:w-9/12">
+                                            <div className="flex flex-wrap -m-3">
+                                                <div className="w-full md:w-1/4 p-3">
+                                                    <p className="text-sm text-coolGray-800 font-semibold">Programming Language</p>
+                                                </div>
+                                                <div className="w-full md:flex-1 p-3">
+                                                    {api.programmingLanguage}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="py-6 border-b border-coolGray-100">
+                                        <div className="w-full md:w-9/12">
+                                            <div className="flex flex-wrap -m-3">
+                                                <div className="w-full md:w-1/4 p-3">
+                                                    <p className="text-sm text-coolGray-800 font-semibold">Description</p>
+                                                </div>
+                                                <div className="w-full md:flex-1 p-3">
+                                                    {api.description}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div className="w-full md:flex-1 p-3">
+                                    <div className="py-6">
+                                        <div className="w-full py-3">
+                                            <div className="flex flex-wrap -m-3">
+                                                <div className="w-1/5 p-3"></div>
+                                                <div className="w-3/5 p-3">
+                                                    <p className="text-sm text-coolGray-800 font-semibold">API Code</p>
+                                                </div>
+                                                <a className="flex-1 p-3 cursor-pointer" onClick={() => codeDialogs('code')}>
+                                                    <PlusCircleIcon className='w-7 text-yellow-500 hover:text-yellow-600' />
+                                                </a>
+                                            </div>
+                                        </div>
+
+                                        <div className="w-full py-3">
+                                            <div className="flex flex-wrap -m-3">
+                                                <div className="w-1/5 p-3"></div>
+                                                <div className="w-3/5 p-3">
+                                                    <p className="text-sm text-coolGray-800 font-semibold">API Env Variable</p>
+                                                </div>
+                                                <a className="flex-1 p-3 cursor-pointer" onClick={() => codeDialogs('env')}>
+                                                    <PlusCircleIcon className='w-7 text-yellow-500 hover:text-yellow-600' />
+                                                </a>
+                                            </div>
+                                        </div>
+
+                                        <div className="w-full py-3">
+                                            <div className="flex flex-wrap -m-3">
+                                                <div className="w-1/5 p-3"></div>
+                                                <div className="w-3/5 p-3">
+                                                    <p className="text-sm text-coolGray-800 font-semibold">API Unit Test Cases</p>
+                                                </div>
+                                                <a className="flex-1 p-3 cursor-pointer" onClick={() => codeDialogs('test')}>
+                                                    <PlusCircleIcon className='w-7 text-yellow-500 hover:text-yellow-600' />
+                                                </a>
+                                            </div>
+                                        </div>
+
+                                        <div className="w-full py-3">
+                                            <div className="flex flex-wrap -m-3">
+                                                <div className="w-1/5 p-3"></div>
+                                                <div className="w-3/5 p-3">
+                                                    <p className="text-sm text-coolGray-800 font-semibold">Video Link</p>
+                                                </div>
+                                                <a className="flex-1 p-3 cursor-pointer" onClick={() => openModal()}>
+                                                    <PlusCircleIcon className='w-7 text-yellow-500 hover:text-yellow-600' />
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    ) : ''}
+                </div>
+            </div>
+        </section>
     )
 }

@@ -8,6 +8,7 @@ import { setReview } from '../../store/review/reviewSlice'
 import { setNotification } from '../../store/notification/notificationSlice'
 import { PencilSquareIcon } from '@heroicons/react/24/outline'
 import CommonDialog from '../common/CommonDialog'
+import View from '../review/View'
 
 export default function ApiList() {
 
@@ -134,6 +135,7 @@ export default function ApiList() {
 
             <CommonDialog heading='Api Details' dialog='large' open={isOpen} close={setIsOpen}>
                 {/* <Editor code={apiCodes} setCode={setApiCodes} type={type} /> */}
+                <View />
             </CommonDialog>
         </div>
     )

@@ -13,7 +13,7 @@ import { HOST_URL } from '../../constants'
 export default function SubmissionDetails(props) {
     const navigate = useNavigate()
     const [isOpen, setIsOpen] = useState(false)
-    const [api, getApi] = useState({});
+    const [api, setApi] = useState({});
     const [videoUrl, setVideoUrl] = useState('')
     const { id } = useParams();
     const dispatch = useDispatch()
@@ -39,7 +39,7 @@ export default function SubmissionDetails(props) {
     useEffect(() => {
         const url = `${HOST_URL}submission/getApiDetails/${id}`
         axios.get(url).then(res => {
-            getApi(res.data)
+            setApi(res.data)
             dispatch(setSubmission(res.data))
         }).catch(err => {
             console.log(err);
