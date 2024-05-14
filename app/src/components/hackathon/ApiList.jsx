@@ -15,6 +15,7 @@ export default function ApiList() {
     const navigate = useNavigate()
     const [workingProject, setWorkingProject] = useState([])
     const [isOpen, setIsOpen] = useState(false)
+    const [apiId, setApiId] = useState('')
     const dispatch = useDispatch()
     const reviewPoint = useSelector(store => store.review.data)
     const user = useSelector(store => store.user.data)
@@ -53,8 +54,13 @@ export default function ApiList() {
         })
     }
 
+    function sendApiId(id) {
+        setApiId(id)
+        setIsOpen(true)
+    }
+
     return (
-        <div>
+        <div className='flex'>
             {workingProject.map((item, ind) => (
                 <div className="w-full md:w-1/2 lg:w-1/2 xl:w-1/3 p-3" key={ind}>
                     <div className="bg-white border border-coolGray-100 shadow-dashboard rounded-md">
@@ -69,7 +75,7 @@ export default function ApiList() {
                                     {item.status ? (
                                         <div className='w-full flex justify-center'>
                                             <div className='md:w-1/2'>
-                                                <button onClick={() => setIsOpen(true)} className="px-4 py-2 w-11/12 font-medium text-sm text-white bg-yellow-500 hover:bg-yellow-600 rounded-md">
+                                                <button onClick={() => sendApiId(item._id)} className="px-4 py-2 w-11/12 font-medium text-sm text-white bg-yellow-500 hover:bg-yellow-600 rounded-md">
                                                     <span>View</span>
                                                 </button>
                                             </div>
@@ -134,8 +140,7 @@ export default function ApiList() {
             ))}
 
             <CommonDialog heading='Api Details' dialog='large' open={isOpen} close={setIsOpen}>
-                {/* <Editor code={apiCodes} setCode={setApiCodes} type={type} /> */}
-                <View />
+                <View apiId={apiId} />
             </CommonDialog>
         </div>
     )
