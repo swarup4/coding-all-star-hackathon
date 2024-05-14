@@ -21,6 +21,10 @@ export default function ApiList() {
     const user = useSelector(store => store.user.data)
 
     useEffect(() => {
+        getApiList()
+    }, [])
+
+    function getApiList(){
         const url = `${HOST_URL}submission/getApiList/${user.id}`;
         axios.get(url).then(res => {
             setWorkingProject(res.data)
@@ -32,7 +36,7 @@ export default function ApiList() {
                 message: err.response.data
             }))
         })
-    }, [])
+    }
 
     function submitApi(id) {
         const url = `${HOST_URL}submission/submitApi/${id}`;
@@ -44,6 +48,7 @@ export default function ApiList() {
                 status: 'success',
                 message: 'API has submitted'
             }))
+            getApiList()
         }).catch(err => {
             console.log(err);
             dispatch(setNotification({
@@ -72,7 +77,7 @@ export default function ApiList() {
                             {item.status ? (
                                 <div className='w-full'>
 
-                                    {item.status ? (
+                                    {item.submitStatus ? (
                                         <div className='w-full flex justify-center'>
                                             <div className='md:w-1/2'>
                                                 <button onClick={() => sendApiId(item._id)} className="px-4 py-2 w-11/12 font-medium text-sm text-white bg-yellow-500 hover:bg-yellow-600 rounded-md">
@@ -115,7 +120,7 @@ export default function ApiList() {
                             <div className="w-full md:w-1/3 p-2">
                                 <div className="text-center">
                                     <p className="mb-1 text-xs text-coolGray-900 font-semibold">Status</p>
-                                    <p className="text-xs text-coolGray-400 font-medium">{item.status ? 'Submitted' : 'In Progress'}</p>
+                                    <p className="text-xs text-coolGray-400 font-medium">{item.submitStatus ? 'Submitted' : 'In Progress'}</p>
                                 </div>
                             </div>
                         </div>

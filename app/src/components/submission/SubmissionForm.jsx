@@ -181,7 +181,9 @@ export default function SubmissionForm(props) {
                                     className="appearance-none w-full py-2.5 px-4 text-coolGray-900 text-base font-normal bg-white border outline-none border-coolGray-200 focus:border-yellow-500 rounded-lg shadow-input">
                                     <option value="">Select</option>
                                     <option value="nodejs">Node JS</option>
-                                    <option value="python">Python</option>
+                                    <option value="java">Java</option>
+                                    <option value="go">Go Lang</option>
+                                    <option value="html">HTML</option>
                                 </select>
                                 {errors.programmingLanguage && touched.programmingLanguage ? (
                                     <p className='mt-1 text-red-500'>{errors.programmingLanguage}</p>
