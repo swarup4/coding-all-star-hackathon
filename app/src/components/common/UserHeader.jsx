@@ -1,15 +1,18 @@
 import React, { Fragment, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import axios from 'axios'
+// import axios from 'axios'
+import axios from '../../axiosInstance'
 import { HOST_URL } from '../../constants'
 import { getInitial } from '../helper'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { setReview } from '../../store/review/reviewSlice'
+import { removeUser } from '../../store/user/userSlice'
 import { setNotification } from '../../store/notification/notificationSlice'
-// import {setUser} from '../user/'
+import { ChevronDownIcon } from '@heroicons/react/24/outline'
 
 export default function UserHeader() {
 
+    const navigate = useNavigate()
     const [open, setOpen] = useState(true)
     const userInfo = JSON.parse(sessionStorage.user)
     const location = useLocation();
@@ -20,10 +23,6 @@ export default function UserHeader() {
     function redirectPage() {
         sessionStorage.url = location.pathname
     }
-
-    const dropdownMenu = [
-        { name: "Profile", url: 'profile' }
-    ]
 
     useEffect(() => {
         const url = `${HOST_URL}submission/getSubmissionCount/${userInfo.id}`
@@ -40,13 +39,13 @@ export default function UserHeader() {
         })
     }, [])
 
-    // function logout() {
-    //     sessionStorage.removeItem('auth');
-    //     sessionStorage.removeItem('url');
-    //     sessionStorage.removeItem('user');
-    //     dispatch(setReview({ totalReviewPoint: totalReviewPoint }))
-    //     navigate('/')
-    // }
+    function logout() {
+        sessionStorage.removeItem('auth');
+        sessionStorage.removeItem('url');
+        sessionStorage.removeItem('user');
+        dispatch(removeUser())
+        navigate('/')
+    }
 
     return (
         <section>
@@ -70,16 +69,6 @@ export default function UserHeader() {
                                         <p className="text-coolGray-800">Dashboard</p>
                                     </Link>
                                 </li>
-
-                                <li className="mr-8">
-                                    <Link to='leaderboard' className="flex flex-wrap items-center py-8 text-base font-medium text-coolGray-500 hover:text-yellow-500 border-b-2 border-transparent hover:border-yellow-500">
-                                        <svg xmlns="http://www.w3.org/2000/svg" className="mr-2 h-6" width="24" height="24" viewBox="0 0 24 24" fill="none" strokeWidth="2" stroke="currentColor" aria-hidden="true">
-                                            <path strokeLinecap="round" strokeLinejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
-                                        </svg>
-                                        <p className="text-coolGray-800">Leaderboard</p>
-                                    </Link>
-                                </li>
-
                                 <li className="mr-8">
                                     <Link to='review' className="flex flex-wrap items-center py-8 text-base font-medium text-coolGray-500 hover:text-yellow-500 border-b-2 border-transparent hover:border-yellow-500">
                                         <svg xmlns="http://www.w3.org/2000/svg" className="mr-2 h-6" width="24" height="24" viewBox="0 0 24 24" fill="none" strokeWidth="2" stroke="currentColor" aria-hidden="true">
@@ -126,18 +115,11 @@ export default function UserHeader() {
                                         </div>
                                         <div className="dropdown dropdown-end">
                                             <a href='#' className="block max-w-max my-4 text-coolGray-500 hover:text-coolGray-600">
-                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path
-                                                        d="M17 9.17C16.8126 8.98375 16.5592 8.87921 16.295 8.87921C16.0308 8.87921 15.7774 8.98375 15.59 9.17L12 12.71L8.46001 9.17C8.27265 8.98375 8.0192 8.87921 7.75501 8.87921C7.49082 8.87921 7.23737 8.98375 7.05001 9.17C6.95628 9.26297 6.88189 9.37357 6.83112 9.49543C6.78035 9.61729 6.75421 9.74799 6.75421 9.88C6.75421 10.012 6.78035 10.1427 6.83112 10.2646C6.88189 10.3864 6.95628 10.497 7.05001 10.59L11.29 14.83C11.383 14.9237 11.4936 14.9981 11.6154 15.0489C11.7373 15.0997 11.868 15.1258 12 15.1258C12.132 15.1258 12.2627 15.0997 12.3846 15.0489C12.5064 14.9981 12.617 14.9237 12.71 14.83L17 10.59C17.0937 10.497 17.1681 10.3864 17.2189 10.2646C17.2697 10.1427 17.2958 10.012 17.2958 9.88C17.2958 9.74799 17.2697 9.61729 17.2189 9.49543C17.1681 9.37357 17.0937 9.26297 17 9.17Z"
-                                                        fill="currentColor"></path>
-                                                </svg>
+                                                <ChevronDownIcon className="h-4 w-4 text-grey-500 stroke-2" />
                                             </a>
                                             <ul className="p-2 shadow menu dropdown-content z-[1] bg-white rounded-box w-52">
-                                                {dropdownMenu.map((item, index) => (
-                                                    <li key={index}>
-                                                        <Link to={item.url}>{item.name}</Link>
-                                                    </li>
-                                                ))}
+                                                <li><Link to='profile'>Profile</Link></li>
+                                                <li><button onClick={() => logout()}>Logout</button></li>
                                             </ul>
                                         </div>
 

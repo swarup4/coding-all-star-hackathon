@@ -47,15 +47,13 @@ let loginObj = {
     },
     
     varifyToken: (req, res, next) => {
-        // var token = req.headers['x-access-token'];
         let token = req.headers.authorization;
-        console.log(token)
         if (!token) {
             res.status(401).send({ auth: false, message: 'No token provided.' })
         } else {
             jwt.verify(token, process.env.SECRATE_KEY, (err, decoded) => {
                 if (err) {
-                    res.status(500).json({ auth: false, message: 'Failed to authenticate token.', error: err });
+                    res.status(401).json({ auth: false, message: 'Failed to authenticate token.', error: err });
                 } else {
                     next();
                 }

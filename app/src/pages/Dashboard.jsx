@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import axios from 'axios'
+// import axios from 'axios'
+import axios from '../axiosInstance'
 import moment from 'moment'
 import { useDispatch, useSelector } from 'react-redux'
 import { selectProject } from '../store/hackathon/hackathonSlice'

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import axios from 'axios'
+// import axios from 'axios'
+import axios from '../axiosInstance'
 import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import SubmissionDetails from '../components/submission/SubmissionDetails'
@@ -66,7 +67,6 @@ export default function ApiDetails() {
                     <SubmissionDetails codeDialog={dialogType} />
 
                     <CommonDialog heading={heading} dialog='large' open={isOpen} close={setIsOpen} submitText='Submit' submit={saveCode}>
-                        {/* <CodePanel  /> */}
                         <Editor code={apiCodes} setCode={setApiCodes} type={type} />
                     </CommonDialog>
                 </div>

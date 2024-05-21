@@ -1,12 +1,14 @@
 const express = require('express');
 const ObjectId = require("mongoose").Types.ObjectId;
 const Models = require('./models');
+const UserModels = require('../user/models');
+const userMiddleware = require('../../middleware/user');
 
 const router = express.Router();
 
 
 // Hackathon
-router.get('/getHackathonList', async (req, res) => {
+router.get('/getHackathonList', userMiddleware.varifyToken, async (req, res) => {
     try {
         const data = await Models.Hackathon.aggregate([
             {
@@ -46,10 +48,10 @@ router.get('/getHackathonList', async (req, res) => {
     }
 });
 
-router.get('/getHackathon/:id', async (req, res) => {
+router.get('/getHackathon/:id', userMiddleware.varifyToken, async (req, res) => {
     const id = req.params.id;
     try {
-        const data = await Models.Hackathon.aggregate([
+        const hackathonData = await Models.Hackathon.aggregate([
             {
                 $match: {
                     _id: new ObjectId(id),
@@ -85,14 +87,22 @@ router.get('/getHackathon/:id', async (req, res) => {
                 ]
             }
         ])
-        res.json(data);
+
+        let panelData = hackathonData[0].panels.map(async x => {
+            x.social = await UserModels.Contacts.findOne({userId: x._id})
+            return x
+        })
+
+        hackathonData[0].panels = await Promise.all(panelData)
+        res.json(hackathonData);
+
     } catch (error) {
         res.send(error);
     }
 });
 
 
-router.get('/getApplyHackathon/:userId', async (req, res) => {
+router.get('/getApplyHackathon/:userId', userMiddleware.varifyToken, async (req, res) => {
     const userId = req.params.userId;
     try {
         const data = await Models.Hackathon.find({appliedUser: userId})
@@ -103,7 +113,7 @@ router.get('/getApplyHackathon/:userId', async (req, res) => {
 });
 
 
-router.post('/addHackathon', async (req, res) => {
+router.post('/addHackathon', userMiddleware.varifyToken, async (req, res) => {
     try {
         const model = new Models.Hackathon(req.body);
         const data = await model.save();
@@ -115,7 +125,7 @@ router.post('/addHackathon', async (req, res) => {
     }
 });
 
-router.put('/updateHackathon/:id', async (req, res) => {
+router.put('/updateHackathon/:id', userMiddleware.varifyToken, async (req, res) => {
     try {
         const id = req.params.id;
         const body = req.body;
@@ -133,7 +143,7 @@ router.put('/updateHackathon/:id', async (req, res) => {
     }
 });
 
-router.put('/deleteHackathon/:id', async (req, res) => {
+router.put('/deleteHackathon/:id', userMiddleware.varifyToken, async (req, res) => {
     try {
         const id = req.params.id;
         const data = await Models.Hackathon.findOneAndUpdate({ _id: id }, { status: 0 }, {
@@ -151,7 +161,7 @@ router.put('/deleteHackathon/:id', async (req, res) => {
 });
 
 
-router.put('/applyHackathon/:id', async (req, res) => {
+router.put('/applyHackathon/:id', userMiddleware.varifyToken, async (req, res) => {
     try {
         const id = req.params.id;
         const userId = req.body.userId;
@@ -209,7 +219,7 @@ router.put('/applyHackathon/:id', async (req, res) => {
     }
 });
 
-router.get('/getAllPanelist', async (req, res) => {
+router.get('/getAllPanelist', userMiddleware.varifyToken, async (req, res) => {
     try {
         const panels = await Models.Hackathon.aggregate([
             {

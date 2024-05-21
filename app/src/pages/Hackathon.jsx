@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import axios from 'axios'
+// import axios from 'axios'
+import axios from '../axiosInstance'
 import moment from 'moment'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams, useNavigate } from 'react-router-dom'

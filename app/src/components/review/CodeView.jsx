@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import axios from 'axios'
+// import axios from 'axios'
+import axios from '../../axiosInstance'
 import { useDispatch } from 'react-redux'
 import { HOST_URL } from '../../constants'
 import { setNotification } from '../../store/notification/notificationSlice'
@@ -9,6 +10,13 @@ import { StreamLanguage } from '@codemirror/language';
 import { javascript } from '@codemirror/lang-javascript';
 import { java } from '@codemirror/lang-java';
 import { html } from '@codemirror/lang-html';
+import { cpp } from '@codemirror/lang-cpp';
+import { json } from '@codemirror/lang-json';
+import { php } from '@codemirror/lang-php';
+import { python } from '@codemirror/lang-python';
+import { rust } from '@codemirror/lang-rust';
+import { csharp } from '@replit/codemirror-lang-csharp';
+import { basicSetup } from 'codemirror';
 import { go } from '@codemirror/legacy-modes/mode/go';
 import { sublime } from '@uiw/codemirror-theme-sublime';
 
@@ -47,6 +55,24 @@ export default function CodeView(props) {
             case 'go':
                 setExtensions([StreamLanguage.define(go)]);
                 break;
+            case 'cpp':
+                setExtensions([cpp()]);
+                break;
+            case 'json':
+                setExtensions([json()]);
+                break;
+            case 'php':
+                setExtensions([php({ baseLanguage: 'php' })]);
+                break;
+            case 'python':
+                setExtensions([python()]);
+                break;
+            case 'rust':
+                setExtensions([rust()]);
+                break;
+            case 'csharp':
+                setExtensions([basicSetup, csharp()]);
+                break;
             default:
                 break;
         }
@@ -64,7 +90,6 @@ export default function CodeView(props) {
 
     return (
         <div className='relative'>
-            {/* <div className='w-full absolute z-10' style={{height: "calc(100vh - 180px)", background: "rgba(0, 0, 0, 0)"}}></div> */}
             <CodeMirror value={code} height="calc(100vh - 180px)" options={codeOptions} theme={sublime} extensions={extensions} />
         </div>
     )

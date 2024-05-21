@@ -1,10 +1,11 @@
 const express = require('express');
 const Model = require('./models');
+const userMiddleware = require('../../middleware/user');
 
 const router = express.Router();
 
 // LeaderBoard
-router.get('/getLeaderboard', async (req, res) => {
+router.get('/getLeaderboard', userMiddleware.varifyToken, async (req, res) => {
     try {
         const data = await Model.Point.aggregate([
             {

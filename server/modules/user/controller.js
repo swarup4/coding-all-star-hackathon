@@ -18,7 +18,7 @@ const storage = multer.memoryStorage()
 const upload = multer({ storage: storage });
 
 // Get All User Information. This is Only for Admin User
-router.get("/info/:id", async (req, res) => {
+router.get("/info/:id", userMiddleware.varifyToken, async (req, res) => {
     try {
         const id = req.params.id;
         const user = await User.Auth.findById(id, { password: 0 });
@@ -92,7 +92,7 @@ router.post("/login", async (req, res) => {
         } else {
             const obj = { id: user._id, email: user.email };
             const token = jwt.sign(obj, process.env.SECRATE_KEY, {
-                expiresIn: 1800 // expires in 30 minuit
+                expiresIn: 180 // expires in 30 minuit
             });
 
             res.json({
@@ -127,7 +127,7 @@ router.post("/signup", userMiddleware.checkExestingUser, async (req, res) => {
         const user = await model.save();
         const obj = { id: user._id, email: user.email };
         const token = jwt.sign(obj, process.env.SECRATE_KEY, {
-            expiresIn: 1800 // expires in 30 minuit
+            expiresIn: 180 // expires in 30 minuit
         });
 
         res.send({
@@ -151,7 +151,7 @@ router.get('/userList', async (req, res) => {
 })
 
 
-router.put('/updateUserDetails/:id', async (req, res) => {
+router.put('/updateUserDetails/:id', userMiddleware.varifyToken, async (req, res) => {
     try {
         let userId = req.params.id;
         let body = req.body;
@@ -223,7 +223,7 @@ router.post('/changePassword', userMiddleware.varifyToken, async (req, res) => {
 
 
 // Active Previous Deactivated User. & Deactivate Active User.
-router.put("/activeDeactivateUser/:id", (req, res) => {
+router.put("/activeDeactivateUser/:id", userMiddleware.varifyToken, (req, res) => {
     const id = req.params.id;
     const status = req.body;
     User.Auth.findById(id, (err, user) => {
@@ -313,12 +313,12 @@ router.put("/varification/:type/:id", userMiddleware.varifyToken, (req, res) => 
 });
 
 // Add Social Media
-router.post('/addSocialMedia/:id', async (req, res) => {
+router.put('/addSocialMedia/:id', userMiddleware.varifyToken, async (req, res) => {
     try {
         const userId = req.params.id;
         const obj = req.body;
 
-        const social = await User.Contacts.findOneAndUpdate({ _id: userId }, { $push: { socialMedia: obj } }, {
+        const social = await User.Contacts.findOneAndUpdate({ userId: userId }, { $push: { socialMedia: obj } }, {
             new: true,
             upsert: true // Make this update into an upsert
         });
@@ -336,7 +336,7 @@ router.post('/addSocialMedia/:id', async (req, res) => {
 
 
 // router.post('/uploadProfilePics/:id', userMiddleware.varifyToken, upload.single("profile"), uploadMiddleware.uploadImage, (req, res) => {
-router.put('/uploadProfilePics/:id', async (req, res) => {
+router.put('/uploadProfilePics/:id', userMiddleware.varifyToken, async (req, res) => {
     try {
         let id = req.params.id
         const profile = await User.Auth.findOneAndUpdate({ _id: id }, req.body, {

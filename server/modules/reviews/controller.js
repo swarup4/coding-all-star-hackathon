@@ -7,6 +7,7 @@ const Models = require('./models');
 const PointModels = require('../points/models');
 
 const pointMiddleware = require('../../middleware/point');
+const userMiddleware = require('../../middleware/user');
 const router = express.Router();
 
 
@@ -52,7 +53,7 @@ async function rejectApi(req, res, next) {
 
 
 // Review 
-router.get('/getAllReview/:apiId', (req, res) => {
+router.get('/getAllReview/:apiId', userMiddleware.varifyToken, (req, res) => {
 	const apiId = req.params.apiId;
 	Models.Review.aggregate([
 		{
@@ -78,7 +79,7 @@ router.get('/getAllReview/:apiId', (req, res) => {
 	});
 });
 
-router.post('/addReview', rejectApi, async (req, res) => {
+router.post('/addReview', userMiddleware.varifyToken, rejectApi, async (req, res) => {
 	try {
 		let body = req.body;
 		let reviewData = await Models.Review.find({ apiId: body.apiId });
@@ -115,7 +116,7 @@ router.post('/addReview', rejectApi, async (req, res) => {
 	}
 });
 
-router.post('/addReply/:id', async (req, res) => {
+router.post('/addReply/:id', userMiddleware.varifyToken, async (req, res) => {
 	try {
 		const reviewId = req.params.id;
 		const obj = req.body;

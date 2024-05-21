@@ -12,13 +12,14 @@ export default function ProtectedRoute(props) {
     function checkUserToken() {
         sessionStorage.url = location.pathname;
         const userToken = sessionStorage.getItem('auth')
-        dispatch(setUser(JSON.parse(sessionStorage.user)))
 
         if (!userToken || userToken === undefined) {
             setIsLoggedIn(false);
             return navigate('/login');
+        } else {
+            dispatch(setUser(JSON.parse(sessionStorage.user)))
+            setIsLoggedIn(true);
         }
-        setIsLoggedIn(true);
     }
 
     useEffect(() => {

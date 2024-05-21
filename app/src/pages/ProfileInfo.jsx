@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import axios from 'axios'
+// import axios from 'axios'
+import axios from '../axiosInstance'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { useFormik } from 'formik'
 import { object, string } from 'yup';
 import { HOST_URL } from '../constants'
+import { PlusCircleIcon } from '@heroicons/react/20/solid'
 import { setNotification } from '../store/notification/notificationSlice'
+import CommonDialog from '../components/common/CommonDialog'
 
 
 const initialValues = {
@@ -35,7 +38,10 @@ export default function ProfileInfo() {
     const navigate = useNavigate()
     const [userList, setUserList] = useState([])
     const [userProfilePics, setUserProfilePics] = useState({})
-    const user = JSON.parse(sessionStorage.user)
+    const [sociaMedia, setSociaMedia] = useState('');
+    const [url, setUrl] = useState('');
+    const [isOpen, setIsOpen] = useState(false);
+    const user = JSON.parse(sessionStorage.user);
 
     const { values, errors, handleBlur, handleChange, handleSubmit, touched } = useFormik({
         initialValues: initialValues,
@@ -85,6 +91,36 @@ export default function ProfileInfo() {
         })
     }
 
+    function addSocialMedia(name){
+        setSociaMedia(name)
+        setIsOpen(true)
+    }
+
+    function submitSocialMedia(){
+        let obj = {
+            name: sociaMedia.toLowerCase(),
+            url: url,
+        }
+
+        const apiurl = `${HOST_URL}user/addSocialMedia/${user.id}`
+        axios.put(apiurl, obj).then(res => {
+            setIsOpen(false)
+            setUrl('')
+            dispatch(setNotification({
+                popup: true,
+                status: 'success',
+                message: res.data.message
+            }))
+        }).catch(err => {
+            console.log(err)
+            dispatch(setNotification({
+                popup: true,
+                status: 'error',
+                message: err.response.data
+            }))
+        })
+    }
+
 
     return (
         <section className="bg-coolGray-50 py-4 ">
@@ -101,11 +137,11 @@ export default function ProfileInfo() {
                                 </div>
                                 <div className="w-full md:w-auto p-2">
                                     <div className="flex flex-wrap justify-between -m-1.5">
-                                        <div className="w-full md:w-auto p-1.5">
+                                        {/* <div className="w-full md:w-auto p-1.5">
                                             <button type="reset" className="flex flex-wrap justify-center w-full px-4 py-2 font-medium text-sm text-coolGray-500 hover:text-coolGray-600 border border-coolGray-200 hover:border-coolGray-300 bg-white rounded-md shadow-button">
                                                 <p>Cancel</p>
                                             </button>
-                                        </div>
+                                        </div> */}
                                         <div className="w-full md:w-auto p-1.5">
                                             <button type="submit" className="flex flex-wrap justify-center w-full px-4 py-2 bg-yellow-500 hover:bg-yellow-600 font-medium text-sm text-white border border-yellow-500 rounded-md shadow-button">
                                                 <p>Save</p>
@@ -280,6 +316,45 @@ export default function ProfileInfo() {
                                 </div>
                             </div>
                         </div>
+
+
+                        <div className="py-6 border-b border-coolGray-100">
+                            <div className="w-full md:w-9/12">
+                                <div className="flex flex-wrap -m-3">
+                                    <div className="w-full md:w-1/3 p-3">
+                                        <p className="text-sm text-coolGray-800 font-semibold">Social Media</p>
+                                    </div>
+                                    <div className="flex-1 flex p-3 cursor-pointer">
+                                        <div className="w-1/3">
+                                            <span className="inline-block float-left mr-4">Facebook</span>
+                                            <a className="inline float-left" onClick={() => addSocialMedia('Facebook')}>
+                                                <PlusCircleIcon className='w-7 text-yellow-500 hover:text-yellow-600' />
+                                            </a>
+                                        </div>
+
+                                        <div className="w-1/3">
+                                            <span className="inline-block float-left mr-4">Instagram</span>
+                                            <a className="inline float-left" onClick={() => addSocialMedia('Instagram')}>
+                                                <PlusCircleIcon className='w-7 text-yellow-500 hover:text-yellow-600' />
+                                            </a>
+                                        </div>
+
+                                        <div className="w-1/3">
+                                            <span className="inline-block float-left mr-4">Twitter</span>
+                                            <a className="inline float-left" onClick={() => addSocialMedia('Twitter')}>
+                                                <PlusCircleIcon className='w-7 text-yellow-500 hover:text-yellow-600' />
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <CommonDialog heading={`Add ${sociaMedia} url`} open={isOpen} close={setIsOpen} submitText='Sumbit' submit={submitSocialMedia}>
+                            <input type="text" name='video' placeholder={`Add ${sociaMedia} URL`} value={url} onChange={ev => setUrl(ev.target.value)}
+                                className="w-full px-4 py-2.5 text-base text-coolGray-900 font-normal outline-none focus:border-yellow-500 border border-coolGray-200 rounded-lg shadow-input" />
+                        </CommonDialog>
+
                     </form>
                 </div>
             </div>

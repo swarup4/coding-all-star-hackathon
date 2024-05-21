@@ -35,11 +35,11 @@ function App() {
             errorElement: <Error />
         }, {
             path: 'dashboard',
-            element: <UserLayout />,
+            element: <ProtectedRoute><Outlet /></ProtectedRoute>,
             errorElement: <Error />,
             children: [{
                 path: '',
-                element: <ProtectedRoute><Outlet /></ProtectedRoute>,
+                element: <UserLayout />,
                 children: [{
                     path: '',
                     element: <Dashboard />

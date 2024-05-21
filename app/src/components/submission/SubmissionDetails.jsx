@@ -1,5 +1,6 @@
 import { Fragment, useState, useEffect } from 'react'
-import axios from 'axios'
+// import axios from 'axios'
+import axios from '../../axiosInstance'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { PlusCircleIcon } from '@heroicons/react/20/solid'

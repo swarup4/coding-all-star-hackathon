@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import axios from 'axios'
+// import axios from 'axios'
+import axios from '../../axiosInstance'
 import { useNavigate, Link } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { useFormik } from 'formik'
@@ -184,6 +185,12 @@ export default function SubmissionForm(props) {
                                     <option value="java">Java</option>
                                     <option value="go">Go Lang</option>
                                     <option value="html">HTML</option>
+                                    <option value="cpp">C++</option>
+                                    <option value="json">JSON</option>
+                                    <option value="php">PHP</option>
+                                    <option value="python">Python</option>
+                                    <option value="rust">RUST</option>
+                                    <option value="csharp">C#</option>
                                 </select>
                                 {errors.programmingLanguage && touched.programmingLanguage ? (
                                     <p className='mt-1 text-red-500'>{errors.programmingLanguage}</p>

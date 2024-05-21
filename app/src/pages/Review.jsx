@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import axios from 'axios'
+// import axios from 'axios'
+import axios from '../axiosInstance'
 import { useSelector, useDispatch } from 'react-redux'
 import { HOST_URL } from '../constants'
 import { EyeIcon, CheckIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline'
