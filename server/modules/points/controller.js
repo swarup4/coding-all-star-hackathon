@@ -33,7 +33,6 @@ router.get('/getLeaderboard', userMiddleware.varifyToken, async (req, res) => {
                 }
             }, {
                 $setWindowFields: {
-                    partitionBy: "$_id",
                     sortBy: {
                         point: -1
                     },
