@@ -92,7 +92,7 @@ router.post("/login", async (req, res) => {
         } else {
             const obj = { id: user._id, email: user.email };
             const token = jwt.sign(obj, process.env.SECRATE_KEY, {
-                expiresIn: 180 // expires in 30 minuit
+                expiresIn: 3600 // expires in 60 minuit
             });
 
             res.json({
@@ -127,7 +127,7 @@ router.post("/signup", userMiddleware.checkExestingUser, async (req, res) => {
         const user = await model.save();
         const obj = { id: user._id, email: user.email };
         const token = jwt.sign(obj, process.env.SECRATE_KEY, {
-            expiresIn: 180 // expires in 30 minuit
+            expiresIn: 3600 // expires in 60 minuit
         });
 
         res.send({
