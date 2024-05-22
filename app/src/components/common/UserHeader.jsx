@@ -7,13 +7,14 @@ import { getInitial } from '../helper'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { setReview } from '../../store/review/reviewSlice'
 import { removeUser } from '../../store/user/userSlice'
+import { setSubmission } from '../../store/submission/submissionSlice'
 import { setNotification } from '../../store/notification/notificationSlice'
 import { ChevronDownIcon } from '@heroicons/react/24/outline'
 
 export default function UserHeader() {
 
     const navigate = useNavigate()
-    const [open, setOpen] = useState(true)
+    // const [open, setOpen] = useState(true)
     const userInfo = JSON.parse(sessionStorage.user)
     const location = useLocation();
     const dispatch = useDispatch()
@@ -29,6 +30,7 @@ export default function UserHeader() {
         axios.get(url).then(res => {
             const totalReviewPoint = (res.data?.submission * 2) - res.data.review
             dispatch(setReview({ totalReviewPoint: totalReviewPoint }))
+            dispatch(setSubmission({ submission: res.data?.submission, approve: res.data?.approveCount, reject: res.data?.rejectCount }))
         }).catch(err => {
             console.log(err)
             dispatch(setNotification({
@@ -189,7 +191,7 @@ export default function UserHeader() {
                                         </div>
                                     </a>
                                 </li>
-                                
+
                                 <li>
                                     <a className="p-3 py-4 flex items-center justify-between text-coolGray-500 hover:text-yellow-500 hover:bg-coolGray-50 rounded-md"
                                         href="#">

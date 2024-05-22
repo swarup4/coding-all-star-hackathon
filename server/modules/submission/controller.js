@@ -4,6 +4,7 @@ const express = require("express");
 const ObjectId = require("mongoose").Types.ObjectId;
 const Models = require("./models");
 const ReviewModel = require("../reviews/models");
+const PointModel = require("../points/models");
 const userMiddleware = require('../../middleware/user');
 const pointMiddleware = require('../../middleware/point');
 
@@ -298,10 +299,14 @@ router.get('/getSubmissionCount/:id', userMiddleware.varifyToken, async (req, re
 
         const submissionCount = await Models.SubmissionKey.find({ submitedBy: userId }).count();
         const reviewCount = await ReviewModel.Review.find({ reviewerId: userId }).count();
+        const approvePointCount = await PointModel.Point.find({ userId: userId, category: 'review', point: 2 }).count();
+        const rejectPointCount = await PointModel.Point.find({ userId: userId, category: 'review', point: -1 }).count();
 
         res.json({
             submission: submissionCount,
             review: reviewCount,
+            approveCount: approvePointCount,
+            rejectCount: rejectPointCount
         })
     } catch (error) {
         res.json(error)

@@ -33,7 +33,7 @@ const schema = object().shape({
 })
 
 
-export default function ProfileInfo() {
+export default function ProfileInfo(props) {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const [userList, setUserList] = useState([])
@@ -42,6 +42,10 @@ export default function ProfileInfo() {
     const [url, setUrl] = useState('');
     const [isOpen, setIsOpen] = useState(false);
     const user = JSON.parse(sessionStorage.user);
+
+    // useEffect(() => {
+
+    // }, [])
 
     const { values, errors, handleBlur, handleChange, handleSubmit, touched } = useFormik({
         initialValues: initialValues,

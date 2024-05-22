@@ -1,6 +1,5 @@
 import React from 'react'
 import Rank from '../components/profile/Rank'
-import ProjectList from '../components/profile/ProjectList'
 
 export default function Profile() {
     return (
@@ -16,8 +15,6 @@ export default function Profile() {
             </section>
 
             <Rank />
-
-            <ProjectList />
         </>
     )
 }
