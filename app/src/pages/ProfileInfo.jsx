@@ -156,7 +156,7 @@ export default function ProfileInfo() {
                             <div className="w-full md:w-9/12">
                                 <div className="flex flex-wrap -m-3">
                                     <div className="w-full md:w-1/3 p-3">
-                                        <p className="text-sm text-coolGray-800 font-semibold">Role</p>
+                                        <p className="text-sm text-coolGray-800 font-semibold">Role <span className='text-red-500'>*</span></p>
                                     </div>
                                     <div className="w-full md:flex-1 p-3">
                                         <input type="text" name='role' placeholder="Enter Role" value={values.role} onChange={handleChange} onBlur={handleBlur}
@@ -172,7 +172,7 @@ export default function ProfileInfo() {
                             <div className="w-full md:w-9/12">
                                 <div className="flex flex-wrap -m-3">
                                     <div className="w-full md:w-1/3 p-3">
-                                        <p className="text-sm text-coolGray-800 font-semibold">Employee ID</p>
+                                        <p className="text-sm text-coolGray-800 font-semibold">Employee ID <span className='text-red-500'>*</span></p>
                                     </div>
                                     <div className="w-full md:flex-1 p-3">
                                         <input type="text" name='empId' placeholder="Enter Employee ID" value={values.empId} onChange={handleChange} onBlur={handleBlur}
@@ -188,7 +188,7 @@ export default function ProfileInfo() {
                             <div className="w-full md:w-9/12">
                                 <div className="flex flex-wrap -m-3">
                                     <div className="w-full md:w-1/3 p-3">
-                                        <p className="text-sm text-coolGray-800 font-semibold">Manager</p>
+                                        <p className="text-sm text-coolGray-800 font-semibold">Manager <span className='text-red-500'>*</span></p>
                                     </div>
                                     <div className="w-full md:flex-1 p-3">
                                         <select name='manager' value={values.manager} onChange={handleChange} onBlur={handleBlur}
@@ -240,7 +240,7 @@ export default function ProfileInfo() {
                             <div className="w-full md:w-9/12">
                                 <div className="flex flex-wrap -m-3">
                                     <div className="w-full md:w-1/3 p-3">
-                                        <p className="text-sm text-coolGray-800 font-semibold">Primary Skill</p>
+                                        <p className="text-sm text-coolGray-800 font-semibold">Primary Skill <span className='text-red-500'>*</span></p>
                                     </div>
                                     <div className="w-full md:flex-1 p-3">
                                         <input type="text" name='primarySkill' placeholder="Enter Primary Skill" value={values.primarySkill} onChange={handleChange} onBlur={handleBlur}
@@ -256,7 +256,7 @@ export default function ProfileInfo() {
                             <div className="w-full md:w-9/12">
                                 <div className="flex flex-wrap -m-3">
                                     <div className="w-full md:w-1/3 p-3">
-                                        <p className="text-sm text-coolGray-800 font-semibold">Secondary Skill</p>
+                                        <p className="text-sm text-coolGray-800 font-semibold">Secondary Skill <span className='text-red-500'>*</span></p>
                                     </div>
                                     <div className="w-full md:flex-1 p-3">
                                         <input type="text" name='secondarySkill' placeholder="Secondary Skill" value={values.documentationLink} onChange={handleChange} onBlur={handleBlur}
@@ -272,7 +272,7 @@ export default function ProfileInfo() {
                             <div className="w-full md:w-9/12">
                                 <div className="flex flex-wrap -m-3">
                                     <div className="w-full md:w-1/3 p-3">
-                                        <p className="text-sm text-coolGray-800 font-semibold">City</p>
+                                        <p className="text-sm text-coolGray-800 font-semibold">City <span className='text-red-500'>*</span></p>
                                     </div>
                                     <div className="w-full md:flex-1 p-3">
                                         <input type="text" name='city' placeholder="Enter City" value={values.city} onChange={handleChange} onBlur={handleBlur}
@@ -288,7 +288,7 @@ export default function ProfileInfo() {
                             <div className="w-full md:w-9/12">
                                 <div className="flex flex-wrap -m-3">
                                     <div className="w-full md:w-1/3 p-3">
-                                        <p className="text-sm text-coolGray-800 font-semibold">State</p>
+                                        <p className="text-sm text-coolGray-800 font-semibold">State <span className='text-red-500'>*</span></p>
                                     </div>
                                     <div className="w-full md:flex-1 p-3">
                                         <input type="text" name='state' placeholder="Enter State" value={values.state} onChange={handleChange} onBlur={handleBlur}
@@ -304,7 +304,7 @@ export default function ProfileInfo() {
                             <div className="w-full md:w-9/12">
                                 <div className="flex flex-wrap -m-3">
                                     <div className="w-full md:w-1/3 p-3">
-                                        <p className="text-sm text-coolGray-800 font-semibold">Country</p>
+                                        <p className="text-sm text-coolGray-800 font-semibold">Country <span className='text-red-500'>*</span></p>
                                     </div>
                                     <div className="w-full md:flex-1 p-3">
                                         <input type="text" name='country' placeholder="Enter Country" value={values.country} onChange={handleChange} onBlur={handleBlur}

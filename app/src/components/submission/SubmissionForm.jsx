@@ -95,7 +95,7 @@ export default function SubmissionForm(props) {
                     <div className="w-full md:w-9/12">
                         <div className="flex flex-wrap -m-3">
                             <div className="w-full md:w-1/3 p-3">
-                                <p className="text-sm text-coolGray-800 font-semibold">Name</p>
+                                <p className="text-sm text-coolGray-800 font-semibold">Name <span className='text-red-500'>*</span></p>
                             </div>
                             <div className="w-full md:flex-1 p-3">
                                 <input type="text" name='name' placeholder="API Name" value={values.name} onChange={handleChange} onBlur={handleBlur}
@@ -111,7 +111,7 @@ export default function SubmissionForm(props) {
                     <div className="w-full md:w-9/12">
                         <div className="flex flex-wrap -m-3">
                             <div className="w-full md:w-1/3 p-3">
-                                <p className="text-sm text-coolGray-800 font-semibold">Category</p>
+                                <p className="text-sm text-coolGray-800 font-semibold">Category <span className='text-red-500'>*</span></p>
                             </div>
                             <div className="w-full md:flex-1 p-3">
                                 <input type="text" name='category' placeholder="Project Category" value={values.category} onChange={handleChange} onBlur={handleBlur}
@@ -127,7 +127,7 @@ export default function SubmissionForm(props) {
                     <div className="w-full md:w-9/12">
                         <div className="flex flex-wrap -m-3">
                             <div className="w-full md:w-1/3 p-3">
-                                <p className="text-sm text-coolGray-800 font-semibold">API End Point</p>
+                                <p className="text-sm text-coolGray-800 font-semibold">API End Point <span className='text-red-500'>*</span></p>
                             </div>
                             <div className="w-full md:flex-1 p-3">
                                 <input type="text" name='apiEndPoint' placeholder="API Endpoint" value={values.apiEndPoint} onChange={handleChange} onBlur={handleBlur}
@@ -143,7 +143,7 @@ export default function SubmissionForm(props) {
                     <div className="w-full md:w-9/12">
                         <div className="flex flex-wrap -m-3">
                             <div className="w-full md:w-1/3 p-3">
-                                <p className="text-sm text-coolGray-800 font-semibold">API Version</p>
+                                <p className="text-sm text-coolGray-800 font-semibold">API Version <span className='text-red-500'>*</span></p>
                             </div>
                             <div className="w-full md:flex-1 p-3">
                                 <input type="text" name='apiVersion' placeholder="API End Point Version" value={values.apiVersion} onChange={handleChange} onBlur={handleBlur}
@@ -159,7 +159,7 @@ export default function SubmissionForm(props) {
                     <div className="w-full md:w-9/12">
                         <div className="flex flex-wrap -m-3">
                             <div className="w-full md:w-1/3 p-3">
-                                <p className="text-sm text-coolGray-800 font-semibold">Documentation Link</p>
+                                <p className="text-sm text-coolGray-800 font-semibold">Documentation Link <span className='text-red-500'>*</span></p>
                             </div>
                             <div className="w-full md:flex-1 p-3">
                                 <input type="text" name='documentationLink' placeholder="Documentation Link" value={values.documentationLink} onChange={handleChange} onBlur={handleBlur}
@@ -175,7 +175,7 @@ export default function SubmissionForm(props) {
                     <div className="w-full md:w-9/12">
                         <div className="flex flex-wrap -m-3">
                             <div className="w-full md:w-1/3 p-3">
-                                <p className="text-sm text-coolGray-800 font-semibold">Programming Language</p>
+                                <p className="text-sm text-coolGray-800 font-semibold">Programming Language <span className='text-red-500'>*</span></p>
                             </div>
                             <div className="w-full md:flex-1 p-3">
                                 <select name='programmingLanguage' value={values.programmingLanguage} onChange={handleChange} onBlur={handleBlur}
@@ -203,7 +203,7 @@ export default function SubmissionForm(props) {
                     <div className="w-full md:w-9/12">
                         <div className="flex flex-wrap -m-3">
                             <div className="w-full md:w-1/3 p-3">
-                                <p className="text-sm text-coolGray-800 font-semibold">Description</p>
+                                <p className="text-sm text-coolGray-800 font-semibold">Description <span className='text-red-500'>*</span></p>
                                 <p className="text-xs text-coolGray-500 font-medium">Integration API code needs to be write</p>
                             </div>
                             <div className="w-full md:flex-1 p-3">

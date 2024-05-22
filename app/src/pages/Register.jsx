@@ -69,7 +69,7 @@ export default function Register() {
                             </div>
                             <form onSubmit={handleSubmit}>
                                 <div className="mb-6">
-                                    <label className="block mb-2 text-coolGray-800 font-medium" htmlFor="">Organization*</label>
+                                    <label className="block mb-2 text-coolGray-800 font-medium" htmlFor="">Organization <span className='text-red-500'>*</span></label>
                                     <input type="text" name="organization" placeholder="TRIGENT" autoComplete="organization" value={values.organization} onChange={handleChange} onBlur={handleBlur}
                                         className="appearance-none block w-full p-3 leading-5 text-coolGray-900 border border-coolGray-200 rounded-lg shadow-md placeholder-coolGray-400 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-50" />
                                     {errors.organization && touched.organization ? (
@@ -78,7 +78,7 @@ export default function Register() {
                                 </div>
 
                                 <div className="mb-6">
-                                    <label className="block mb-2 text-coolGray-800 font-medium" htmlFor="">Full Name*</label>
+                                    <label className="block mb-2 text-coolGray-800 font-medium" htmlFor="">Full Name <span className='text-red-500'>*</span></label>
                                     <input type="text" name="name" placeholder="Anand Padia" autoComplete="name" value={values.name} onChange={handleChange} onBlur={handleBlur}
                                         className="appearance-none block w-full p-3 leading-5 text-coolGray-900 border border-coolGray-200 rounded-lg shadow-md placeholder-coolGray-400 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-50" />
                                     {errors.name && touched.name ? (
@@ -87,7 +87,7 @@ export default function Register() {
                                 </div>
 
                                 <div className="mb-6">
-                                    <label className="block mb-2 text-coolGray-800 font-medium" htmlFor="">Email*</label>
+                                    <label className="block mb-2 text-coolGray-800 font-medium" htmlFor="">Email <span className='text-red-500'>*</span></label>
                                     <input type="email" name="email" placeholder="dev@trigent.com" autoComplete="email" value={values.email} onChange={handleChange} onBlur={handleBlur}
                                         className="appearance-none block w-full p-3 leading-5 text-coolGray-900 border border-coolGray-200 rounded-lg shadow-md placeholder-coolGray-400 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-50" />
                                     {errors.email && touched.email ? (
@@ -96,14 +96,14 @@ export default function Register() {
                                 </div>
 
                                 <div className="mb-4">
-                                    <label className="block mb-2 text-coolGray-800 font-medium" htmlFor="">Password*</label>
+                                    <label className="block mb-2 text-coolGray-800 font-medium" htmlFor="">Password <span className='text-red-500'>*</span></label>
                                     <input type="password" name="password" placeholder="************" autoComplete="off" value={values.password} onChange={handleChange} onBlur={handleBlur}
                                         className="appearance-none block w-full p-3 leading-5 text-coolGray-900 border border-coolGray-200 rounded-lg shadow-md placeholder-coolGray-400 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-50" />
                                     {errors.password && touched.password ? (
                                         <p className='mt-1 text-red-500'>{errors.password}</p>
                                     ) : ''}
                                 </div>
-                                <div className="flex flex-wrap items-center justify-between mb-6">
+                                {/* <div className="flex flex-wrap items-center justify-between mb-6">
                                     <div className="w-full md:w-1/2">
                                         <label className="relative inline-flex items-center">
                                             <input className="form-checkbox appearance-none" type="checkbox" />
@@ -114,16 +114,16 @@ export default function Register() {
                                     <div className="w-full md:w-auto mt-1">
                                         <a className="inline-block text-xs font-medium text-yellow-500 hover:text-yellow-600" href="#">Forgot your password?</a>
                                     </div>
-                                </div>
+                                </div> */}
 
                                 <button type="submit" className="inline-block py-3 px-7 mb-4 w-full text-base text-yellow-50 font-medium text-center leading-6 bg-yellow-500 hover:bg-yellow-600 focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-50 rounded-md shadow-sm">
                                     Sign Up
                                 </button>
 
-                                <a className="inline-flex items-center justify-center py-3 px-7 mb-6 w-full text-base text-coolGray-500 font-medium text-center leading-6 bg-white border border-coolGray-100 hover:border-coolGray-200 rounded-md shadow-sm" href="#">
+                                {/* <a className="inline-flex items-center justify-center py-3 px-7 mb-6 w-full text-base text-coolGray-500 font-medium text-center leading-6 bg-white border border-coolGray-100 hover:border-coolGray-200 rounded-md shadow-sm" href="#">
                                     <img className="mr-2" src={window.location.origin + "/flex-ui-assets/elements/sign-up/google-icon-sign-up.svg"} alt="" />
                                     <span>Sign in with Google</span>
-                                </a>
+                                </a> */}
                                 <p className="text-center">
                                     <span className="text-xs font-medium">Already have an account?</span>
                                     <Link to='/login' className="inline-block text-xs font-medium text-yellow-500 hover:text-yellow-600 hover:underline" href="#">Sign In</Link>

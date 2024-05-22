@@ -19,10 +19,7 @@ function checkApiExist(req, res, next) {
     }).then(api => {
         if (api.length > 0) {
             console.log("More than 1 ===>>> ", api);
-            res.json({
-                status: 200,
-                data: "Someone already Submit the API"
-            })
+            res.status(500).send("Someone already Submit the API")
         } else {
             next()
         }
