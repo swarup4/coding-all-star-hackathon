@@ -14,7 +14,6 @@ import { ChevronDownIcon } from '@heroicons/react/24/outline'
 export default function UserHeader() {
 
     const navigate = useNavigate()
-    // const [open, setOpen] = useState(true)
     const userInfo = JSON.parse(sessionStorage.user)
     const location = useLocation();
     const dispatch = useDispatch()
