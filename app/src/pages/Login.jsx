@@ -35,7 +35,6 @@ export default function Login() {
         const url = `${HOST_URL}user/login`
         axios.post(url, data).then(res => {
             if(res.status == 200) {
-                console.log(res.data);
                 sessionStorage.auth = res.data.token;
                 sessionStorage.user = JSON.stringify({
                     email: res.data.email,

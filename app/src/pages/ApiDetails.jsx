@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 // import axios from 'axios'
 import axios from '../axiosInstance'
 import { useParams } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import SubmissionDetails from '../components/submission/SubmissionDetails'
 import CommonDialog from '../components/common/CommonDialog'
 import Editor from '../components/submission/Editor'
@@ -41,7 +41,6 @@ export default function ApiDetails() {
         }
 
         axios.put(`http://localhost:3001/submission/saveCode/${id}`, body).then(res => {
-            console.log(res.data.data);
             dispatch(setNotification({
                 popup: true,
                 status: 'success',

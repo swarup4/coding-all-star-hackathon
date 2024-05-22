@@ -1,12 +1,15 @@
 import React, { useState } from 'react'
 import axios from 'axios'
+import { useDispatch } from 'react-redux'
 import { Grid, Box, InputLabel, MenuItem, FormControl, Select, IconButton } from '@mui/material';
 import SaveIcon from '@mui/icons-material/Save';
 
 import Editor from '../components/editor/Editor'
 import FileList from '../components/files/FileList';
+import { setNotification } from '../../../app/src/store/notification/notificationSlice';
 
 export default function EditorPage() {
+    const dispatch = useDispatch()
     const [language, setLanguage] = useState('')
     const [codes, setCodes] = useState('')
     const [fileId, setFileId] = useState('')
@@ -14,7 +17,12 @@ export default function EditorPage() {
     function save() {
         let body = { code: codes }
         axios.put(`http://localhost:3001/code/saveCode/${fileId}`, body).then(res => {
-            console.log(res.data.data);
+            // console.log(res.data.data);
+            dispatch(setNotification({
+                popup: true,
+                status: 'success',
+                message: 'Code has added'
+            }))
         }).catch(err => {
             console.log(err);
         })

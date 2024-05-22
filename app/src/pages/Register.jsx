@@ -28,7 +28,6 @@ export default function Register() {
         initialValues: initialValues,
         validationSchema: schema,
         onSubmit: (values, action) => {
-            console.log(values)
             signup(values);
         }
     })
