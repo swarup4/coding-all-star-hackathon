@@ -33,10 +33,11 @@ const schema = object().shape({
 })
 
 
-export default function ProfileInfo(props) {
+export default function ProfileInfo() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const [userList, setUserList] = useState([])
+    const [userContact, setUserContact] = useState([])
     const [userProfilePics, setUserProfilePics] = useState({})
     const [sociaMedia, setSociaMedia] = useState('');
     const [url, setUrl] = useState('');
@@ -44,17 +45,10 @@ export default function ProfileInfo(props) {
     const user = JSON.parse(sessionStorage.user);
 
     useEffect(() => {
-        const url = `${HOST_URL}user/info/:id`
-        axios.get(url).then(res => {
-            setUserList(res.data)
-        }).catch(err => {
-            console.log(err)
-            dispatch(setNotification({
-                popup: true,
-                status: 'error',
-                message: err.response.data
-            }))
-        })
+        let url = window.location.pathname
+        if (url == '/dashboard/profile/edit') {
+            getUserDetails()
+        }
     }, [])
 
     const { values, errors, handleBlur, handleChange, handleSubmit, touched } = useFormik({
@@ -105,12 +99,12 @@ export default function ProfileInfo(props) {
         })
     }
 
-    function addSocialMedia(name){
+    function addSocialMedia(name) {
         setSociaMedia(name)
         setIsOpen(true)
     }
 
-    function submitSocialMedia(){
+    function submitSocialMedia() {
         let obj = {
             name: sociaMedia.toLowerCase(),
             url: url,
@@ -125,6 +119,30 @@ export default function ProfileInfo(props) {
                 status: 'success',
                 message: res.data.message
             }))
+        }).catch(err => {
+            console.log(err)
+            dispatch(setNotification({
+                popup: true,
+                status: 'error',
+                message: err.response.data
+            }))
+        })
+    }
+
+    function getUserDetails() {
+        const url = `${HOST_URL}user/info/${user.id}`
+        axios.get(url).then(res => {
+            let data = res.data.data
+            initialValues.role = data.user.role
+            initialValues.empId = data.user.empId
+            initialValues.manager = data.user.manager
+            initialValues.primarySkill = data.userDetails.primarySkill[0]
+            initialValues.secondarySkill = data.userDetails.secondarySkill[0]
+            initialValues.city = data.userDetails.city
+            initialValues.state = data.userDetails.state
+            initialValues.country = data.userDetails.country
+
+            setUserContact(data.userContact.socialMedia)
         }).catch(err => {
             console.log(err)
             dispatch(setNotification({
@@ -273,7 +291,7 @@ export default function ProfileInfo(props) {
                                         <p className="text-sm text-coolGray-800 font-semibold">Secondary Skill <span className='text-red-500'>*</span></p>
                                     </div>
                                     <div className="w-full md:flex-1 p-3">
-                                        <input type="text" name='secondarySkill' placeholder="Secondary Skill" value={values.documentationLink} onChange={handleChange} onBlur={handleBlur}
+                                        <input type="text" name='secondarySkill' placeholder="Enter Secondary Skill" value={values.secondarySkill} onChange={handleChange} onBlur={handleBlur}
                                             className="w-full px-4 py-2.5 text-base text-coolGray-900 font-normal outline-none focus:border-yellow-500 border border-coolGray-200 rounded-lg shadow-input" />
                                         {errors.secondarySkill && touched.secondarySkill ? (
                                             <p className='mt-1 text-red-500'>{errors.secondarySkill}</p>
@@ -338,28 +356,43 @@ export default function ProfileInfo(props) {
                                     <div className="w-full md:w-1/3 p-3">
                                         <p className="text-sm text-coolGray-800 font-semibold">Social Media</p>
                                     </div>
-                                    <div className="flex-1 flex p-3 cursor-pointer">
-                                        <div className="w-1/3">
-                                            <span className="inline-block float-left mr-4">Facebook</span>
-                                            <a className="inline float-left" onClick={() => addSocialMedia('Facebook')}>
-                                                <PlusCircleIcon className='w-7 text-yellow-500 hover:text-yellow-600' />
-                                            </a>
-                                        </div>
 
-                                        <div className="w-1/3">
-                                            <span className="inline-block float-left mr-4">Instagram</span>
-                                            <a className="inline float-left" onClick={() => addSocialMedia('Instagram')}>
-                                                <PlusCircleIcon className='w-7 text-yellow-500 hover:text-yellow-600' />
-                                            </a>
+                                    {userContact.length > 0 ? (
+                                        <div className="flex-1 flex p-3 cursor-pointer">
+                                            {userContact.map((x, ind) => (
+                                                <div className="w-1/3" key={ind}>
+                                                    <Link className="inline-block float-left mr-4" to={x.url}>{x.name}</Link>
+                                                    <a className="inline float-left" onClick={() => addSocialMedia(x.name)}>
+                                                        <PlusCircleIcon className='w-7 text-yellow-500 hover:text-yellow-600' />
+                                                    </a>
+                                                </div>
+                                            ))}
                                         </div>
+                                    ) : (
+                                        <div className="flex-1 flex p-3 cursor-pointer">
+                                            <div className="w-1/3">
+                                                <span className="inline-block float-left mr-4">Facebook</span>
+                                                <a className="inline float-left" onClick={() => addSocialMedia('Facebook')}>
+                                                    <PlusCircleIcon className='w-7 text-yellow-500 hover:text-yellow-600' />
+                                                </a>
+                                            </div>
 
-                                        <div className="w-1/3">
-                                            <span className="inline-block float-left mr-4">Twitter</span>
-                                            <a className="inline float-left" onClick={() => addSocialMedia('Twitter')}>
-                                                <PlusCircleIcon className='w-7 text-yellow-500 hover:text-yellow-600' />
-                                            </a>
+                                            <div className="w-1/3">
+                                                <span className="inline-block float-left mr-4">Instagram</span>
+                                                <a className="inline float-left" onClick={() => addSocialMedia('Instagram')}>
+                                                    <PlusCircleIcon className='w-7 text-yellow-500 hover:text-yellow-600' />
+                                                </a>
+                                            </div>
+
+                                            <div className="w-1/3">
+                                                <span className="inline-block float-left mr-4">Twitter</span>
+                                                <a className="inline float-left" onClick={() => addSocialMedia('Twitter')}>
+                                                    <PlusCircleIcon className='w-7 text-yellow-500 hover:text-yellow-600' />
+                                                </a>
+                                            </div>
                                         </div>
-                                    </div>
+                                    )}
+
                                 </div>
                             </div>
                         </div>

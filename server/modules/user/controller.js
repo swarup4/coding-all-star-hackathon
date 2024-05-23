@@ -21,11 +21,23 @@ const upload = multer({ storage: storage });
 router.get("/info/:id", userMiddleware.varifyToken, async (req, res) => {
     try {
         const id = req.params.id;
-        const user = await User.Auth.findById(id, { password: 0 });
-        if (user) {
+        let arr = [
+            User.Auth.findById(id, { password: 0, createdAt: 0, updatedAt: 0 }),
+            User.Details.findOne({ userId: id }, { _id:0, userId:0, createdAt: 0, updatedAt: 0 }),
+            User.Contacts.findOne({ userId: id }, { _id:0, userId:0, createdAt: 0, updatedAt: 0 })
+        ]
+        let userData = await Promise.allSettled(arr);
+        
+        let obj = {}
+
+        obj.user = userData[0]?.status == 'fulfilled' ? userData[0]?.value : {}
+        obj.userDetails = userData[1]?.status == 'fulfilled' ? userData[1]?.value : {}
+        obj.userContact = userData[2]?.status == 'fulfilled' ? userData[2]?.value : {}
+        
+        if (obj) {
             res.json({
                 success: true,
-                data: user
+                data: obj
             });
         }
     } catch (error) {
@@ -85,7 +97,7 @@ router.post("/login", async (req, res) => {
             password: req.body.password,
             status: true
         }
-        
+
         const user = await User.Auth.findOne(obj);
         if (user == null) {
             res.status(401).send("Username & password is not Valid")

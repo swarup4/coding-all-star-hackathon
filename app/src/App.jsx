@@ -27,7 +27,7 @@ import ProfileInfo from './pages/ProfileInfo'
 function App() {
 
     const notification = useSelector(store => store.notification.popup)
-    
+
     const route = createBrowserRouter([
         {
             path: '',
@@ -53,6 +53,10 @@ function App() {
                 }, {
                     path: 'profile',
                     element: <Profile />,
+                    errorElement: <Error />
+                }, {
+                    path: 'profile/edit',
+                    element: <ProfileInfo />,
                     errorElement: <Error />
                 }, {
                     path: 'submission/:id',
@@ -88,7 +92,7 @@ function App() {
             element: <Register />,
             errorElement: <Error />
         }, {
-            path: ['user', 'profile/edit'],
+            path: 'user',
             element: <ProfileInfo />,
             errorElement: <Error />
         }
