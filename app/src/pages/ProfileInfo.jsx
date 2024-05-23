@@ -136,8 +136,8 @@ export default function ProfileInfo() {
             initialValues.role = data.user.role
             initialValues.empId = data.user.empId
             initialValues.manager = data.user.manager
-            initialValues.primarySkill = data.userDetails.primarySkill[0]
-            initialValues.secondarySkill = data.userDetails.secondarySkill[0]
+            initialValues.primarySkill = data.userDetails.primarySkill
+            initialValues.secondarySkill = data.userDetails.secondarySkill
             initialValues.city = data.userDetails.city
             initialValues.state = data.userDetails.state
             initialValues.country = data.userDetails.country

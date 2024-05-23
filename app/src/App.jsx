@@ -22,6 +22,7 @@ import Panel from './pages/Panel'
 import Profile from './pages/Profile'
 import Review from './pages/Review'
 import ProfileInfo from './pages/ProfileInfo'
+import ChangePassword from './pages/ChangePassword'
 
 
 function App() {
@@ -90,6 +91,10 @@ function App() {
         }, {
             path: 'signup',
             element: <Register />,
+            errorElement: <Error />
+        }, {
+            path: 'changePassword',
+            element: <ChangePassword />,
             errorElement: <Error />
         }, {
             path: 'user',

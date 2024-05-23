@@ -184,8 +184,8 @@ router.put('/updateUserDetails/:id', userMiddleware.varifyToken, async (req, res
 
         let detailsObj = {
             userId: userId,
-            primarySkill: [body.primarySkill],
-            secondarySkill: [body.secondarySkill],
+            primarySkill: body.primarySkill,
+            secondarySkill: body.secondarySkill,
             city: body.city,
             state: body.state,
             country: body.country
@@ -209,16 +209,14 @@ router.put('/updateUserDetails/:id', userMiddleware.varifyToken, async (req, res
 
 
 //Change Password
-router.post('/changePassword', userMiddleware.varifyToken, async (req, res) => {
+router.put('/changePassword/:id', userMiddleware.varifyToken, async (req, res) => {
     try {
-        const userId = req.body.id;
+        const userId = req.params.id;
         const password = req.body.password;
-        const user = await User.Auth.findById(userId);
-
+        const user = await User.Auth.findOne({_id: userId, password: req.body.oldpassword });
         if (user.length > 0) {
-            const obj = { _id: userId };
-            const user = await User.Auth.findOneAndUpdate(obj, { password: password }, {
-                timestamps: { createdAt: false, updatedAt: true }
+            const user = await User.Auth.findOneAndUpdate({ _id: userId }, { password: password }, {
+                returnOriginal: false
             });
 
             res.json({
@@ -272,58 +270,6 @@ router.put("/activeDeactivateUser/:id", userMiddleware.varifyToken, (req, res) =
 });
 
 
-/**
- * Varify Phone
- *  */
-function getUserId(req, res, next) {
-    const type = req.params.type;
-    const data = req.params.data;
-    User.Auth.findOne({}, (err, user) => {
-        if (err) {
-            res.send(err);
-        } else {
-            if (!user) {
-                res.status(404).send("No User Found");
-            } else {
-                req.body.id = user._id;
-                next();
-            }
-        }
-    })
-}
-
-
-router.put("/varification/:type/:id", userMiddleware.varifyToken, (req, res) => {
-    const obj = {};
-    const id = req.params.id;
-    const type = req.params.type;
-    const securityCode = req.body.securityCode;
-
-    if (type == "email") {
-        obj.emailVerified = 1;
-    } else {
-        obj.phoneVerified = 1;
-    }
-
-    User.Auth.findById(id, { securityCode: 1 }, (err, code) => {
-        if (err) {
-            res.send(err);
-        } else {
-            if (code.securityCode == securityCode) {
-                User.Auth.findByIdAndUpdate(id, obj, (err, data) => {
-                    if (err) {
-                        res.send(err);
-                    } else {
-                        res.send(`Users ${type} has varified`);
-                    }
-                });
-            } else {
-                res.send(`Users ${type} has not varified. Because you have entered wrong Security Code`);
-            }
-        }
-    });
-});
-
 // Add Social Media
 router.put('/addSocialMedia/:id', userMiddleware.varifyToken, async (req, res) => {
     try {
@@ -360,6 +306,31 @@ router.put('/uploadProfilePics/:id', userMiddleware.varifyToken, async (req, res
                 message: 'Profile picture uploaded successfully'
             });
         }
+    } catch (error) {
+        res.send(error);
+    }
+});
+
+router.put('/uploadExcel', userMiddleware.varifyToken, async (req, res) => {
+    try {
+
+        let obj = {
+            name: req.body.name,
+            organization: req.body.organization,
+            role: req.body.role,
+            empId: req.body.empId,
+            email: req.body.email,
+            password: req.body.password
+        }
+
+        const model = new User.Auth(obj);
+        const user = await model.save();
+        res.send({
+            id: user._id,
+            email: user.email,
+            name: user.name,
+            token: token
+        });
     } catch (error) {
         res.send(error);
     }

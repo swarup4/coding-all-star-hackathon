@@ -24,8 +24,8 @@ const userSchema = new Schema(user, { versionKey: false, timestamps: true })
 const userDetails = {
     _id: { type: objectId, auto: true },
     userId: { type: objectId, required: true },
-    primarySkill: [{ type: String }],
-    secondarySkill: [{ type: String }],
+    primarySkill: { type: String },
+    secondarySkill: { type: String },
     city: { type: String, require: true },
     state: { type: String, require: true },
     country: { type: String, require: true },
