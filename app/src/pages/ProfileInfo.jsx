@@ -43,9 +43,19 @@ export default function ProfileInfo(props) {
     const [isOpen, setIsOpen] = useState(false);
     const user = JSON.parse(sessionStorage.user);
 
-    // useEffect(() => {
-
-    // }, [])
+    useEffect(() => {
+        const url = `${HOST_URL}user/info/:id`
+        axios.get(url).then(res => {
+            setUserList(res.data)
+        }).catch(err => {
+            console.log(err)
+            dispatch(setNotification({
+                popup: true,
+                status: 'error',
+                message: err.response.data
+            }))
+        })
+    }, [])
 
     const { values, errors, handleBlur, handleChange, handleSubmit, touched } = useFormik({
         initialValues: initialValues,
@@ -355,7 +365,7 @@ export default function ProfileInfo(props) {
                         </div>
 
                         <CommonDialog heading={`Add ${sociaMedia} url`} open={isOpen} close={setIsOpen} submitText='Sumbit' submit={submitSocialMedia}>
-                            <input type="text" name='video' placeholder={`Add ${sociaMedia} URL`} value={url} onChange={ev => setUrl(ev.target.value)}
+                            <input type="text" name='social' placeholder={`Add ${sociaMedia} URL`} value={url} onChange={ev => setUrl(ev.target.value)}
                                 className="w-full px-4 py-2.5 text-base text-coolGray-900 font-normal outline-none focus:border-yellow-500 border border-coolGray-200 rounded-lg shadow-input" />
                         </CommonDialog>
 

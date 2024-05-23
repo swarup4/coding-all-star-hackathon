@@ -1,8 +1,10 @@
 import React from 'react'
 import { PencilSquareIcon } from '@heroicons/react/24/outline'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
 export default function Rank() {
+    const navigate = useNavigate()
     const user = useSelector(store => store.user.data)
     const count = useSelector(store => store.submission.data)
 
@@ -23,7 +25,7 @@ export default function Rank() {
                             </div>
                         </div>
                         <div className="w-full lg:w-auto p-2">
-                            <button className="flex flex-wrap justify-center w-full px-4 py-2 font-medium text-sm text-coolGray-500 hover:text-coolGray-600 border border-coolGray-200 hover:border-coolGray-300 rounded-md shadow-button">
+                            <button onClick={() => navigate('/user/edit')} className="flex flex-wrap justify-center w-full px-4 py-2 font-medium text-sm text-coolGray-500 hover:text-coolGray-600 border border-coolGray-200 hover:border-coolGray-300 rounded-md shadow-button">
                                 <PencilSquareIcon className="mr-2 w-5 h-5 inline stroke-2" />
                                 <span>Edit</span>
                             </button>

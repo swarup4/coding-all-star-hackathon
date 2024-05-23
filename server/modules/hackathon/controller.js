@@ -89,7 +89,7 @@ router.get('/getHackathon/:id', userMiddleware.varifyToken, async (req, res) => 
         ])
 
         let panelData = hackathonData[0].panels.map(async x => {
-            x.social = await UserModels.Contacts.findOne({userId: x._id})
+            x.social = await UserModels.Contacts.findOne({ userId: x._id })
             return x
         })
 
@@ -105,7 +105,7 @@ router.get('/getHackathon/:id', userMiddleware.varifyToken, async (req, res) => 
 router.get('/getApplyHackathon/:userId', userMiddleware.varifyToken, async (req, res) => {
     const userId = req.params.userId;
     try {
-        const data = await Models.Hackathon.find({appliedUser: userId})
+        const data = await Models.Hackathon.find({ appliedUser: userId })
         res.json(data);
     } catch (error) {
         res.send(error);
@@ -219,7 +219,7 @@ router.put('/applyHackathon/:id', userMiddleware.varifyToken, async (req, res) =
     }
 });
 
-router.get('/getAllPanelist', userMiddleware.varifyToken, async (req, res) => {
+router.get('/getAllPanelist', async (req, res) => {
     try {
         const panels = await Models.Hackathon.aggregate([
             {
@@ -227,7 +227,7 @@ router.get('/getAllPanelist', userMiddleware.varifyToken, async (req, res) => {
             }, {
                 $group: {
                     _id: "$panels"
-                },
+                }
             }, {
                 $lookup: {
                     from: "users",
@@ -236,9 +236,24 @@ router.get('/getAllPanelist', userMiddleware.varifyToken, async (req, res) => {
                     as: "panel"
                 }
             }, {
-                $unset: "_id"
-            }, {
                 $unwind: "$panel"
+            }, {
+                $lookup: {
+                    from: "usercontacts",
+                    localField: "panel._id",
+                    foreignField: "userId",
+                    as: "panel.contact"
+                }
+            }, {
+                $unwind: {
+                    path: "$panel.contact",
+                    preserveNullAndEmptyArrays: true
+                }
+            }, {
+                $unset: [
+                    "_id", "panel.password", "panel.createdAt", "panel.updatedAt", "panel.contact._id",
+                    "panel.contact.userId", "panel.contact.createdAt", "panel.contact.updatedAt"
+                ]
             }
         ]);
 

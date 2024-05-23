@@ -42,15 +42,31 @@ export default function Panels() {
                                     <h3 className="mb-1 text-lg text-coolGray-800 font-semibold">{res.panel.name}</h3>
                                     <span className="inline-block mb-6 text-lg font-medium text-yellow-500">{res.panel.role}</span>
                                     <div className="flex items-center justify-center">
-                                        <a className="inline-block mr-4 hover:opacity-80" href="#">
-                                            <img src={window.location.origin + "/flex-ui-assets/brands/facebook.svg"} alt="" />
-                                        </a>
-                                        <a className="inline-block mr-4 hover:opacity-80" href="#">
-                                            <img src={window.location.origin + "/flex-ui-assets/brands/twitter.svg"} alt="" />
-                                        </a>
-                                        <a className="inline-block hover:opacity-80" href="#">
-                                            <img src={window.location.origin + "/flex-ui-assets/brands/instagram.svg"} alt="" />
-                                        </a>
+                                        {res.panel.contact ? (
+                                            <>
+                                                {res.panel.contact.socialMedia.map((x, ind) => (
+                                                    <>
+                                                        {x.name == 'facebook' ? (
+                                                            <a className="inline-block mr-4 hover:opacity-80" href={x.url}>
+                                                                <img src={window.location.origin + "/flex-ui-assets/brands/facebook.svg"} alt="" />
+                                                            </a>
+                                                        ) : ''}
+
+                                                        {x.name == 'twitter' ? (
+                                                            <a className="inline-block mr-4 hover:opacity-80" href={x.url}>
+                                                                <img src={window.location.origin + "/flex-ui-assets/brands/twitter.svg"} alt="" />
+                                                            </a>
+                                                        ) : ''}
+
+                                                        {x.name == 'instagram' ? (
+                                                            <a className="inline-block hover:opacity-80" href={x.url}>
+                                                                <img src={window.location.origin + "/flex-ui-assets/brands/instagram.svg"} alt="" />
+                                                            </a>
+                                                        ) : ''}
+                                                    </>
+                                                ))}
+                                            </>
+                                        ) : ''}
                                     </div>
                                 </div>
                             </div>

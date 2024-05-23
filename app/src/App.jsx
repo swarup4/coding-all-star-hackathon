@@ -88,7 +88,7 @@ function App() {
             element: <Register />,
             errorElement: <Error />
         }, {
-            path: 'user',
+            path: ['user', 'profile/edit'],
             element: <ProfileInfo />,
             errorElement: <Error />
         }
