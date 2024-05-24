@@ -120,6 +120,7 @@ export default function UserHeader() {
                                             </a>
                                             <ul className="p-2 shadow menu dropdown-content z-[1] bg-white rounded-box w-52">
                                                 <li><Link to='profile'>Profile</Link></li>
+                                                <li><Link to={`/changePassword/${user.id}`}>Change Password</Link></li>
                                                 <li><button onClick={() => logout()}>Logout</button></li>
                                             </ul>
                                         </div>

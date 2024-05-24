@@ -93,7 +93,7 @@ function App() {
             element: <Register />,
             errorElement: <Error />
         }, {
-            path: 'changePassword',
+            path: 'changePassword/:id',
             element: <ChangePassword />,
             errorElement: <Error />
         }, {

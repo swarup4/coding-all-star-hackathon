@@ -34,14 +34,13 @@ export default function ChangePassword() {
 
     function changePassword(data) {
         const url = `${HOST_URL}user/changePassword/${id}`
-        axios.post(url, data).then(res => {
-            debugger;
-            // sessionStorage.auth = res.data.token;
-            // sessionStorage.user = JSON.stringify({
-            //     email: res.data.email,
-            //     id: res.data.id,
-            //     name: res.data.name
-            // })
+        axios.put(url, data).then(res => {
+            sessionStorage.auth = res.data.token;
+            sessionStorage.user = JSON.stringify({
+                email: res.data.email,
+                id: res.data.id,
+                name: res.data.name
+            })
 
             dispatch(setNotification({
                 popup: true,
@@ -49,7 +48,7 @@ export default function ChangePassword() {
                 message: "Password has updated"
             }))
 
-            navigate("/login");
+            navigate("/dashboard");
         }).catch(err => {
             console.log(err)
             dispatch(setNotification({
@@ -75,39 +74,35 @@ export default function ChangePassword() {
                             <form onSubmit={handleSubmit}>
                                 <div className="mb-6">
                                     <label className="block mb-2 text-coolGray-800 font-medium" htmlFor="">Old Password<span className='text-red-500'>*</span></label>
-                                    <input type="text" name="oldpassword" placeholder="************" autoComplete="organization" value={values.organization} onChange={handleChange} onBlur={handleBlur}
+                                    <input type="password" name="oldpassword" placeholder="************" value={values.oldpassword} onChange={handleChange} onBlur={handleBlur}
                                         className="appearance-none block w-full p-3 leading-5 text-coolGray-900 border border-coolGray-200 rounded-lg shadow-md placeholder-coolGray-400 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-50" />
-                                    {errors.organization && touched.organization ? (
-                                        <p className='mt-1 text-red-500'>{errors.organization}</p>
+                                    {errors.oldpassword && touched.oldpassword ? (
+                                        <p className='mt-1 text-red-500'>{errors.oldpassword}</p>
                                     ) : ''}
                                 </div>
 
                                 <div className="mb-6">
                                     <label className="block mb-2 text-coolGray-800 font-medium" htmlFor="">New Password<span className='text-red-500'>*</span></label>
-                                    <input type="text" name="name" placeholder="************" autoComplete="name" value={values.name} onChange={handleChange} onBlur={handleBlur}
-                                        className="appearance-none block w-full p-3 leading-5 text-coolGray-900 border border-coolGray-200 rounded-lg shadow-md placeholder-coolGray-400 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-50" />
-                                    {errors.name && touched.name ? (
-                                        <p className='mt-1 text-red-500'>{errors.name}</p>
-                                    ) : ''}
-                                </div>
-
-                                <div className="mb-4">
-                                    <label className="block mb-2 text-coolGray-800 font-medium" htmlFor="">Confirm Password <span className='text-red-500'>*</span></label>
-                                    <input type="password" name="password" placeholder="************" autoComplete="off" value={values.password} onChange={handleChange} onBlur={handleBlur}
+                                    <input type="password" name="password" placeholder="************" value={values.password} onChange={handleChange} onBlur={handleBlur}
                                         className="appearance-none block w-full p-3 leading-5 text-coolGray-900 border border-coolGray-200 rounded-lg shadow-md placeholder-coolGray-400 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-50" />
                                     {errors.password && touched.password ? (
                                         <p className='mt-1 text-red-500'>{errors.password}</p>
                                     ) : ''}
                                 </div>
 
+                                <div className="mb-4">
+                                    <label className="block mb-2 text-coolGray-800 font-medium" htmlFor="">Confirm Password <span className='text-red-500'>*</span></label>
+                                    <input type="password" name="passwordConfirmation" placeholder="************" value={values.passwordConfirmation} onChange={handleChange} onBlur={handleBlur}
+                                        className="appearance-none block w-full p-3 leading-5 text-coolGray-900 border border-coolGray-200 rounded-lg shadow-md placeholder-coolGray-400 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-50" />
+                                    {errors.passwordConfirmation && touched.passwordConfirmation ? (
+                                        <p className='mt-1 text-red-500'>{errors.passwordConfirmation}</p>
+                                    ) : ''}
+                                </div>
+
                                 <button type="submit" className="inline-block py-3 px-7 mb-4 w-full text-base text-yellow-50 font-medium text-center leading-6 bg-yellow-500 hover:bg-yellow-600 focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-50 rounded-md shadow-sm">
-                                    Sign Up
+                                    Change Password
                                 </button>
 
-                                <p className="text-center">
-                                    <span className="text-xs font-medium">Already have an account?</span>
-                                    <Link to='/login' className="inline-block text-xs font-medium text-yellow-500 hover:text-yellow-600 hover:underline" href="#">Sign In</Link>
-                                </p>
                             </form>
                         </div>
                     </div>

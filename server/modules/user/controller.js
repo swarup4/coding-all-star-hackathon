@@ -209,22 +209,28 @@ router.put('/updateUserDetails/:id', userMiddleware.varifyToken, async (req, res
 
 
 //Change Password
-router.put('/changePassword/:id', userMiddleware.varifyToken, async (req, res) => {
+router.put('/changePassword/:id', async (req, res) => {
     try {
         const userId = req.params.id;
-        const password = req.body.password;
         const user = await User.Auth.findOne({_id: userId, password: req.body.oldpassword });
-        if (user.length > 0) {
-            const user = await User.Auth.findOneAndUpdate({ _id: userId }, { password: password }, {
+        if (user) {
+            const user = await User.Auth.findOneAndUpdate({ _id: userId }, { password: req.body.password }, {
                 returnOriginal: false
             });
 
+            const obj = { id: user._id, email: user.email };
+            const token = jwt.sign(obj, process.env.SECRATE_KEY, {
+                expiresIn: 3600 // expires in 60 minuit
+            });
+            
             res.json({
-                success: true,
-                data: user
+                id: user._id,
+                email: user.email,
+                name: user.name,
+                token: token
             });
         } else {
-            res.status(404).send("User id not found");
+            res.status(404).send("Old password is not correct");
         }
     } catch (error) {
         res.send(error);
@@ -311,9 +317,9 @@ router.put('/uploadProfilePics/:id', userMiddleware.varifyToken, async (req, res
     }
 });
 
+
 router.put('/uploadExcel', userMiddleware.varifyToken, async (req, res) => {
     try {
-
         let obj = {
             name: req.body.name,
             organization: req.body.organization,
