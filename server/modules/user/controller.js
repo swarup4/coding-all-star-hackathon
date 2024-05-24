@@ -1,6 +1,7 @@
 require('dotenv').config();
 
 const express = require('express');
+const reader = require('xlsx')
 const jwt = require("jsonwebtoken");
 const multer = require('multer');
 
@@ -23,17 +24,17 @@ router.get("/info/:id", userMiddleware.varifyToken, async (req, res) => {
         const id = req.params.id;
         let arr = [
             User.Auth.findById(id, { password: 0, createdAt: 0, updatedAt: 0 }),
-            User.Details.findOne({ userId: id }, { _id:0, userId:0, createdAt: 0, updatedAt: 0 }),
-            User.Contacts.findOne({ userId: id }, { _id:0, userId:0, createdAt: 0, updatedAt: 0 })
+            User.Details.findOne({ userId: id }, { _id: 0, userId: 0, createdAt: 0, updatedAt: 0 }),
+            User.Contacts.findOne({ userId: id }, { _id: 0, userId: 0, createdAt: 0, updatedAt: 0 })
         ]
         let userData = await Promise.allSettled(arr);
-        
+
         let obj = {}
 
         obj.user = userData[0]?.status == 'fulfilled' ? userData[0]?.value : {}
         obj.userDetails = userData[1]?.status == 'fulfilled' ? userData[1]?.value : {}
         obj.userContact = userData[2]?.status == 'fulfilled' ? userData[2]?.value : {}
-        
+
         if (obj) {
             res.json({
                 success: true,
@@ -212,7 +213,7 @@ router.put('/updateUserDetails/:id', userMiddleware.varifyToken, async (req, res
 router.put('/changePassword/:id', async (req, res) => {
     try {
         const userId = req.params.id;
-        const user = await User.Auth.findOne({_id: userId, password: req.body.oldpassword });
+        const user = await User.Auth.findOne({ _id: userId, password: req.body.oldpassword });
         if (user) {
             const user = await User.Auth.findOneAndUpdate({ _id: userId }, { password: req.body.password }, {
                 returnOriginal: false
@@ -222,7 +223,7 @@ router.put('/changePassword/:id', async (req, res) => {
             const token = jwt.sign(obj, process.env.SECRATE_KEY, {
                 expiresIn: 3600 // expires in 60 minuit
             });
-            
+
             res.json({
                 id: user._id,
                 email: user.email,
@@ -317,26 +318,64 @@ router.put('/uploadProfilePics/:id', userMiddleware.varifyToken, async (req, res
     }
 });
 
-
-router.put('/uploadExcel', userMiddleware.varifyToken, async (req, res) => {
-    try {
+function insertData(data){
+    return new Promise((resolve, reject) => {
         let obj = {
-            name: req.body.name,
-            organization: req.body.organization,
-            role: req.body.role,
-            empId: req.body.empId,
-            email: req.body.email,
-            password: req.body.password
+            name: data.name,
+            organization: data.organization,
+            role: data.role,
+            empId: data.empId,
+            email: data.email,
+            password: 'Welcome@123'
+        }
+        const userModel = new User.Auth(obj);
+
+        userModel.save().then(user => {
+            let details = {
+                userId: user._id,
+                primarySkill: data.primarySkill,
+                secondarySkill: data.secondarySkill,
+                city: data.city,
+                state: data.state,
+                country: data.country,
+            }
+
+            const userDetailsmodel = new User.Details(details);
+            userDetailsmodel.save().then(userDetails => {
+                resolve(userDetails)
+            }).catch(err => {
+                reject(err)
+            })
+        }).catch(err => {
+            reject(err);
+        })
+    })
+}
+
+
+router.get('/uploadExcel', async (req, res) => {
+    try {
+        const file = reader.readFile('./User.xlsx')
+        let data = []
+
+        const sheets = file.SheetNames
+        for (let i = 0; i < sheets.length; i++) {
+            const temp = reader.utils.sheet_to_json(
+                file.Sheets[file.SheetNames[i]]
+            )
+            temp.forEach((resp) => {
+                data.push(resp)
+            })
         }
 
-        const model = new User.Auth(obj);
-        const user = await model.save();
-        res.send({
-            id: user._id,
-            email: user.email,
-            name: user.name,
-            token: token
-        });
+        let arr = []
+        for (let i of data) {
+            arr.push(insertData(i))
+        }
+        let userData = await Promise.allSettled(arr);
+
+        res.json(userData);
+
     } catch (error) {
         res.send(error);
     }
