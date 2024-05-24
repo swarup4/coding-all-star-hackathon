@@ -25,12 +25,12 @@ export default function Editor(props) {
 
     useEffect(() => {
         if (props.type == 'code' || props.type == 'test') {
-            if ((submission.programmingLanguage == 'nodejs' || submission.programmingLanguage == 'js') && props.code == '') {
+            if (props.code == '' && (submission.programmingLanguage == 'nodejs' || submission.programmingLanguage == 'js')) {
                 props.setCode("console.log('hello world!');")
-            } else if (submission.programmingLanguage == 'java' && props.code == '') {
+            } else if (props.code == '' && submission.programmingLanguage == 'java') {
                 props.setCode('System.out.println("hello world!");')
             }
-            else if (props.programmingLanguage == 'html' && props.code == '') {
+            else if (props.code == '' && props.programmingLanguage == 'html') {
                 props.setCode(`<html>
         <head>
             <title>index page</title>
@@ -40,7 +40,7 @@ export default function Editor(props) {
         </body>
     <html>`)
             }
-            else if (submission.programmingLanguage == 'go' && props.code == '') {
+            else if (props.code == '' && submission.programmingLanguage == 'go') {
                 props.setCode(`package main
     import "fmt"
                     
@@ -48,7 +48,7 @@ export default function Editor(props) {
         fmt.Println("Hello, 世界")
     }`)
             }
-            else if (submission.programmingLanguage == 'csharp' && props.code == '') {
+            else if (props.code == '' && submission.programmingLanguage == 'csharp') {
                 props.setCode(`using System;
                 namespace Test
                 {
@@ -62,7 +62,7 @@ export default function Editor(props) {
                 }`)
             }
         } else {
-            props.setCode('')
+            props.setCode(props.code)
         }
     }, [submission.programmingLanguage])
 

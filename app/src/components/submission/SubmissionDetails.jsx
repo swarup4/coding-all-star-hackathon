@@ -14,7 +14,6 @@ import { HOST_URL } from '../../constants'
 export default function SubmissionDetails(props) {
     const navigate = useNavigate()
     const [isOpen, setIsOpen] = useState(false)
-    const [api, setApi] = useState({});
     const [videoUrl, setVideoUrl] = useState('')
     const { id } = useParams();
     const dispatch = useDispatch()
@@ -29,10 +28,11 @@ export default function SubmissionDetails(props) {
         setIsOpen(true)
     }
 
-    function codeDialogs(type){
+    function codeDialogs(type, code){
         let obj = {
             isOpen: true,
-            type: type
+            type: type,
+            code: code
         }
         props.codeDialog(obj)
     }
@@ -40,7 +40,6 @@ export default function SubmissionDetails(props) {
     useEffect(() => {
         const url = `${HOST_URL}submission/getApiDetails/${id}`
         axios.get(url).then(res => {
-            setApi(res.data)
             dispatch(setSubmission(res.data))
         }).catch(err => {
             console.log(err);
@@ -116,7 +115,7 @@ export default function SubmissionDetails(props) {
                 </div>
             </div>
 
-            {Object.keys(api).length > 0 ? (
+            {Object.keys(submission).length > 0 ? (
                 <div className="w-full md:w-full">
                     <div className="flex flex-wrap -m-3">
 
@@ -128,7 +127,7 @@ export default function SubmissionDetails(props) {
                                             <p className="text-sm text-coolGray-800 font-semibold">Name</p>
                                         </div>
                                         <div className="w-full md:flex-1 p-3">
-                                            {api.name}
+                                            {submission.name}
                                         </div>
                                     </div>
                                 </div>
@@ -140,7 +139,7 @@ export default function SubmissionDetails(props) {
                                             <p className="text-sm text-coolGray-800 font-semibold">Category</p>
                                         </div>
                                         <div className="w-full md:flex-1 p-3">
-                                            {api.category}
+                                            {submission.category}
                                         </div>
                                     </div>
                                 </div>
@@ -152,7 +151,7 @@ export default function SubmissionDetails(props) {
                                             <p className="text-sm text-coolGray-800 font-semibold">API End Point</p>
                                         </div>
                                         <div className="w-full md:flex-1 p-3">
-                                            {api.apiEndPoint}
+                                            {submission.apiEndPoint}
                                         </div>
                                     </div>
                                 </div>
@@ -164,7 +163,7 @@ export default function SubmissionDetails(props) {
                                             <p className="text-sm text-coolGray-800 font-semibold">API Version</p>
                                         </div>
                                         <div className="w-full md:flex-1 p-3">
-                                            {api.apiVersion}
+                                            {submission.apiVersion}
                                         </div>
                                     </div>
                                 </div>
@@ -176,7 +175,7 @@ export default function SubmissionDetails(props) {
                                             <p className="text-sm text-coolGray-800 font-semibold">Documentation Link</p>
                                         </div>
                                         <div className="w-full md:flex-1 p-3">
-                                            {api.documentationLink}
+                                            {submission.documentationLink}
                                         </div>
                                     </div>
                                 </div>
@@ -188,23 +187,12 @@ export default function SubmissionDetails(props) {
                                             <p className="text-sm text-coolGray-800 font-semibold">Programming Language</p>
                                         </div>
                                         <div className="w-full md:flex-1 p-3">
-                                            {api.programmingLanguage}
+                                            {submission.programmingLanguage}
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            {/* <div className="py-6 border-b border-coolGray-100">
-                                <div className="w-full md:w-9/12">
-                                    <div className="flex flex-wrap -m-3">
-                                        <div className="w-full md:w-1/4 p-3">
-                                            <p className="text-sm text-coolGray-800 font-semibold">Requirement Approach</p>
-                                        </div>
-                                        <div className="w-full md:flex-1 p-3">
-                                        {api.name}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> */}
+                            
                             <div className="py-6 border-b border-coolGray-100">
                                 <div className="w-full md:w-9/12">
                                     <div className="flex flex-wrap -m-3">
@@ -212,13 +200,12 @@ export default function SubmissionDetails(props) {
                                             <p className="text-sm text-coolGray-800 font-semibold">Description</p>
                                         </div>
                                         <div className="w-full md:flex-1 p-3">
-                                            {api.description}
+                                            {submission.description}
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
 
                         <div className="w-full md:flex-1 p-3">
                             <div className="py-6">
@@ -228,7 +215,7 @@ export default function SubmissionDetails(props) {
                                         <div className="w-3/5 p-3">
                                             <p className="text-sm text-coolGray-800 font-semibold">API Code</p>
                                         </div>
-                                        <a className="flex-1 p-3 cursor-pointer" onClick={() => codeDialogs('code')}>
+                                        <a className="flex-1 p-3 cursor-pointer" onClick={() => codeDialogs('code', submission.code)}>
                                             <PlusCircleIcon className='w-7 text-yellow-500 hover:text-yellow-600' />
                                         </a>
                                     </div>
@@ -240,7 +227,7 @@ export default function SubmissionDetails(props) {
                                         <div className="w-3/5 p-3">
                                             <p className="text-sm text-coolGray-800 font-semibold">API Env Variable</p>
                                         </div>
-                                        <a className="flex-1 p-3 cursor-pointer" onClick={() => codeDialogs('env')}>
+                                        <a className="flex-1 p-3 cursor-pointer" onClick={() => codeDialogs('env', submission.envVariable)}>
                                             <PlusCircleIcon className='w-7 text-yellow-500 hover:text-yellow-600' />
                                         </a>
                                     </div>
@@ -252,7 +239,7 @@ export default function SubmissionDetails(props) {
                                         <div className="w-3/5 p-3">
                                             <p className="text-sm text-coolGray-800 font-semibold">API Unit Test Cases</p>
                                         </div>
-                                        <a className="flex-1 p-3 cursor-pointer" onClick={() => codeDialogs('test')}>
+                                        <a className="flex-1 p-3 cursor-pointer" onClick={() => codeDialogs('test', submission.unitTest)}>
                                             <PlusCircleIcon className='w-7 text-yellow-500 hover:text-yellow-600' />
                                         </a>
                                     </div>
@@ -293,9 +280,6 @@ export default function SubmissionDetails(props) {
                                         <div className="w-full">
                                             <input type="text" name='video' placeholder="Add Video URL" value={videoUrl} onChange={ev => setVideoUrl(ev.target.value)}
                                                 className="w-full px-4 py-2.5 text-base text-coolGray-900 font-normal outline-none focus:border-yellow-500 border border-coolGray-200 rounded-lg shadow-input" />
-                                            {/* {errors.name && touched.name ? (
-                                                <p className='mt-1 text-red-500'>{errors.name}</p>
-                                            ) : ''} */}
                                         </div>
                                     </div>
 

@@ -3,10 +3,12 @@ import React, { useEffect, useState } from 'react'
 import axios from '../axiosInstance'
 import { useParams } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
+import { HOST_URL } from '../constants'
 import SubmissionDetails from '../components/submission/SubmissionDetails'
 import CommonDialog from '../components/common/CommonDialog'
 import Editor from '../components/submission/Editor'
 import { setNotification } from '../store/notification/notificationSlice'
+import { setSubmission } from '../store/submission/submissionSlice'
 
 
 export default function ApiDetails() {
@@ -28,6 +30,7 @@ export default function ApiDetails() {
         } else {
             setHeading("Add API Test Case")
         }
+        setApiCodes(data.code ? data.code : '')
     }
 
     function saveCode() {
@@ -40,12 +43,13 @@ export default function ApiDetails() {
             body.unitTest = apiCodes
         }
 
-        axios.put(`http://localhost:3001/submission/saveCode/${id}`, body).then(res => {
+        axios.put(`${HOST_URL}submission/saveCode/${id}`, body).then(res => {
             dispatch(setNotification({
                 popup: true,
                 status: 'success',
                 message: 'Code has submitted'
             }))
+            dispatch(setSubmission(res.data.data))
             setApiCodes('')
             setIsOpen(false)
         }).catch(err => {
