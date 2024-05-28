@@ -48,7 +48,6 @@ router.post('/addPrize', async (req, res) => {
     try {
         const model = new Models.Prize(req.body);
         const cate = await model.save();
-        console.log(cate);
         if (cate) {
             res.json(cate);
         };

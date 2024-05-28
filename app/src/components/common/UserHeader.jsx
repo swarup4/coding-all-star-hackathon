@@ -100,7 +100,7 @@ export default function UserHeader() {
                                                 <div className="w-auto p-2">
                                                     {user.profilePics ? (
                                                         <>
-                                                            <img src={window.location.origin + "/flex-ui-assets/images/user/" + user.profilePics} className='rounded-full h-11' />
+                                                            <img src={`https://trigent-hackathon-bucket.s3.ap-south-1.amazonaws.com/${user.profilePics}`} className='rounded-full h-11 w-11' />
                                                         </>
                                                     ) : (
                                                         <>
@@ -307,7 +307,7 @@ export default function UserHeader() {
                                         <div className="flex flex-wrap -mx-2">
                                             <div className="w-auto p-2">
                                                 {user.profilePics ? (
-                                                    <img src={window.location.origin + "/flex-ui-assets/images/user/" + user.profilePics} className='rounded-full h-11' />
+                                                    <img src={`https://trigent-hackathon-bucket.s3.ap-south-1.amazonaws.com/${user.profilePics}`} className='rounded-full h-11' />
                                                 ) : (
                                                     <div className={`flex items-center justify-center w-11 h-11 text-base font-medium rounded-full text-yellow-600 bg-yellow-200`}>{getInitial(user.name)}</div>
                                                 )}

@@ -98,7 +98,7 @@ export default function Hackathon() {
                                     <div className="w-9/12 flex">
                                         <div className="w-auto px-2">
                                             {project.user.profilePics ? (
-                                                <img src={window.location.origin + "/flex-ui-assets/images/user/" + project.user.profilePics} className='rounded-full h-20' />
+                                                <img src={`https://trigent-hackathon-bucket.s3.ap-south-1.amazonaws.com/${project.user.profilePics}`} className='rounded-full h-20 w-20' />
                                             ) : (
                                                 <div className={`flex items-center justify-center w-20 h-20 text-base font-medium rounded-full text-yellow-600 bg-yellow-200`}>{getInitial(project.user.name)}</div>
                                             )}

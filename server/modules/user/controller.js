@@ -4,14 +4,13 @@ const express = require('express');
 const reader = require('xlsx')
 const jwt = require("jsonwebtoken");
 const multer = require('multer');
-
+const ObjectId = require("mongoose").Types.ObjectId;
 const User = require('./models');
 const userMiddleware = require('../../middleware/user');
 // const config = require('../../helper/config');
 // const email = require('../../middleware/email');
 // const sendSMS = require('../../middleware/sendSMS');
 // const phone = require('../../middleware/sendSMS');
-// const uploadMiddleware = require('../../middleware/uploadImage');
 
 const router = express.Router();
 
@@ -113,6 +112,7 @@ router.post("/login", async (req, res) => {
                 email: user.email,
                 name: user.name,
                 role: user.role,
+                manager: user.manager,
                 profilePics: user.profilePics,
                 token: token
             });
@@ -175,14 +175,10 @@ router.put('/updateUserDetails/:id', userMiddleware.varifyToken, async (req, res
             manager: body.manager,
         }
 
-        if (Object.keys(body.profilePics).length > 0) {
-            authObj.profilePics = body.profilePics?.file?.name
-        }
-
         const auth = await User.Auth.findOneAndUpdate({ _id: userId }, authObj, {
             returnOriginal: false
         })
-
+        
         let detailsObj = {
             userId: userId,
             primarySkill: body.primarySkill,
@@ -193,8 +189,7 @@ router.put('/updateUserDetails/:id', userMiddleware.varifyToken, async (req, res
         }
 
         const details = await User.Details.findOneAndUpdate({ userId: userId }, detailsObj, {
-            new: true,
-            upsert: true
+            returnOriginal: false
         })
 
         if (details) {
@@ -301,15 +296,19 @@ router.put('/addSocialMedia/:id', userMiddleware.varifyToken, async (req, res) =
 
 
 // router.post('/uploadProfilePics/:id', userMiddleware.varifyToken, upload.single("profile"), uploadMiddleware.uploadImage, (req, res) => {
-router.put('/uploadProfilePics/:id', userMiddleware.varifyToken, async (req, res) => {
+router.put('/uploadProfilePics/:id', upload.single("profile"), userMiddleware.uploadImage, async (req, res) => {
     try {
-        let id = req.params.id
-        const profile = await User.Auth.findOneAndUpdate({ _id: id }, req.body, {
-            timestamps: { createdAt: false, updatedAt: true }
-        });
+        let id = req.params.id;
+        const profile = await User.Auth.findOneAndUpdate(
+            { _id: id }, 
+            { profilePics: req.fileName }, 
+            { returnOriginal: false }
+        );
+
         if (profile) {
             res.json({
                 success: true,
+                data: req.fileName,
                 message: 'Profile picture uploaded successfully'
             });
         }
@@ -328,9 +327,13 @@ function insertData(data) {
                 empId: data.empId,
                 email: data.email,
                 password: 'Welcome@123',
-                manager: manager._id
+                canParticipate: !data.isManager
             }
-            const userModel = new User.Auth(obj);
+            if (manager) {
+                obj.manager = manager._id
+            }
+
+            const userModel = new User.Auth(obj)
 
             userModel.save().then(user => {
                 let details = {

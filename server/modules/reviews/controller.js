@@ -23,7 +23,6 @@ async function rejectApi(req, res, next) {
 	try {
 		let body = req.body;
 		if (body.codeVerification == 2) {
-			console.log("Line no 25")
 			let addReview = await approveApi(body);
 			let obj = {
 				userId: body.apiUserId,
@@ -33,13 +32,11 @@ async function rejectApi(req, res, next) {
 			}
 
 			let point = await pointMiddleware.getPoint(obj, res)
-			console.log(point.length)
 			
 			if(point.length == 0) {
 				let addPoint = await pointMiddleware.addPoint(obj, res)
 				res.json("Reject Point Add")
 			} else {
-				console.log(point[0])
 				res.json("API Already Rejected")
 			}
 		} else {

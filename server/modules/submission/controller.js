@@ -19,13 +19,11 @@ function checkApiExist(req, res, next) {
         apiEndPoint: endPoint, apiVersion: version
     }).then(api => {
         if (api.length > 0) {
-            console.log("More than 1 ===>>> ", api);
             res.status(500).send("Someone already Submit the API")
         } else {
             next()
         }
     }).catch(err => {
-        console.log("Error ===>>> ", err);
         res.send(err);
     });
 }
@@ -132,8 +130,7 @@ router.get('/getApiDetails/:id', userMiddleware.varifyToken, async (req, res) =>
 router.put('/updateApiDetails/:id', userMiddleware.varifyToken, async (req, res) => {
     try {
         const id = req.params.id
-        const body = req.body
-        console.log(body);
+        const body = req.body;
         const code = await Models.UserAPIs.findOneAndUpdate({ _id: id }, body, {
             returnOriginal: false
         })

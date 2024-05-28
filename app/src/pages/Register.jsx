@@ -42,6 +42,13 @@ export default function Register() {
                     id: res.data.id,
                     name: res.data.name
                 })
+
+                dispatch(setNotification({
+                    popup: true,
+                    status: 'success',
+                    message: "Please add your details"
+                }))
+
                 navigate("/user");
             }
         }).catch(err => {

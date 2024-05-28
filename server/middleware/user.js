@@ -1,11 +1,22 @@
 require('dotenv').config();
 const jwt = require("jsonwebtoken");
+const AWS = require('aws-sdk');
+const Models = require('../modules/user/models');
 
-// const config = require('../helper/config');
-const User = require('../modules/user/models');
-// const Admin = require('../modules/admin/models');
 
-let loginObj = {
+const s3Client = new AWS.S3({
+    accessKeyId: process.env.AWS_ACCESS_KEY,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+    region: process.env.REGION
+});
+
+const uploadParams = {
+    Bucket: process.env.BUCKET,
+    Key: '', // pass key
+    Body: null, // pass file body
+};
+
+let User = {
     getUserInfo: (req, res, next) => {
         const id = req.params.id;
         const type = req.params.type;
@@ -16,11 +27,10 @@ let loginObj = {
             obj.phone = 1;
         }
 
-        User.Auth.findById(id, obj, (err, data) => {
+        Models.Auth.findById(id, obj, (err, data) => {
             if (err) {
                 res.send(err.message);
             } else {
-                console.log(data);
                 req.data = data;
                 next();
             }
@@ -33,7 +43,7 @@ let loginObj = {
         try {
             let email = req.body.email;
             
-            let data = await User.Auth.findOne({
+            let data = await Models.Auth.findOne({
                 email: email
             })
             if (data) {
@@ -59,7 +69,29 @@ let loginObj = {
                 }
             });
         }
+    },
+
+    uploadImage: (req, res, next) => {
+        const userId = req.params.id;
+        const client = s3Client;
+        const params = uploadParams;
+
+        const extenssionArr = req.file.originalname.split('.');
+        const extenssion = extenssionArr[extenssionArr.length - 1];
+        const fileName = userId + '.' + extenssion;
+        
+        params.Key = fileName;
+        params.Body = req.file.buffer;
+
+        client.upload(params, (err, data) => {
+        	if (err) {
+        		res.status(500).json({error:"Error -> " + err});
+        	} else {
+                req.fileName = fileName
+                next();
+            }
+        });
     }
 };
 
-module.exports = loginObj;
+module.exports = User;

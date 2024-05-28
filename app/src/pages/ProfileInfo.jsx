@@ -8,6 +8,7 @@ import { object, string } from 'yup';
 import { HOST_URL } from '../constants'
 import { PlusCircleIcon } from '@heroicons/react/20/solid'
 import { setNotification } from '../store/notification/notificationSlice'
+import { setUser } from '../store/user/userSlice'
 import CommonDialog from '../components/common/CommonDialog'
 
 
@@ -42,23 +43,26 @@ export default function ProfileInfo() {
     const [sociaMedia, setSociaMedia] = useState('');
     const [url, setUrl] = useState('');
     const [isOpen, setIsOpen] = useState(false);
+    const [isEdit, setIsEdit] = useState(false);
     const user = JSON.parse(sessionStorage.user);
-
-    useEffect(() => {
-        let url = window.location.pathname
-        if (url == '/dashboard/profile/edit') {
-            getUserDetails()
-        }
-    }, [])
-
+    
     const { values, errors, handleBlur, handleChange, handleSubmit, touched } = useFormik({
         initialValues: initialValues,
         validationSchema: schema,
         onSubmit: (values, action) => {
-            let obj = { ...values, profilePics: userProfilePics }
+            let obj = { ...values, profile: userProfilePics }
             addUserDetails(obj)
         }
     })
+
+
+    useEffect(() => {
+        let url = window.location.pathname
+        if (url == '/dashboard/profile/edit') {
+            setIsEdit(true);
+            getUserDetails();
+        }
+    }, [])
 
     useEffect(() => {
         const url = `${HOST_URL}user/userList`
@@ -74,21 +78,57 @@ export default function ProfileInfo() {
         })
     }, [])
 
+    function uploadImage(data) {
+        let fd = new FormData();
+        fd.append('profile', data, data.name);
+        return new Promise((resolve, reject) => {
+            const url = `${HOST_URL}user/uploadProfilePics/${user.id}`
+            axios.put(url, fd).then(res => {
+                resolve(res)
+            }).catch(err => {
+                console.log(err)
+                reject(err)
+            })
+        })
+
+    }
+
     function addUserDetails(data) {
         const url = `${HOST_URL}user/updateUserDetails/${user.id}`
 
         axios.put(url, data).then(res => {
-            dispatch(setNotification({
-                popup: true,
-                status: 'success',
-                message: 'User Details has Added'
-            }))
-
             let userData = JSON.parse(sessionStorage.user)
-            sessionStorage.user = JSON.stringify({
-                ...userData, role: res.data.data.role, profilePics: res.data.data.profilePics
+            uploadImage(data.profile.file).then(image => {
+                sessionStorage.user = JSON.stringify({
+                    ...userData, 
+                    role: res.data.data.role, 
+                    profilePics: image.data.data
+                });
+
+                dispatch(setUser({
+                    ...userData, 
+                    role: res.data.data.role, 
+                    profilePics: image.data.data
+                }))
+                
+                dispatch(setNotification({
+                    popup: true,
+                    status: 'success',
+                    message: 'User Details has Added'
+                }));
+
+                if(isEdit) {
+                    navigate('/dashboard/profile')
+                } else {
+                    navigate("/dashboard");
+                }
+            }).catch(err => {
+                dispatch(setNotification({
+                    popup: true,
+                    status: 'error',
+                    message: err.response.data
+                }))
             })
-            navigate("/dashboard");
         }).catch(err => {
             console.log(err)
             dispatch(setNotification({
@@ -133,16 +173,16 @@ export default function ProfileInfo() {
         const url = `${HOST_URL}user/info/${user.id}`
         axios.get(url).then(res => {
             let data = res.data.data
-            initialValues.role = data.user.role
-            initialValues.empId = data.user.empId
-            initialValues.manager = data.user.manager
-            initialValues.primarySkill = data.userDetails.primarySkill
-            initialValues.secondarySkill = data.userDetails.secondarySkill
-            initialValues.city = data.userDetails.city
-            initialValues.state = data.userDetails.state
-            initialValues.country = data.userDetails.country
+            initialValues.role = data.user.role ? data.user.role : '';
+            initialValues.empId = data.user.empId ? data.user.empId : '';
+            initialValues.manager = data.user.manager ? data.user.manager : '';
+            initialValues.primarySkill = data.userDetails?.primarySkill ?? '';
+            initialValues.secondarySkill = data.userDetails?.secondarySkill ?? '';
+            initialValues.city = data.userDetails?.city ?? '';
+            initialValues.state = data.userDetails?.state ?? '';
+            initialValues.country = data.userDetails?.country ?? '';
 
-            setUserContact(data.userContact.socialMedia)
+            setUserContact(data.userContact?.socialMedia ?? [])
         }).catch(err => {
             console.log(err)
             dispatch(setNotification({

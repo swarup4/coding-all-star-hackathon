@@ -38,7 +38,7 @@ export default function Panels() {
                         {panels.map((res, ind) => (
                             <div className="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 px-4 mb-10 md:mb-0" key={ind}>
                                 <div className="text-center max-w-xs mx-auto">
-                                    <img className="w-24 h-24 mx-auto mb-6 rounded-full" src={window.location.origin + "/flex-ui-assets/images/user/" + res.panel.profilePics} alt="" />
+                                    <img className="w-24 h-24 mx-auto mb-6 rounded-full" src={`https://trigent-hackathon-bucket.s3.ap-south-1.amazonaws.com/${res.panel.profilePics}`} alt="" />
                                     <h3 className="mb-1 text-lg text-coolGray-800 font-semibold">{res.panel.name}</h3>
                                     <span className="inline-block mb-6 text-lg font-medium text-yellow-500">{res.panel.role}</span>
                                     <div className="flex items-center justify-center">

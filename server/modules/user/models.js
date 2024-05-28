@@ -14,10 +14,10 @@ const user = {
     password: { type: String, require: true },
     manager: { type: objectId },
     profilePics: String,
+    canParticipate: { type: Boolean, default: 1 },
     createdAt: Date,
     updatedAt: Date,
-    status: { type: Boolean, default: 1 },
-    canParticipate: { type: Boolean, default: 1 }
+    status: { type: Boolean, default: 1 }
 }
 const userSchema = new Schema(user, { versionKey: false, timestamps: true })
 
