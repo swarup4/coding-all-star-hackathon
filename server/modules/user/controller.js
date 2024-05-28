@@ -318,37 +318,44 @@ router.put('/uploadProfilePics/:id', userMiddleware.varifyToken, async (req, res
     }
 });
 
-function insertData(data){
+function insertData(data) {
     return new Promise((resolve, reject) => {
-        let obj = {
-            name: data.name,
-            organization: data.organization,
-            role: data.role,
-            empId: data.empId,
-            email: data.email,
-            password: 'Welcome@123'
-        }
-        const userModel = new User.Auth(obj);
-
-        userModel.save().then(user => {
-            let details = {
-                userId: user._id,
-                primarySkill: data.primarySkill,
-                secondarySkill: data.secondarySkill,
-                city: data.city,
-                state: data.state,
-                country: data.country,
+        User.Auth.findOne({ email: data.manager }, { _id: 1 }).then(manager => {
+            let obj = {
+                name: data.name,
+                organization: data.organization,
+                role: data.role,
+                empId: data.empId,
+                email: data.email,
+                password: 'Welcome@123',
+                manager: manager._id
             }
+            const userModel = new User.Auth(obj);
 
-            const userDetailsmodel = new User.Details(details);
-            userDetailsmodel.save().then(userDetails => {
-                resolve(userDetails)
+            userModel.save().then(user => {
+                let details = {
+                    userId: user._id,
+                    primarySkill: data.primarySkill,
+                    secondarySkill: data.secondarySkill,
+                    city: data.city,
+                    state: data.state,
+                    country: data.country,
+                }
+
+                const userDetailsmodel = new User.Details(details);
+                userDetailsmodel.save().then(userDetails => {
+                    resolve(userDetails)
+                }).catch(err => {
+                    reject(err)
+                })
             }).catch(err => {
-                reject(err)
+                reject(err);
             })
         }).catch(err => {
             reject(err);
         })
+
+
     })
 }
 
