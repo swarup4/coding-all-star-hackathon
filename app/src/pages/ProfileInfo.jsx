@@ -10,6 +10,7 @@ import { PlusCircleIcon } from '@heroicons/react/20/solid'
 import { setNotification } from '../store/notification/notificationSlice'
 import { setUser } from '../store/user/userSlice'
 import CommonDialog from '../components/common/CommonDialog'
+import { getInitial } from '../components/helper'
 
 
 const initialValues = {
@@ -44,8 +45,9 @@ export default function ProfileInfo() {
     const [url, setUrl] = useState('');
     const [isOpen, setIsOpen] = useState(false);
     const [isEdit, setIsEdit] = useState(false);
+    const [imageUrl, setImageUrl] = useState('')
     const user = JSON.parse(sessionStorage.user);
-    
+
     const { values, errors, handleBlur, handleChange, handleSubmit, touched } = useFormik({
         initialValues: initialValues,
         validationSchema: schema,
@@ -78,6 +80,17 @@ export default function ProfileInfo() {
         })
     }, [])
 
+    function selectImage(ev) {
+        let file = ev.currentTarget.files[0];
+        let reader = new FileReader();
+        let url = reader.readAsDataURL(file);
+        setUserProfilePics({ "file": file });
+
+        reader.onloadend = (ev) => {
+            setImageUrl(reader.result)
+        }
+    }
+
     function uploadImage(data) {
         let fd = new FormData();
         fd.append('profile', data, data.name);
@@ -100,24 +113,24 @@ export default function ProfileInfo() {
             let userData = JSON.parse(sessionStorage.user)
             uploadImage(data.profile.file).then(image => {
                 sessionStorage.user = JSON.stringify({
-                    ...userData, 
-                    role: res.data.data.role, 
+                    ...userData,
+                    role: res.data.data.role,
                     profilePics: image.data.data
                 });
 
                 dispatch(setUser({
-                    ...userData, 
-                    role: res.data.data.role, 
+                    ...userData,
+                    role: res.data.data.role,
                     profilePics: image.data.data
                 }))
-                
+
                 dispatch(setNotification({
                     popup: true,
                     status: 'success',
                     message: 'User Details has Added'
                 }));
 
-                if(isEdit) {
+                if (isEdit) {
                     navigate('/dashboard/profile')
                 } else {
                     navigate("/dashboard");
@@ -287,7 +300,11 @@ export default function ProfileInfo() {
                                         <p className="text-xs text-coolGray-500 font-medium"></p>
                                     </div>
                                     <div className="w-full md:w-auto p-3">
-                                        <img src={window.location.origin + "/flex-ui-assets/images/dashboard/forms/avatar.png"} alt="" />
+                                        {imageUrl ? (
+                                            <img src={imageUrl} className='h-20 w-20 rounded-full' alt="" />
+                                        ) : (
+                                            <div className={`flex items-center justify-center w-16 h-16 text-2xl font-medium rounded-full text-yellow-600 bg-yellow-200 `}>{getInitial(user.name)}</div>
+                                        )}
                                     </div>
                                     <div className="w-full md:flex-1 p-3">
                                         <div className="relative flex flex-col items-center justify-center p-6 h-44 text-center text-yellow-500 focus-within:border-yellow-500 border border-dashed border-coolGray-200 rounded-lg">
@@ -296,11 +313,11 @@ export default function ProfileInfo() {
                                             </svg>
                                             <p className="mb-1 text-sm text-coolGray-800 font-medium">
                                                 <span className="text-yellow-500">Click to Upload a file</span>
-                                                <span>or drag and drop</span>
+                                                <span> or drag and drop</span>
                                             </p>
                                             <p className="text-xs text-coolGray-500 font-medium">PNG, JPG, GIF or up to 10MB</p>
                                             <p className="text-xs text-coolGray-500 font-medium">{userProfilePics?.file?.name ?? ''}</p>
-                                            <input type="file" name='profilePics' onChange={(ev) => setUserProfilePics({ "file": ev.currentTarget.files[0] })} className="absolute top-0 left-0 w-full h-full opacity-0" />
+                                            <input type="file" name='profilePics' onChange={(ev) => selectImage(ev)} className="absolute top-0 left-0 w-full h-full opacity-0" />
                                         </div>
                                     </div>
                                 </div>
