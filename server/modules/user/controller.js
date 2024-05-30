@@ -7,6 +7,7 @@ const multer = require('multer');
 const ObjectId = require("mongoose").Types.ObjectId;
 const User = require('./models');
 const userMiddleware = require('../../middleware/user');
+const email = require('../../middleware/email')
 // const config = require('../../helper/config');
 // const email = require('../../middleware/email');
 // const sendSMS = require('../../middleware/sendSMS');
@@ -123,17 +124,6 @@ router.post("/login", async (req, res) => {
 });
 
 
-// Create New User 
-/**
- * {
-        "role": "Admin",
-        "username": "Swarup7",
-        "password": "Swarup@123",
-        "email": "swarup.saha004@hotmail.com",
-        "countryCode": 91
-        "phone": 9035845781
- * }
- */
 router.post("/signup", userMiddleware.checkExestingUser, async (req, res) => {
     try {
         const model = new User.Auth(req.body);
@@ -389,6 +379,19 @@ router.get('/uploadExcel', async (req, res) => {
     } catch (error) {
         res.send(error);
     }
+});
+
+
+router.get('/sendEmail', (req, res) => {
+    console.log("Call API")
+    let emailList = "swarup.saha004@hotmail.com, strangefriendship3@gmail.com"
+    email(emailList).then(data => {
+        console.log(data)
+        res.json(data);
+    }).catch(err => {
+        console.log(err);
+        res.json(err);
+    });
 });
 
 module.exports = router;

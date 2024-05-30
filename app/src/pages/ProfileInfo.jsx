@@ -194,6 +194,11 @@ export default function ProfileInfo() {
             initialValues.city = data.userDetails?.city ?? '';
             initialValues.state = data.userDetails?.state ?? '';
             initialValues.country = data.userDetails?.country ?? '';
+            let image = res.data.data.user?.profilePics
+            if(image){
+                let url = `https://trigent-hackathon-bucket.s3.ap-south-1.amazonaws.com/${image}`
+                setImageUrl(url)
+            }
 
             setUserContact(data.userContact?.socialMedia ?? [])
         }).catch(err => {
@@ -213,7 +218,7 @@ export default function ProfileInfo() {
                 <div className="p-6 h-full border border-coolGray-100 overflow-hidden bg-white rounded-md shadow-dashboard">
 
 
-                    <form onSubmit={handleSubmit}>
+                    <form onSubmit={handleSubmit} encType='multipart/form-data'>
                         <div className="pb-6 border-b border-coolGray-100">
                             <div className="flex flex-wrap items-center justify-between -m-2">
                                 <div className="w-full md:w-auto p-2">
