@@ -36,21 +36,7 @@ export default function Login() {
         axios.post(url, data).then(res => {
             if(res.status == 200) {
                 sessionStorage.auth = res.data.token;
-                if(res.data.manager){
-                    sessionStorage.user = JSON.stringify({
-                        email: res.data.email,
-                        id: res.data.id,
-                        name: res.data.name,
-                        role: res.data.role,
-                        profilePics: res.data.profilePics
-                    })
-                    const location = sessionStorage.url;
-                    if(location) {
-                        navigate(location);
-                    } else {
-                        navigate("/dashboard");
-                    }
-                } else {
+                if(res.data.canParticipate && res.data.manager == undefined) {
                     sessionStorage.user = JSON.stringify({
                         email: res.data.email,
                         id: res.data.id,
@@ -63,6 +49,21 @@ export default function Login() {
                         message: "User details are not present. Please add your details"
                     }))
                     navigate("/user");
+                } else {
+                    sessionStorage.user = JSON.stringify({
+                        email: res.data.email,
+                        id: res.data.id,
+                        name: res.data.name,
+                        role: res.data.role,
+                        isManager: !res.data.canParticipate,
+                        profilePics: res.data.profilePics
+                    })
+                    const location = sessionStorage.url;
+                    if(location) {
+                        navigate(location);
+                    } else {
+                        navigate("/dashboard");
+                    }
                 }
             }
         }).catch(err => {

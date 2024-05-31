@@ -115,6 +115,7 @@ router.post("/login", async (req, res) => {
                 role: user.role,
                 manager: user.manager,
                 profilePics: user.profilePics,
+                canParticipate: user.canParticipate,
                 token: token
             });
         }
@@ -154,15 +155,18 @@ router.get('/userList', async (req, res) => {
 })
 
 
-router.put('/updateUserDetails/:id', userMiddleware.varifyToken, async (req, res) => {
+router.put('/updateUserDetails/:id', async (req, res) => {
     try {
         let userId = req.params.id;
         let body = req.body;
 
         let authObj = {
             role: body.role,
-            empId: Number(body.empId),
-            manager: body.manager,
+            empId: Number(body.empId)
+        }
+
+        if(body?.manager != ''){
+            authObj.manager = body?.manager
         }
 
         const auth = await User.Auth.findOneAndUpdate({ _id: userId }, authObj, {
@@ -179,6 +183,8 @@ router.put('/updateUserDetails/:id', userMiddleware.varifyToken, async (req, res
         }
 
         const details = await User.Details.findOneAndUpdate({ userId: userId }, detailsObj, {
+            new: true,
+            upsert: true,
             returnOriginal: false
         })
 

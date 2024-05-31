@@ -26,7 +26,7 @@ const initialValues = {
 const schema = object().shape({
     role: string().required('Enter your API Name'),
     empId: string().required('Enter your Project Category'),
-    manager: string().required('Enter API End point'),
+    manager: string().when("isManager", (isManager, schema) => isManager ? schema : schema.required('Select your Manager')),
     primarySkill: string().required('Enter your API End Point Version'),
     secondarySkill: string().required('Enter your API Documentation Link'),
     city: string().required('Select your Programming Language'),
@@ -47,13 +47,15 @@ export default function ProfileInfo() {
     const [isEdit, setIsEdit] = useState(false);
     const [imageUrl, setImageUrl] = useState('')
     const user = JSON.parse(sessionStorage.user);
+    const [isManager, setIsManager] = useState(user.isManager);
 
     const { values, errors, handleBlur, handleChange, handleSubmit, touched } = useFormik({
         initialValues: initialValues,
         validationSchema: schema,
         onSubmit: (values, action) => {
             let obj = { ...values, profile: userProfilePics }
-            addUserDetails(obj)
+            console.log(obj);
+            addUserDetails(obj);
         }
     })
 
@@ -106,42 +108,58 @@ export default function ProfileInfo() {
 
     }
 
+    function notification() {
+        dispatch(setNotification({
+            popup: true,
+            status: 'success',
+            message: 'User Details has Added'
+        }));
+
+        if (isEdit) {
+            navigate('/dashboard/profile')
+        } else {
+            navigate("/dashboard");
+        }
+    }
+
     function addUserDetails(data) {
         const url = `${HOST_URL}user/updateUserDetails/${user.id}`
 
         axios.put(url, data).then(res => {
             let userData = JSON.parse(sessionStorage.user)
-            uploadImage(data.profile.file).then(image => {
-                sessionStorage.user = JSON.stringify({
-                    ...userData,
-                    role: res.data.data.role,
-                    profilePics: image.data.data
-                });
 
+            if (data.profile?.file) {
+                uploadImage(data.profile.file).then(image => {
+                    sessionStorage.user = JSON.stringify({
+                        ...userData,
+                        role: res.data.data.role,
+                        profilePics: image.data.data
+                    });
+
+                    dispatch(setUser({
+                        ...userData,
+                        role: res.data.data.role,
+                        profilePics: image.data.data
+                    }))
+
+                    notification()
+
+                }).catch(err => {
+                    dispatch(setNotification({
+                        popup: true,
+                        status: 'error',
+                        message: err.response.data
+                    }))
+                })
+            } else {
                 dispatch(setUser({
                     ...userData,
                     role: res.data.data.role,
-                    profilePics: image.data.data
+                    profilePics: res.data.data?.profilePics
                 }))
 
-                dispatch(setNotification({
-                    popup: true,
-                    status: 'success',
-                    message: 'User Details has Added'
-                }));
-
-                if (isEdit) {
-                    navigate('/dashboard/profile')
-                } else {
-                    navigate("/dashboard");
-                }
-            }).catch(err => {
-                dispatch(setNotification({
-                    popup: true,
-                    status: 'error',
-                    message: err.response.data
-                }))
-            })
+                notification()
+            }
         }).catch(err => {
             console.log(err)
             dispatch(setNotification({
@@ -195,7 +213,7 @@ export default function ProfileInfo() {
             initialValues.state = data.userDetails?.state ?? '';
             initialValues.country = data.userDetails?.country ?? '';
             let image = res.data.data.user?.profilePics
-            if(image){
+            if (image) {
                 let url = `https://trigent-hackathon-bucket.s3.ap-south-1.amazonaws.com/${image}`
                 setImageUrl(url)
             }
@@ -281,7 +299,7 @@ export default function ProfileInfo() {
                                         <p className="text-sm text-coolGray-800 font-semibold">Manager <span className='text-red-500'>*</span></p>
                                     </div>
                                     <div className="w-full md:flex-1 p-3">
-                                        <select name='manager' value={values.manager} onChange={handleChange} onBlur={handleBlur}
+                                        <select name='manager' value={values.manager} onChange={handleChange} onBlur={handleBlur} disabled={isEdit}
                                             className="appearance-none w-full py-2.5 px-4 text-coolGray-900 text-base font-normal bg-white border outline-none border-coolGray-200 focus:border-yellow-500 rounded-lg shadow-input">
                                             <option value="">Select</option>
                                             {userList.map((item, ind) => (
