@@ -1,7 +1,7 @@
 import React from 'react'
 import Header from '../components/common/Header'
 import Faq from '../components/home/Faq'
-import Panels from '../components/home/Panels'
+// import Panels from '../components/home/Panels'
 import Footer from '../components/common/Footer'
 
 export default function HomePage() {
@@ -107,44 +107,6 @@ export default function HomePage() {
             </section>
 
 
-            <section className="py-20 xl:py-24 bg-white theme-background">
-                <div className="container px-4 mx-auto">
-                    <span className="inline-block py-px px-2 mb-4 text-xs leading-5 text-yellow-500 bg-yellow-100 font-medium rounded-9xl">ALL STAR AT A GLANCE</span>
-                    <h3 className="mb-4 text-4xl md:text-5xl text-coolGray-900 font-bold tracking-tighter">We help our cusotmers overcome the limits of Time, Technology, and Budget</h3>
-                    <p className="mb-16 xl:mb-24 text-lg md:text-xl text-coolGray-500 font-medium max-w-3xl">We differentiate ourselves with our solutions approach to business problems, and the attention, care, and flexibility that we provide to our employees and customers</p>
-                    <div className="flex flex-wrap items-center -mx-4 text-center">
-                        <div className="w-full md:w-1/2 px-4 mb-16 md:mb-0">
-                            <div className="flex flex-wrap justify-center -mx-4">
-                                <div className="w-full md:w-1/2 px-4 mb-8">
-                                    <h2 className="mb-4 text-4xl lg:text-5xl text-yellow-600 font-bold tracking-tighter">600+</h2>
-                                    <h3 className="mb-2 text-lg md:text-xl text-coolGray-800 font-bold">Client</h3>
-                                    <p className="text-coolGray-500 font-medium">No need to hire specialists for each channel.</p>
-                                </div>
-                                <div className="w-full md:w-1/2 px-4 mb-8">
-                                    <h2 className="mb-4 text-4xl lg:text-5xl text-yellow-600 font-bold tracking-tighter">97%</h2>
-                                    <h3 className="mb-2 text-lg md:text-xl text-coolGray-800 font-bold">NPS</h3>
-                                    <p className="text-coolGray-500 font-medium">Track how much money a company just in case</p>
-                                </div>
-                                <div className="w-full md:w-1/2 px-4 mb-8 md:mb-0">
-                                    <h2 className="mb-4 text-4xl lg:text-5xl text-yellow-600 font-bold tracking-tighter">88%</h2>
-                                    <h3 className="mb-2 text-lg lg:text-xl text-coolGray-800 font-bold">Client Retention</h3>
-                                    <p className="text-coolGray-500 font-medium">Manage many companies, even with different languages.</p>
-                                </div>
-                                <div className="w-full md:w-1/2 px-4">
-                                    <h2 className="mb-4 text-4xl lg:text-5xl text-yellow-600 font-bold tracking-tighter">2800+</h2>
-                                    <h3 className="mb-2 text-lg md:text-xl text-coolGray-800 font-bold">Members</h3>
-                                    <p className="text-coolGray-500 font-medium">Everyone works the way they want to, on their own schedule.</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="w-full md:w-1/2 px-4">
-                            <img className="mx-auto md:mr-0" src={window.location.origin + "/flex-ui-assets/images/numbers/work.png"} alt="" />
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-
             <section className="bg-coolGray-50 py-4">
                 <div className="container px-4 mx-auto">
                     <div className="relative py-11 px-16 bg-coolGray-900 rounded-md overflow-hidden">
@@ -177,9 +139,9 @@ export default function HomePage() {
                 </div>
             </section>
 
-            <Panels />
+            {/* <Panels /> */}
             
-            <Faq />
+            {/* <Faq /> */}
 
 
             <section className="py-20 xl:pt-24 bg-white theme-background">

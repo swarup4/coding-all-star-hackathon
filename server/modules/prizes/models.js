@@ -9,7 +9,6 @@ const prize = {
     category: { type: String, required: true },
     name: { type: String, required: true },
     amount: { type: Number, required: true },
-    range: { type: Boolean, default: 0 },
     status: { type: Boolean, default: 1 },
     createdAt: Date,
     updatedAt: Date

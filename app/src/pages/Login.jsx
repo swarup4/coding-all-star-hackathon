@@ -115,33 +115,16 @@ export default function Login() {
                                 ) : ''}
                             </div>
 
-                            {/* <div className="flex flex-wrap items-center justify-between mb-6">
-                                <div className="w-full md:w-1/2">
-                                    <label className="relative inline-flex items-center">
-                                        <input className="form-checkbox appearance-none" type="checkbox" />
-                                        <img className="absolute top-1/2 transform -translate-y-1/2 left-0" src={window.location.origin + "/flex-ui-assets/elements/sign-up/checkbox-icon.svg"} alt="" />
-                                        <span className="ml-7 text-xs text-coolGray-800 font-medium">Remember me</span>
-                                    </label>
-                                </div>
-                                <div className="w-full md:w-auto mt-1">
-                                    <a className="inline-block text-xs font-medium text-yellow-500 hover:text-yellow-600" href="#">Forgot your password?</a>
-                                </div>
-                            </div> */}
-
                             <button type="submit" className="inline-block py-3 px-7 mb-6 w-full text-base text-yellow-50 font-medium text-center leading-6 bg-yellow-500 hover:bg-yellow-600 focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-50 rounded-md shadow-sm">
                                 Sign in
                             </button>
 
-                            {/* <a className="inline-flex items-center justify-center py-3 px-7 mb-6 w-full text-base text-coolGray-500 font-medium text-center leading-6 bg-white border border-coolGray-100 hover:border-coolGray-200 rounded-md shadow-sm" href="#">
-                                <img className="mr-2" src={window.location.origin + "/flex-ui-assets/elements/sign-up/google-icon-sign-up.svg"} alt="" />
-                                <span>Sign in with Google</span>
-                            </a> */}
-                            <p className="text-center">
-                                <span className="text-xs font-medium">Don’t have an account?</span>
+                            {/* <p className="text-center">
+                                <span className="text-xs font-medium">Don't have an account?</span>
                                 <Link to='/signup' className="inline-block text-xs font-medium text-yellow-500 hover:text-yellow-600 hover:underline">
                                     Sign Up
                                 </Link>
-                            </p>
+                            </p> */}
                         </form>
                     </div>
                 </div>

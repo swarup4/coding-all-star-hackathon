@@ -9,8 +9,7 @@ import { getInitial } from '../components/helper'
 import Leaderboard from '../components/hackathon/Leaderboard'
 import Panel from '../components/hackathon/Panel'
 import Participants from '../components/hackathon/Participants'
-import Prices from '../components/hackathon/Prices'
-// import Reviews from '../components/hackathon/Reviews'
+import Prizes from '../components/hackathon/Prizes'
 import Schedule from '../components/hackathon/Schedule'
 import ApiList from '../components/hackathon/ApiList'
 import { setNotification } from '../store/notification/notificationSlice'
@@ -127,7 +126,7 @@ export default function Hackathon() {
                                     <li onClick={() => setTab('')} className={`text-coolGray-400 hover:text-coolGray-500 cursor-pointer ${tab === '' ? 'tab-active' : ''}`}><a className="inline-block py-2 px-2 font-semibold">Overview</a></li>
                                     <li onClick={() => setTab('apilist')} className={`text-coolGray-400 hover:text-coolGray-500 cursor-pointer ${tab === 'apilist' ? 'tab-active' : ''}`}><a className="inline-block py-2 px-2 font-semibold">API List</a></li>
                                     <li onClick={() => setTab('leaderboard')} className={`text-coolGray-400 hover:text-coolGray-500 cursor-pointer ${tab === 'leaderboard' ? 'tab-active' : ''}`}><a className="inline-block py-2 px-2 font-semibold">Leaderboard</a></li>
-                                    <li onClick={() => setTab('prices')} className={`text-coolGray-400 hover:text-coolGray-500 cursor-pointer ${tab === 'prices' ? 'tab-active' : ''}`}><a className="inline-block py-2 px-2 font-semibold">Prices</a></li>
+                                    <li onClick={() => setTab('prizes')} className={`text-coolGray-400 hover:text-coolGray-500 cursor-pointer ${tab === 'prizes' ? 'tab-active' : ''}`}><a className="inline-block py-2 px-2 font-semibold">Prizes</a></li>
                                     <li onClick={() => setTab('panel', project.panels)} className={`text-coolGray-400 hover:text-coolGray-500 cursor-pointer ${tab === 'panel' ? 'tab-active' : ''}`}><a className="inline-block py-2 px-2 font-semibold">Panel</a></li>
                                     <li onClick={() => setTab('schedule')} className={`text-coolGray-400 hover:text-coolGray-500 cursor-pointer ${tab === 'schedule' ? 'tab-active' : ''}`}><a className="inline-block py-2 px-2 font-semibold">Schedule</a></li>
                                     <li onClick={() => setTab('participants')} className={`text-coolGray-400 hover:text-coolGray-500 cursor-pointer ${tab === 'participants' ? 'tab-active' : ''}`}><a className="inline-block py-2 px-2 font-semibold">Participants</a></li>
@@ -179,8 +178,8 @@ export default function Hackathon() {
                                     <Leaderboard appliedUser={project.appliedUser} />
                                 ) : ''}
 
-                                {tab === 'prices' ? (
-                                    <Prices />
+                                {tab === 'prizes' ? (
+                                    <Prizes />
                                 ) : ''}
 
                                 {tab === 'panel' ? (
