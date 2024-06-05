@@ -1,14 +1,19 @@
 const express = require('express');
 const ObjectId = require("mongoose").Types.ObjectId;
+const multer = require('multer');
 const Models = require('./models');
 const UserModels = require('../user/models');
 const userMiddleware = require('../../middleware/user');
+const hackathonMiddleware = require('../../middleware/hackathon');
 
 const router = express.Router();
 
+const storage = multer.memoryStorage()
+const upload = multer({ storage: storage });
+
 
 // Hackathon
-router.get('/getHackathonList', userMiddleware.varifyToken, async (req, res) => {
+router.get('/getHackathonList', async (req, res) => {
     try {
         const data = await Models.Hackathon.aggregate([
             {
@@ -113,7 +118,7 @@ router.get('/getApplyHackathon/:userId', userMiddleware.varifyToken, async (req,
 });
 
 
-router.post('/addHackathon', userMiddleware.varifyToken, async (req, res) => {
+router.post('/addHackathon', async (req, res) => {
     try {
         const model = new Models.Hackathon(req.body);
         const data = await model.save();
@@ -264,6 +269,27 @@ router.get('/getAllPanelist', async (req, res) => {
         res.send(error);
     }
 })
+
+router.put('/uploadBanner/:id', upload.single("banner"), hackathonMiddleware.uploadBanner, async (req, res) => {
+    try {
+        let id = req.params.id;
+        const profile = await Models.Hackathon.findOneAndUpdate(
+            { _id: id }, 
+            { banner: req.fileName }, 
+            { returnOriginal: false }
+        );
+
+        if (profile) {
+            res.json({
+                success: true,
+                data: req.fileName,
+                message: 'Banner picture uploaded successfully'
+            });
+        }
+    } catch (error) {
+        res.send(error);
+    }
+});
 
 
 module.exports = router;

@@ -16,13 +16,13 @@ import Hackathon from './pages/Hackathon'
 import Dashboard from './pages/Dashboard'
 import Submission from './pages/Submission'
 import ApiDetails from './pages/ApiDetails'
-import Admin from './pages/Admin'
 import Leaderboard from './pages/Leaderboard'
-import Panel from './pages/Panel'
 import Profile from './pages/Profile'
 import Review from './pages/Review'
 import ProfileInfo from './pages/ProfileInfo'
 import ChangePassword from './pages/ChangePassword'
+import Admin from './components/admin/Admin'
+import SendEmail from './components/admin/SendEmail'
 
 
 function App() {
@@ -80,8 +80,8 @@ function App() {
                     path: '',
                     element: <Admin />
                 }, {
-                    path: 'panel',
-                    element: <Panel />
+                    path: 'sendEmail',
+                    element: <SendEmail />
                 }]
             }],
         }, {

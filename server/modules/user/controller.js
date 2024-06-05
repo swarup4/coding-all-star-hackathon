@@ -147,7 +147,7 @@ router.post("/signup", userMiddleware.checkExestingUser, async (req, res) => {
 
 router.get('/userList', async (req, res) => {
     try {
-        let userList = await User.Auth.find({}, { name: 1 })
+        let userList = await User.Auth.find({ role: { $ne: 'admin' } }, { name: 1, email: 1 })
         res.json(userList);
     } catch (error) {
 
@@ -165,14 +165,14 @@ router.put('/updateUserDetails/:id', async (req, res) => {
             empId: Number(body.empId)
         }
 
-        if(body?.manager != ''){
+        if (body?.manager != '') {
             authObj.manager = body?.manager
         }
 
         const auth = await User.Auth.findOneAndUpdate({ _id: userId }, authObj, {
             returnOriginal: false
         })
-        
+
         let detailsObj = {
             userId: userId,
             primarySkill: body.primarySkill,
@@ -296,8 +296,8 @@ router.put('/uploadProfilePics/:id', upload.single("profile"), userMiddleware.up
     try {
         let id = req.params.id;
         const profile = await User.Auth.findOneAndUpdate(
-            { _id: id }, 
-            { profilePics: req.fileName }, 
+            { _id: id },
+            { profilePics: req.fileName },
             { returnOriginal: false }
         );
 
@@ -388,9 +388,9 @@ router.get('/uploadExcel', async (req, res) => {
 });
 
 
-router.get('/sendEmail', (req, res) => {
-    console.log("Call API")
-    let emailList = "swarup.saha004@hotmail.com, strangefriendship3@gmail.com"
+router.post('/sendEmail', (req, res) => {
+    let email = req.body.email;
+    let emailList = email.join(', ')
     email(emailList).then(data => {
         console.log(data)
         res.json(data);

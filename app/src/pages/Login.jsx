@@ -58,11 +58,15 @@ export default function Login() {
                         isManager: !res.data.canParticipate,
                         profilePics: res.data.profilePics
                     })
-                    const location = sessionStorage.url;
-                    if(location) {
-                        navigate(location);
+                    if(res.data.role == 'admin'){
+                        navigate('/admin')
                     } else {
-                        navigate("/dashboard");
+                        const location = sessionStorage.url;
+                        if(location) {
+                            navigate(location);
+                        } else {
+                            navigate("/dashboard");
+                        }
                     }
                 }
             }
