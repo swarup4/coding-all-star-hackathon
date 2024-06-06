@@ -33,6 +33,13 @@ export default function AdminLayout() {
                                     </div>
                                 </Link>
                             </li>
+                            <li>
+                                <Link to='prize' className="p-3 pl-11 flex items-center justify-between">
+                                    <div className="flex items-center">
+                                        <p className="text-white font-medium text-base">Add Prize</p>
+                                    </div>
+                                </Link>
+                            </li>
                         </ul>
                     </div>
                 </div>

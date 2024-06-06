@@ -53,7 +53,15 @@ export default function Admin() {
             if (panel.length > 0) {
                 let panelList = panel.map(x => x._id)
                 let obj = { ...values, userId: user.id, panels: panelList }
-                addUserDetails(obj);
+                addUserDetails(obj).then(res => {
+                    action.resetForm()
+                }).catch(err => {
+                    dispatch(setNotification({
+                        popup: true,
+                        status: 'error',
+                        message: err.response.data
+                    }))
+                })
             } else {
                 dispatch(setNotification({
                     popup: true,
@@ -102,27 +110,22 @@ export default function Admin() {
 
     function addUserDetails(data) {
         const url = `${HOST_URL}hackathon/addHackathon`
-        axios.post(url, data).then(res => {
-            uploadImage(res.data._id, bannerPics.file).then(image => {
-                dispatch(setNotification({
-                    popup: true,
-                    status: 'success',
-                    message: 'Hackathon added has successfully'
-                }));
+        return new Promise((resolve, reject) => {
+            axios.post(url, data).then(res => {
+                uploadImage(res.data._id, bannerPics.file).then(image => {
+                    dispatch(setNotification({
+                        popup: true,
+                        status: 'success',
+                        message: 'Hackathon added has successfully'
+                    }));
+                    resolve(image)
+                }).catch(err => {
+                    reject(err);
+                })
             }).catch(err => {
-                dispatch(setNotification({
-                    popup: true,
-                    status: 'error',
-                    message: err.response.data
-                }))
+                console.log(err)
+                reject(err);
             })
-        }).catch(err => {
-            console.log(err)
-            dispatch(setNotification({
-                popup: true,
-                status: 'error',
-                message: err.response.data
-            }))
         })
     }
 

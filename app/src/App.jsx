@@ -23,6 +23,7 @@ import ProfileInfo from './pages/ProfileInfo'
 import ChangePassword from './pages/ChangePassword'
 import Admin from './components/admin/Admin'
 import SendEmail from './components/admin/SendEmail'
+import AddPrize from './components/admin/AddPrize'
 
 
 function App() {
@@ -82,6 +83,9 @@ function App() {
                 }, {
                     path: 'sendEmail',
                     element: <SendEmail />
+                }, {
+                    path: 'prize',
+                    element: <AddPrize />
                 }]
             }],
         }, {
