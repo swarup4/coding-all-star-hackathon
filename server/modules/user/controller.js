@@ -389,8 +389,8 @@ router.get('/uploadExcel', async (req, res) => {
 
 
 router.post('/sendEmail', (req, res) => {
-    let email = req.body.email;
-    let emailList = email.join(', ')
+    let emailId = req.body.email;
+    let emailList = emailId.join(', ')
     email(emailList).then(data => {
         console.log(data)
         res.json(data);
