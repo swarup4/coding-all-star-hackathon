@@ -10,6 +10,8 @@
   "author": "Swarup Saha",
   "license": "ISC",
   "dependencies": {
+    "@aws-sdk/client-ses": "^3.592.0",
+    "@aws-sdk/credential-provider-node": "^3.592.0",
     "aws-sdk": "^2.1628.0",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
