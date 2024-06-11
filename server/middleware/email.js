@@ -15,7 +15,7 @@ module.exports = (emailId) => {
     return new Promise((resolve, reject) => {
     
         transporter.sendMail({
-            from: 'swarup.saha004@hotmail.com', // sender address
+            from: 'swarup_s@trigent.com', // sender address
             to: emailId, // list of receivers
             subject: "Hello ✔", // Subject line
             text: "Hello world?", // plain text body
