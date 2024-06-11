@@ -2,16 +2,12 @@ require('dotenv').config()
 const nodemailer = require("nodemailer");
 
 const transporter = nodemailer.createTransport({
-    host: 'smtp.live.com',
-    // host: process.env.MAIL_HOST,
+    host: process.env.MAIL_HOST,
     port: 465,
     secure: true, // Use `true` for port 465, `false` for all other ports
     auth: {
-        user: "swarup.saha004@hotmail.com",
-        pass: "Strange#007",
-
-        // user: process.env.MAIL_USER,
-        // pass: process.env.MAIL_PASSWORD
+        user: process.env.MAIL_USER,
+        pass: process.env.MAIL_PASSWORD
     },
 });
 
