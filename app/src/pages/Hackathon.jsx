@@ -79,7 +79,7 @@ export default function Hackathon() {
                         <div className="flex flex-wrap lg:items-center mb-12 -mx-4">
                             <div className="w-full md:w-1/2 2xl:w-5/12 px-4 mb-8 md:mb-0">
                                 <div className="mx-auto md:ml-0 max-w-max overflow-hidden rounded-lg">
-                                    <img src={window.location.origin + "/flex-ui-assets/banner/" + project.banner[0]} alt="" />
+                                    <img src={`https://trigent-hackathon-bucket.s3.ap-south-1.amazonaws.com/Hackathon-Banner/${project.banner}`} alt="" />
                                 </div>
                             </div>
                             <div className="w-full md:w-1/2 px-4">
@@ -97,7 +97,7 @@ export default function Hackathon() {
                                     <div className="w-9/12 flex">
                                         <div className="w-auto px-2">
                                             {project.user.profilePics ? (
-                                                <img src={`https://trigent-hackathon-bucket.s3.ap-south-1.amazonaws.com/${project.user.profilePics}`} className='rounded-full h-20 w-20' />
+                                                <img src={`https://trigent-hackathon-bucket.s3.ap-south-1.amazonaws.com/Users/${project.user.profilePics}`} className='rounded-full h-20 w-20' />
                                             ) : (
                                                 <div className={`flex items-center justify-center w-20 h-20 text-base font-medium rounded-full text-yellow-600 bg-yellow-200`}>{getInitial(project.user.name)}</div>
                                             )}

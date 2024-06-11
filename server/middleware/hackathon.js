@@ -8,7 +8,7 @@ const s3Client = new AWS.S3({
 });
 
 const uploadParams = {
-    Bucket: process.env.BUCKET,
+    Bucket: process.env.BANNER_BUCKET,
     Key: '', // pass key
     Body: null, // pass file body
 };

@@ -54,6 +54,7 @@ export default function Admin() {
                 let panelList = panel.map(x => x._id)
                 let obj = { ...values, userId: user.id, panels: panelList }
                 addUserDetails(obj).then(res => {
+                    setBannerPics({});
                     action.resetForm()
                 }).catch(err => {
                     dispatch(setNotification({

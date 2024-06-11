@@ -120,7 +120,13 @@ router.get('/getApplyHackathon/:userId', userMiddleware.varifyToken, async (req,
 
 router.post('/addHackathon', async (req, res) => {
     try {
-        const model = new Models.Hackathon(req.body);
+        let body = req.body;
+
+        let date = new Date();
+        date.setDate(date.getDate() + 2)
+        body.expireAt = date;
+
+        const model = new Models.Hackathon(body);
         const data = await model.save();
         if (data) {
             res.json(data);
@@ -273,13 +279,13 @@ router.get('/getAllPanelist', async (req, res) => {
 router.put('/uploadBanner/:id', upload.single("banner"), hackathonMiddleware.uploadBanner, async (req, res) => {
     try {
         let id = req.params.id;
-        const profile = await Models.Hackathon.findOneAndUpdate(
+        const banner = await Models.Hackathon.findOneAndUpdate(
             { _id: id }, 
             { banner: req.fileName }, 
             { returnOriginal: false }
         );
 
-        if (profile) {
+        if (banner) {
             res.json({
                 success: true,
                 data: req.fileName,
