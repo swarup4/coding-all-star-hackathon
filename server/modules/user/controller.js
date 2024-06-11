@@ -150,7 +150,16 @@ router.get('/userList', async (req, res) => {
         let userList = await User.Auth.find({ role: { $ne: 'admin' } }, { name: 1, email: 1 })
         res.json(userList);
     } catch (error) {
+        res.send(error);
+    }
+})
 
+router.get('/adminUserList', async (req, res) => {
+    try {
+        let userList = await User.Auth.find({ role: { $ne: 'admin' } }, { name: 1, email: 1, password: 1 })
+        res.json(userList);
+    } catch (error) {
+        res.send(error);
     }
 })
 
@@ -389,12 +398,18 @@ router.get('/uploadExcel', async (req, res) => {
 
 
 router.post('/sendEmail', (req, res) => {
-    let emailId = req.body.email;
-    email(emailId, 'Swarup').then(data => {
+    let body = req.body;
+    let arr = [];
+
+    for (const i of body.user) {
+        arr.push(email(i, body.hackathon));
+    }
+
+    Promise.allSettled(arr).then(data => {
         res.json(data);
     }).catch(err => {
         res.json(err);
-    });
+    })
 });
 
 module.exports = router;

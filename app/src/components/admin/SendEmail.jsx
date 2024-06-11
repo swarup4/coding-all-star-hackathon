@@ -9,6 +9,7 @@ export default function SendEmail() {
     const dispatch = useDispatch();
     const [userList, setUserList] = useState([])
     const [hackathonList, setHackathonList] = useState([])
+    const [hackathon, setHackathon] = useState('')
 
     const [checked, setChecked] = useState([])
 
@@ -27,7 +28,7 @@ export default function SendEmail() {
     };
 
     useEffect(() => {
-        const url = `${HOST_URL}user/userList`
+        const url = `${HOST_URL}user/adminUserList`
         axios.get(url).then(res => {
             let user = res.data.map(x => {
                 x.checked = false;
@@ -59,10 +60,28 @@ export default function SendEmail() {
     }, []);
 
     function sendMail() {
-        let emaiId = checked.map(x => x.email)
+        let obj = {
+            hackathon: hackathon
+        }
+
+        let userInfo = checked.map(x => {
+            let obj = {
+                email : x.email,
+                name: x.name,
+                password: x.password
+            }
+            return obj;
+        })
+
+        obj.user = userInfo;
+
         const url = `${HOST_URL}user/sendEmail`
-        axios.post(url, { email: emaiId }).then(res => {
-            console.log(res)
+        axios.post(url, obj).then(res => {
+            dispatch(setNotification({
+                popup: true,
+                status: 'success',
+                message: "Mail has snet"
+            }))
         }).catch(err => {
             console.log(err)
             dispatch(setNotification({
@@ -71,10 +90,6 @@ export default function SendEmail() {
                 message: err.response.data
             }))
         })
-    }
-
-    function selectHackathon(ind) {
-        console.log(hackathonList[ind])
     }
 
 
@@ -114,10 +129,10 @@ export default function SendEmail() {
                                             <p className="text-sm text-coolGray-800 font-semibold">Hackathon Name</p>
                                         </div>
                                         <div className="w-full md:flex-1 p-3">
-                                            <select name='panelist' onChange={(ev) => selectHackathon(ev.target.value)} className="appearance-none w-full py-2.5 px-4 text-coolGray-900 text-base font-normal bg-white border outline-none border-coolGray-200 focus:border-yellow-500 rounded-lg shadow-input">
+                                            <select name='panelist' onChange={(ev) => setHackathon(ev.target.value)} className="appearance-none w-full py-2.5 px-4 text-coolGray-900 text-base font-normal bg-white border outline-none border-coolGray-200 focus:border-yellow-500 rounded-lg shadow-input">
                                                 <option value="">Select</option>
                                                 {hackathonList.map((item, ind) => (
-                                                    <option value={ind} key={ind}>{item.name}</option>
+                                                    <option value={item.name} key={ind}>{item.name}</option>
                                                 ))}
                                             </select>
                                         </div>
