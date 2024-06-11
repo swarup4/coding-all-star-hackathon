@@ -111,7 +111,7 @@ export default function Dashboard() {
                         {hackathon.map((item, ind) => (
                             <div className="w-full md:w-1/2 px-4 mb-8" key={ind}>
                                 <a className="block mb-6 overflow-hidden rounded-md" onClick={() => select(item)}>
-                                    <img className="w-full" src={window.location.origin + "/flex-ui-assets/banner/" + item.banner[0]} alt="" style={{ height: '400px' }} />
+                                    <img className="w-full" src={window.location.origin + "/flex-ui-assets/banner/" + item.banner} alt="" style={{ height: '400px' }} />
                                 </a>
                                 <div className="mb-4">
                                     <a className="inline-block py-1 px-3 text-xs leading-5 text-yellow-500 hover:text-yellow-600 font-medium uppercase bg-yellow-100 hover:bg-yellow-200 rounded-full shadow-sm" href="#">{item.theme}</a>
