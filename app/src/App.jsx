@@ -86,6 +86,14 @@ function App() {
                 }, {
                     path: 'prize',
                     element: <AddPrize />
+                }, {
+                    path: 'profile',
+                    element: <Profile />,
+                    errorElement: <Error />
+                }, {
+                    path: 'profile/edit',
+                    element: <ProfileInfo />,
+                    errorElement: <Error />
                 }]
             }],
         }, {
