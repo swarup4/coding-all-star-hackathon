@@ -10,6 +10,7 @@ const hackathon = {
     appliedUser: [{ type: objectId }],
     theme: String,
     name: String,
+    heading: String,
     description: String,
     banner: String,
     status: { type: Number, default: 1 },

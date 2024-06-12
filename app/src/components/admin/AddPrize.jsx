@@ -13,8 +13,7 @@ const initialValues = {
     category: '',
     name: '',
     amount: '',
-    question: '',
-    answer: ''
+    description: ''
 }
 
 const schema = object({
@@ -22,8 +21,7 @@ const schema = object({
     category: string().required('Enter Prize category'),
     name: string().required('Enter Prize Name'),
     amount: string().required('Enter Prize amount'),
-    question: string().required('Enter question'),
-    answer: string().required('Enter answer')
+    description: string().required('Enter description')
 })
 
 export default function AddPrize() {
@@ -89,7 +87,7 @@ export default function AddPrize() {
                                 <div className="flex flex-wrap items-center justify-between -m-2">
                                     <div className="w-full md:w-auto p-2">
                                         <h2 className="text-coolGray-900 text-lg font-semibold">Add Prize</h2>
-                                        <p className="text-xs text-coolGray-500 font-medium">Lorem ipsum dolor sit amet</p>
+                                        <p className="text-xs text-coolGray-500 font-medium">Configure Prizes</p>
                                     </div>
                                     <div className="w-full md:w-auto p-2">
                                         <div className="flex flex-wrap justify-between -m-1.5">
@@ -190,30 +188,13 @@ export default function AddPrize() {
                                     <div className="w-full md:w-9/12">
                                         <div className="flex flex-wrap -m-3">
                                             <div className="w-full md:w-1/3 p-3">
-                                                <p className="text-sm text-coolGray-800 font-semibold">Question</p>
+                                                <p className="text-sm text-coolGray-800 font-semibold">Description</p>
                                             </div>
                                             <div className="w-full md:flex-1 p-3">
-                                                <input type="text" placeholder="Enter Question" name='question' value={values.question} onChange={handleChange} onBlur={handleBlur}
-                                                    className="w-full px-4 py-2.5 text-base text-coolGray-900 font-normal outline-none focus:border-yellow-500 border border-coolGray-200 rounded-lg shadow-input" />
-                                                {errors.question && touched.question ? (
-                                                    <p className='mt-1 text-red-500'>{errors.question}</p>
-                                                ) : ''}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="py-6 border-b border-coolGray-100">
-                                    <div className="w-full md:w-9/12">
-                                        <div className="flex flex-wrap -m-3">
-                                            <div className="w-full md:w-1/3 p-3">
-                                                <p className="text-sm text-coolGray-800 font-semibold">Answer</p>
-                                            </div>
-                                            <div className="w-full md:flex-1 p-3">
-                                                <textarea placeholder="Enter Answer" name='answer' value={values.answer} onChange={handleChange} onBlur={handleBlur}
+                                                <textarea placeholder="Enter Description" name='description' value={values.description} onChange={handleChange} onBlur={handleBlur}
                                                     className="block w-full h-64 p-6 text-base text-coolGray-900 font-normal outline-none focus:border-yellow-500 border border-coolGray-200 rounded-lg shadow-input resize-none"></textarea>
-                                                {errors.answer && touched.answer ? (
-                                                    <p className='mt-1 text-red-500'>{errors.answer}</p>
+                                                {errors.description && touched.description ? (
+                                                    <p className='mt-1 text-red-500'>{errors.description}</p>
                                                 ) : ''}
                                             </div>
                                         </div>

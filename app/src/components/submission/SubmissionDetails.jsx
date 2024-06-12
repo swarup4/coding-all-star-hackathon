@@ -101,7 +101,7 @@ export default function SubmissionDetails(props) {
                 <div className="flex flex-wrap items-center justify-between -m-2">
                     <div className="w-full md:w-auto p-2">
                         <h2 className="text-coolGray-900 text-lg font-semibold">API Details</h2>
-                        <p className="text-xs text-coolGray-500 font-medium">Lorem ipsum dolor sit amet</p>
+                        {/* <p className="text-xs text-coolGray-500 font-medium">Lorem ipsum dolor sit amet</p> */}
                     </div>
                     <div className="w-full md:w-auto p-2">
                         <div className="flex flex-wrap justify-between -m-1.5">

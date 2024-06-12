@@ -70,11 +70,11 @@ export default function UserHeader() {
                                     </Link>
                                 </li>
                                 <li className="mr-8">
-                                    <Link to='review' className="flex flex-wrap items-center py-8 text-base font-medium text-coolGray-500 hover:text-yellow-500 border-b-2 border-transparent hover:border-yellow-500">
+                                    <Link to='/dashboard/review' className="flex flex-wrap items-center py-8 text-base font-medium text-coolGray-500 hover:text-yellow-500 border-b-2 border-transparent hover:border-yellow-500">
                                         <svg xmlns="http://www.w3.org/2000/svg" className="mr-2 h-6" width="24" height="24" viewBox="0 0 24 24" fill="none" strokeWidth="2" stroke="currentColor" aria-hidden="true">
                                             <path strokeLinecap="round" strokeLinejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
                                         </svg>
-                                        <p className="text-coolGray-800">Review</p>
+                                        <p className="text-coolGray-800">Peer Reviews</p>
                                     </Link>
                                 </li>
                             </ul>
@@ -82,7 +82,7 @@ export default function UserHeader() {
                         <div className="w-auto p-2">
                             <div className="hidden xl:flex flex-wrap items-center -m-3">
                                 <div className="w-auto p-3">
-                                    <Link to='review' className="block max-w-max text-coolGray-500 hover:text-coolGray-600">
+                                    <Link to='/dashboard/review' className="block max-w-max text-coolGray-500 hover:text-coolGray-600">
                                         <div className='rounded-lg h-10 w-32 flex flex-wrap items-center'>
                                             <div className='h-8 w-8 items-center flex justify-center text-green-600 bg-green-200 rounded-full'>{reviewPoint?.totalReviewPoint ?? 0}</div>
                                             <div className='h-8 flex-1 flex flex-wrap ml-2 text-xs rounded-lg'>
@@ -117,7 +117,7 @@ export default function UserHeader() {
                                             <a href='#' className="block max-w-max my-4 text-coolGray-500 hover:text-coolGray-600">
                                                 <ChevronDownIcon className="h-4 w-4 text-grey-500 stroke-2" />
                                             </a>
-                                            <ul className="p-2 shadow menu dropdown-content z-[1] bg-white rounded-box w-52">
+                                            <ul className="p-2 shadow menu dropdown-content z-20 bg-white rounded-box w-52">
                                                 <li><Link to='profile'>Profile</Link></li>
                                                 <li><Link to={`/changePassword/${user.id}`}>Change Password</Link></li>
                                                 <li><button onClick={() => logout()}>Logout</button></li>

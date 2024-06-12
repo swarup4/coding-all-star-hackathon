@@ -213,7 +213,7 @@ export default function ProfileInfo() {
             initialValues.country = data.userDetails?.country ?? '';
             let image = res.data.data.user?.profilePics
             if (image) {
-                let url = `https://trigent-hackathon-bucket.s3.ap-south-1.amazonaws.com/${image}`
+                let url = `https://trigent-hackathon-bucket.s3.ap-south-1.amazonaws.com/Users/${image}`
                 setImageUrl(url)
             }
 

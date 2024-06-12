@@ -19,8 +19,7 @@ export default function Prizes() {
         const url = `${HOST_URL}prize/getPrize`;
         axios.get(url).then(res => {
             setPrize(res.data)
-
-            const details = prize.filter(x => x.category == tab)
+            const details = res.data.filter(x => x.category == tab)
             setPrizeDetails(details[0])
         }).catch(err => {
             dispatch(setNotification({
@@ -50,8 +49,7 @@ export default function Prizes() {
                     <>
                         <div class="flex flex-wrap w-full p-5 mb-8 text-coolGray-300 text-left" href="#">
                             <div class="w-full md:w-auto lg:w-auto lg:pr-10">
-                                <h3 class="mb-4 text-xl text-coolGray-900 font-bold">{prizeDetails.description.question}</h3>
-                                <p class="text-coolGray-500 font-medium">{prizeDetails.description.answer}</p>
+                                <div dangerouslySetInnerHTML={{ __html: prizeDetails.description }}></div>
                             </div>
                         </div>
                     </>

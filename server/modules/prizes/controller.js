@@ -6,25 +6,7 @@ const router = express.Router();
 
 router.get('/getPrize', async (req, res) => {
     try {
-        const data = await Models.Prize.aggregate([
-            {
-                $lookup: {
-                    from: "prizedescriptions",
-                    localField: "_id",
-                    foreignField: "prizeId",
-                    as: "description"
-                }
-            }, {
-                $unwind: "$description"
-            }, {
-                $unset: [
-                    "createdAt",
-                    "updatedAt",
-                    "description.createdAt",
-                    "description.updatedAt"
-                ]
-            }
-        ]);
+        const data = await Models.Prize.find({})
         res.json(data);
     } catch (error) {
         res.send(error);
@@ -33,30 +15,11 @@ router.get('/getPrize', async (req, res) => {
 
 router.post('/addPrize', async (req, res) => {
     try {
-        let obj = {
-            hackathonId: req.body?.hackathonId,
-            category: req.body?.category,
-            name: req.body?.name,
-            amount: req.body?.amount
-        }
-        const prize = new Models.Prize(obj);
+        const prize = new Models.Prize(req.body);
         const prizes = await prize.save();
 
         if (prizes) {
-            let desc = {
-                prizeId: prizes._id,
-                question: req.body?.question,
-                answer: req.body?.answer
-            }
-
-            const description = new Models.PrizeDescription(desc);
-            const descriptions = await description.save();
-            if (descriptions) {
-                res.json({
-                    prizes,
-                    descriptions
-                });
-            }
+            res.json(prizes);
         }
     } catch (error) {
         res.send(error);

@@ -9,7 +9,7 @@ export default function Profile() {
                 <div className="flex flex-wrap items-center">
                     <div className="w-full">
                         <h2 className="mb-2 font-semibold text-black text-3xl">Profile</h2>
-                        <p className="text-coolGray-500 font-medium">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                        {/* <p className="text-coolGray-500 font-medium">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p> */}
                     </div>
                 </div>
             </section>

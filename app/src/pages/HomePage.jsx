@@ -1,5 +1,6 @@
 import React from 'react'
-import Header from '../components/common/Header'
+import { Link } from 'react-router-dom'
+import UserHeader from '../components/common/UserHeader'
 import Faq from '../components/home/Faq'
 // import Panels from '../components/home/Panels'
 import Footer from '../components/common/Footer'
@@ -7,16 +8,54 @@ import Footer from '../components/common/Footer'
 export default function HomePage() {
     return (
         <>
-            <Header />
+            <UserHeader />
 
             <section className="py-24 bg-white overflow-hidden theme-background">
                 <div className="container px-4 mx-auto">
-                    <div className="md:max-w-4xl mb-16 md:mb-20">
+                    <div className="flex flex-wrap -mx-4">
+                        <div className="w-full md:w-1/2 px-4 mb-20 lg:mb-0">
+                            <div className="max-w-md mx-auto">
+                                <h2 className="mb-8 text-4xl md:text-5xl font-heading font-bold text-coolGray-900 md:leading-15">Join fast growing community of developers&nbsp;
+                                </h2>
+                                <ul className="mb-8">
+                                    <li className="flex items-center mb-4">
+                                        <img className="mr-3" src={window.location.origin + "/flex-ui-assets/elements/cta/checkbox-yellow.svg"} alt="" />
+                                        <span className="text-lg md:text-xl font-heading text-coolGray-500">Simple &amp; Fast Challenges</span>
+                                    </li>
+                                    <li className="flex items-center mb-4">
+                                        <img className="mr-3" src={window.location.origin + "/flex-ui-assets/elements/cta/checkbox-yellow.svg"} alt="" />
+                                        <span className="text-lg md:text-xl font-heading text-coolGray-500">Cash Prices</span>
+                                    </li>
+                                    <li className="flex items-center">
+                                        <img className="mr-3" src={window.location.origin + "/flex-ui-assets/elements/cta/checkbox-yellow.svg"} alt="" />
+                                        <span className="text-lg md:text-xl font-heading text-coolGray-500">Transparent</span>
+                                    </li>
+                                </ul>
+                                <div className="flex flex-wrap items-center">
+                                    {/* <a className="inline-flex items-center justify-center px-7 py-3 h-14 w-full md:w-auto mb-2 md:mb-0 md:mr-4 md:w-auto text-lg leading-7 text-coolGray-800 bg-white hover:bg-coolGray-100 font-medium focus:ring-2 focus:ring-coolGray-200 focus:ring-opacity-50 border border-coolGray-200 border border-coolGray-100 rounded-md shadow-sm" href="#">Participate</a> */}
+                                    <Link to='/dashboard' className="inline-flex items-center justify-center px-7 py-3 h-14 w-full md:w-auto text-lg leading-7 text-yellow-50 bg-yellow-500 hover:bg-yellow-600 font-medium focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-50 border border-transparent rounded-md shadow-sm">Participate</Link>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="w-full md:w-1/2 px-4">
+                            <div className="relative max-w-max mx-auto">
+                                <img className="absolute top-0 right-0 -mt-6 lg:-mt-12 -mr-6 lg:-mr-12 w-20 lg:w-auto z-10" src={window.location.origin + "/flex-ui-assets/elements/circle3-red.svg"} alt="" />
+                                <img className="absolute bottom-0 left-0 -mb-6 lg:-mb-10-ml-6 lg:-ml-12 w-20 lg:w-auto" src={window.location.origin + "/flex-ui-assets/elements/dots3-green.svg"} alt="" />
+                                <img className="relative" src={window.location.origin + "/flex-ui-assets/elements/cta/photo-laptop-ph.png"} alt="" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section className="py-24 bg-white overflow-hidden theme-background">
+                <div className="container px-4 mx-auto">
+                    <div className="md:max-w-4xl mb-16 md:mb-20 mx-36">
                         <span className="inline-block py-px px-2 mb-4 text-xs leading-5 text-yellow-500 bg-yellow-100 font-medium rounded-full shadow-sm">How all stars works</span>
                         <h1 className="mb-4 text-3xl md:text-4xl leading-tight font-bold tracking-tighter">Eat, Sleep, Code &amp; Repeat</h1>
                         <p className="text-lg md:text-xl text-coolGray-500 font-medium">We are a team of 5+ who are passionate about making the development better.</p>
                     </div>
-                    <div className="flex flex-wrap lg:items-center -mx-4">
+                    <div className="flex flex-wrap lg:items-center">
                         <div className="w-full md:w-1/2 px-4 mb-8 md:mb-0">
                             <div className="relative mx-auto md:ml-0 max-w-max">
                                 <img className="absolute z-10 -left-8 -top-8 w-28 md:w-auto text-yellow-400" src={window.location.origin + "/flex-ui-assets/elements/circle3-red.svg"} alt="" />
@@ -69,42 +108,6 @@ export default function HomePage() {
                 </div>
             </section>
 
-            <section className="py-24 bg-white overflow-hidden theme-background">
-                <div className="container px-4 mx-auto">
-                    <div className="flex flex-wrap -mx-4">
-                        <div className="w-full md:w-1/2 px-4 mb-20 lg:mb-0">
-                            <div className="max-w-md mx-auto">
-                                <h2 className="mb-8 text-4xl md:text-5xl font-heading font-bold text-coolGray-900 md:leading-15">Join fast growing 2K+ community of developers&nbsp;
-                                </h2>
-                                <ul className="mb-8">
-                                    <li className="flex items-center mb-4">
-                                        <img className="mr-3" src={window.location.origin + "/flex-ui-assets/elements/cta/checkbox-yellow.svg"} alt="" />
-                                        <span className="text-lg md:text-xl font-heading text-coolGray-500">Simple &amp; Fast Hackathons</span>
-                                    </li>
-                                    <li className="flex items-center mb-4">
-                                        <img className="mr-3" src={window.location.origin + "/flex-ui-assets/elements/cta/checkbox-yellow.svg"} alt="" />
-                                        <span className="text-lg md:text-xl font-heading text-coolGray-500">Transparent with Cash Prices</span>
-                                    </li>
-                                    <li className="flex items-center">
-                                        <img className="mr-3" src={window.location.origin + "/flex-ui-assets/elements/cta/checkbox-yellow.svg"} alt="" />
-                                        <span className="text-lg md:text-xl font-heading text-coolGray-500">Portfolio &amp; Community Support</span>
-                                    </li>
-                                </ul>
-                                <div className="flex flex-wrap items-center">
-                                    <a className="inline-flex items-center justify-center px-7 py-3 h-14 w-full md:w-auto mb-2 md:mb-0 md:mr-4 md:w-auto text-lg leading-7 text-coolGray-800 bg-white hover:bg-coolGray-100 font-medium focus:ring-2 focus:ring-coolGray-200 focus:ring-opacity-50 border border-coolGray-200 border border-coolGray-100 rounded-md shadow-sm" href="#">Participate</a><a className="inline-flex items-center justify-center px-7 py-3 h-14 w-full md:w-auto text-lg leading-7 text-yellow-50 bg-yellow-500 hover:bg-yellow-600 font-medium focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-50 border border-transparent rounded-md shadow-sm" href="#">Organize</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="w-full md:w-1/2 px-4">
-                            <div className="relative max-w-max mx-auto">
-                                <img className="absolute top-0 right-0 -mt-6 lg:-mt-12 -mr-6 lg:-mr-12 w-20 lg:w-auto z-10" src={window.location.origin + "/flex-ui-assets/elements/circle3-red.svg"} alt="" />
-                                <img className="absolute bottom-0 left-0 -mb-6 lg:-mb-10-ml-6 lg:-ml-12 w-20 lg:w-auto" src={window.location.origin + "/flex-ui-assets/elements/dots3-green.svg"} alt="" />
-                                <img className="relative" src={window.location.origin + "/flex-ui-assets/elements/cta/photo-laptop-ph.png"} alt="" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
 
 
             <section className="bg-coolGray-50 py-4">
@@ -115,7 +118,7 @@ export default function HomePage() {
                         <img className="absolute h-64 left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 object-cover" src={window.location.origin + "/flex-ui-assets/elements/dashboard/banners/wave.svg"} alt="" />
                         <div className="relative z-20 flex flex-wrap items-center -m-3">
                             <div className="w-full md:w-1/2 p-3">
-                                <h2 className="mb-6 text-4xl font-bold text-white tracking-tighter">Hackathon's for Developers by Developers</h2>
+                                <h2 className="mb-6 text-4xl font-bold text-white tracking-tighter">Hackathon's <br /> for Developers <br /> by Developers</h2>
                                 <ul className="flex flex-wrap">
                                     <li className="flex items-center mr-6 text-sm text-coolGray-300 font-semibold">
                                         <img className="relative top-px mr-2" src={window.location.origin + "/flex-ui-assets/elements/dashboard/banners/checkbox-green.svg"} />

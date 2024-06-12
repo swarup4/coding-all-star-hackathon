@@ -142,7 +142,7 @@ export default function Admin() {
                                 <div className="flex flex-wrap items-center justify-between -m-2">
                                     <div className="w-full md:w-auto p-2">
                                         <h2 className="text-coolGray-900 text-lg font-semibold">Add Hackathon</h2>
-                                        <p className="text-xs text-coolGray-500 font-medium">Lorem ipsum dolor sit amet</p>
+                                        <p className="text-xs text-coolGray-500 font-medium">Submit details</p>
                                     </div>
                                     <div className="w-full md:w-auto p-2">
                                         <div className="flex flex-wrap justify-between -m-1.5">
@@ -229,7 +229,6 @@ export default function Admin() {
                                     <div className="flex flex-wrap -m-3">
                                         <div className="w-full md:w-1/3 p-3">
                                             <p className="text-sm text-coolGray-800 font-semibold">Description</p>
-                                            <p className="text-xs text-coolGray-500 font-medium">Lorem ipsum dolor sit amet</p>
                                         </div>
                                         <div className="w-full md:flex-1 p-3">
                                             <textarea name='description' value={values.description} onChange={handleChange} onBlur={handleBlur}
@@ -246,7 +245,6 @@ export default function Admin() {
                                     <div className="flex flex-wrap -m-3">
                                         <div className="w-full md:w-1/3 p-3">
                                             <p className="text-sm text-coolGray-800 font-semibold">Photo</p>
-                                            <p className="text-xs text-coolGray-500 font-medium">Lorem ipsum dolor sit amet</p>
                                         </div>
                                         <div className="w-full md:w-auto p-3">
                                             {imageUrl ? (

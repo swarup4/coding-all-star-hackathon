@@ -149,7 +149,7 @@ export default function Review() {
                 <div className="container px-4 mx-auto">
                     <div className="flex flex-wrap items-center justify-between -m-2 mb-4">
                         <div className="w-full md:w-1/2 p-2">
-                            <p className="font-semibold text-xl text-coolGray-800">Api List</p>
+                            <p className="font-semibold text-xl text-coolGray-800">Submission List</p>
                             <p className="font-medium text-sm text-coolGray-500">Total Count {apiList.length}</p>
                         </div>
                         <div className="w-full md:w-1/2 p-2">
