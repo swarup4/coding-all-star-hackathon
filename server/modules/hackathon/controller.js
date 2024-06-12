@@ -13,7 +13,7 @@ const upload = multer({ storage: storage });
 
 
 // Hackathon
-router.get('/getHackathonList', async (req, res) => {
+router.get('/getHackathonList', userMiddleware.varifyToken, async (req, res) => {
     try {
         const data = await Models.Hackathon.aggregate([
             {
@@ -97,8 +97,14 @@ router.get('/getHackathon/:id', userMiddleware.varifyToken, async (req, res) => 
             x.social = await UserModels.Contacts.findOne({ userId: x._id })
             return x
         })
-
         hackathonData[0].panels = await Promise.all(panelData)
+
+        let participateData = hackathonData[0].appliedUser.map(async x => {
+            x.social = await UserModels.Contacts.findOne({ userId: x._id })
+            return x
+        })
+        hackathonData[0].appliedUser = await Promise.all(participateData)
+
         res.json(hackathonData);
 
     } catch (error) {
@@ -118,7 +124,7 @@ router.get('/getApplyHackathon/:userId', userMiddleware.varifyToken, async (req,
 });
 
 
-router.post('/addHackathon', async (req, res) => {
+router.post('/addHackathon', userMiddleware.varifyToken, async (req, res) => {
     try {
         let body = req.body;
 
@@ -230,6 +236,7 @@ router.put('/applyHackathon/:id', userMiddleware.varifyToken, async (req, res) =
     }
 });
 
+/*
 router.get('/getAllPanelist', async (req, res) => {
     try {
         const panels = await Models.Hackathon.aggregate([
@@ -275,6 +282,7 @@ router.get('/getAllPanelist', async (req, res) => {
         res.send(error);
     }
 })
+*/
 
 router.put('/uploadBanner/:id', upload.single("banner"), hackathonMiddleware.uploadBanner, async (req, res) => {
     try {

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { setUser } from '../store/user/userSlice'
+import { setNotification } from '../store/notification/notificationSlice'
 
 export default function ProtectedRoute(props) {
     const navigate = useNavigate();
@@ -17,8 +18,26 @@ export default function ProtectedRoute(props) {
             setIsLoggedIn(false);
             return navigate('/login');
         } else {
-            dispatch(setUser(JSON.parse(sessionStorage.user)))
-            setIsLoggedIn(true);
+            let user = JSON.parse(sessionStorage.user)
+            dispatch(setUser(user))
+
+            let hostName = location.pathname.split('/')[1]
+
+            if(user.role != 'admin'){
+                if(hostName != 'admin'){
+                    setIsLoggedIn(true);
+                } else {
+                    setIsLoggedIn(false);
+                    dispatch(setNotification({
+                        popup: true,
+                        status: 'error',
+                        message: "You don't have access of Admin Panel"
+                    }))
+                    return navigate('/dashboard');
+                }
+            } else {
+                setIsLoggedIn(true);
+            }
         }
     }
 

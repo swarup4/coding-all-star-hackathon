@@ -108,8 +108,6 @@ export default function AdminLayout() {
                                                     ) : (
                                                         <div className={`flex items-center justify-center w-11 h-11 mx-auto text-base font-medium rounded-full text-yellow-600 bg-yellow-200`}>{getInitial(user.name)}</div>
                                                     )}
-
-                                                    {/* <img src={`https://trigent-hackathon-bucket.s3.ap-south-1.amazonaws.com/Users/${user.profilePics}`} alt="" className='rounded-full h-11 w-11' /> */}
                                                 </div>
                                                 <div className="w-auto p-2">
                                                     <h2 className="text-sm font-semibold text-coolGray-800">{user.name}</h2>

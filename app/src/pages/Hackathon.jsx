@@ -26,7 +26,7 @@ export default function Hackathon() {
     const [tab, setTab] = useState('');
 
     useEffect(() => {
-        if (Object.keys(project).length === 0) {
+        // if (Object.keys(project).length === 0) {
             const url = `${HOST_URL}hackathon/getHackathon/${id}`
             axios.get(url).then(res => {
                 dispatch(selectProject(res.data[0]))
@@ -38,7 +38,7 @@ export default function Hackathon() {
                     message: err.response.data
                 }))
             })
-        }
+        // }
     }, [])
 
     function getParticipate(applied) {
@@ -99,7 +99,7 @@ export default function Hackathon() {
                                             {project.user.profilePics ? (
                                                 <img src={`https://trigent-hackathon-bucket.s3.ap-south-1.amazonaws.com/Users/${project.user.profilePics}`} className='rounded-full h-20 w-20' />
                                             ) : (
-                                                <div className={`flex items-center justify-center w-20 h-20 text-base font-medium rounded-full text-yellow-600 bg-yellow-200`}>{getInitial(project.user.name)}</div>
+                                                <div className={`flex items-center justify-center w-20 h-20 text-2xl font-medium rounded-full text-yellow-600 bg-yellow-200`}>{getInitial(project.user.name)}</div>
                                             )}
                                         </div>
                                         <div className="w-auto px-2 flex items-center">

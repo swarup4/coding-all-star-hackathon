@@ -74,7 +74,7 @@ export default function Dashboard() {
     }
 
     function select(project) {
-        dispatch(selectProject(project))
+        // dispatch(selectProject(project))
         navigate(`hackathon/${project._id}`)
     }
 

@@ -47,14 +47,15 @@ export default function ProfileInfo() {
     const [isEdit, setIsEdit] = useState(false);
     const [imageUrl, setImageUrl] = useState('')
     const user = JSON.parse(sessionStorage.user);
-    const [isManager, setIsManager] = useState(user.isManager);
+    // const [isManager, setIsManager] = useState(user.isManager);
+    const [socialMediaList, setSocialMediaList] = useState(['Facebook', 'Instagram', 'Linkedin']);
+    const [unmatchSocialMedia, setUnmatchSocialMedia] = useState([]);
 
     const { values, errors, handleBlur, handleChange, handleSubmit, touched } = useFormik({
         initialValues: initialValues,
         validationSchema: schema,
         onSubmit: (values, action) => {
             let obj = { ...values, profile: userProfilePics }
-            console.log(obj);
             addUserDetails(obj);
         }
     })
@@ -183,6 +184,7 @@ export default function ProfileInfo() {
         const apiurl = `${HOST_URL}user/addSocialMedia/${user.id}`
         axios.put(apiurl, obj).then(res => {
             setIsOpen(false)
+            getUserDetails()
             setUrl('')
             dispatch(setNotification({
                 popup: true,
@@ -203,6 +205,7 @@ export default function ProfileInfo() {
         const url = `${HOST_URL}user/info/${user.id}`
         axios.get(url).then(res => {
             let data = res.data.data
+            setUserContact(data.userContact?.socialMedia ?? []);
             initialValues.role = data.user.role ? data.user.role : '';
             initialValues.empId = data.user.empId ? data.user.empId : '';
             initialValues.manager = data.user.manager ? data.user.manager : '';
@@ -217,7 +220,14 @@ export default function ProfileInfo() {
                 setImageUrl(url)
             }
 
-            setUserContact(data.userContact?.socialMedia ?? [])
+            if (data.userContact?.socialMedia.length > 0) {
+                let contact = data.userContact?.socialMedia
+                let unmatched = socialMediaList.filter(item => {
+                    let arr = contact.map(x => x.name)
+                    return !arr.includes(item.toLowerCase())
+                })
+                setUnmatchSocialMedia(unmatched)
+            }
         }).catch(err => {
             console.log(err)
             dispatch(setNotification({
@@ -441,6 +451,15 @@ export default function ProfileInfo() {
                                                     </a>
                                                 </div>
                                             ))}
+
+                                            {unmatchSocialMedia.map((x, ind) => (
+                                                <div className="w-1/3" key={ind}>
+                                                    <span className="inline-block float-left mr-4">Add {x}</span>
+                                                    <a className="inline float-left" onClick={() => addSocialMedia(x)}>
+                                                        <PlusCircleIcon className='w-7 text-yellow-500 hover:text-yellow-600' />
+                                                    </a>
+                                                </div>
+                                            ))}
                                         </div>
                                     ) : (
                                         <div className="flex-1 flex p-3 cursor-pointer">
@@ -459,8 +478,8 @@ export default function ProfileInfo() {
                                             </div>
 
                                             <div className="w-1/3">
-                                                <span className="inline-block float-left mr-4">Twitter</span>
-                                                <a className="inline float-left" onClick={() => addSocialMedia('Twitter')}>
+                                                <span className="inline-block float-left mr-4">Linkedin</span>
+                                                <a className="inline float-left" onClick={() => addSocialMedia('Linkedin')}>
                                                     <PlusCircleIcon className='w-7 text-yellow-500 hover:text-yellow-600' />
                                                 </a>
                                             </div>
@@ -471,7 +490,7 @@ export default function ProfileInfo() {
                             </div>
                         </div>
 
-                        <CommonDialog heading={`Add ${sociaMedia} url`} open={isOpen} close={setIsOpen} submitText='Sumbit' submit={submitSocialMedia}>
+                        <CommonDialog heading={`Add ${sociaMedia} URL`} open={isOpen} close={setIsOpen} submitText='Sumbit' submit={submitSocialMedia}>
                             <input type="text" name='social' placeholder={`Add ${sociaMedia} URL`} value={url} onChange={ev => setUrl(ev.target.value)}
                                 className="w-full px-4 py-2.5 text-base text-coolGray-900 font-normal outline-none focus:border-yellow-500 border border-coolGray-200 rounded-lg shadow-input" />
                         </CommonDialog>

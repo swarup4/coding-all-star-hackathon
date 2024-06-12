@@ -2,7 +2,6 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import UserHeader from '../components/common/UserHeader'
 import Faq from '../components/home/Faq'
-// import Panels from '../components/home/Panels'
 import Footer from '../components/common/Footer'
 
 export default function HomePage() {
@@ -141,8 +140,6 @@ export default function HomePage() {
                     </div>
                 </div>
             </section>
-
-            {/* <Panels /> */}
             
             {/* <Faq /> */}
 

@@ -14,7 +14,7 @@ import { ChevronDownIcon } from '@heroicons/react/24/outline'
 export default function UserHeader() {
 
     const navigate = useNavigate()
-    const userInfo = JSON.parse(sessionStorage.user)
+    const userInfo = sessionStorage.user ? JSON.parse(sessionStorage.user) : undefined;
     const location = useLocation();
     const dispatch = useDispatch()
     const user = useSelector(store => store.user.data)
@@ -25,19 +25,21 @@ export default function UserHeader() {
     }
 
     useEffect(() => {
-        const url = `${HOST_URL}submission/getSubmissionCount/${userInfo.id}`
-        axios.get(url).then(res => {
-            const totalReviewPoint = (res.data?.submission * 2) - res.data.review
-            dispatch(setReview({ totalReviewPoint: totalReviewPoint }))
-            dispatch(setSubmission({ submission: res.data?.submission, approve: res.data?.approveCount, reject: res.data?.rejectCount }))
-        }).catch(err => {
-            console.log(err)
-            dispatch(setNotification({
-                popup: true,
-                status: 'error',
-                message: err.response.data
-            }))
-        })
+        if (userInfo) {
+            const url = `${HOST_URL}submission/getSubmissionCount/${userInfo.id}`
+            axios.get(url).then(res => {
+                const totalReviewPoint = (res.data?.submission * 2) - res.data.review
+                dispatch(setReview({ totalReviewPoint: totalReviewPoint }))
+                dispatch(setSubmission({ submission: res.data?.submission, approve: res.data?.approveCount, reject: res.data?.rejectCount }))
+            }).catch(err => {
+                console.log(err)
+                dispatch(setNotification({
+                    popup: true,
+                    status: 'error',
+                    message: err.response.data
+                }))
+            })
+        }
     }, [])
 
     function logout() {
@@ -82,49 +84,58 @@ export default function UserHeader() {
                         <div className="w-auto p-2">
                             <div className="hidden xl:flex flex-wrap items-center -m-3">
                                 <div className="w-auto p-3">
-                                    <Link to='/dashboard/review' className="block max-w-max text-coolGray-500 hover:text-coolGray-600">
-                                        <div className='rounded-lg h-10 w-32 flex flex-wrap items-center'>
-                                            <div className='h-8 w-8 items-center flex justify-center text-green-600 bg-green-200 rounded-full'>{reviewPoint?.totalReviewPoint ?? 0}</div>
-                                            <div className='h-8 flex-1 flex flex-wrap ml-2 text-xs rounded-lg'>
-                                                <div className='flex'>Review Points </div>
-                                                <div className='flex'>Available</div>
+                                    {userInfo ? (
+                                        <Link to='/dashboard/review' className="block max-w-max text-coolGray-500 hover:text-coolGray-600">
+                                            <div className='rounded-lg h-10 w-32 flex flex-wrap items-center'>
+                                                <div className='h-8 w-8 items-center flex justify-center text-green-600 bg-green-200 rounded-full'>{reviewPoint?.totalReviewPoint ?? 0}</div>
+                                                <div className='h-8 flex-1 flex flex-wrap ml-2 text-xs rounded-lg'>
+                                                    <div className='flex'>Review Points </div>
+                                                    <div className='flex'>Available</div>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </Link>
+                                        </Link>
+                                    ) : ''}
                                 </div>
                                 <div className="w-auto p-3">
-                                    <div className="flex flex-wrap items-center -m-2">
-                                        <div className="w-auto p-2">
-                                            <div className="flex flex-wrap -m-2">
-                                                <div className="w-auto p-2">
-                                                    {user.profilePics ? (
-                                                        <>
-                                                            <img src={`https://trigent-hackathon-bucket.s3.ap-south-1.amazonaws.com/Users/${user.profilePics}`} className='rounded-full h-11 w-11' />
-                                                        </>
-                                                    ) : (
-                                                        <>
-                                                            <div className={`flex items-center justify-center w-11 h-11 text-base font-medium rounded-full text-yellow-600 bg-yellow-200`}>{getInitial(user.name)}</div>
-                                                        </>
-                                                    )}
-                                                </div>
-                                                <div className="w-auto p-2">
-                                                    <h2 className="text-xs font-semibold text-coolGray-800">{user.name}</h2>
-                                                    <p className="text-xs font-medium text-coolGray-500">{user.email}</p>
+                                    {userInfo ? (
+                                        <div className="flex flex-wrap items-center -m-2">
+                                            <div className="w-auto p-2">
+                                                <div className="flex flex-wrap -m-2">
+                                                    <div className="w-auto p-2">
+                                                        {user.profilePics ? (
+                                                            <>
+                                                                <img src={`https://trigent-hackathon-bucket.s3.ap-south-1.amazonaws.com/Users/${user.profilePics}`} className='rounded-full h-11 w-11' />
+                                                            </>
+                                                        ) : (
+                                                            <>
+                                                                <div className={`flex items-center justify-center w-11 h-11 text-base font-medium rounded-full text-yellow-600 bg-yellow-200`}>{getInitial(user.name)}</div>
+                                                            </>
+                                                        )}
+                                                    </div>
+                                                    <div className="w-auto p-2">
+                                                        <h2 className="text-xs font-semibold text-coolGray-800">{user.name}</h2>
+                                                        <p className="text-xs font-medium text-coolGray-500">{user.email}</p>
+                                                    </div>
                                                 </div>
                                             </div>
+                                            <div className="dropdown dropdown-end">
+                                                <a href='#' className="block max-w-max my-4 text-coolGray-500 hover:text-coolGray-600">
+                                                    <ChevronDownIcon className="h-4 w-4 text-grey-500 stroke-2" />
+                                                </a>
+                                                <ul className="p-2 shadow menu dropdown-content z-20 bg-white rounded-box w-52">
+                                                    <li><Link to='profile'>Profile</Link></li>
+                                                    <li><Link to={`/changePassword/${user.id}`}>Change Password</Link></li>
+                                                    <li><button onClick={() => logout()}>Logout</button></li>
+                                                </ul>
+                                            </div>
                                         </div>
-                                        <div className="dropdown dropdown-end">
-                                            <a href='#' className="block max-w-max my-4 text-coolGray-500 hover:text-coolGray-600">
-                                                <ChevronDownIcon className="h-4 w-4 text-grey-500 stroke-2" />
-                                            </a>
-                                            <ul className="p-2 shadow menu dropdown-content z-20 bg-white rounded-box w-52">
-                                                <li><Link to='profile'>Profile</Link></li>
-                                                <li><Link to={`/changePassword/${user.id}`}>Change Password</Link></li>
-                                                <li><button onClick={() => logout()}>Logout</button></li>
-                                            </ul>
+                                    ) : (
+                                        <div className="flex items-center justify-end">
+                                            <Link to='/login' className="inline-block py-2 px-4 mr-2 leading-5 text-coolGray-500 hover:text-coolGray-900 bg-transparent font-medium rounded-md">Sign In</Link>
+                                            <Link to='/signup' className="inline-block py-2 px-4 text-sm leading-5 text-yellow-50 bg-yellow-500 hover:bg-yellow-600 font-medium focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-50 rounded-md">Create an account</Link>
                                         </div>
+                                    )}
 
-                                    </div>
                                 </div>
                             </div>
                             <button className="navbar-burger self-center ml-auto block xl:hidden">
@@ -300,7 +311,7 @@ export default function UserHeader() {
                                         </a>
                                     </li>
                                 </ul>
-                                <div
+                                {/* <div
                                     className="fixed bottom-0 -left-4 max-w-xs w-full flex flex-wrap items-center p-6 pl-10 justify-between bg-white">
                                     <div className="w-auto">
                                         <div className="flex flex-wrap -mx-2">
@@ -326,7 +337,7 @@ export default function UserHeader() {
                                             </svg>
                                         </a>
                                     </div>
-                                </div>
+                                </div> */}
                             </div>
                         </div>
                     </div>
