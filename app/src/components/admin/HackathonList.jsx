@@ -14,7 +14,6 @@ export default function HackathonList() {
 
     useEffect(() => {
         const url = `${HOST_URL}hackathon/getHackathonList`
-        debugger;
         axios.get(url).then(res => {
             setHackathon(res.data);
         }).catch(err => {
@@ -43,7 +42,7 @@ export default function HackathonList() {
 
 
     return (
-        <section className="bg-white py-4">
+        <section className="bg-white py-4 overflow-auto" style={{ height: 'calc(100vh - 85px)' }}>
             <div className="container px-4 mx-auto">
 
                 <div className="flex flex-wrap items-center -mx-4 mb-12 md:mb-16">
