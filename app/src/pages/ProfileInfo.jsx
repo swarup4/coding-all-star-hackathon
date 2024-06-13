@@ -326,7 +326,7 @@ export default function ProfileInfo() {
                                         <p className="text-sm text-coolGray-800 font-semibold">Profile Pics</p>
                                         <p className="text-xs text-coolGray-500 font-medium"></p>
                                     </div>
-                                    <div className="w-full md:w-auto p-3">
+                                    <div className="w-full md:w-auto">
                                         {imageUrl ? (
                                             <img src={imageUrl} className='h-20 w-20 rounded-full' alt="" />
                                         ) : (

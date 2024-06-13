@@ -53,6 +53,14 @@ export default function AdminLayout() {
                                     </div>
                                 </Link>
                             </li>
+
+                            <li>
+                                <Link to='hackathon' className="p-3 pl-11 flex items-center justify-between">
+                                    <div className="flex items-center">
+                                        <p className="text-white font-medium text-base">Hackathon List</p>
+                                    </div>
+                                </Link>
+                            </li>
                         </ul>
                     </div>
                 </div>

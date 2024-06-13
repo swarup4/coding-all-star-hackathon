@@ -53,8 +53,9 @@ router.get('/getHackathonList', userMiddleware.varifyToken, async (req, res) => 
     }
 });
 
-router.get('/getHackathon/:id', userMiddleware.varifyToken, async (req, res) => {
+router.get('/getHackathon/:isAdmin/:id', userMiddleware.varifyToken, async (req, res) => {
     const id = req.params.id;
+    const isAdmin = req.params.isAdmin;
     try {
         const hackathonData = await Models.Hackathon.aggregate([
             {
@@ -93,20 +94,21 @@ router.get('/getHackathon/:id', userMiddleware.varifyToken, async (req, res) => 
             }
         ])
 
-        let panelData = hackathonData[0].panels.map(async x => {
-            x.social = await UserModels.Contacts.findOne({ userId: x._id })
-            return x
-        })
-        hackathonData[0].panels = await Promise.all(panelData)
-
-        let participateData = hackathonData[0].appliedUser.map(async x => {
-            x.social = await UserModels.Contacts.findOne({ userId: x._id })
-            return x
-        })
-        hackathonData[0].appliedUser = await Promise.all(participateData)
+        if(!isAdmin){
+            let panelData = hackathonData[0].panels.map(async x => {
+                x.social = await UserModels.Contacts.findOne({ userId: x._id })
+                return x
+            })
+            hackathonData[0].panels = await Promise.all(panelData)
+    
+            let participateData = hackathonData[0].appliedUser.map(async x => {
+                x.social = await UserModels.Contacts.findOne({ userId: x._id })
+                return x
+            })
+            hackathonData[0].appliedUser = await Promise.all(participateData)
+        }
 
         res.json(hackathonData);
-
     } catch (error) {
         res.send(error);
     }
@@ -150,26 +152,21 @@ router.put('/updateHackathon/:id', userMiddleware.varifyToken, async (req, res) 
             returnOriginal: false
         });
         if (data) {
-            res.json({
-                success: true,
-                data: data
-            });
+            res.json(data);
         };
     } catch (error) {
         res.send(error);
     }
 });
 
-router.put('/deleteHackathon/:id', userMiddleware.varifyToken, async (req, res) => {
+router.delete('/deleteHackathon/:id', userMiddleware.varifyToken, async (req, res) => {
     try {
         const id = req.params.id;
-        const data = await Models.Hackathon.findOneAndUpdate({ _id: id }, { status: 0 }, {
-            returnOriginal: false
-        });
+        const data = await Models.Hackathon.findByIdAndRemove(id);
         if (data) {
             res.json({
                 success: true,
-                message: 'Close Hackathon'
+                data: data
             });
         };
     } catch (error) {

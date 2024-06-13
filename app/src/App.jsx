@@ -24,6 +24,7 @@ import ChangePassword from './pages/ChangePassword'
 import Admin from './components/admin/Admin'
 import SendEmail from './components/admin/SendEmail'
 import AddPrize from './components/admin/AddPrize'
+import HackathonList from './components/admin/HackathonList'
 
 
 function App() {
@@ -93,6 +94,14 @@ function App() {
                 }, {
                     path: 'profile/edit',
                     element: <ProfileInfo />,
+                    errorElement: <Error />
+                }, {
+                    path: 'hackathon',
+                    element: <HackathonList />,
+                    errorElement: <Error />
+                }, {
+                    path: 'editHackathon/:id',
+                    element: <Admin />,
                     errorElement: <Error />
                 }]
             }],

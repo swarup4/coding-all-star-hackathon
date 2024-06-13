@@ -27,7 +27,7 @@ export default function Hackathon() {
 
     useEffect(() => {
         // if (Object.keys(project).length === 0) {
-            const url = `${HOST_URL}hackathon/getHackathon/${id}`
+            const url = `${HOST_URL}hackathon/getHackathon/false/${id}`
             axios.get(url).then(res => {
                 dispatch(selectProject(res.data[0]))
             }).catch(err => {
