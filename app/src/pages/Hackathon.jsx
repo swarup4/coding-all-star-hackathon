@@ -73,8 +73,7 @@ export default function Hackathon() {
     return (
         <>
             {Object.keys(project).length > 0 ? (
-                <section className="py-16 md:py-24 bg-white"
-                    style={{ backgroundImage: 'url("../assets/flex-ui-assets/elements/pattern-white.svg")', backgroundRepeat: 'no-repeat', backgroundPosition: 'center top' }}>
+                <section className="py-16 bg-white" style={{ backgroundImage: 'url("../assets/flex-ui-assets/elements/pattern-white.svg")', backgroundRepeat: 'no-repeat', backgroundPosition: 'center top' }}>
                     <div className="container px-4 mx-auto">
                         <div className="flex flex-wrap lg:items-center mb-12 -mx-4">
                             <div className="w-full md:w-1/2 2xl:w-5/12 px-4 mb-8 md:mb-0">
