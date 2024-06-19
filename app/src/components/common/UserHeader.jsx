@@ -150,10 +150,10 @@ export default function UserHeader() {
                     </div>
                 </div>
                 <div
-                    className="navbar-menu z-50 fixed top-0 hidden flex flex-col justify-between bg-white border-r border-coolGray-100 max-w-xs w-9/12 h-full overflow-y-auto">
+                    className="navbar-menu z-40 fixed top-0 hidden flex flex-col justify-between bg-white border-r border-coolGray-100 max-w-xs w-9/12 h-full overflow-y-auto">
                     <div className="navbar-backdrop fixed xl:hidden inset-0 bg-coolGray-900 opacity-60"></div>
                     <div className="relative bg-white flex-1">
-                        <div className="fixed -left-4 p-8 pl-12 max-w-xs w-9/12 z-50 bg-white">
+                        <div className="fixed -left-4 p-8 pl-12 max-w-xs w-9/12 z-40 bg-white">
                             <a className="block max-w-max" href="#">
                                 <img src={window.location.origin + "/flex-ui-assets/logos/dashboard/flex-ui-black-yellow.svg"} alt="" />
                             </a>

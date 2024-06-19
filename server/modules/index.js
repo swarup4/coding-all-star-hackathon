@@ -8,6 +8,7 @@ const review = require('./reviews/controller');
 const prize = require('./prizes/controller');
 const hackathon = require('./hackathon/controller');
 const point = require('./points/controller');
+const email = require('./email/controller');
 
 app.use('/user', user);
 app.use('/submission', submission);
@@ -16,5 +17,6 @@ app.use('/review', review);
 app.use('/prize', prize);
 app.use('/hackathon', hackathon);
 app.use('/point', point)
+app.use('/email', email)
 
 module.exports = app;

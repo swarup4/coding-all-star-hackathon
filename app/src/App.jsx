@@ -21,6 +21,7 @@ import Profile from './pages/Profile'
 import Review from './pages/Review'
 import ProfileInfo from './pages/ProfileInfo'
 import ChangePassword from './pages/ChangePassword'
+import Settings from './pages/Settings'
 import Admin from './components/admin/Admin'
 import SendEmail from './components/admin/SendEmail'
 import AddPrize from './components/admin/AddPrize'
@@ -102,6 +103,10 @@ function App() {
                 }, {
                     path: 'editHackathon/:id',
                     element: <Admin />,
+                    errorElement: <Error />
+                }, {
+                    path: 'settings',
+                    element: <Settings />,
                     errorElement: <Error />
                 }]
             }],

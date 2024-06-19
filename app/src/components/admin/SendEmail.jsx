@@ -95,7 +95,7 @@ export default function SendEmail() {
 
     return (
         <div>
-            <section className="bg-white p-4">
+            <section className="bg-white p-4 overflow-auto admin-page-content">
                 <div className="container mx-auto">
                     <div className="p-6 h-full overflow-hidden bg-white rounded-md">
                         <div className="pb-6 border-b border-coolGray-100">
@@ -120,7 +120,7 @@ export default function SendEmail() {
                             </div>
                         </div>
 
-                        <div className='overflow-auto' style={{ height: 'calc(100vh - 238px)' }}>
+                        <div>
                             <div className="py-6 border-b border-coolGray-100">
                                 <div className="w-full md:w-9/12">
                                     <div className="flex flex-wrap -m-3">

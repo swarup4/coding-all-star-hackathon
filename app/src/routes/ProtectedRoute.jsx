@@ -23,7 +23,7 @@ export default function ProtectedRoute(props) {
 
             let hostName = location.pathname.split('/')[1]
 
-            if(user.role != 'admin'){
+            if(user.isAdmin){
                 if(hostName != 'admin'){
                     setIsLoggedIn(true);
                 } else {

@@ -28,11 +28,16 @@
 	animation: animatetop 0.6s
 }
 
+.admin-page-content {
+	height: calc(100vh - 85px);
+}
+
 @keyframes animatetop {
 	from {
 		top: -100px;
 		opacity: 0
 	}
+
 	to {
 		top: 0;
 		opacity: 1

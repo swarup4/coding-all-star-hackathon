@@ -7,11 +7,7 @@ const multer = require('multer');
 const ObjectId = require("mongoose").Types.ObjectId;
 const User = require('./models');
 const userMiddleware = require('../../middleware/user');
-const email = require('../../middleware/email')
-// const config = require('../../helper/config');
-// const email = require('../../middleware/email');
-// const sendSMS = require('../../middleware/sendSMS');
-// const phone = require('../../middleware/sendSMS');
+const {getEmailTemplate, sendEmail} = require('../../middleware/email')
 
 const router = express.Router();
 
@@ -113,6 +109,7 @@ router.post("/login", async (req, res) => {
                 email: user.email,
                 name: user.name,
                 role: user.role,
+                isAdmin: user.isAdmin,
                 manager: user.manager,
                 profilePics: user.profilePics,
                 canParticipate: user.canParticipate,
@@ -138,6 +135,7 @@ router.post("/signup", userMiddleware.checkExestingUser, async (req, res) => {
             id: user._id,
             email: user.email,
             name: user.name,
+            isAdmin: user.isAdmin,
             token: token
         });
     } catch (error) {
@@ -352,7 +350,7 @@ function insertData(data) {
 
                 const userDetailsmodel = new User.Details(details);
                 userDetailsmodel.save().then(userDetails => {
-                    resolve(userDetails)
+                    resolve(user)
                 }).catch(err => {
                     reject(err)
                 })
@@ -362,15 +360,14 @@ function insertData(data) {
         }).catch(err => {
             reject(err);
         })
-
-
     })
 }
 
 
-router.get('/uploadExcel', async (req, res) => {
+router.post('/uploadExcel', upload.single("userFile"), async (req, res) => {
     try {
-        const file = reader.readFile('./User.xlsx')
+        let path = req.file.originalname;
+        const file = reader.readFile(path)
         let data = []
 
         const sheets = file.SheetNames
@@ -397,12 +394,13 @@ router.get('/uploadExcel', async (req, res) => {
 });
 
 
-router.post('/sendEmail', (req, res) => {
+router.post('/sendEmail', async (req, res) => {
     let body = req.body;
     let arr = [];
+    let template = await getEmailTemplate();
 
     for (const i of body.user) {
-        arr.push(email(i, body.hackathon));
+        arr.push(sendEmail(i, body.hackathon, template));
     }
 
     Promise.allSettled(arr).then(data => {

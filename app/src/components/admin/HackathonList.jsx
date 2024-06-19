@@ -42,7 +42,7 @@ export default function HackathonList() {
 
 
     return (
-        <section className="bg-white py-4 overflow-auto" style={{ height: 'calc(100vh - 85px)' }}>
+        <section className="bg-white py-4 overflow-auto admin-page-content">
             <div className="container px-4 mx-auto">
 
                 <div className="flex flex-wrap items-center -mx-4 mb-12 md:mb-16">

@@ -202,7 +202,7 @@ export default function Admin() {
 
     return (
         <div>
-            <section className="bg-white py-4">
+            <section className="bg-white py-4 admin-page-content overflow-auto">
                 <div className="container px-4 mx-auto">
                     <div className="p-6 h-full overflow-hidden bg-white rounded-md">
 

@@ -14,6 +14,7 @@ const user = {
     password: { type: String, require: true },
     manager: { type: objectId },
     profilePics: String,
+    isAdmin: { type: Boolean, default: 0 },
     canParticipate: { type: Boolean, default: 1 },
     createdAt: Date,
     updatedAt: Date,

@@ -58,7 +58,7 @@ export default function Login() {
                         isManager: !res.data.canParticipate,
                         profilePics: res.data.profilePics
                     })
-                    if(res.data.role == 'admin'){
+                    if(res.data.isAdmin){
                         navigate('/admin')
                     } else {
                         const location = sessionStorage.url;
