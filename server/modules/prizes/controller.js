@@ -57,35 +57,6 @@ router.delete('/deletePrize/:id', async (req, res) => {
     }
 });
 
-router.put('/updatePrizeDescription/:id', async (req, res) => {
-    try {
-        const id = req.params.id;
-        const body = req.body;
-        const cate = await Models.PrizeDescription.findOneAndUpdate({ _id: id }, body);
-        if (cate) {
-            res.json({
-                success: true,
-                data: cate
-            });
-        };
-    } catch (error) {
-        res.send(error);
-    }
-});
 
-router.delete('/deletePrizeDescription/:id', async (req, res) => {
-    try {
-        const id = req.params.id;
-        const data = await Models.PrizeDescription.findOneAndDelete({ _id: id });
-        if (data) {
-            res.json({
-                success: true,
-                message: 'Delete Category'
-            });
-        };
-    } catch (error) {
-        res.send(error);
-    }
-});
 
 module.exports = router;

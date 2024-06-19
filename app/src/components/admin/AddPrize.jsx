@@ -9,7 +9,6 @@ import { setNotification } from '../../store/notification/notificationSlice'
 
 
 const initialValues = {
-    hackathonId: '',
     category: '',
     name: '',
     amount: '',
@@ -17,7 +16,6 @@ const initialValues = {
 }
 
 const schema = object({
-    hackathonId: string().required('Enter Hackathon id'),
     category: string().required('Enter Prize category'),
     name: string().required('Enter Prize Name'),
     amount: string().required('Enter Prize amount'),
@@ -107,31 +105,7 @@ export default function AddPrize() {
                             </div>
 
 
-                            <div className='overflow-auto' style={{ height: 'calc(100vh - 238px)' }}>
-                                <div className="py-6 border-b border-coolGray-100">
-                                    <div className="w-full md:w-9/12">
-                                        <div className="flex flex-wrap -m-3">
-                                            <div className="w-full md:w-1/3 p-3">
-                                                <p className="text-sm text-coolGray-800 font-semibold">Hackathon Name</p>
-                                            </div>
-                                            <div className="w-full md:flex-1 p-3">
-                                                <select name='hackathonId'
-                                                    value={values.hackathonId} onChange={handleChange} onBlur={handleBlur}
-                                                    className="appearance-none w-full py-2.5 px-4 text-coolGray-900 text-base font-normal bg-white border outline-none border-coolGray-200 focus:border-yellow-500 rounded-lg shadow-input">
-
-                                                    <option value="">Select</option>
-                                                    {hackathonList.map((item, ind) => (
-                                                        <option value={item._id} key={ind}>{item.name}</option>
-                                                    ))}
-                                                </select>
-
-                                                {errors.hackathonId && touched.hackathonId ? (
-                                                    <p className='mt-1 text-red-500'>{errors.hackathonId}</p>
-                                                ) : ''}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                            <div>
 
                                 <div className="py-6 border-b border-coolGray-100">
                                     <div className="w-full md:w-9/12">
