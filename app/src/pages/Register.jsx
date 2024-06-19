@@ -40,7 +40,8 @@ export default function Register() {
                 sessionStorage.user = JSON.stringify({
                     email: res.data.email,
                     id: res.data.id,
-                    name: res.data.name
+                    name: res.data.name,
+                    isAdmin: res.data.isAdmin
                 })
 
                 dispatch(setNotification({

@@ -81,7 +81,15 @@ function App() {
                 element: <ProtectedRoute><Outlet /></ProtectedRoute>,
                 children: [{
                     path: '',
+                    element: <HackathonList />,
+                    errorElement: <Error />
+                }, {
+                    path: 'hackathon',
                     element: <Admin />
+                }, {
+                    path: 'editHackathon/:id',
+                    element: <Admin />,
+                    errorElement: <Error />
                 }, {
                     path: 'sendEmail',
                     element: <SendEmail />
@@ -95,14 +103,6 @@ function App() {
                 }, {
                     path: 'profile/edit',
                     element: <ProfileInfo />,
-                    errorElement: <Error />
-                }, {
-                    path: 'hackathon',
-                    element: <HackathonList />,
-                    errorElement: <Error />
-                }, {
-                    path: 'editHackathon/:id',
-                    element: <Admin />,
                     errorElement: <Error />
                 }, {
                     path: 'settings',

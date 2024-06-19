@@ -18,12 +18,11 @@ export default function ProtectedRoute(props) {
             setIsLoggedIn(false);
             return navigate('/login');
         } else {
+            let hostName = location.pathname.split('/')[1]
             let user = JSON.parse(sessionStorage.user)
             dispatch(setUser(user))
 
-            let hostName = location.pathname.split('/')[1]
-
-            if(user.isAdmin){
+            if(!user.isAdmin){
                 if(hostName != 'admin'){
                     setIsLoggedIn(true);
                 } else {

@@ -56,6 +56,7 @@ export default function Login() {
                         name: res.data.name,
                         role: res.data.role,
                         isManager: !res.data.canParticipate,
+                        isAdmin: res.data.isAdmin,
                         profilePics: res.data.profilePics
                     })
                     if(res.data.isAdmin){

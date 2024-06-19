@@ -154,7 +154,7 @@ router.get('/userList', async (req, res) => {
 
 router.get('/adminUserList', async (req, res) => {
     try {
-        let userList = await User.Auth.find({ role: { $ne: 'admin' } }, { name: 1, email: 1, password: 1 })
+        let userList = await User.Auth.find({ isAdmin: false }, { name: 1, email: 1, password: 1 })
         res.json(userList);
     } catch (error) {
         res.send(error);

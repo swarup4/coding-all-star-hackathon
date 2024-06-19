@@ -2,10 +2,8 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const objectId = Schema.ObjectId;
 
-// Project
 const prize = {
     _id: { type: objectId, auto: true },
-    // hackathonId: { type: objectId, required: true },
     category: { type: String, required: true },
     name: { type: String, required: true },
     amount: { type: Number, required: true },
@@ -15,7 +13,6 @@ const prize = {
     updatedAt: Date
 };
 const prizeSchema = new Schema(prize, { versionKey: false, timestamps: true });
-
 
 module.exports = {
     Prize: mongoose.model("prize", prizeSchema)

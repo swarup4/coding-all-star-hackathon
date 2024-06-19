@@ -1,12 +1,11 @@
 import React, { Fragment, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-// import axios from 'axios'
 import axios from '../../axiosInstance'
 import { HOST_URL } from '../../constants'
 import { getInitial } from '../helper'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { setReview } from '../../store/review/reviewSlice'
-import { removeUser } from '../../store/user/userSlice'
+import { setUser, removeUser } from '../../store/user/userSlice'
 import { setSubmission } from '../../store/submission/submissionSlice'
 import { setNotification } from '../../store/notification/notificationSlice'
 import { ChevronDownIcon } from '@heroicons/react/24/outline'
@@ -23,6 +22,15 @@ export default function UserHeader() {
     function redirectPage() {
         sessionStorage.url = location.pathname
     }
+
+    useEffect(() => {
+        if(Object.keys(user).length == 0){
+            if(userInfo){
+                let user = userInfo
+                dispatch(setUser(user))
+            }
+        }
+    }, [user])
 
     useEffect(() => {
         if (userInfo) {
@@ -124,6 +132,11 @@ export default function UserHeader() {
                                                 </a>
                                                 <ul className="p-2 shadow menu dropdown-content z-20 bg-white rounded-box w-52">
                                                     <li><Link to='profile'>Profile</Link></li>
+                                                    
+                                                    {user.isAdmin ? (
+                                                        <li><Link to='/admin'>Admin</Link></li>
+                                                    ): ''}
+
                                                     <li><Link to={`/changePassword/${user.id}`}>Change Password</Link></li>
                                                     <li><button onClick={() => logout()}>Logout</button></li>
                                                 </ul>
