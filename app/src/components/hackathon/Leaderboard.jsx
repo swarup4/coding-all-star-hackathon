@@ -72,9 +72,9 @@ export default function Leaderboard(props) {
                 </div>
                 <div className="mb-6 border border-coolGray-100" />
                 <div className="overflow-hidden border border-coolGray-100 rounded-md shadow-dashboard">
-                    <div className="overflow-x-auto">
-                        <table className="w-full">
-                            <tbody>
+                    <div className="overflow-y-auto" style={{ maxHeight: '437px' }}>
+                        <table className="min-w-full divide-y divide-gray-200">
+                            <thead className="bg-gray-50 sticky top-0">
                                 <tr className="whitespace-nowrap h-11 bg-coolGray-50 bg-opacity-80 border-b border-coolGray-100">
                                     <th className="px-4 font-semibold text-xs text-coolGray-500 uppercase text-left">
                                         <div className="flex items-center pl-2">
@@ -84,8 +84,10 @@ export default function Leaderboard(props) {
                                     <th className="whitespace-nowrap px-4 font-semibold text-xs text-coolGray-500 uppercase text-center">Rank</th>
                                     <th className="whitespace-nowrap px-4 font-semibold text-xs text-coolGray-500 uppercase text-center">Points</th>
                                 </tr>
+                            </thead>
+                            <tbody className="bg-white divide-y divide-gray-200">
                                 {point.map((item, ind) => (
-                                    <tr className="h-18 border-b border-coolGray-100" key={ind}>
+                                    <tr className="h-14 border-b border-coolGray-100" key={ind}>
                                         <td className="whitespace-nowrap px-4 bg-white text-left">
                                             <div className="flex items-center -m-2">
                                                 <div className="w-auto p-2">

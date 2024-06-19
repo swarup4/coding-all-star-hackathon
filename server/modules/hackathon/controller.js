@@ -94,7 +94,7 @@ router.get('/getHackathon/:isAdmin/:id', userMiddleware.varifyToken, async (req,
             }
         ])
 
-        if(!isAdmin){
+        if(isAdmin == 'false'){
             let panelData = hackathonData[0].panels.map(async x => {
                 x.social = await UserModels.Contacts.findOne({ userId: x._id })
                 return x

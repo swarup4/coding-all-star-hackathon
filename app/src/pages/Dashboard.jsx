@@ -111,14 +111,14 @@ export default function Dashboard() {
                     <div className="flex flex-wrap -mx-4 mb-12 md:mb-20">
                         {hackathon.map((item, ind) => (
                             <div className="w-full md:w-1/2 px-4 mb-8" key={ind}>
-                                <a className="block mb-6 overflow-hidden rounded-md" onClick={() => select(item)}>
+                                <a className="block mb-6 overflow-hidden rounded-md cursor-pointer" onClick={() => select(item)}>
                                     <img className="w-full" src={`https://trigent-hackathon-bucket.s3.ap-south-1.amazonaws.com/Hackathon-Banner/${item.banner}`} alt="" style={{ height: '400px' }} />
                                 </a>
                                 <div className="mb-4">
-                                    <a className="inline-block py-1 px-3 text-xs leading-5 text-yellow-500 hover:text-yellow-600 font-medium uppercase bg-yellow-100 hover:bg-yellow-200 rounded-full shadow-sm" href="#">{item.theme}</a>
+                                    <span className="inline-block py-1 px-3 text-xs leading-5 text-yellow-500 hover:text-yellow-600 font-medium uppercase bg-yellow-100 hover:bg-yellow-200 rounded-full shadow-sm">{item.theme}</span>
                                 </div>
                                 <p className="mb-2 text-coolGray-500 font-medium">{item.user.name} • {moment(item.createdAt).format('Do MMMM YYYY')}</p>
-                                <a className="block mb-4 text-2xl md:text-3xl leading-tight text-coolGray-800 hover:text-coolGray-900 font-bold hover:underline">{item.name}</a>
+                                <a onClick={() => select(item)} className="block mb-4 cursor-pointer text-2xl md:text-3xl leading-tight text-coolGray-800 hover:text-coolGray-900 font-bold hover:underline">{item.name}</a>
 
                                 {getParticipate(item.appliedUser) ? (
                                     <div>

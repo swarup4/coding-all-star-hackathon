@@ -181,7 +181,8 @@ export default function SubmissionForm(props) {
                                 <select name='programmingLanguage' value={values.programmingLanguage} onChange={handleChange} onBlur={handleBlur}
                                     className="appearance-none w-full py-2.5 px-4 text-coolGray-900 text-base font-normal bg-white border outline-none border-coolGray-200 focus:border-yellow-500 rounded-lg shadow-input">
                                     <option value=''>Select</option>
-                                    <option value='nodejs'>Node JS</option>
+                                    <option value='javascript'>JavaScript</option>
+                                    <option value='typescript'>TypeScript</option>
                                     <option value='java'>Java</option>
                                     <option value='go'>Go Lang</option>
                                     <option value='html'>HTML</option>
@@ -190,6 +191,7 @@ export default function SubmissionForm(props) {
                                     <option value='php'>PHP</option>
                                     <option value='python'>Python</option>
                                     <option value='rust'>RUST</option>
+                                    <option value='ruby'>RUBY</option>
                                     <option value='csharp'>C#</option>
                                 </select>
                                 {errors.programmingLanguage && touched.programmingLanguage ? (

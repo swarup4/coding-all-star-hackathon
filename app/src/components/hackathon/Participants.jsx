@@ -20,7 +20,7 @@ export default function Participants(props) {
                                     {res.social ? (
                                         <>
                                             {res.social.socialMedia.map((x, ind) => (
-                                                <>
+                                                <div key={ind}>
                                                     {x.name == 'facebook' ? (
                                                         <a className="inline-block mx-2 hover:opacity-80" href={x.url} target='_blank'>
                                                             <img src={window.location.origin + "/flex-ui-assets/brands/facebook.svg"} alt="" />
@@ -38,7 +38,7 @@ export default function Participants(props) {
                                                             <img src={window.location.origin + "/flex-ui-assets/brands/instagram.svg"} alt="" />
                                                         </a>
                                                     ) : ''}
-                                                </>
+                                                </div>
                                             ))}
                                         </>
                                     ) : ''}
