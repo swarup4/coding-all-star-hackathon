@@ -131,7 +131,7 @@ export default function UserHeader() {
                                                     <ChevronDownIcon className="h-4 w-4 text-grey-500 stroke-2" />
                                                 </a>
                                                 <ul className="p-2 shadow menu dropdown-content z-20 bg-white rounded-box w-52">
-                                                    <li><Link to='profile'>Profile</Link></li>
+                                                    <li><Link to='/dashboard/profile'>Profile</Link></li>
                                                     
                                                     {user.isAdmin ? (
                                                         <li><Link to='/admin'>Admin</Link></li>
