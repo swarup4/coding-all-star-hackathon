@@ -93,7 +93,7 @@ export default function Hackathon() {
                                     {project.heading}
                                 </p>
                                 <div className="flex items-center justify-between flex-wrap -mx-2">
-                                    <div className="w-9/12 flex">
+                                    <div className="w-6/12 flex">
                                         <div className="w-auto px-2">
                                             {project.user.profilePics ? (
                                                 <img src={`https://trigent-hackathon-bucket.s3.ap-south-1.amazonaws.com/Users/${project.user.profilePics}`} className='rounded-full h-20 w-20' />

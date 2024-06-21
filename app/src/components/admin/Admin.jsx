@@ -36,7 +36,7 @@ export default function Admin() {
 
 
     useEffect(() => {
-        const url = `${HOST_URL}user/userList`
+        const url = `${HOST_URL}user/userList/panel`
         axios.get(url).then(res => {
             setUserList(res.data)
         }).catch(err => {

@@ -70,7 +70,7 @@ export default function ProfileInfo() {
     }, [])
 
     useEffect(() => {
-        const url = `${HOST_URL}user/userList`
+        const url = `${HOST_URL}user/userList/manager`
         axios.get(url).then(res => {
             setUserList(res.data)
         }).catch(err => {

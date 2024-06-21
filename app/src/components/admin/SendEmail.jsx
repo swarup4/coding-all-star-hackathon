@@ -28,7 +28,7 @@ export default function SendEmail() {
     };
 
     useEffect(() => {
-        const url = `${HOST_URL}user/adminUserList`
+        const url = `${HOST_URL}user/userList/user`
         axios.get(url).then(res => {
             let user = res.data.map(x => {
                 x.checked = false;

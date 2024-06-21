@@ -143,18 +143,19 @@ router.post("/signup", userMiddleware.checkExestingUser, async (req, res) => {
     }
 });
 
-router.get('/userList', async (req, res) => {
+router.get('/userList/:user', async (req, res) => {
     try {
-        let userList = await User.Auth.find({ role: { $ne: 'admin' } }, { name: 1, email: 1 })
-        res.json(userList);
-    } catch (error) {
-        res.send(error);
-    }
-})
+        let user = req.params.user;
+        let userList;
 
-router.get('/adminUserList', async (req, res) => {
-    try {
-        let userList = await User.Auth.find({ isAdmin: false }, { name: 1, email: 1, password: 1 })
+        if (user == 'manager'){
+            userList = await User.Auth.find({ canParticipate: false }, { name: 1, email: 1 })
+        } else if (user == 'panel'){
+            userList = await User.Auth.find({$or: [{ canParticipate: false }, { isAdmin: true }]}, { name: 1, email: 1 })
+        } else {
+            userList = await User.Auth.find({ isAdmin: false }, { name: 1, email: 1, password: 1 })
+        }
+
         res.json(userList);
     } catch (error) {
         res.send(error);
