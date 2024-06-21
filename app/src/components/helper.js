@@ -20,6 +20,22 @@ export const getInitial = (name) => {
     }
 }
 
+export const randomColor = () => {
+    let colors = [
+        'text-violet-600 bg-violet-200',
+        'text-green-600 bg-green-200',
+        'text-red-600 bg-red-200',
+        'text-yellow-600 bg-yellow-200',
+        'text-orange-600 bg-orange-200',
+        'text-teal-600 bg-teal-200',
+        'text-cyan-600 bg-cyan-200',
+        'text-blue-600 bg-blue-200',
+        'text-rose-600 bg-rose-200',
+    ]
+    let color = colors[Math.floor(Math.random() * colors.length)];
+    return color;
+}
+
 export const getExtensions = (language) => {
     let extension;
     switch (language) {

@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { HOST_URL } from '../../constants'
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline'
 import { setNotification } from '../../store/notification/notificationSlice'
+import { randomColor, getInitial } from '../helper'
+
 
 export default function Leaderboard(props) {
 
@@ -25,28 +27,6 @@ export default function Leaderboard(props) {
             }))
         })
     }, [])
-
-    function randomColor() {
-        let colors = [
-            'text-violet-600 bg-violet-200',
-            'text-green-600 bg-green-200',
-            'text-red-600 bg-red-200',
-            'text-yellow-600 bg-yellow-200',
-            'text-orange-600 bg-orange-200',
-            'text-teal-600 bg-teal-200',
-            'text-cyan-600 bg-cyan-200',
-            'text-blue-600 bg-blue-200',
-            'text-rose-600 bg-rose-200',
-        ]
-        let color = colors[Math.floor(Math.random() * colors.length)];
-        return color;
-    }
-
-    function getInitial(name) {
-        let arr = name.split(' ')
-        let initial = arr[0][0] + arr[1][0]
-        return initial;
-    }
 
     function searchText(text) {
         const searchList = allPoint.filter(x => JSON.stringify(x).toLowerCase().includes(text.toLowerCase()));
@@ -90,7 +70,7 @@ export default function Leaderboard(props) {
                                         <td className="whitespace-nowrap px-4 bg-white text-left">
                                             <div className="flex items-center -m-2">
                                                 <div className="w-auto p-2">
-                                                    <div className={`flex items-center justify-center w-10 h-10 text-base font-medium rounded-md  ${randomColor()}`}>{getInitial(item.name)}</div>
+                                                    <div className={`flex items-center justify-center w-10 h-10 text-base font-medium rounded-md ${randomColor()}`}>{getInitial(item.name)}</div>
                                                 </div>
                                                 <div className="w-auto p-2">
                                                     <p className="text-xs font-semibold text-coolGray-800">{item.name}</p>

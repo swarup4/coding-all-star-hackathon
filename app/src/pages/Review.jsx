@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 // import axios from 'axios'
 import axios from '../axiosInstance'
+import { getInitial, randomColor } from '../components/helper'
 import { useSelector, useDispatch } from 'react-redux'
 import { HOST_URL } from '../constants'
 import { EyeIcon, CheckIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline'
@@ -46,55 +47,40 @@ export default function Review() {
         setIsOpen(true)
     }
 
-    function randomColor() {
-        let colors = [
-            'text-violet-600 bg-violet-200',
-            'text-green-600 bg-green-200',
-            'text-red-600 bg-red-200',
-            'text-yellow-600 bg-yellow-200',
-            'text-orange-600 bg-orange-200',
-            'text-teal-600 bg-teal-200',
-            'text-cyan-600 bg-cyan-200',
-            'text-blue-600 bg-blue-200',
-            'text-rose-600 bg-rose-200',
-        ]
-        let color = colors[Math.floor(Math.random() * colors.length)];
-        return color;
-    }
-
-    function getInitial(name) {
-        let arr = name.split(' ')
-        let initial = arr[0][0] + arr[1][0]
-        return initial;
-    }
-
-    function approveCode() {
-        let body = {
-            apiId: apiId,
-            apiUserId: apiUserId,
-            reviewerId: user.id,
-            codeVerification: 1,
-        }
-        const url = `${HOST_URL}review/addReview`
-        axios.post(url, body).then(res => {
+    async function updateReview(body, status){
+        try {
+            const url = `${HOST_URL}review/addReview`
+            await axios.post(url, body)
+    
             dispatch(setNotification({
                 popup: true,
                 status: 'success',
-                message: 'Code Approve'
+                message: `Code ${status}`
             }))
             dispatch(setReview({ totalReviewPoint: (reviewPoint - 1) }))
             getSubmittedApiList()
-            setIsOpen(false)
-        }).catch(err => {
+        } catch (err) {
             console.log(err)
             dispatch(setNotification({
                 popup: true,
                 status: 'error',
                 message: err.response.data
             }))
-        })
+        }
     }
-    function rejectCode() {
+
+    async function approveCode() {
+        let body = {
+            apiId: apiId,
+            apiUserId: apiUserId,
+            reviewerId: user.id,
+            codeVerification: 1,
+        }
+        await updateReview(body, 'Approve')
+        setIsOpen(false)
+    }
+
+    async function rejectCode() {
         let body = {
             apiId: apiId,
             apiUserId: apiUserId,
@@ -102,22 +88,8 @@ export default function Review() {
             codeVerification: 2,
             comment: comment
         }
-        const url = `${HOST_URL}review/addReview`
-        axios.post(url, body).then(res => {
-            dispatch(setNotification({
-                popup: true,
-                status: 'success',
-                message: 'Code Rejected'
-            }))
-            setReject(false)
-        }).catch(err => {
-            console.log(err)
-            dispatch(setNotification({
-                popup: true,
-                status: 'error',
-                message: err.response.data
-            }))
-        })
+        await updateReview(body, 'Reject')
+        setReject(false)
     }
 
     function rejectDialog() {

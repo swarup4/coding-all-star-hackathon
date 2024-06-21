@@ -122,7 +122,7 @@ router.post("/login", async (req, res) => {
 });
 
 
-router.post("/signup", userMiddleware.checkExestingUser, async (req, res) => {
+router.post("/signup", async (req, res) => {
     try {
         const model = new User.Auth(req.body);
         const user = await model.save();
@@ -143,7 +143,7 @@ router.post("/signup", userMiddleware.checkExestingUser, async (req, res) => {
     }
 });
 
-router.get('/userList/:user', async (req, res) => {
+router.get('/userList/:user', userMiddleware.checkExestingUser, async (req, res) => {
     try {
         let user = req.params.user;
         let userList;
@@ -163,7 +163,7 @@ router.get('/userList/:user', async (req, res) => {
 })
 
 
-router.put('/updateUserDetails/:id', async (req, res) => {
+router.put('/updateUserDetails/:id', userMiddleware.checkExestingUser, async (req, res) => {
     try {
         let userId = req.params.id;
         let body = req.body;
@@ -209,7 +209,7 @@ router.put('/updateUserDetails/:id', async (req, res) => {
 
 
 //Change Password
-router.put('/changePassword/:id', async (req, res) => {
+router.put('/changePassword/:id', userMiddleware.checkExestingUser, async (req, res) => {
     try {
         const userId = req.params.id;
         const user = await User.Auth.findOne({ _id: userId, password: req.body.oldpassword });
@@ -300,7 +300,7 @@ router.put('/addSocialMedia/:id', userMiddleware.varifyToken, async (req, res) =
 
 
 // router.post('/uploadProfilePics/:id', userMiddleware.varifyToken, upload.single("profile"), uploadMiddleware.uploadImage, (req, res) => {
-router.put('/uploadProfilePics/:id', upload.single("profile"), userMiddleware.uploadImage, async (req, res) => {
+router.put('/uploadProfilePics/:id', userMiddleware.checkExestingUser, upload.single("profile"), userMiddleware.uploadImage, async (req, res) => {
     try {
         let id = req.params.id;
         const profile = await User.Auth.findOneAndUpdate(
@@ -365,7 +365,7 @@ function insertData(data) {
 }
 
 
-router.post('/uploadExcel', upload.single("userFile"), async (req, res) => {
+router.post('/uploadExcel', userMiddleware.checkExestingUser, upload.single("userFile"), async (req, res) => {
     try {
         let path = req.file.originalname;
         const file = reader.readFile(path)
@@ -395,7 +395,7 @@ router.post('/uploadExcel', upload.single("userFile"), async (req, res) => {
 });
 
 
-router.post('/sendEmail', async (req, res) => {
+router.post('/sendEmail', userMiddleware.checkExestingUser, async (req, res) => {
     let body = req.body;
     let arr = [];
     let template = await getEmailTemplate();

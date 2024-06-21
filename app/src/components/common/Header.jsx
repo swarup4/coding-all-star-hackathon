@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { getInitial } from '../helper'
+import { getInitial, randomColor } from '../helper'
 import { ChevronDownIcon } from '@heroicons/react/24/outline'
 import { setUser, removeUser } from '../../store/user/userSlice'
 

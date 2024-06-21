@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link, Outlet, useNavigate } from 'react-router-dom'
 import { UserIcon } from '@heroicons/react/24/outline'
 import { removeUser } from '../store/user/userSlice'
-import { getInitial } from '../components/helper'
+import { getInitial, randomColor } from '../components/helper'
 
 export default function AdminLayout() {
 
@@ -122,7 +122,7 @@ export default function AdminLayout() {
                                                     {user.profilePics ? (
                                                         <img className="rounded-full h-11 w-11" src={`https://trigent-hackathon-bucket.s3.ap-south-1.amazonaws.com/Users/${user.profilePics}`} alt="" />
                                                     ) : (
-                                                        <div className={`flex items-center justify-center w-11 h-11 mx-auto text-base font-medium rounded-full text-yellow-600 bg-yellow-200`}>{getInitial(user.name)}</div>
+                                                        <div className={`flex items-center justify-center w-11 h-11 mx-auto text-base font-medium rounded-full ${randomColor()}`}>{getInitial(user.name)}</div>
                                                     )}
                                                 </div>
                                                 <div className="w-auto p-2">

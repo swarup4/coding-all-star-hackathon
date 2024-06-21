@@ -1,5 +1,5 @@
 import React from 'react'
-import { getInitial } from '../helper'
+import { getInitial, randomColor } from '../helper'
 
 export default function Participants(props) {
     return (
@@ -12,7 +12,7 @@ export default function Participants(props) {
                                 {res.profilePics ? (
                                     <img className="w-24 h-24 mx-auto mb-6 rounded-full" src={`https://trigent-hackathon-bucket.s3.ap-south-1.amazonaws.com/Users/${res.profilePics}`} alt="" />
                                 ) : (
-                                    <div className={`flex items-center justify-center w-24 h-24 mb-6 mx-auto text-3xl font-medium rounded-full text-yellow-600 bg-yellow-200`}>{getInitial(res.name)}</div>
+                                    <div className={`flex items-center justify-center w-24 h-24 mb-6 mx-auto text-3xl font-medium rounded-full ${randomColor()}`}>{getInitial(res.name)}</div>
                                 )}
                                 <h3 className="mb-1 text-lg text-coolGray-800 font-semibold">{res.name}</h3>
                                 <span className="inline-block mb-6 text-lg font-medium text-yellow-500">{res.role}</span>

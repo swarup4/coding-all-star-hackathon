@@ -5,7 +5,7 @@ import moment from 'moment'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams, useNavigate } from 'react-router-dom'
 import { HOST_URL } from '../constants'
-import { getInitial } from '../components/helper'
+import { getInitial, randomColor } from '../components/helper'
 import Leaderboard from '../components/hackathon/Leaderboard'
 import Panel from '../components/hackathon/Panel'
 import Participants from '../components/hackathon/Participants'
@@ -98,7 +98,7 @@ export default function Hackathon() {
                                             {project.user.profilePics ? (
                                                 <img src={`https://trigent-hackathon-bucket.s3.ap-south-1.amazonaws.com/Users/${project.user.profilePics}`} className='rounded-full h-20 w-20' />
                                             ) : (
-                                                <div className={`flex items-center justify-center w-20 h-20 text-2xl font-medium rounded-full text-yellow-600 bg-yellow-200`}>{getInitial(project.user.name)}</div>
+                                                <div className={`flex items-center justify-center w-20 h-20 text-2xl font-medium rounded-full ${randomColor()}`}>{getInitial(project.user.name)}</div>
                                             )}
                                         </div>
                                         <div className="w-auto px-2 flex items-center">

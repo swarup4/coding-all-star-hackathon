@@ -10,7 +10,7 @@ import { PlusCircleIcon } from '@heroicons/react/20/solid'
 import { setNotification } from '../store/notification/notificationSlice'
 import { setUser } from '../store/user/userSlice'
 import CommonDialog from '../components/common/CommonDialog'
-import { getInitial } from '../components/helper'
+import { getInitial, randomColor } from '../components/helper'
 
 
 const initialValues = {
@@ -330,7 +330,7 @@ export default function ProfileInfo() {
                                         {imageUrl ? (
                                             <img src={imageUrl} className='h-20 w-20 rounded-full' alt="" />
                                         ) : (
-                                            <div className={`flex items-center justify-center w-16 h-16 text-2xl font-medium rounded-full text-yellow-600 bg-yellow-200 `}>{getInitial(user.name)}</div>
+                                            <div className={`flex items-center justify-center w-16 h-16 text-2xl font-medium rounded-full ${randomColor()}`}>{getInitial(user.name)}</div>
                                         )}
                                     </div>
                                     <div className="w-full md:flex-1 p-3">

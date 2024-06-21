@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import axios from '../../axiosInstance'
 import { useDispatch, useSelector } from 'react-redux'
 import { HOST_URL } from '../../constants'
-import { getInitial } from '../helper'
+import { getInitial, randomColor } from '../helper'
 import { Link, useNavigate } from 'react-router-dom'
 import { setReview } from '../../store/review/reviewSlice'
 import { setNotification } from '../../store/notification/notificationSlice'
@@ -139,7 +139,7 @@ export default function ApiList() {
                                         <div className="text-center">
                                             <p className="flex mb-1 place-content-around text-xs text-coolGray-900 font-semibold items-center">
                                                 {item.reviewUser.map((x, i) => (
-                                                    <div className={`flex items-center justify-center w-7 h-7 font-medium rounded-full text-yellow-600 bg-yellow-200`} key={i}>{getInitial(x.name)}</div>
+                                                    <div className={`flex items-center justify-center w-7 h-7 font-medium rounded-full ${randomColor()}`} key={i}>{getInitial(x.name)}</div>
                                                 ))}
                                             </p>
                                         </div>
