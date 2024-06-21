@@ -344,7 +344,7 @@ export default function ProfileInfo() {
                                             </p>
                                             <p className="text-xs text-coolGray-500 font-medium">PNG, JPG, GIF or up to 10MB</p>
                                             <p className="text-xs text-coolGray-500 font-medium">{userProfilePics?.file?.name ?? ''}</p>
-                                            <input type="file" name='profilePics' onChange={(ev) => selectImage(ev)} className="absolute top-0 left-0 w-full h-full opacity-0" />
+                                            <input type="file" name='profilePics' onChange={(ev) => selectImage(ev)} className="absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer" />
                                         </div>
                                     </div>
                                 </div>
