@@ -176,15 +176,13 @@ export default function ProfileInfo() {
     }
 
     function submitSocialMedia() {
-        let obj = {
-            name: sociaMedia.toLowerCase(),
-            url: url,
-        }
+        let obj = {};
+        obj[sociaMedia.toLowerCase()] = url
 
         const apiurl = `${HOST_URL}user/addSocialMedia/${user.id}`
         axios.put(apiurl, obj).then(res => {
+            setUserContact(prevState => ({ ...prevState, ...obj }));
             setIsOpen(false)
-            getUserDetails()
             setUrl('')
             dispatch(setNotification({
                 popup: true,
@@ -204,9 +202,8 @@ export default function ProfileInfo() {
     function getUserDetails() {
         const url = `${HOST_URL}user/info/${user.id}`
         axios.get(url).then(res => {
-            debugger;
             let data = res.data.data
-            setUserContact(data.userContact);
+            setUserContact(data?.userContact);
             initialValues.role = data.user.role ? data.user.role : '';
             initialValues.empId = data.user.empId ? data.user.empId : '';
             initialValues.manager = data.user.manager ? data.user.manager : '';
@@ -220,15 +217,6 @@ export default function ProfileInfo() {
                 let url = `https://trigent-hackathon-bucket.s3.ap-south-1.amazonaws.com/Users/${image}`
                 setImageUrl(url)
             }
-
-            // if (data.userContact?.socialMedia.length > 0) {
-            //     let contact = data.userContact?.socialMedia
-            //     let unmatched = socialMediaList.filter(item => {
-            //         let arr = contact.map(x => x.name)
-            //         return !arr.includes(item.toLowerCase())
-            //     })
-            //     setUnmatchSocialMedia(unmatched)
-            // }
         }).catch(err => {
             console.log(err)
             dispatch(setNotification({
@@ -442,51 +430,56 @@ export default function ProfileInfo() {
                                         <p className="text-sm text-coolGray-800 font-semibold">Social Media</p>
                                     </div>
 
-                                    {userContact.length > 0 ? (
-                                        <div className="flex-1 flex p-3 cursor-pointer">
-                                            {userContact.map((x, ind) => (
-                                                <div className="w-1/3" key={ind}>
-                                                    <Link className="inline-block float-left mr-4" to={x.url}>{x.name}</Link>
-                                                    <a className="inline float-left" onClick={() => addSocialMedia(x.name)}>
-                                                        <PlusCircleIcon className='w-7 text-yellow-500 hover:text-yellow-600' />
-                                                    </a>
-                                                </div>
-                                            ))}
-
-                                            {unmatchSocialMedia.map((x, ind) => (
-                                                <div className="w-1/3" key={ind}>
-                                                    <span className="inline-block float-left mr-4">Add {x}</span>
-                                                    <a className="inline float-left" onClick={() => addSocialMedia(x)}>
-                                                        <PlusCircleIcon className='w-7 text-yellow-500 hover:text-yellow-600' />
-                                                    </a>
-                                                </div>
-                                            ))}
-                                        </div>
-                                    ) : (
-                                        <div className="flex-1 flex p-3 cursor-pointer">
+                                    <div className="flex-1 flex p-3">
+                                        {userContact?.facebook ? (
                                             <div className="w-1/3">
-                                                <span className="inline-block float-left mr-4">Facebook</span>
+                                                <Link className="inline-block float-left mr-4 cursor-pointer" to={userContact.facebook}>Facebook</Link>
                                                 <a className="inline float-left" onClick={() => addSocialMedia('Facebook')}>
                                                     <PlusCircleIcon className='w-7 text-yellow-500 hover:text-yellow-600' />
                                                 </a>
                                             </div>
-
+                                        ) : (
                                             <div className="w-1/3">
-                                                <span className="inline-block float-left mr-4">Instagram</span>
-                                                <a className="inline float-left" onClick={() => addSocialMedia('Instagram')}>
+                                                <span className="inline-block float-left mr-4">Add Facebook</span>
+                                                <a className="inline float-left cursor-pointer" onClick={() => addSocialMedia('Facebook')}>
                                                     <PlusCircleIcon className='w-7 text-yellow-500 hover:text-yellow-600' />
                                                 </a>
                                             </div>
+                                        )}
 
+                                        {userContact?.linkedin ? (
                                             <div className="w-1/3">
-                                                <span className="inline-block float-left mr-4">Linkedin</span>
+                                                <Link className="inline-block float-left mr-4" to={userContact.linkedin}>Linkedin</Link>
                                                 <a className="inline float-left" onClick={() => addSocialMedia('Linkedin')}>
                                                     <PlusCircleIcon className='w-7 text-yellow-500 hover:text-yellow-600' />
                                                 </a>
                                             </div>
-                                        </div>
-                                    )}
+                                        ) : (
+                                            <div className="w-1/3">
+                                                <span className="inline-block float-left mr-4">Add Linkedin</span>
+                                                <a className="inline float-left cursor-pointer" onClick={() => addSocialMedia('Linkedin')}>
+                                                    <PlusCircleIcon className='w-7 text-yellow-500 hover:text-yellow-600' />
+                                                </a>
+                                            </div>
+                                        )}
 
+                                        {userContact?.instagram ? (
+                                            <div className="w-1/3">
+                                                <Link className="inline-block float-left mr-4" to={userContact.instagram}>Instagram</Link>
+                                                <a className="inline float-left" onClick={() => addSocialMedia('Instagram')}>
+                                                    <PlusCircleIcon className='w-7 text-yellow-500 hover:text-yellow-600' />
+                                                </a>
+                                            </div>
+                                        ) : (
+                                            <div className="w-1/3">
+                                                <span className="inline-block float-left mr-4">Add Instagram</span>
+                                                <a className="inline float-left cursor-pointer" onClick={() => addSocialMedia('Instagram')}>
+                                                    <PlusCircleIcon className='w-7 text-yellow-500 hover:text-yellow-600' />
+                                                </a>
+                                            </div>
+                                        )}
+
+                                    </div>
                                 </div>
                             </div>
                         </div>
