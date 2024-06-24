@@ -19,27 +19,23 @@ export default function Panel(props) {
                                 <div className="flex items-center justify-center">
                                     {res.social ? (
                                         <>
-                                            {res.social.socialMedia.map((x, ind) => (
-                                                <div key={ind}>
-                                                    {x.name == 'facebook' ? (
-                                                        <a className="inline-block mx-2 hover:opacity-80" href={x.url} target='_blank'>
-                                                            <img src={window.location.origin + "/flex-ui-assets/brands/facebook.svg"} alt="" />
-                                                        </a>
-                                                    ) : ''}
+                                            {res.social.facebook ? (
+                                                <a className="inline-block mx-2 hover:opacity-80" href={res.social.facebook} target='_blank'>
+                                                    <img src={window.location.origin + "/flex-ui-assets/brands/facebook.svg"} alt="" />
+                                                </a>
+                                            ) : ''}
 
-                                                    {x.name == 'linkedin' ? (
-                                                        <a className="inline-block mx-2 hover:opacity-80" href={x.url} target='_blank'>
-                                                            <img src={window.location.origin + "/flex-ui-assets/brands/linkedin.svg"} alt="" />
-                                                        </a>
-                                                    ) : ''}
+                                            {res.social.linkedin ? (
+                                                <a className="inline-block mx-2 hover:opacity-80" href={res.social.linkedin} target='_blank'>
+                                                    <img src={window.location.origin + "/flex-ui-assets/brands/linkedin.svg"} alt="" />
+                                                </a>
+                                            ) : ''}
 
-                                                    {x.name == 'instagram' ? (
-                                                        <a className="inline-block mx-2 hover:opacity-80" href={x.url} target='_blank'>
-                                                            <img src={window.location.origin + "/flex-ui-assets/brands/instagram.svg"} alt="" />
-                                                        </a>
-                                                    ) : ''}
-                                                </div>
-                                            ))}
+                                            {res.social.instagram ? (
+                                                <a className="inline-block mx-2 hover:opacity-80" href={res.social.instagram} target='_blank'>
+                                                    <img src={window.location.origin + "/flex-ui-assets/brands/instagram.svg"} alt="" />
+                                                </a>
+                                            ) : ''}
                                         </>
                                     ) : ''}
                                 </div>

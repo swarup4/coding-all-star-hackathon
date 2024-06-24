@@ -280,9 +280,8 @@ router.put("/activeDeactivateUser/:id", userMiddleware.varifyToken, (req, res) =
 router.put('/addSocialMedia/:id', userMiddleware.varifyToken, async (req, res) => {
     try {
         const userId = req.params.id;
-        const obj = req.body;
 
-        const social = await User.Contacts.findOneAndUpdate({ userId: userId }, { $push: { socialMedia: obj } }, {
+        const social = await User.Contacts.findOneAndUpdate({ userId: userId }, req.body, {
             new: true,
             upsert: true // Make this update into an upsert
         });

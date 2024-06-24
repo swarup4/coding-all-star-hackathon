@@ -39,7 +39,7 @@ export default function ProfileInfo() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const [userList, setUserList] = useState([])
-    const [userContact, setUserContact] = useState([])
+    const [userContact, setUserContact] = useState({})
     const [userProfilePics, setUserProfilePics] = useState({})
     const [sociaMedia, setSociaMedia] = useState('');
     const [url, setUrl] = useState('');
@@ -204,8 +204,9 @@ export default function ProfileInfo() {
     function getUserDetails() {
         const url = `${HOST_URL}user/info/${user.id}`
         axios.get(url).then(res => {
+            debugger;
             let data = res.data.data
-            setUserContact(data.userContact?.socialMedia ?? []);
+            setUserContact(data.userContact);
             initialValues.role = data.user.role ? data.user.role : '';
             initialValues.empId = data.user.empId ? data.user.empId : '';
             initialValues.manager = data.user.manager ? data.user.manager : '';
@@ -220,14 +221,14 @@ export default function ProfileInfo() {
                 setImageUrl(url)
             }
 
-            if (data.userContact?.socialMedia.length > 0) {
-                let contact = data.userContact?.socialMedia
-                let unmatched = socialMediaList.filter(item => {
-                    let arr = contact.map(x => x.name)
-                    return !arr.includes(item.toLowerCase())
-                })
-                setUnmatchSocialMedia(unmatched)
-            }
+            // if (data.userContact?.socialMedia.length > 0) {
+            //     let contact = data.userContact?.socialMedia
+            //     let unmatched = socialMediaList.filter(item => {
+            //         let arr = contact.map(x => x.name)
+            //         return !arr.includes(item.toLowerCase())
+            //     })
+            //     setUnmatchSocialMedia(unmatched)
+            // }
         }).catch(err => {
             console.log(err)
             dispatch(setNotification({

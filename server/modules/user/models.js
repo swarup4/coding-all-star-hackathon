@@ -40,10 +40,9 @@ const userDetailsSchema = new Schema(userDetails, { versionKey: false, timestamp
 const userContact = {
     _id: { type: objectId, auto: true },
     userId: { type: objectId, required: true },
-    socialMedia: [{
-        name: String,
-        url: String,
-    }],
+    facebook: String,
+    linkedin: String,
+    instagram: String,
     createdAt: Date,
     updatedAt: Date
 };
