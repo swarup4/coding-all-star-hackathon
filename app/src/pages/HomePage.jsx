@@ -117,11 +117,11 @@ export default function HomePage() {
                         <img className="absolute h-64 left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 object-cover" src={window.location.origin + "/flex-ui-assets/elements/dashboard/banners/wave.svg"} alt="" />
                         <div className="relative z-20 flex flex-wrap items-center -m-3">
                             <div className="w-full md:w-1/2 p-3">
-                                <h2 className="mb-6 text-4xl font-bold text-white tracking-tighter">Hackathon's <br /> for Developers <br /> by Developers</h2>
+                                <h2 className="mb-6 text-4xl font-bold text-white tracking-tighter">Hackathons <br /> for Developers <br /> by Developers</h2>
                                 <ul className="flex flex-wrap">
                                     <li className="flex items-center mr-6 text-sm text-coolGray-300 font-semibold">
                                         <img className="relative top-px mr-2" src={window.location.origin + "/flex-ui-assets/elements/dashboard/banners/checkbox-green.svg"} />
-                                        <span>Leader Board</span>
+                                        <span>Leaderboard</span>
                                     </li>
                                     <li className="flex items-center mr-6 text-sm text-coolGray-300 font-semibold">
                                         <img className="relative top-px mr-2" src={window.location.origin + "/flex-ui-assets/elements/dashboard/banners/checkbox-green.svg"} />
@@ -147,14 +147,14 @@ export default function HomePage() {
             <section className="py-20 xl:pt-24 bg-white theme-background">
                 <div className="container px-4 mx-auto">
                     <div className="mb-8 text-center">
-                        <h3 className="mb-4 text-4xl md:text-5xl text-coolGray-900 font-bold tracking-tighter" contentEditable="false">Builth with love for &amp; by</h3>
+                        <h3 className="mb-4 text-4xl md:text-5xl text-coolGray-900 font-bold tracking-tighter" contentEditable="false">Built with love for &amp; by</h3>
                     </div>
                     <div className="flex flex-wrap justify-center -mx-4">
                         <div className="flex items-center h-32 md:h-36 px-4 md:px-8 rounded-md bg-coolGray-50 shadow-md">
                             <img className="mx-auto" src="https://static.shuffle.dev/uploads/files/a4/a4fc302b23b342fd2989f185f7507831a1d74ff0/Trigent-Axlr8-Labs.png" alt="" contentEditable="false" />
                         </div>
                         <div className="mb-8 text-center">
-                            <p className="text-lg md:text-xl text-coolGray-500 font-medium" contentEditable="false">Managed Hackathon platform that combines Industry Experience, Artificial Inteligence &amp; Community Engagement.</p>
+                            <p className="text-lg md:text-xl text-coolGray-500 font-medium" contentEditable="false">Managed Hackathon platform that combines Industry Experience, Artificial Intelligence &amp; Community Engagement.</p>
                         </div>
                     </div>
                 </div>

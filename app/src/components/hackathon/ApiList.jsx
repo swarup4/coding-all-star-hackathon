@@ -139,7 +139,9 @@ export default function ApiList() {
                                         <div className="text-center">
                                             <p className="flex mb-1 place-content-around text-xs text-coolGray-900 font-semibold items-center">
                                                 {item.reviewUser.map((x, i) => (
-                                                    <div className={`flex items-center justify-center w-7 h-7 font-medium rounded-full ${randomColor()}`} key={i}>{getInitial(x.name)}</div>
+                                                    <div className="tooltip tooltip-bottom" data-tip={x.name}>
+                                                        <div className={`flex items-center justify-center w-7 h-7 font-medium rounded-full ${randomColor()}`} key={i}>{getInitial(x.name)}</div>
+                                                    </div>
                                                 ))}
                                             </p>
                                         </div>
@@ -150,7 +152,7 @@ export default function ApiList() {
                     ))}
                 </>
             ) : (
-                <EmptyContent />
+                <EmptyContent heading="You don't have any submission." content="Create a submission using click <b>Create Submission</b> button" />
             )}
 
             <CommonDialog heading='Api Details' dialog='large' open={isOpen} close={setIsOpen}>

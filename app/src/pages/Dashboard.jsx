@@ -8,6 +8,7 @@ import { selectProject } from '../store/hackathon/hackathonSlice'
 import { HOST_URL } from '../constants'
 import { setNotification } from '../store/notification/notificationSlice'
 import { ArrowDownIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline'
+import EmptyContent from '../components/common/EmptyContent'
 
 
 export default function Dashboard() {
@@ -109,35 +110,43 @@ export default function Dashboard() {
                         <li className="w-full md:w-auto px-2 cursor-pointer"><a onClick={() => selectTab(3)} className={`inline-block w-full py-2 px-4 mb-4 md:mb-0 text-sm text-coolGray-400 hover:text-yellow-500 hover:bg-yellow-200 font-bold rounded-md hover:shadow-sm ${tab == 3 ? 'tab-active' : ''}`}>Past</a></li>
                     </ul>
                     <div className="flex flex-wrap -mx-4 mb-12 md:mb-20">
-                        {hackathon.map((item, ind) => (
-                            <div className="w-full md:w-1/2 px-4 mb-8" key={ind}>
-                                <a className="block mb-6 overflow-hidden rounded-md cursor-pointer" onClick={() => select(item)}>
-                                    <img className="w-full" src={`https://trigent-hackathon-bucket.s3.ap-south-1.amazonaws.com/Hackathon-Banner/${item.banner}`} alt="" style={{ height: '400px' }} />
-                                </a>
-                                <div className="mb-4">
-                                    <span className="inline-block py-1 px-3 text-xs leading-5 text-yellow-500 hover:text-yellow-600 font-medium uppercase bg-yellow-100 hover:bg-yellow-200 rounded-full shadow-sm">{item.theme}</span>
-                                </div>
-                                <p className="mb-2 text-coolGray-500 font-medium">{item.user.name} • {moment(item.createdAt).format('Do MMMM YYYY')}</p>
-                                <a onClick={() => select(item)} className="block mb-4 cursor-pointer text-2xl md:text-3xl leading-tight text-coolGray-800 hover:text-coolGray-900 font-bold hover:underline">{item.name}</a>
+                        {hackathon.length > 0 ? (
+                            <>
+                                {hackathon.map((item, ind) => (
+                                    <div className="w-full md:w-1/2 px-4 mb-8" key={ind}>
+                                        <a className="block mb-6 overflow-hidden rounded-md cursor-pointer" onClick={() => select(item)}>
+                                            <img className="w-full" src={`https://trigent-hackathon-bucket.s3.ap-south-1.amazonaws.com/Hackathon-Banner/${item.banner}`} alt="" style={{ height: '400px' }} />
+                                        </a>
+                                        <div className="mb-4">
+                                            <span className="inline-block py-1 px-3 text-xs leading-5 text-yellow-500 hover:text-yellow-600 font-medium uppercase bg-yellow-100 hover:bg-yellow-200 rounded-full shadow-sm">{item.theme}</span>
+                                        </div>
+                                        <p className="mb-2 text-coolGray-500 font-medium">{item.user.name} • {moment(item.createdAt).format('Do MMMM YYYY')}</p>
+                                        <a onClick={() => select(item)} className="block mb-4 cursor-pointer text-2xl md:text-3xl leading-tight text-coolGray-800 hover:text-coolGray-900 font-bold hover:underline">{item.name}</a>
 
-                                {getParticipate(item.appliedUser) ? (
-                                    <div>
-                                        <svg className="relative mr-2 inline" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M12.4732 4.80667C12.4112 4.74418 12.3375 4.69458 12.2563 4.66074C12.175 4.62689 12.0879 4.60947 11.9999 4.60947C11.9119 4.60947 11.8247 4.62689 11.7435 4.66074C11.6623 4.69458 11.5885 4.74418 11.5266 4.80667L6.55989 9.78L4.47322 7.68667C4.40887 7.62451 4.33291 7.57563 4.24967 7.54283C4.16644 7.51003 4.07755 7.49394 3.9881 7.49549C3.89865 7.49703 3.81037 7.51619 3.72832 7.55185C3.64627 7.58751 3.57204 7.63898 3.50989 7.70333C3.44773 7.76768 3.39885 7.84364 3.36605 7.92688C3.33324 8.01011 3.31716 8.099 3.31871 8.18845C3.32025 8.2779 3.3394 8.36618 3.37507 8.44823C3.41073 8.53028 3.4622 8.60451 3.52655 8.66667L6.08655 11.2267C6.14853 11.2892 6.22226 11.3387 6.3035 11.3726C6.38474 11.4064 6.47188 11.4239 6.55989 11.4239C6.64789 11.4239 6.73503 11.4064 6.81627 11.3726C6.89751 11.3387 6.97124 11.2892 7.03322 11.2267L12.4732 5.78667C12.5409 5.72424 12.5949 5.64847 12.6318 5.56414C12.6688 5.4798 12.6878 5.38873 12.6878 5.29667C12.6878 5.2046 12.6688 5.11353 12.6318 5.02919C12.5949 4.94486 12.5409 4.86909 12.4732 4.80667Z" fill="#2AD168"></path>
-                                        </svg>
-                                        <span>Applied</span>
+                                        {getParticipate(item.appliedUser) ? (
+                                            <div>
+                                                <svg className="relative mr-2 inline" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M12.4732 4.80667C12.4112 4.74418 12.3375 4.69458 12.2563 4.66074C12.175 4.62689 12.0879 4.60947 11.9999 4.60947C11.9119 4.60947 11.8247 4.62689 11.7435 4.66074C11.6623 4.69458 11.5885 4.74418 11.5266 4.80667L6.55989 9.78L4.47322 7.68667C4.40887 7.62451 4.33291 7.57563 4.24967 7.54283C4.16644 7.51003 4.07755 7.49394 3.9881 7.49549C3.89865 7.49703 3.81037 7.51619 3.72832 7.55185C3.64627 7.58751 3.57204 7.63898 3.50989 7.70333C3.44773 7.76768 3.39885 7.84364 3.36605 7.92688C3.33324 8.01011 3.31716 8.099 3.31871 8.18845C3.32025 8.2779 3.3394 8.36618 3.37507 8.44823C3.41073 8.53028 3.4622 8.60451 3.52655 8.66667L6.08655 11.2267C6.14853 11.2892 6.22226 11.3387 6.3035 11.3726C6.38474 11.4064 6.47188 11.4239 6.55989 11.4239C6.64789 11.4239 6.73503 11.4064 6.81627 11.3726C6.89751 11.3387 6.97124 11.2892 7.03322 11.2267L12.4732 5.78667C12.5409 5.72424 12.5949 5.64847 12.6318 5.56414C12.6688 5.4798 12.6878 5.38873 12.6878 5.29667C12.6878 5.2046 12.6688 5.11353 12.6318 5.02919C12.5949 4.94486 12.5409 4.86909 12.4732 4.80667Z" fill="#2AD168"></path>
+                                                </svg>
+                                                <span>Applied</span>
+                                            </div>
+                                        ) : (
+                                            <a onClick={() => participate(item._id)} className="cursor-pointer inline-flex items-center text-base md:text-lg text-yellow-500 hover:text-yellow-600 font-semibold po">
+                                                <span className="mr-3">Participate</span>
+                                                <svg width="8" height="10" viewBox="0 0 8 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M7.94667 4.74665C7.91494 4.66481 7.86736 4.59005 7.80666 4.52665L4.47333 1.19331C4.41117 1.13116 4.33738 1.08185 4.25617 1.04821C4.17495 1.01457 4.08791 0.997253 4 0.997253C3.82246 0.997253 3.6522 1.06778 3.52667 1.19331C3.46451 1.25547 3.4152 1.32927 3.38156 1.41048C3.34792 1.4917 3.33061 1.57874 3.33061 1.66665C3.33061 1.84418 3.40113 2.01445 3.52667 2.13998L5.72667 4.33331H0.666667C0.489856 4.33331 0.320286 4.40355 0.195262 4.52858C0.070238 4.6536 0 4.82317 0 4.99998C0 5.17679 0.070238 5.34636 0.195262 5.47138C0.320286 5.59641 0.489856 5.66665 0.666667 5.66665H5.72667L3.52667 7.85998C3.46418 7.92196 3.41458 7.99569 3.38074 8.07693C3.34689 8.15817 3.32947 8.24531 3.32947 8.33331C3.32947 8.42132 3.34689 8.50846 3.38074 8.5897C3.41458 8.67094 3.46418 8.74467 3.52667 8.80665C3.58864 8.86913 3.66238 8.91873 3.74361 8.95257C3.82485 8.98642 3.91199 9.00385 4 9.00385C4.08801 9.00385 4.17514 8.98642 4.25638 8.95257C4.33762 8.91873 4.41136 8.86913 4.47333 8.80665L7.80666 5.47331C7.86736 5.40991 7.91494 5.33515 7.94667 5.25331C8.01334 5.09101 8.01334 4.90895 7.94667 4.74665Z" fill="currentColor"></path>
+                                                </svg>
+                                            </a>
+                                        )}
+
                                     </div>
-                                ) : (
-                                    <a onClick={() => participate(item._id)} className="cursor-pointer inline-flex items-center text-base md:text-lg text-yellow-500 hover:text-yellow-600 font-semibold po">
-                                        <span className="mr-3">Participate</span>
-                                        <svg width="8" height="10" viewBox="0 0 8 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M7.94667 4.74665C7.91494 4.66481 7.86736 4.59005 7.80666 4.52665L4.47333 1.19331C4.41117 1.13116 4.33738 1.08185 4.25617 1.04821C4.17495 1.01457 4.08791 0.997253 4 0.997253C3.82246 0.997253 3.6522 1.06778 3.52667 1.19331C3.46451 1.25547 3.4152 1.32927 3.38156 1.41048C3.34792 1.4917 3.33061 1.57874 3.33061 1.66665C3.33061 1.84418 3.40113 2.01445 3.52667 2.13998L5.72667 4.33331H0.666667C0.489856 4.33331 0.320286 4.40355 0.195262 4.52858C0.070238 4.6536 0 4.82317 0 4.99998C0 5.17679 0.070238 5.34636 0.195262 5.47138C0.320286 5.59641 0.489856 5.66665 0.666667 5.66665H5.72667L3.52667 7.85998C3.46418 7.92196 3.41458 7.99569 3.38074 8.07693C3.34689 8.15817 3.32947 8.24531 3.32947 8.33331C3.32947 8.42132 3.34689 8.50846 3.38074 8.5897C3.41458 8.67094 3.46418 8.74467 3.52667 8.80665C3.58864 8.86913 3.66238 8.91873 3.74361 8.95257C3.82485 8.98642 3.91199 9.00385 4 9.00385C4.08801 9.00385 4.17514 8.98642 4.25638 8.95257C4.33762 8.91873 4.41136 8.86913 4.47333 8.80665L7.80666 5.47331C7.86736 5.40991 7.91494 5.33515 7.94667 5.25331C8.01334 5.09101 8.01334 4.90895 7.94667 4.74665Z" fill="currentColor"></path>
-                                        </svg>
-                                    </a>
-                                )}
-
+                                ))}
+                            </>
+                        ) : (
+                            <div className='flex flex-wrap w-full h-52'>
+                                <EmptyContent heading="No hackathon found" content="Please try again later"/>
                             </div>
-                        ))}
+                        )}
                     </div>
                     {/* <a className="flex items-center justify-center py-2 px-4 mx-auto text-sm leading-5 text-yellow-50 font-medium bg-yellow-500 hover:bg-yellow-600 focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-50 md:max-w-max rounded-md" href="#">
                         <span className="mr-3">View more</span>
