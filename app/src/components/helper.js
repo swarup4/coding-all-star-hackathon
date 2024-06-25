@@ -15,7 +15,12 @@ import { ruby } from '@codemirror/legacy-modes/mode/ruby';
 export const getInitial = (name) => {
     if(name){
         let arr = name.split(' ')
-        let initial = arr[0][0] + arr[1][0]
+        let initial = ''
+        if(arr.length > 1){
+            initial = arr[0][0] + arr[1][0]
+        } else {
+            initial = arr[0][0]
+        }
         return initial;
     }
 }
