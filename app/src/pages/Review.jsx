@@ -126,8 +126,8 @@ export default function Review() {
                         </div>
                         <div className="w-full md:w-1/2 p-2">
                             <div className="relative md:max-w-max md:ml-auto">
-                                <MagnifyingGlassIcon className="absolute left-3 transform top-1/2 -translate-y-1/2 stroke-2" width="16" height="16" />
-                                <input type="text" name='search' placeholder="Search" onChange={ev => searchText(ev.target.value)} className="w-full md:w-64 pl-8 pr-4 py-2 text-sm text-coolGray-400 font-medium outline-none focus:border-yellow-500 border border-coolGray-200 rounded-lg shadow-input" />
+                                <MagnifyingGlassIcon className="absolute left-3 text-coolGray-500 transform top-1/2 -translate-y-1/2 w-5 h-5 stroke-2" />
+                                <input type="text" name='search' placeholder="Search" onChange={ev => searchText(ev.target.value)} className="w-full md:w-64 pl-8 pr-4 py-2 text-sm text-coolGray-500 font-medium outline-none focus:border-yellow-500 border border-coolGray-200 rounded-lg shadow-input" />
                             </div>
                         </div>
                     </div>
@@ -174,10 +174,10 @@ export default function Review() {
                                                     <>
                                                         {reviewEligible(item.review) ? (
                                                             <a className='cursor-pointer' onClick={() => viewDialog(item.apiId, item.userId)}>
-                                                                <EyeIcon className='ml-auto h-4 w-4 text-coolGray-400 stroke-2' />
+                                                                <EyeIcon className='h-5 w-5 text-coolGray-400 stroke-2' />
                                                             </a>
                                                         ) : (
-                                                            <CheckIcon className='text-green-500 stroke-2' />
+                                                            <CheckIcon className='text-green-500 h-5 w-5 stroke-2' />
                                                         )}
                                                     </>
                                                 ) : ''}

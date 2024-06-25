@@ -85,7 +85,7 @@ export default function ApiList() {
                                                 <div className='w-full flex justify-center'>
                                                     <div className='md:w-1/2'>
                                                         <button onClick={() => sendApiId(item._id)} className="px-4 py-2 w-11/12 font-medium text-sm text-white bg-yellow-500 hover:bg-yellow-600 rounded-md">
-                                                            <EyeIcon className="mr-2 w-5 h-5 inline stroke-2" />
+                                                            <EyeIcon className="mr-2 h-5 w-5 stroke-2 inline" />
                                                             <span>View</span>
                                                         </button>
                                                     </div>
@@ -100,7 +100,7 @@ export default function ApiList() {
                                                     </div>
                                                     <div className='md:w-1/2 float-left'>
                                                         <button className="float-right w-11/12 px-4 py-2 font-medium text-sm border rounded-md" onClick={() => navigate(`/dashboard/details/${item._id}`)}>
-                                                            <PencilSquareIcon className="mr-2 w-5 h-5 inline stroke-2" />
+                                                            <PencilSquareIcon className="mr-2 h-5 w-5 stroke-2 inline" />
                                                             <span className='inline'>Edit</span>
                                                         </button>
                                                     </div>
@@ -109,7 +109,7 @@ export default function ApiList() {
                                         </div>
                                     ) : (
                                         <button className="flex items-center px-4 py-2 font-medium text-sm border rounded-md" onClick={() => navigate(`/dashboard/details/${item._id}`)}>
-                                            <PencilSquareIcon className="mr-2 w-5 h-5 inline stroke-2" />
+                                            <PencilSquareIcon className="mr-2 h-5 w-5 stroke-2 inline" />
                                             <p>Add API Code</p>
                                         </button>
                                     )}

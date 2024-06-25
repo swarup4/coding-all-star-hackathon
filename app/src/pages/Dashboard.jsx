@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { selectProject } from '../store/hackathon/hackathonSlice'
 import { HOST_URL } from '../constants'
 import { setNotification } from '../store/notification/notificationSlice'
-import { ArrowDownIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline'
+import { CheckIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline'
 import EmptyContent from '../components/common/EmptyContent'
 
 
@@ -98,9 +98,8 @@ export default function Dashboard() {
                         <h3 className="mb-4 text-3xl md:text-5xl leading-tight text-darkCoolGray-900 font-bold tracking-tighter">Our mission is to make knowledge and news accessible for everyone.</h3>
                         <p className="mb-10 text-lg md:text-xl text-coolGray-500 font-medium">Unlock Your Inner Innovator: Join the Revolutionary All Stars Hackathon for Simplified Technology and Transparent Innovation!</p>
                         <div className="relative mx-auto md:w-80">
-                            {/* <img className="absolute top-1/2 left-4 transform -translate-y-1/2" src={"/flex-ui-assets/elements/blog/search.svg"} alt="" /> */}
-                            <MagnifyingGlassIcon className="absolute left-3 transform top-1/2 -translate-y-1/2 stroke-2" width="16" height="16" />
-                            <input type="text" placeholder="Search" onChange={(ev) => search(ev.target.value)} className="w-full py-3 pl-12 pr-4 text-coolGray-900 leading-tight placeholder-coolGray-500 border border-coolGray-200 rounded-lg shadow-xsm focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-50" />
+                            <MagnifyingGlassIcon className="absolute left-3 text-coolGray-500 transform top-1/2 -translate-y-1/2 h-5 w-5 stroke-2" />
+                            <input type="text" placeholder="Search" onChange={(ev) => search(ev.target.value)} className="w-full py-3 pl-12 pr-4 text-coolGray-500 leading-tight placeholder-coolGray-500 border border-coolGray-200 rounded-lg shadow-xsm focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-50" />
                         </div>
                     </div>
                     <ul className="flex flex-wrap mb-8 -mx-2 text-center">
@@ -125,9 +124,7 @@ export default function Dashboard() {
 
                                         {getParticipate(item.appliedUser) ? (
                                             <div>
-                                                <svg className="relative mr-2 inline" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M12.4732 4.80667C12.4112 4.74418 12.3375 4.69458 12.2563 4.66074C12.175 4.62689 12.0879 4.60947 11.9999 4.60947C11.9119 4.60947 11.8247 4.62689 11.7435 4.66074C11.6623 4.69458 11.5885 4.74418 11.5266 4.80667L6.55989 9.78L4.47322 7.68667C4.40887 7.62451 4.33291 7.57563 4.24967 7.54283C4.16644 7.51003 4.07755 7.49394 3.9881 7.49549C3.89865 7.49703 3.81037 7.51619 3.72832 7.55185C3.64627 7.58751 3.57204 7.63898 3.50989 7.70333C3.44773 7.76768 3.39885 7.84364 3.36605 7.92688C3.33324 8.01011 3.31716 8.099 3.31871 8.18845C3.32025 8.2779 3.3394 8.36618 3.37507 8.44823C3.41073 8.53028 3.4622 8.60451 3.52655 8.66667L6.08655 11.2267C6.14853 11.2892 6.22226 11.3387 6.3035 11.3726C6.38474 11.4064 6.47188 11.4239 6.55989 11.4239C6.64789 11.4239 6.73503 11.4064 6.81627 11.3726C6.89751 11.3387 6.97124 11.2892 7.03322 11.2267L12.4732 5.78667C12.5409 5.72424 12.5949 5.64847 12.6318 5.56414C12.6688 5.4798 12.6878 5.38873 12.6878 5.29667C12.6878 5.2046 12.6688 5.11353 12.6318 5.02919C12.5949 4.94486 12.5409 4.86909 12.4732 4.80667Z" fill="#2AD168"></path>
-                                                </svg>
+                                                <CheckIcon className='relative mr-2 text-green-500 inline h-5 w-5 stroke-2' />
                                                 <span>Applied</span>
                                             </div>
                                         ) : (

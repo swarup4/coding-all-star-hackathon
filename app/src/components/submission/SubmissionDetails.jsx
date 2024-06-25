@@ -216,7 +216,7 @@ export default function SubmissionDetails(props) {
                                             <p className="text-sm text-coolGray-800 font-semibold">API Code</p>
                                         </div>
                                         <a className="flex-1 p-3 cursor-pointer" onClick={() => codeDialogs('code', submission.code)}>
-                                            <PlusCircleIcon className='w-7 text-yellow-500 hover:text-yellow-600' />
+                                            <PlusCircleIcon className='h-5 w-5 stroke-2 text-yellow-500 hover:text-yellow-600' />
                                         </a>
                                     </div>
                                 </div>
@@ -228,7 +228,7 @@ export default function SubmissionDetails(props) {
                                             <p className="text-sm text-coolGray-800 font-semibold">API Env Variable</p>
                                         </div>
                                         <a className="flex-1 p-3 cursor-pointer" onClick={() => codeDialogs('env', submission.envVariable)}>
-                                            <PlusCircleIcon className='w-7 text-yellow-500 hover:text-yellow-600' />
+                                            <PlusCircleIcon className='h-5 w-5 stroke-2 text-yellow-500 hover:text-yellow-600' />
                                         </a>
                                     </div>
                                 </div>
@@ -240,7 +240,7 @@ export default function SubmissionDetails(props) {
                                             <p className="text-sm text-coolGray-800 font-semibold">API Unit Test Cases</p>
                                         </div>
                                         <a className="flex-1 p-3 cursor-pointer" onClick={() => codeDialogs('test', submission.unitTest)}>
-                                            <PlusCircleIcon className='w-7 text-yellow-500 hover:text-yellow-600' />
+                                            <PlusCircleIcon className='h-5 w-5 stroke-2 text-yellow-500 hover:text-yellow-600' />
                                         </a>
                                     </div>
                                 </div>
@@ -252,7 +252,7 @@ export default function SubmissionDetails(props) {
                                             <p className="text-sm text-coolGray-800 font-semibold">Video Link</p>
                                         </div>
                                         <a className="flex-1 p-3 cursor-pointer" onClick={() => openModal()}>
-                                            <PlusCircleIcon className='w-7 text-yellow-500 hover:text-yellow-600' />
+                                            <PlusCircleIcon className='h-5 w-5 stroke-2 text-yellow-500 hover:text-yellow-600' />
                                         </a>
                                     </div>
                                 </div>

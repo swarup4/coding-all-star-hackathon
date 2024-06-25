@@ -128,7 +128,7 @@ export default function UserHeader() {
                                             </div>
                                             <div className="dropdown dropdown-end">
                                                 <a href='#' className="block max-w-max my-4 text-coolGray-500 hover:text-coolGray-600">
-                                                    <ChevronDownIcon className="h-4 w-4 text-grey-500 stroke-2" />
+                                                    <ChevronDownIcon className="h-5 w-5 stroke-2 text-grey-500" />
                                                 </a>
                                                 <ul className="p-2 shadow menu dropdown-content z-20 bg-white rounded-box w-52">
                                                     <li><Link to='/dashboard/profile'>Profile</Link></li>

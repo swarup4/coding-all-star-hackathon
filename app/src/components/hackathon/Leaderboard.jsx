@@ -44,8 +44,8 @@ export default function Leaderboard(props) {
                     </div>
                     <div className="w-full md:w-1/2 p-2">
                         <div className="relative md:max-w-max md:ml-auto">
-                            <MagnifyingGlassIcon className="absolute left-3 transform top-1/2 -translate-y-1/2 stroke-2" width="16" height="16" />
-                            <input type="text" placeholder="Search" name="search" onChange={ev => searchText(ev.target.value)} className="w-full md:w-64 pl-8 pr-4 py-2 text-sm text-coolGray-400 font-medium outline-none focus:border-yellow-500 border border-coolGray-200 rounded-lg shadow-input" />
+                            <MagnifyingGlassIcon className="absolute left-3 text-coolGray-500 transform top-1/2 -translate-y-1/2 h-5 w-5 stroke-2" />
+                            <input type="text" placeholder="Search" name="search" onChange={ev => searchText(ev.target.value)} className="w-full md:w-64 pl-8 pr-4 py-2 text-sm text-coolGray-500 font-medium outline-none focus:border-yellow-500 border border-coolGray-200 rounded-lg shadow-input" />
                         </div>
                     </div>
                 </div>

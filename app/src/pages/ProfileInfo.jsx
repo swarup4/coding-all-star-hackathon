@@ -435,14 +435,14 @@ export default function ProfileInfo() {
                                             <div className="w-1/3">
                                                 <Link className="inline-block float-left mr-4 cursor-pointer" to={userContact.facebook}>Facebook</Link>
                                                 <a className="inline float-left cursor-pointer" onClick={() => addSocialMedia('Facebook')}>
-                                                    <PlusCircleIcon className='w-7 text-yellow-500 hover:text-yellow-600' />
+                                                    <PlusCircleIcon className='w-7 h-7 stroke-2 text-yellow-500 hover:text-yellow-600' />
                                                 </a>
                                             </div>
                                         ) : (
                                             <div className="w-1/3">
                                                 <span className="inline-block float-left mr-4">Add Facebook</span>
                                                 <a className="inline float-left cursor-pointer" onClick={() => addSocialMedia('Facebook')}>
-                                                    <PlusCircleIcon className='w-7 text-yellow-500 hover:text-yellow-600' />
+                                                    <PlusCircleIcon className='w-7 h-7 stroke-2 text-yellow-500 hover:text-yellow-600' />
                                                 </a>
                                             </div>
                                         )}
@@ -451,14 +451,14 @@ export default function ProfileInfo() {
                                             <div className="w-1/3">
                                                 <Link className="inline-block float-left mr-4" to={userContact.linkedin}>Linkedin</Link>
                                                 <a className="inline float-left cursor-pointer" onClick={() => addSocialMedia('Linkedin')}>
-                                                    <PlusCircleIcon className='w-7 text-yellow-500 hover:text-yellow-600' />
+                                                    <PlusCircleIcon className='w-7 h-7 stroke-2 text-yellow-500 hover:text-yellow-600' />
                                                 </a>
                                             </div>
                                         ) : (
                                             <div className="w-1/3">
                                                 <span className="inline-block float-left mr-4">Add Linkedin</span>
                                                 <a className="inline float-left cursor-pointer" onClick={() => addSocialMedia('Linkedin')}>
-                                                    <PlusCircleIcon className='w-7 text-yellow-500 hover:text-yellow-600' />
+                                                    <PlusCircleIcon className='w-7 h-7 stroke-2 text-yellow-500 hover:text-yellow-600' />
                                                 </a>
                                             </div>
                                         )}
@@ -467,14 +467,14 @@ export default function ProfileInfo() {
                                             <div className="w-1/3">
                                                 <Link className="inline-block float-left mr-4" to={userContact.instagram}>Instagram</Link>
                                                 <a className="inline float-left cursor-pointer" onClick={() => addSocialMedia('Instagram')}>
-                                                    <PlusCircleIcon className='w-7 text-yellow-500 hover:text-yellow-600' />
+                                                    <PlusCircleIcon className='w-7 h-7 stroke-2 text-yellow-500 hover:text-yellow-600' />
                                                 </a>
                                             </div>
                                         ) : (
                                             <div className="w-1/3">
                                                 <span className="inline-block float-left mr-4">Add Instagram</span>
                                                 <a className="inline float-left cursor-pointer" onClick={() => addSocialMedia('Instagram')}>
-                                                    <PlusCircleIcon className='w-7 text-yellow-500 hover:text-yellow-600' />
+                                                    <PlusCircleIcon className='w-7 h-7 stroke-2 text-yellow-500 hover:text-yellow-600' />
                                                 </a>
                                             </div>
                                         )}

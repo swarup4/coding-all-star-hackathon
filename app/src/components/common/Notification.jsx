@@ -28,7 +28,7 @@ export default function Notification(props) {
                                     <div className="flex-1 p-2">
                                         <div className="flex flex-wrap -m-1">
                                             <div className="w-auto p-1">
-                                                <XCircleIcon className="relative top-0.5 h-5 w-5 text-red-500 stroke-2" />
+                                                <XCircleIcon className="relative top-0.5 text-red-500 h-5 w-5 stroke-2" />
                                             </div>
                                             <div className="flex-1 p-1">
                                                 <h3 className="font-medium text-sm text-red-900">Error!&nbsp; {props.notification.message}</h3>
@@ -37,7 +37,7 @@ export default function Notification(props) {
                                     </div>
                                     <div className="w-auto p-2">
                                         <a className='cursor-pointer' onClick={() => close()}>
-                                            <XMarkIcon className="h-4 w-4 text-red-500 stroke-2" />
+                                            <XMarkIcon className="h-5 w-5 stroke-2 text-red-500" />
                                         </a>
                                     </div>
                                 </div>
@@ -48,7 +48,7 @@ export default function Notification(props) {
                                     <div className="flex-1 p-2">
                                         <div className="flex flex-wrap -m-1">
                                             <div className="w-auto p-1">
-                                                <CheckIcon className="relative top-0.5 h-4 w-4 text-green-500 stroke-2" />
+                                                <CheckIcon className="relative top-0.5 h-5 w-5 stroke-2 text-green-500" />
                                             </div>
                                             <div className="flex-1 p-1">
                                                 <h3 className="font-medium text-sm text-green-900">Success!&nbsp; {props.notification.message}</h3>
@@ -57,7 +57,7 @@ export default function Notification(props) {
                                     </div>
                                     <div className="w-auto p-2">
                                         <a className='cursor-pointer' onClick={() => close()}>
-                                            <XMarkIcon className="h-4 w-4 text-green-500 stroke-2" />
+                                            <XMarkIcon className="h-5 w-5 stroke-2 text-green-500" />
                                         </a>
                                     </div>
                                 </div>

@@ -61,12 +61,12 @@ export default function HackathonList() {
                                     <div className='float-right'>
                                         <Link to={`/admin/editHackathon/${item._id}`} style={{ lineHeight: '30px' }} className="inline-flex mr-5 items-center text-base md:text-lg text-yellow-500 hover:text-yellow-600 font-semibold">
                                             <span className="mr-2">Edit</span>
-                                            <PencilSquareIcon className='h-4 stroke-2' />
+                                            <PencilSquareIcon className='h-5 w-5 stroke-2' />
                                         </Link>
 
                                         <a onClick={() => removeHackathon(item._id)} style={{ lineHeight: '30px' }} className="inline-flex cursor-pointer items-center text-base md:text-lg text-yellow-500 hover:text-yellow-600 font-semibold">
                                             <span className="mr-2">Delete</span>
-                                            <TrashIcon className='h-4 stroke-2' />
+                                            <TrashIcon className='h-5 w-5 stroke-2' />
                                         </a>
                                     </div>
                                 </div>
@@ -77,7 +77,7 @@ export default function HackathonList() {
                                 <p className="mb-2 text-coolGray-500 font-medium">{item.user.name} • {moment(item.createdAt).format('Do MMMM YYYY')}</p>
                                 <Link to={`/dashboard/hackathon/${item._id}`} className="inline-flex items-center text-base md:text-lg text-yellow-500 hover:text-yellow-600 font-semibold">
                                     <span className="mr-2">View Hackathon</span>
-                                    <ArrowRightIcon className='h-4 stroke-2' />
+                                    <ArrowRightIcon className='h-5 w-5 stroke-2' />
                                 </Link>
                             </div>
                         </div>
