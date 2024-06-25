@@ -110,9 +110,6 @@ export default function Hackathon() {
                                             <button type="button" onClick={() => navigate(`/dashboard/submission/${id}`)} className="float-right inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium bg-yellow-500 hover:bg-yellow-600 font-medium text-sm text-white border border-yellow-500 rounded-md shadow-button">
                                                 Create Submission
                                             </button>
-                                            // <div className="tooltip" data-tip="hello">
-                                            //     <button className="btn">Hover me</button>
-                                            // </div>
                                         ) : (
                                             <button type="button" onClick={() => participate(id)} className="float-right inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium bg-yellow-500 hover:bg-yellow-600 font-medium text-sm text-white border border-yellow-500 rounded-md shadow-button">
                                                 Participate
