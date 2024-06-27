@@ -86,3 +86,12 @@ export const getExtensions = (language) => {
 
     return extension;
 }
+
+export const getParticipate = (applied, userId) => {
+    for (let i of applied) {
+        if (i._id === userId) {
+            return true;
+        }
+    }
+    return false;
+}

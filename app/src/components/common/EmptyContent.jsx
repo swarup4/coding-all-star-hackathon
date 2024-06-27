@@ -10,7 +10,7 @@ export default function EmptyContent(props) {
                             <div className="flex flex-wrap -m-1">
                                 <div className="flex-1 p-1">
                                     <h3 className="mb-0.5 font-medium text-md text-cyan-900">Info!&nbsp; {props.heading}</h3>
-                                    <p className="font-medium text-sm text-cyan-700">{props.content}</p>
+                                    <p className="font-medium text-sm text-cyan-700" dangerouslySetInnerHTML={{ __html: props.content }}></p>
                                 </div>
                             </div>
                         </div>

@@ -10,22 +10,20 @@ import { setNotification } from '../../store/notification/notificationSlice'
 
 const initialValues = {
     name: '',
-    category: '',
+    // category: '',
     apiEndPoint: '',
     apiVersion: '',
     documentationLink: '',
     programmingLanguage: '',
-    // requirementApproach: '',
     description: '',
 }
 const schema = object().shape({
     name: string().required('Enter your API Name'),
-    category: string().required('Enter your Project Category'),
+    // category: string().required('Enter your Project Category'),
     apiEndPoint: string().required('Enter API End point'),
     apiVersion: string().required('Enter your API End Point Version'),
     documentationLink: string().required('Enter your API Documentation Link'),
     programmingLanguage: string().required('Select your Programming Language'),
-    // requirementApproach: string().required('Enter your API requirment approach'),   // field was not added in the form, ie why not submitting it.
     description: string().required('Enter your API description'),
 })
 
@@ -107,7 +105,7 @@ export default function SubmissionForm(props) {
                         </div>
                     </div>
                 </div>
-                <div className="py-6 border-b border-coolGray-100">
+                {/* <div className="py-6 border-b border-coolGray-100">
                     <div className="w-full md:w-9/12">
                         <div className="flex flex-wrap -m-3">
                             <div className="w-full md:w-1/3 p-3">
@@ -122,7 +120,7 @@ export default function SubmissionForm(props) {
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> */}
                 <div className="py-6 border-b border-coolGray-100">
                     <div className="w-full md:w-9/12">
                         <div className="flex flex-wrap -m-3">

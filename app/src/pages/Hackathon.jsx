@@ -14,6 +14,7 @@ import Schedule from '../components/hackathon/Schedule'
 import ApiList from '../components/hackathon/ApiList'
 import { setNotification } from '../store/notification/notificationSlice'
 import { selectProject } from '../store/hackathon/hackathonSlice'
+import { getParticipate } from '../components/helper'
 
 
 export default function Hackathon() {
@@ -26,29 +27,18 @@ export default function Hackathon() {
     const [tab, setTab] = useState('');
 
     useEffect(() => {
-        // if (Object.keys(project).length === 0) {
-            const url = `${HOST_URL}hackathon/getHackathon/false/${id}`
-            axios.get(url).then(res => {
-                dispatch(selectProject(res.data[0]))
-            }).catch(err => {
-                console.log(err)
-                dispatch(setNotification({
-                    popup: true,
-                    status: 'error',
-                    message: err.response.data
-                }))
-            })
-        // }
+        const url = `${HOST_URL}hackathon/getHackathon/false/${id}`
+        axios.get(url).then(res => {
+            dispatch(selectProject(res.data[0]))
+        }).catch(err => {
+            console.log(err)
+            dispatch(setNotification({
+                popup: true,
+                status: 'error',
+                message: err.response.data
+            }))
+        })
     }, [])
-
-    function getParticipate(applied) {
-        for (let i of applied) {
-            if (i._id === user.id) {
-                return true;
-            }
-        }
-        return false;
-    }
 
     function participate(id) {
         const url = `${HOST_URL}hackathon/applyHackathon/${id}`;
@@ -106,7 +96,7 @@ export default function Hackathon() {
                                         </div>
                                     </div>
                                     <div className="w-auto">
-                                        {getParticipate(project.appliedUser) ? (
+                                        {getParticipate(project.appliedUser, user.id) ? (
                                             <button type="button" onClick={() => navigate(`/dashboard/submission/${id}`)} className="float-right inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium bg-yellow-500 hover:bg-yellow-600 font-medium text-sm text-white border border-yellow-500 rounded-md shadow-button">
                                                 Create Submission
                                             </button>
@@ -128,7 +118,6 @@ export default function Hackathon() {
                                     <li onClick={() => setTab('leaderboard')} className={`text-coolGray-400 hover:text-coolGray-500 cursor-pointer ${tab === 'leaderboard' ? 'tab-active' : ''}`}><a className="inline-block py-2 px-2 font-semibold">Leaderboard</a></li>
                                     <li onClick={() => setTab('participants')} className={`text-coolGray-400 hover:text-coolGray-500 cursor-pointer ${tab === 'participants' ? 'tab-active' : ''}`}><a className="inline-block py-2 px-2 font-semibold">View Participants</a></li>
                                     <li onClick={() => setTab('apilist')} className={`text-coolGray-400 hover:text-coolGray-500 cursor-pointer ${tab === 'apilist' ? 'tab-active' : ''}`}><a className="inline-block py-2 px-2 font-semibold">My Submissions</a></li>
-                                    {/* <li onClick={() => setTab('schedule')} className={`text-coolGray-400 hover:text-coolGray-500 cursor-pointer ${tab === 'schedule' ? 'tab-active' : ''}`}><a className="inline-block py-2 px-2 font-semibold">Schedule</a></li> */}
                                 </ul>
                             </div>
 
@@ -138,7 +127,7 @@ export default function Hackathon() {
                                 ) : ''}
 
                                 {tab === 'apilist' ? (
-                                    <ApiList />
+                                    <ApiList appliedUser={project.appliedUser} />
                                 ) : ''}
 
                                 {tab === 'leaderboard' ? (
@@ -152,10 +141,6 @@ export default function Hackathon() {
                                 {tab === 'panel' ? (
                                     <Panel data={project.panels} />
                                 ) : ''}
-
-                                {/* {tab === 'schedule' ? (
-                                    <Schedule />
-                                ) : ''} */}
 
                                 {tab === 'participants' ? (
                                     <Participants data={project.appliedUser} />

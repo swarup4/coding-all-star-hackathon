@@ -8,7 +8,7 @@ const hackathon = {
     userId: { type: objectId },
     panels: [{ type: objectId }],
     appliedUser: [{ type: objectId }],
-    theme: String,
+    theme: { type: String, default: ''},
     name: String,
     heading: String,
     description: String,
