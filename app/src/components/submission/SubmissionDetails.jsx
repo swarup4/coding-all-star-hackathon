@@ -132,7 +132,7 @@ export default function SubmissionDetails(props) {
                                     </div>
                                 </div>
                             </div>
-                            <div className="py-6 border-b border-coolGray-100">
+                            {/* <div className="py-6 border-b border-coolGray-100">
                                 <div className="w-full md:w-9/12">
                                     <div className="flex flex-wrap -m-3">
                                         <div className="w-full md:w-1/4 p-3">
@@ -143,7 +143,7 @@ export default function SubmissionDetails(props) {
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> */}
                             <div className="py-6 border-b border-coolGray-100">
                                 <div className="w-full md:w-9/12">
                                     <div className="flex flex-wrap -m-3">
