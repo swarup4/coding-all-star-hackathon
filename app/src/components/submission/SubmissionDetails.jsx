@@ -121,7 +121,7 @@ export default function SubmissionDetails(props) {
 
                         <div className="w-full md:w-2/3 p-3">
                             <div className="py-6 border-b border-coolGray-100">
-                                <div className="w-full md:w-9/12">
+                                <div className="w-full">
                                     <div className="flex flex-wrap -m-3">
                                         <div className="w-full md:w-1/4 p-3">
                                             <p className="text-sm text-coolGray-800 font-semibold">Name</p>
@@ -145,7 +145,7 @@ export default function SubmissionDetails(props) {
                                 </div>
                             </div> */}
                             <div className="py-6 border-b border-coolGray-100">
-                                <div className="w-full md:w-9/12">
+                                <div className="w-full md:w-full">
                                     <div className="flex flex-wrap -m-3">
                                         <div className="w-full md:w-1/4 p-3">
                                             <p className="text-sm text-coolGray-800 font-semibold">API End Point</p>
@@ -157,7 +157,7 @@ export default function SubmissionDetails(props) {
                                 </div>
                             </div>
                             <div className="py-6 border-b border-coolGray-100">
-                                <div className="w-full md:w-9/12">
+                                <div className="w-full md:w-full">
                                     <div className="flex flex-wrap -m-3">
                                         <div className="w-full md:w-1/4 p-3">
                                             <p className="text-sm text-coolGray-800 font-semibold">API Version</p>
@@ -169,7 +169,7 @@ export default function SubmissionDetails(props) {
                                 </div>
                             </div>
                             <div className="py-6 border-b border-coolGray-100">
-                                <div className="w-full md:w-9/12">
+                                <div className="w-full md:w-full">
                                     <div className="flex flex-wrap -m-3">
                                         <div className="w-full md:w-1/4 p-3">
                                             <p className="text-sm text-coolGray-800 font-semibold">Documentation Link</p>
@@ -181,7 +181,7 @@ export default function SubmissionDetails(props) {
                                 </div>
                             </div>
                             <div className="py-6 border-b border-coolGray-100">
-                                <div className="w-full md:w-9/12">
+                                <div className="w-full md:w-full">
                                     <div className="flex flex-wrap -m-3">
                                         <div className="w-full md:w-1/4 p-3">
                                             <p className="text-sm text-coolGray-800 font-semibold">Programming Language</p>
@@ -194,7 +194,7 @@ export default function SubmissionDetails(props) {
                             </div>
                             
                             <div className="py-6 border-b border-coolGray-100">
-                                <div className="w-full md:w-9/12">
+                                <div className="w-full md:w-full">
                                     <div className="flex flex-wrap -m-3">
                                         <div className="w-full md:w-1/4 p-3">
                                             <p className="text-sm text-coolGray-800 font-semibold">Description</p>

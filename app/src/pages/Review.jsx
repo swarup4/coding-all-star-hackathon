@@ -192,7 +192,7 @@ export default function Review() {
                 </div>
             </section >
 
-            <CommonDialog heading="Review Code" dialog='large' open={isOpen} close={setIsOpen} submitText='Approve' rejectText='Reject' submit={approveCode} reject={rejectDialog}>
+            <CommonDialog heading="Review Code" dialog='large' open={isOpen} close={setIsOpen} submitText='Approve' rejectText='Reject' submit={approveCode} reject={rejectDialog} timer={isOpen}>
                 <CodeView id={apiId} />
             </CommonDialog>
 

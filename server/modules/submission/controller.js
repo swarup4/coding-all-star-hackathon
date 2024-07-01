@@ -13,10 +13,11 @@ const router = express.Router();
 function checkApiExist(req, res, next) {
 
     const endPoint = req.body.apiEndPoint;
-    const version = req.body.apiVersion;
+    // const version = req.body.apiVersion;
 
     Models.UserAPIs.find({
-        apiEndPoint: endPoint, apiVersion: version
+        apiEndPoint: endPoint, 
+        // apiVersion: version
     }).then(api => {
         if (api.length > 0) {
             res.status(500).send("Someone already Submit the API")

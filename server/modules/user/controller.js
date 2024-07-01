@@ -14,6 +14,8 @@ const router = express.Router();
 const storage = multer.memoryStorage()
 const upload = multer({ storage: storage });
 
+const expiresIn = 1800
+
 // Get All User Information. This is Only for Admin User
 router.get("/info/:id", userMiddleware.varifyToken, async (req, res) => {
     try {
@@ -101,7 +103,7 @@ router.post("/login", async (req, res) => {
         } else {
             const obj = { id: user._id, email: user.email };
             const token = jwt.sign(obj, process.env.SECRATE_KEY, {
-                expiresIn: 10800 // expires in 60 minuit
+                expiresIn: expiresIn
             });
 
             res.json({
@@ -122,13 +124,13 @@ router.post("/login", async (req, res) => {
 });
 
 
-router.post("/signup", async (req, res) => {
+router.post("/signup", userMiddleware.checkExestingUser, async (req, res) => {
     try {
         const model = new User.Auth(req.body);
         const user = await model.save();
         const obj = { id: user._id, email: user.email };
         const token = jwt.sign(obj, process.env.SECRATE_KEY, {
-            expiresIn: 10800 // expires in 60 minuit
+            expiresIn: expiresIn
         });
 
         res.send({
@@ -143,7 +145,7 @@ router.post("/signup", async (req, res) => {
     }
 });
 
-router.get('/userList/:user', userMiddleware.checkExestingUser, async (req, res) => {
+router.get('/userList/:user', userMiddleware.varifyToken, async (req, res) => {
     try {
         let user = req.params.user;
         let userList;
@@ -163,7 +165,7 @@ router.get('/userList/:user', userMiddleware.checkExestingUser, async (req, res)
 })
 
 
-router.put('/updateUserDetails/:id', userMiddleware.checkExestingUser, async (req, res) => {
+router.put('/updateUserDetails/:id', userMiddleware.varifyToken, async (req, res) => {
     try {
         let userId = req.params.id;
         let body = req.body;
@@ -209,7 +211,7 @@ router.put('/updateUserDetails/:id', userMiddleware.checkExestingUser, async (re
 
 
 //Change Password
-router.put('/changePassword/:id', userMiddleware.checkExestingUser, async (req, res) => {
+router.put('/changePassword/:id', userMiddleware.varifyToken, async (req, res) => {
     try {
         const userId = req.params.id;
         const user = await User.Auth.findOne({ _id: userId, password: req.body.oldpassword });
@@ -220,7 +222,7 @@ router.put('/changePassword/:id', userMiddleware.checkExestingUser, async (req, 
 
             const obj = { id: user._id, email: user.email };
             const token = jwt.sign(obj, process.env.SECRATE_KEY, {
-                expiresIn: 10800 // expires in 60 minuit
+                expiresIn: expiresIn
             });
 
             res.json({
@@ -298,7 +300,7 @@ router.put('/addSocialMedia/:id', userMiddleware.varifyToken, async (req, res) =
 
 
 // router.post('/uploadProfilePics/:id', userMiddleware.varifyToken, upload.single("profile"), uploadMiddleware.uploadImage, (req, res) => {
-router.put('/uploadProfilePics/:id', userMiddleware.checkExestingUser, upload.single("profile"), userMiddleware.uploadImage, async (req, res) => {
+router.put('/uploadProfilePics/:id', userMiddleware.varifyToken, upload.single("profile"), userMiddleware.uploadImage, async (req, res) => {
     try {
         let id = req.params.id;
         const profile = await User.Auth.findOneAndUpdate(
@@ -363,7 +365,7 @@ function insertData(data) {
 }
 
 
-router.post('/uploadExcel', userMiddleware.checkExestingUser, upload.single("userFile"), async (req, res) => {
+router.post('/uploadExcel', userMiddleware.varifyToken, upload.single("userFile"), async (req, res) => {
     try {
         let path = req.file.originalname;
         const file = reader.readFile(path)
@@ -393,7 +395,7 @@ router.post('/uploadExcel', userMiddleware.checkExestingUser, upload.single("use
 });
 
 
-router.post('/sendEmail', userMiddleware.checkExestingUser, async (req, res) => {
+router.post('/sendEmail', userMiddleware.varifyToken, async (req, res) => {
     let body = req.body;
     let arr = [];
     let template = await getEmailTemplate();

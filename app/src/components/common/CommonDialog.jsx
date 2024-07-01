@@ -1,7 +1,44 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useState, useEffect } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 
 export default function CommonDialog(props) {
+    const [showTimer, setShowTimer] = useState(false)
+    const [timer, setTimer] = useState({
+        minute: 1,
+        second: 0
+    });
+
+    useEffect(() => {
+        if (props.timer) {
+            setShowTimer(true)
+            startTimer()
+        }
+    }, [props.timer])
+
+
+    function startTimer() {
+        let startTime = (timer.minute * 60) + timer.second
+        let time = setInterval(() => {
+            startTime = startTime - 1;
+            if (startTime < 0) {
+                setShowTimer(false)
+                clearInterval(time)
+            } else {
+                timeCalculator(startTime)
+            }
+        }, 1000)
+    }
+    function timeCalculator(time) {
+        let minute = Math.floor(time / 60);
+        let second = time - (minute * 60);
+
+        setTimer({
+            minute,
+            second
+        })
+    }
+
+
     return (
         <Transition appear show={props.open} as={Fragment}>
             <Dialog as="div" className="relative z-50" onClose={() => props.close(false)}>
@@ -22,24 +59,34 @@ export default function CommonDialog(props) {
                                     </div>
                                 </div>
 
-                                <div className="mt-4">
-                                    {props.submitText ? (
-                                        <button type="button" onClick={() => props.submit()}
-                                            className="float-right inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium bg-yellow-500 hover:bg-yellow-600 font-medium text-sm text-white border border-yellow-500 rounded-md shadow-button">
-                                            {props.submitText}
-                                        </button>
-                                    ) : ''}
-
-                                    {props.rejectText ? (
-                                        <button type="button" onClick={() => props.reject()}
-                                            className="mr-3 float-right inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium bg-red-500 hover:bg-red-600 font-medium text-sm text-white border border-red-500 rounded-md shadow-button">
-                                            {props.rejectText}
-                                        </button>
-                                    ) : ''}
-
+                                <div className="mt-4 flex justify-between">
                                     <button type="button" onClick={() => props.close(false)}
                                         className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                                     >Close</button>
+
+                                    <div className='flex items-center'>
+                                        {showTimer ? (
+                                            <span className="countdown font-mono text-2xl">
+                                                <span style={{ "--value": `${timer.minute}` }}></span>m&nbsp;<span style={{ "--value": `${timer.second}` }}></span>s
+                                            </span>
+                                        ) : (
+                                            <>
+                                                {props.rejectText ? (
+                                                    <button type="button" onClick={() => props.reject()}
+                                                        className="mr-3 inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium bg-red-500 hover:bg-red-600 font-medium text-sm text-white border border-red-500 rounded-md shadow-button">
+                                                        {props.rejectText}
+                                                    </button>
+                                                ) : ''}
+
+                                                {props.submitText ? (
+                                                    <button type="button" onClick={() => props.submit()}
+                                                        className="inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium bg-yellow-500 hover:bg-yellow-600 font-medium text-sm text-white border border-yellow-500 rounded-md shadow-button">
+                                                        {props.submitText}
+                                                    </button>
+                                                ) : ''}
+                                            </>
+                                        )}
+                                    </div>
                                 </div>
                             </Dialog.Panel>
                         </Transition.Child>
