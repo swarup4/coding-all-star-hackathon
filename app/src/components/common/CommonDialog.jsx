@@ -4,8 +4,8 @@ import { Dialog, Transition } from '@headlessui/react'
 export default function CommonDialog(props) {
     const [showTimer, setShowTimer] = useState(false)
     const [timer, setTimer] = useState({
-        minute: 0,
-        second: 10
+        minute: 3,
+        second: 0
     });
 
     useEffect(() => {
