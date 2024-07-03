@@ -34,7 +34,8 @@ export default function ApiDetails() {
     }
 
     function saveCode() {
-        let body = { status: true }
+        // let body = { status: true }
+        let body = { }
         if(type === 'code'){
             body.code = apiCodes
         } else if(type === 'env') {

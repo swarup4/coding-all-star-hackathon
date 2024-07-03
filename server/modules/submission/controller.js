@@ -6,72 +6,13 @@ const Models = require("./models");
 const ReviewModel = require("../reviews/models");
 const PointModel = require("../points/models");
 const userMiddleware = require('../../middleware/user');
-const pointMiddleware = require('../../middleware/point');
+const SubmissionMiddleware = require('../../middleware/submission');
 
 const router = express.Router();
 
-function checkApiExist(req, res, next) {
-
-    const endPoint = req.body.apiEndPoint;
-    // const version = req.body.apiVersion;
-
-    Models.UserAPIs.find({
-        apiEndPoint: endPoint, 
-        // apiVersion: version
-    }).then(api => {
-        if (api.length > 0) {
-            res.status(500).send("Someone already Submit the API")
-        } else {
-            next()
-        }
-    }).catch(err => {
-        res.send(err);
-    });
-}
-
-function updateApiStatus(req, res, next) {
-    const id = req.params.id;
-
-    Models.UserAPIs.findOneAndUpdate({ _id: id }, { submitStatus: 1 }, {
-        returnOriginal: false
-    }).then(res => {
-        next()
-    }).catch(err => {
-        res.send(err);
-    });
-}
-
-function getApiInfo(req, res, next) {
-    const id = req.params.id;
-
-    Models.UserAPIs.findOne({
-        _id: id
-    }).then(api => {
-        req.apiData = api;
-        next()
-    }).catch(err => {
-        res.send(err);
-    });
-}
-
-function updateApiSubmission(req, res) {
-    const id = req.params.id
-    const body = req.body
-
-    Models.SubmissionKey.findOneAndUpdate({ _id: id }, body, {
-        returnOriginal: false
-    }).then(res => {
-        res.json({
-            status: 200,
-            message: "success"
-        })
-    }).catch(err => {
-        res.send(err);
-    });
-}
 
 // User API 
-router.post('/addApi', userMiddleware.varifyToken, checkApiExist, async (req, res) => {
+router.post('/addApi', userMiddleware.varifyToken, SubmissionMiddleware.checkApiExist, async (req, res) => {
     try {
         const model = new Models.UserAPIs(req.body);
         const api = await model.save();
@@ -89,22 +30,38 @@ router.get('/getApiList/:id', userMiddleware.varifyToken, async (req, res) => {
         const api = await Models.UserAPIs.aggregate([
             {
                 $match: {
-                    userId: new ObjectId(id)
+                    userId: new ObjectId(id),
+                    status: true
                 }
             }, {
                 $lookup: {
-                    from: "reviews",
+                    from: "submissionkeys",
                     localField: "_id",
                     foreignField: "apiId",
-                    as: "review"
+                    as: "submission"
                 }
+                  }, {
+                    $lookup: {
+                        from: "reviews",
+                        localField: "_id",
+                        foreignField: "apiId",
+                        as: "review"
+                    }
             }, {
+                $unwind: {
+                  path: "$submission",
+                  preserveNullAndEmptyArrays: true
+                }
+              }, {
                 $lookup: {
                     from: "users",
                     localField: "review.reviewerId",
                     foreignField: "_id",
                     as: "reviewUser"
                 }
+            },
+            {
+                $unset: "review"
             }
         ])
 
@@ -191,9 +148,8 @@ router.put('/saveUnitTestCode/:id', userMiddleware.varifyToken, async (req, res)
 })
 
 
-
 // API Submission
-router.put("/submitApi/:id", userMiddleware.varifyToken, updateApiStatus, getApiInfo, async (req, res) => {
+router.put("/submitApi/:id", userMiddleware.varifyToken, SubmissionMiddleware.updateSubmissionApiStatus, SubmissionMiddleware.getApiInfo, async (req, res) => {
     try {
         const id = req.params.id;
 
@@ -213,7 +169,7 @@ router.put("/submitApi/:id", userMiddleware.varifyToken, updateApiStatus, getApi
             point: 1,
             category: "submit",
         }
-        let point = await pointMiddleware.addPoint(pointObj, res)
+        let point = await SubmissionMiddleware.addPoint(pointObj, res)
         res.json(api);
 
     } catch (error) {
@@ -287,9 +243,6 @@ router.get("/getAllSubmittedApiList/:id", userMiddleware.varifyToken, async (req
         res.send(error)
     }
 })
-
-
-router.put('/updateSubmissionStatus/:id', userMiddleware.varifyToken, updateApiSubmission);
 
 router.get('/getSubmissionCount/:id', userMiddleware.varifyToken, async (req, res) => {
     try {

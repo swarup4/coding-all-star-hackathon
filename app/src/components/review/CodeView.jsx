@@ -15,7 +15,7 @@ export default function CodeView(props) {
     const [extensions, setExtensions] = useState([]);
 
     useEffect(() => {
-        const url = `${HOST_URL}submission/getApiDetails/${props.id}`
+        const url = `${HOST_URL}submission/getApiDetails/${props.apiId}`
         axios.get(url).then(res => {
             setCode(res.data?.code)
             setExtensions(getExtensions(res.data?.programmingLanguage))

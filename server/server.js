@@ -1,11 +1,13 @@
 require('dotenv').config()
 const express = require('express');
+const cron = require('node-cron');
 const cors = require('cors');
 const mongoose = require("mongoose");
 const http = require('http');
 const { Server } = require('socket.io');
 
 const controller = require('./modules');
+const SubmissionMiddleware = require('./middleware/submission')
 
 const app = express();
 const PORT = process.env.PORT | 3001;
@@ -27,23 +29,23 @@ app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-const userSocketMap = {};
-function getAllConnectedClients(roomId) {
-    // Map
-    return Array.from(io.sockets.adapter.rooms.get(roomId) || []).map(
-        (socketId) => {
-            return {
-                socketId,
-                username: userSocketMap[socketId],
-            };
-        }
-    );
-}
+// const userSocketMap = {};
+// function getAllConnectedClients(roomId) {
+//     // Map
+//     return Array.from(io.sockets.adapter.rooms.get(roomId) || []).map(
+//         (socketId) => {
+//             return {
+//                 socketId,
+//                 username: userSocketMap[socketId],
+//             };
+//         }
+//     );
+// }
 
 app.use(controller);
 
 // Socket Implementation
-io.on('connection', (socket) => {
+/* io.on('connection', (socket) => {
     console.log('socket connected', socket.id);
 
     socket.on(ACTIONS.JOIN, ({ roomId, username }) => {
@@ -78,7 +80,13 @@ io.on('connection', (socket) => {
         delete userSocketMap[socket.id];
         socket.leave();
     });
-});
+}); */
+
+
+cron.schedule("59 59 23 * * *", function() { 
+    console.log("running a task every day"); 
+    SubmissionMiddleware.rejectUnsubmittedApis()
+}); 
 
 
 server.listen(PORT, () => console.log('Server is running on port no ' + PORT));

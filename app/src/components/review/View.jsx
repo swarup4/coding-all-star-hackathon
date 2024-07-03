@@ -25,8 +25,7 @@ export default function View(props) {
 
 
     return (
-        <section className="relative p-4 bg-white">
-            {/* <div className="absolute top-0 left-0 w-full h-full theme-background"></div> */}
+        <section className="relative px-4 bg-white">
             <div className="container relative z-10 mx-auto">
                 <ul className="flex flex-wrap mb-8 -mx-2 text-center">
                     <li className="w-full md:w-auto px-2 cursor-pointer"><a onClick={() => setTab(0)} className={`inline-block w-full py-2 px-4 mb-4 md:mb-0 text-sm text-coolGray-400 hover:text-yellow-500 hover:bg-yellow-200 font-bold rounded-md hover:shadow-sm ${tab == 0 ? 'tab-active' : ''}`}>Details</a></li>
@@ -144,15 +143,15 @@ export default function View(props) {
                                 </div>
                             ) : (
                                 <div className="w-full md:w-full">
-                                    <div className='my-2'>
+                                    <div className='mb-3'>
                                         <p className='font-semibold text-xl text-coolGray-800'>Environment Variable</p>
                                         <EditorView code={api.envVariable} type='code' language={api.programmingLanguage} />
                                     </div>
-                                    <div className='my-2'>
+                                    <div className='my-3'>
                                         <p className='font-semibold text-xl text-coolGray-800'>Api Code</p>
                                         <EditorView code={api.code} type='code' language={api.programmingLanguage} />
                                     </div>
-                                    <div className='my-2'>
+                                    <div>
                                         <p className='font-semibold text-xl text-coolGray-800'>Api Test Case</p>
                                         <EditorView code={api.unitTest} type='code' language={api.programmingLanguage} />
                                     </div>

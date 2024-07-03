@@ -1,3 +1,4 @@
+import moment from 'moment'
 import { StreamLanguage } from '@codemirror/language';
 import { javascript } from '@codemirror/lang-javascript';
 import { java } from '@codemirror/lang-java';
@@ -13,10 +14,10 @@ import { go } from '@codemirror/legacy-modes/mode/go';
 import { ruby } from '@codemirror/legacy-modes/mode/ruby';
 
 export const getInitial = (name) => {
-    if(name){
+    if (name) {
         let arr = name.split(' ')
         let initial = ''
-        if(arr.length > 1){
+        if (arr.length > 1) {
             initial = arr[0][0] + arr[1][0]
         } else {
             initial = arr[0][0]
@@ -94,4 +95,10 @@ export const getParticipate = (applied, userId) => {
         }
     }
     return false;
+}
+
+export const checkDateDifference = (createdAt) => {
+    const now = moment();
+    const differenceInDays = now.diff(createdAt, 'days');
+    return (2 - differenceInDays)
 }

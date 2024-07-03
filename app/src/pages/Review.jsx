@@ -7,6 +7,7 @@ import { HOST_URL } from '../constants'
 import { EyeIcon, CheckIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline'
 import CommonDialog from '../components/common/CommonDialog'
 import CodeView from '../components/review/CodeView'
+import View from '../components/review/View'
 import { setNotification } from '../store/notification/notificationSlice'
 import { setReview } from '../store/review/reviewSlice'
 
@@ -193,7 +194,8 @@ export default function Review() {
             </section >
 
             <CommonDialog heading="Review Code" dialog='large' open={isOpen} close={setIsOpen} submitText='Approve' rejectText='Reject' submit={approveCode} reject={rejectDialog} timer={isOpen}>
-                <CodeView id={apiId} />
+                {/* <CodeView apiId={apiId} /> */}
+                <View apiId={apiId} />
             </CommonDialog>
 
             {reject ? (
