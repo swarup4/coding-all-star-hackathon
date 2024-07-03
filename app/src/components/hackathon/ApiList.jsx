@@ -180,9 +180,9 @@ export default function ApiList(props) {
                                             </div>
                                             <div className="w-full md:w-1/3 p-2">
                                                 <div className="text-center">
-                                                    <p className="flex mb-1 place-content-around text-xs text-coolGray-900 font-semibold items-center">
+                                                    <p className="mb-1 text-xs text-coolGray-900 font-semibold">
                                                         {item.reviewUser.map((x, i) => (
-                                                            <div className="tooltip tooltip-bottom" data-tip={x.name}>
+                                                            <div className="tooltip tooltip-bottom mx-1 cursor-pointer" data-tip={x.name}>
                                                                 <div className={`flex items-center justify-center w-7 h-7 font-medium rounded-full ${randomColor()}`} key={i}>{getInitial(x.name)}</div>
                                                             </div>
                                                         ))}

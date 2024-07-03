@@ -42,7 +42,7 @@ router.get('/getAllReview/:apiId', UserMiddleware.varifyToken, (req, res) => {
 	Points 1 = Approve
 	Points 2 = Reject
 */
-router.post('/addReview', SubmissionMiddleware.rejectApi, async (req, res) => {
+router.post('/addReview', UserMiddleware.varifyToken, SubmissionMiddleware.rejectApi, async (req, res) => {
 	try {
 		let body = req.body;
 		let reviewData = await Models.Review.find({ apiId: body.apiId });

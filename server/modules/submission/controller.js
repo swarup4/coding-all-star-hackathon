@@ -183,7 +183,6 @@ router.get("/getAllSubmittedApiList/:id", userMiddleware.varifyToken, async (req
         const reviewList = await Models.SubmissionKey.aggregate([
             {
                 $match: {
-                    apiStatus: 0,
                     submitedBy: {
                         $ne: new ObjectId(id)
                     }
