@@ -34,6 +34,8 @@ module.exports = {
                     transparent: 'transparent',
                     black: '#000',
                     white: '#fff',
+                    solidBlue: '#0000FF',
+                    solidRed: '#FF0000',
                     darkCoolGray: {
                         50: '#F5F6F7',
                         100: '#EBEDEF',

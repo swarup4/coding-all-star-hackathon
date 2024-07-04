@@ -1,4 +1,5 @@
 const express = require('express');
+const ObjectId = require("mongoose").Types.ObjectId;
 const Model = require('./models');
 const userMiddleware = require('../../middleware/user');
 
@@ -41,6 +42,42 @@ router.get('/getLeaderboard', userMiddleware.varifyToken, async (req, res) => {
                             $denseRank: {}
                         }
                     }
+                }
+            }
+        ])
+        res.json(data);
+    } catch (error) {
+        res.send(error);
+    }
+});
+
+router.get('/getRank/:id', userMiddleware.varifyToken, async (req, res) => {
+    try {
+        const id = req.params.id;
+        const data = await Model.Point.aggregate([
+            {
+                $group: {
+                    _id: "$userId",
+                    point: {
+                        $sum: "$point"
+                    }
+                }
+            },
+            {
+                $setWindowFields: {
+                    sortBy: {
+                        point: -1
+                    },
+                    output: {
+                        rank: {
+                            $denseRank: {}
+                        }
+                    }
+                }
+            },
+            {
+                $match: {
+                    _id: new ObjectId(id)
                 }
             }
         ])

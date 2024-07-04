@@ -70,7 +70,7 @@ export default function View(props) {
                                                             <p className="text-sm text-coolGray-800 font-semibold">API End Point</p>
                                                         </div>
                                                         <div className="w-full md:flex-1 p-3">
-                                                            {api.apiEndPoint}
+                                                            <a className='cursor-pointer text-solidBlue underline' href={api.apiEndPoint} target='_blank'>{api.apiEndPoint}</a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -94,7 +94,7 @@ export default function View(props) {
                                                             <p className="text-sm text-coolGray-800 font-semibold">Documentation Link</p>
                                                         </div>
                                                         <div className="w-full md:flex-1 p-3">
-                                                            {api.documentationLink}
+                                                            <a className='cursor-pointer text-solidBlue underline' href={api.documentationLink} target='_blank'>{api.documentationLink}</a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -119,7 +119,7 @@ export default function View(props) {
                                                             <p className="text-sm text-coolGray-800 font-semibold">Video Link</p>
                                                         </div>
                                                         <div className="w-full md:flex-1 p-3">
-                                                            {api.videoLink}
+                                                            <a className='cursor-pointer text-solidBlue underline' href={api.videoLink} target='_blank'>{api.videoLink}</a>
                                                         </div>
                                                     </div>
                                                 </div>
