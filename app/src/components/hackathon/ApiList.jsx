@@ -105,13 +105,13 @@ export default function ApiList(props) {
     }
 
     return (
-        <div className='flex h-full'>
+        <div className='grid md:grid-cols-2 lg:grid-cols-3 gap-4'>
             {participate ? (
                 <>
                     {workingProject.length > 0 ? (
                         <>
                             {workingProject.map((item, ind) => (
-                                <div className="w-full md:w-1/2 lg:w-1/2 xl:w-1/3 p-3" key={ind}>
+                                <div key={ind}>
                                     <div className="bg-white border border-coolGray-100 shadow-dashboard rounded-md">
                                         <div className="flex flex-col justify-center items-center px-4 pt-14 pb-6 border-b border-coolGray-100 relative">
                                             <h2 className="text-sm font-medium text-coolGray-900">{item.name}</h2>
