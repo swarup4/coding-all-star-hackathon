@@ -81,7 +81,7 @@ export default function Register() {
                             <form onSubmit={handleSubmit}>
                                 <div className="mb-6">
                                     <label className="block mb-2 text-coolGray-800 font-medium" htmlFor="">Organization <span className='text-red-500'>*</span></label>
-                                    <input type="text" name="organization" placeholder="TRIGENT" autoComplete="organization" value={values.organization} onChange={handleChange} onBlur={handleBlur}
+                                    <input type="text" name="organization" disabled placeholder="TRIGENT" autoComplete="organization" value={values.organization} onChange={handleChange} onBlur={handleBlur}
                                         className="appearance-none block w-full p-3 leading-5 text-coolGray-900 border border-coolGray-200 rounded-lg shadow-md placeholder-coolGray-400 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-50" />
                                     {errors.organization && touched.organization ? (
                                         <p className='mt-1 text-red-500'>{errors.organization}</p>

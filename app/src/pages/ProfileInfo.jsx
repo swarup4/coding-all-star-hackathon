@@ -25,7 +25,7 @@ const initialValues = {
 }
 const schema = object().shape({
     role: string().required('Enter your Role Name').matches(/\S/, 'Field cannot contain only spaces value'),
-    empId: string().required('Enter your Employee ID').matches(/\S/, 'Field cannot contain only spaces value'),
+    empId: string().required('Enter your Employee ID').matches(/^\d+$/, 'Employee ID must be a number').matches(/\S/, 'Field cannot contain only spaces value'),
     manager: string().when("isManager", (isManager, schema) => isManager ? schema : schema.required('Select your Manager')),
     primarySkill: string().required('Enter your Primary skill').matches(/\S/, 'Field cannot contain only spaces value'),
     secondarySkill: string().required('Enter your Secondary skill').matches(/\S/, 'Field cannot contain only spaces value'),
@@ -41,6 +41,7 @@ export default function ProfileInfo() {
     const [userList, setUserList] = useState([])
     const [userContact, setUserContact] = useState({})
     const [userProfilePics, setUserProfilePics] = useState({})
+    const [profilePicsErrorMsg, setProfilePicsErrorMsg] = useState('')
     const [sociaMedia, setSociaMedia] = useState('');
     const [url, setUrl] = useState('');
     const [isOpen, setIsOpen] = useState(false);
@@ -82,12 +83,16 @@ export default function ProfileInfo() {
 
     function selectImage(ev) {
         let file = ev.currentTarget.files[0];
-        let reader = new FileReader();
-        let url = reader.readAsDataURL(file);
-        setUserProfilePics({ "file": file });
-
-        reader.onloadend = (ev) => {
-            setImageUrl(reader.result)
+        if(file.size < (10 * 1024 * 1024)) { 
+            let reader = new FileReader();
+            let url = reader.readAsDataURL(file);
+            setUserProfilePics({ "file": file });
+    
+            reader.onloadend = (ev) => {
+                setImageUrl(reader.result)
+            }
+        } else {
+            setProfilePicsErrorMsg('Your image size is more then 10MB')
         }
     }
 
@@ -326,10 +331,11 @@ export default function ProfileInfo() {
                                                 <span className="text-yellow-500">Click to Upload a file</span>
                                                 <span> or drag and drop</span>
                                             </p>
-                                            <p className="text-xs text-coolGray-500 font-medium">PNG, JPG, GIF or up to 10MB</p>
+                                            <p className="text-xs text-coolGray-500 font-medium">PNG, JPG or up to 10MB</p>
                                             <p className="text-xs text-coolGray-500 font-medium">{userProfilePics?.file?.name ?? ''}</p>
-                                            <input type="file" name='profilePics' onChange={(ev) => selectImage(ev)} className="absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer" />
+                                            <input type="file" name='profilePics' accept="image/png, image/jpeg" onChange={(ev) => selectImage(ev)} className="absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer" />
                                         </div>
+                                        <p className='mt-1 text-red-500'>{profilePicsErrorMsg}</p>
                                     </div>
                                 </div>
                             </div>

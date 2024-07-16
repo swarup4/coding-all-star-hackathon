@@ -105,11 +105,11 @@ export default function ApiList(props) {
     }
 
     return (
-        <div className='grid md:grid-cols-2 lg:grid-cols-3 gap-4'>
+        <>
             {participate ? (
                 <>
                     {workingProject.length > 0 ? (
-                        <>
+                        <div className='grid md:grid-cols-2 lg:grid-cols-3 gap-4'>
                             {workingProject.map((item, ind) => (
                                 <div key={ind}>
                                     <div className="bg-white border border-coolGray-100 shadow-dashboard rounded-md">
@@ -193,16 +193,16 @@ export default function ApiList(props) {
                                     </div>
                                 </div>
                             ))}
-                        </>
+                        </div>
                     ) : (
-                        <EmptyContent heading="You don't have any submission." content="Create a submission using click <b>Create Submission</b> button" />
+                        <div className='my-14'><EmptyContent heading="You don't have any submission." content="Create a submission using click <b>Create Submission</b> button" /></div>
                     )}
                 </>
-            ) : <EmptyContent heading="You are not participating this Hackathon." content="Please click <b>Participate</b> button for participating" />}
+            ) : <div className='my-14'><EmptyContent heading="You are not participating this Hackathon." content="Please click <b>Participate</b> button for participating" /></div>}
 
             <CommonDialog heading='Api Details' dialog='large' open={isOpen} close={setIsOpen}>
                 <View apiId={apiId} />
             </CommonDialog>
-        </div>
+        </>
     )
 }

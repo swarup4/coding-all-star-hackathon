@@ -31,8 +31,7 @@ export default function HomePage() {
                                     </li>
                                 </ul>
                                 <div className="flex flex-wrap items-center">
-                                    {/* <a className="inline-flex items-center justify-center px-7 py-3 h-14 w-full md:w-auto mb-2 md:mb-0 md:mr-4 md:w-auto text-lg leading-7 text-coolGray-800 bg-white hover:bg-coolGray-100 font-medium focus:ring-2 focus:ring-coolGray-200 focus:ring-opacity-50 border border-coolGray-200 border border-coolGray-100 rounded-md shadow-sm" href="#">Participate</a> */}
-                                    <Link to='/dashboard' className="inline-flex items-center justify-center px-7 py-3 h-14 w-full md:w-auto text-lg leading-7 text-yellow-50 bg-yellow-500 hover:bg-yellow-600 font-medium focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-50 border border-transparent rounded-md shadow-sm">Participate</Link>
+                                    <Link to='dashboard' className="inline-flex items-center justify-center px-7 py-3 h-14 w-full md:w-auto text-lg leading-7 text-yellow-50 bg-yellow-500 hover:bg-yellow-600 font-medium focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-50 border border-transparent rounded-md shadow-sm">Participate</Link>
                                 </div>
                             </div>
                         </div>
@@ -107,8 +106,6 @@ export default function HomePage() {
                 </div>
             </section>
 
-
-
             <section className="bg-coolGray-50 py-4">
                 <div className="container px-4 mx-auto">
                     <div className="relative py-11 px-16 bg-coolGray-900 rounded-md overflow-hidden">
@@ -134,7 +131,7 @@ export default function HomePage() {
                                 </ul>
                             </div>
                             <div className="w-full md:w-1/2 p-3">
-                                <button className="block md:ml-auto px-7 py-4 font-medium text-lg text-white bg-yellow-500 hover:bg-yellow-600 rounded-md">Get Started</button>
+                                <Link to='login' className="float-right px-7 py-4 font-medium text-lg text-white bg-yellow-500 hover:bg-yellow-600 rounded-md">Get Started</Link>
                             </div>
                         </div>
                     </div>
