@@ -26,6 +26,7 @@ import Admin from './components/admin/Admin'
 import SendEmail from './components/admin/SendEmail'
 import AddPrize from './components/admin/AddPrize'
 import HackathonList from './components/admin/HackathonList'
+import UserApiList from './components/admin/UserApiList'
 
 
 function App() {
@@ -93,6 +94,9 @@ function App() {
                 }, {
                     path: 'sendEmail',
                     element: <SendEmail />
+                }, {
+                    path: 'apis',
+                    element: <UserApiList />
                 }, {
                     path: 'prize',
                     element: <AddPrize />

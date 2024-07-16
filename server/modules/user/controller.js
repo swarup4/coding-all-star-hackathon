@@ -14,7 +14,7 @@ const router = express.Router();
 const storage = multer.memoryStorage()
 const upload = multer({ storage: storage });
 
-const expiresIn = 1800
+const expiresIn = 3600
 
 // Get All User Information. This is Only for Admin User
 router.get("/info/:id", userMiddleware.varifyToken, async (req, res) => {

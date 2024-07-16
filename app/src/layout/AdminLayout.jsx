@@ -60,8 +60,13 @@ export default function AdminLayout() {
                                     </div>
                                 </Link>
                             </li>
-                            
-
+                            <li>
+                                <Link to='apis' className="p-3 pl-11 flex items-center justify-between">
+                                    <div className="flex items-center">
+                                        <p className="text-white font-medium text-base">Api List</p>
+                                    </div>
+                                </Link>
+                            </li>
                             <li>
                                 <Link to='settings' className="p-3 pl-11 flex items-center justify-between">
                                     <div className="flex items-center">

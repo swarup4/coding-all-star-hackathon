@@ -13,11 +13,14 @@ const initialValues = {
     email: '',
     password: ''
 }
+
+const passwordRegex = /^(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>])[A-Za-z\d!@#$%^&*(),.?":{}|<>]+$/;
+
 const schema = object({
     organization: string().required('Enter your Organization name'),
-    name: string().required('Enter your Name'),
+    name: string().min(4, 'Enter proper name').required('Enter your Name'),
     email: string().email('Email should be valid').required('Enter your email'),
-    password: string().required('Enter your password')
+    password: string().required('Enter your password').min(8, 'Password should be 8 chars minimum.').matches(passwordRegex, 'Password must be alphanumeric, contain at least one uppercase letter, and at least one special character.')
 })
 
 export default function Register() {
