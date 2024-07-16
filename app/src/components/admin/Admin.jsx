@@ -16,10 +16,10 @@ const initialValues = {
     description: ''
 }
 const schema = object({
-    name: string().required('Enter hackathon name'),
-    heading: string().required('Enter hackathon sub heading'),
-    theme: string().required('Enter hackathon theme'),
-    description: string().required('Enter hackathon description')
+    name: string().required('Enter hackathon name').matches(/\S/, 'Field cannot contain only spaces value'),
+    heading: string().required('Enter hackathon sub heading').matches(/\S/, 'Field cannot contain only spaces value'),
+    theme: string().required('Enter hackathon theme').matches(/\S/, 'Field cannot contain only spaces value'),
+    description: string().required('Enter hackathon description').matches(/\S/, 'Field cannot contain only spaces value')
 })
 
 

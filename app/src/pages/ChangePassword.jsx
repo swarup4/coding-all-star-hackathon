@@ -13,8 +13,11 @@ const initialValues = {
     passwordConfirmation: '',
 }
 const schema = object({
-    oldpassword: string().required('Enter your Old Password'),
-    password: string().required('Enter your New Password'),
+    oldpassword: string().required('Enter your Old Password').matches(/\S/, 'Field cannot contain only spaces value'),
+    password: string().required('Enter your New Password').min(8, 'Password should be 8 chars minimum')
+        .matches(/^(?=.*[A-Z])/, 'Password must contain at least one uppercase letter')
+        .matches(/^(?=.*[!@#$%^&*(),.?":{}|<>])/, 'Password must contain at least one special character')
+        .matches(/^[A-Za-z\d!@#$%^&*(),.?":{}|<>]+$/, 'Password must be alphanumeric and can include special characters'),
     passwordConfirmation: string().oneOf([ref('password'), undefined], 'Passwords must match')
 })
 

@@ -16,10 +16,10 @@ const initialValues = {
 }
 
 const schema = object({
-    category: string().required('Enter Prize category'),
-    name: string().required('Enter Prize Name'),
-    amount: string().required('Enter Prize amount'),
-    description: string().required('Enter description')
+    category: string().required('Enter Prize category').matches(/\S/, 'Field cannot contain only spaces value'),
+    name: string().required('Enter Prize Name').matches(/\S/, 'Field cannot contain only spaces value'),
+    amount: string().required('Enter Prize amount').matches(/\S/, 'Field cannot contain only spaces value'),
+    description: string().required('Enter description').matches(/\S/, 'Field cannot contain only spaces value')
 })
 
 export default function AddPrize() {

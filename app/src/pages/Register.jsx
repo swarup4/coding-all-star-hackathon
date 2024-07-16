@@ -14,13 +14,14 @@ const initialValues = {
     password: ''
 }
 
-const passwordRegex = /^(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>])[A-Za-z\d!@#$%^&*(),.?":{}|<>]+$/;
-
 const schema = object({
     organization: string().required('Enter your Organization name'),
-    name: string().min(4, 'Enter proper name').required('Enter your Name'),
-    email: string().email('Email should be valid').required('Enter your email'),
-    password: string().required('Enter your password').min(8, 'Password should be 8 chars minimum.').matches(passwordRegex, 'Password must be alphanumeric, contain at least one uppercase letter, and at least one special character.')
+    name: string().required('Enter your Name').matches(/\S/, 'Field cannot contain only spaces value'),
+    email: string().email('Email should be valid').required('Enter your email').matches(/\S/, 'Field cannot contain only spaces value'),
+    password: string().required('Enter your password').min(8, 'Password should be 8 chars minimum')
+        .matches(/^(?=.*[A-Z])/, 'Password must contain at least one uppercase letter')
+        .matches(/^(?=.*[!@#$%^&*(),.?":{}|<>])/, 'Password must contain at least one special character')
+        .matches(/^[A-Za-z\d!@#$%^&*(),.?":{}|<>]+$/, 'Password must be alphanumeric and can include special characters')
 })
 
 export default function Register() {
@@ -89,7 +90,7 @@ export default function Register() {
 
                                 <div className="mb-6">
                                     <label className="block mb-2 text-coolGray-800 font-medium" htmlFor="">Full Name <span className='text-red-500'>*</span></label>
-                                    <input type="text" name="name" placeholder="Anand Padia" autoComplete="name" value={values.name} onChange={handleChange} onBlur={handleBlur}
+                                    <input type="text" name="name" placeholder="Enter Full Name" autoComplete="name" value={values.name} onChange={handleChange} onBlur={handleBlur}
                                         className="appearance-none block w-full p-3 leading-5 text-coolGray-900 border border-coolGray-200 rounded-lg shadow-md placeholder-coolGray-400 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-50" />
                                     {errors.name && touched.name ? (
                                         <p className='mt-1 text-red-500'>{errors.name}</p>

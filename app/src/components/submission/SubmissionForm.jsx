@@ -18,13 +18,13 @@ const initialValues = {
     description: '',
 }
 const schema = object().shape({
-    name: string().required('Enter your API Name'),
+    name: string().required('Enter your API Name').matches(/\S/, 'Field cannot contain only spaces value'),
     // category: string().required('Enter your Project Category'),
-    apiEndPoint: string().required('Enter API End point'),
-    apiVersion: string().required('Enter your API End Point Version'),
-    documentationLink: string().required('Enter your API Documentation Link'),
-    programmingLanguage: string().required('Select your Programming Language'),
-    description: string().required('Enter your API description'),
+    apiEndPoint: string().required('Enter API End point').matches(/\S/, 'Field cannot contain only spaces value'),
+    apiVersion: string().required('Enter your API End Point Version').matches(/\S/, 'Field cannot contain only spaces value'),
+    documentationLink: string().required('Enter your API Documentation Link').matches(/\S/, 'Field cannot contain only spaces value'),
+    programmingLanguage: string().required('Select your Programming Language').matches(/\S/, 'Field cannot contain only spaces value'),
+    description: string().required('Enter your API description').matches(/\S/, 'Field cannot contain only spaces value')
 })
 
 export default function SubmissionForm(props) {

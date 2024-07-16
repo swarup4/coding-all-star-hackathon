@@ -59,11 +59,11 @@ let User = {
     varifyToken: (req, res, next) => {
         let token = req.headers.authorization;
         if (!token) {
-            res.status(401).send({ auth: false, message: 'No token provided.' })
+            res.status(401).send({ auth: false, message: 'No token provided' })
         } else {
             jwt.verify(token, process.env.SECRATE_KEY, (err, decoded) => {
                 if (err) {
-                    res.status(401).json({ auth: false, message: 'Failed to authenticate token.', error: err });
+                    res.status(401).json({ auth: false, message: 'Failed to authenticate token', error: err });
                 } else {
                     next();
                 }

@@ -72,7 +72,7 @@ export default function HomePage() {
                                     </div>
                                 </div>
                                 <div className="w-full md:flex-1 md:pt-3">
-                                    <h3 className="mb-4 text-xl md:text-2xl leading-tight text-coolGray-900 font-bold">Simple &amp; Uniuqe</h3>
+                                    <h3 className="mb-4 text-xl md:text-2xl leading-tight text-coolGray-900 font-bold">Simple &amp; Unique</h3>
                                     <p className="text-coolGray-500 font-medium">Clear Instructions &amp; Rules</p>
                                 </div>
                             </div>

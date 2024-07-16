@@ -24,14 +24,14 @@ const initialValues = {
     country: '',
 }
 const schema = object().shape({
-    role: string().required('Enter your API Name'),
-    empId: string().required('Enter your Project Category'),
+    role: string().required('Enter your Role Name').matches(/\S/, 'Field cannot contain only spaces value'),
+    empId: string().required('Enter your Employee ID').matches(/\S/, 'Field cannot contain only spaces value'),
     manager: string().when("isManager", (isManager, schema) => isManager ? schema : schema.required('Select your Manager')),
-    primarySkill: string().required('Enter your API End Point Version'),
-    secondarySkill: string().required('Enter your API Documentation Link'),
-    city: string().required('Select your Programming Language'),
-    state: string().required('Enter your API requirment approach'),
-    country: string().required('Enter your API description'),
+    primarySkill: string().required('Enter your Primary skill').matches(/\S/, 'Field cannot contain only spaces value'),
+    secondarySkill: string().required('Enter your Secondary skill').matches(/\S/, 'Field cannot contain only spaces value'),
+    city: string().required('Select your City').matches(/\S/, 'Field cannot contain only spaces value'),
+    state: string().required('Enter your State').matches(/\S/, 'Field cannot contain only spaces value'),
+    country: string().required('Enter your Country').matches(/\S/, 'Field cannot contain only spaces value'),
 })
 
 
@@ -47,10 +47,7 @@ export default function ProfileInfo() {
     const [isEdit, setIsEdit] = useState(false);
     const [imageUrl, setImageUrl] = useState('')
     const user = JSON.parse(sessionStorage.user);
-    // const [isManager, setIsManager] = useState(user.isManager);
-    const [socialMediaList, setSocialMediaList] = useState(['Facebook', 'Instagram', 'Linkedin']);
-    const [unmatchSocialMedia, setUnmatchSocialMedia] = useState([]);
-
+    
     const { values, errors, handleBlur, handleChange, handleSubmit, touched } = useFormik({
         initialValues: initialValues,
         validationSchema: schema,
