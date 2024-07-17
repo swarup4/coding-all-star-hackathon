@@ -18,7 +18,7 @@ export default function Notification(props) {
 
     return (
         <>
-            {props.notification.popup ? (
+            {props.notification.popup &&
                 <section className="fixed mt-3 z-50 w-full animate-top bg-transparent">
                     <div className="container px-4 mx-auto w-4/12">
 
@@ -66,7 +66,7 @@ export default function Notification(props) {
 
                     </div>
                 </section>
-            ) : ''}
+            }
         </>
     )
 }

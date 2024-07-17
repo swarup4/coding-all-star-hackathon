@@ -62,7 +62,7 @@ export default function Hackathon() {
 
     return (
         <>
-            {Object.keys(project).length > 0 ? (
+            {Object.keys(project).length > 0 && (
                 <section className="py-16 bg-white" style={{ backgroundImage: 'url("../assets/flex-ui-assets/elements/pattern-white.svg")', backgroundRepeat: 'no-repeat', backgroundPosition: 'center top' }}>
                     <div className="container px-4 mx-auto">
                         <div className="flex flex-wrap lg:items-center mb-12 -mx-4">
@@ -112,44 +112,27 @@ export default function Hackathon() {
                         <div className="flex flex-wrap -mx-4">
                             <div className="w-full md:w-5/12 lg:w-4/12 xl:w-3/12 px-4 mb-8">
                                 <ul className="pb-6 mb-8 border-b border-coolGray-100">
-                                    <li onClick={() => setTab('')} className={`text-coolGray-400 hover:text-coolGray-500 cursor-pointer ${tab === '' ? 'tab-active' : ''}`}><a className="inline-block py-2 px-2 font-semibold">Overview</a></li>
-                                    <li onClick={() => setTab('prizes')} className={`text-coolGray-400 hover:text-coolGray-500 cursor-pointer ${tab === 'prizes' ? 'tab-active' : ''}`}><a className="inline-block py-2 px-2 font-semibold">Prizes</a></li>
-                                    <li onClick={() => setTab('panel', project.panels)} className={`text-coolGray-400 hover:text-coolGray-500 cursor-pointer ${tab === 'panel' ? 'tab-active' : ''}`}><a className="inline-block py-2 px-2 font-semibold">Panel</a></li>
-                                    <li onClick={() => setTab('leaderboard')} className={`text-coolGray-400 hover:text-coolGray-500 cursor-pointer ${tab === 'leaderboard' ? 'tab-active' : ''}`}><a className="inline-block py-2 px-2 font-semibold">Leaderboard</a></li>
-                                    <li onClick={() => setTab('participants')} className={`text-coolGray-400 hover:text-coolGray-500 cursor-pointer ${tab === 'participants' ? 'tab-active' : ''}`}><a className="inline-block py-2 px-2 font-semibold">View Participants</a></li>
-                                    <li onClick={() => setTab('apilist')} className={`text-coolGray-400 hover:text-coolGray-500 cursor-pointer ${tab === 'apilist' ? 'tab-active' : ''}`}><a className="inline-block py-2 px-2 font-semibold">My Submissions</a></li>
+                                    <li onClick={() => setTab('')} className={`text-coolGray-400 hover:text-coolGray-500 cursor-pointer ${tab === '' && 'tab-active'}`}><a className="inline-block py-2 px-2 font-semibold">Overview</a></li>
+                                    <li onClick={() => setTab('prizes')} className={`text-coolGray-400 hover:text-coolGray-500 cursor-pointer ${tab === 'prizes' && 'tab-active'}`}><a className="inline-block py-2 px-2 font-semibold">Prizes</a></li>
+                                    <li onClick={() => setTab('panel', project.panels)} className={`text-coolGray-400 hover:text-coolGray-500 cursor-pointer ${tab === 'panel' && 'tab-active'}`}><a className="inline-block py-2 px-2 font-semibold">Panel</a></li>
+                                    <li onClick={() => setTab('leaderboard')} className={`text-coolGray-400 hover:text-coolGray-500 cursor-pointer ${tab === 'leaderboard' && 'tab-active'}`}><a className="inline-block py-2 px-2 font-semibold">Leaderboard</a></li>
+                                    <li onClick={() => setTab('participants')} className={`text-coolGray-400 hover:text-coolGray-500 cursor-pointer ${tab === 'participants' && 'tab-active'}`}><a className="inline-block py-2 px-2 font-semibold">View Participants</a></li>
+                                    <li onClick={() => setTab('apilist')} className={`text-coolGray-400 hover:text-coolGray-500 cursor-pointer ${tab === 'apilist' && 'tab-active'}`}><a className="inline-block py-2 px-2 font-semibold">My Submissions</a></li>
                                 </ul>
                             </div>
 
                             <div className="w-full md:flex-1 px-4">
-                                {tab === '' ? (
-                                    <div dangerouslySetInnerHTML={{ __html: project.description }}></div>
-                                ) : ''}
-
-                                {tab === 'apilist' ? (
-                                    <ApiList appliedUser={project.appliedUser} />
-                                ) : ''}
-
-                                {tab === 'leaderboard' ? (
-                                    <Leaderboard appliedUser={project.appliedUser} />
-                                ) : ''}
-
-                                {tab === 'prizes' ? (
-                                    <Prizes />
-                                ) : ''}
-
-                                {tab === 'panel' ? (
-                                    <Panel data={project.panels} />
-                                ) : ''}
-
-                                {tab === 'participants' ? (
-                                    <Participants data={project.appliedUser} />
-                                ) : ''}
+                                {tab === '' && <div dangerouslySetInnerHTML={{ __html: project.description }}></div>}
+                                {tab === 'apilist' && <ApiList appliedUser={project.appliedUser} />}
+                                {tab === 'leaderboard' && <Leaderboard appliedUser={project.appliedUser} />}
+                                {tab === 'prizes' && <Prizes />}
+                                {tab === 'panel' && <Panel data={project.panels} />}
+                                {tab === 'participants' && <Participants data={project.appliedUser} />}
                             </div>
                         </div>
                     </div>
                 </section>
-            ) : ''}
+            )}
         </>
     )
 }

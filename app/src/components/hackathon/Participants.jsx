@@ -17,27 +17,27 @@ export default function Participants(props) {
                                 <h3 className="mb-1 text-lg text-coolGray-800 font-semibold">{res.name}</h3>
                                 <span className="inline-block mb-6 text-lg font-medium text-yellow-500">{res.role}</span>
                                 <div className="flex items-center justify-center">
-                                    {res.social ? (
+                                    {res.social &&
                                         <>
-                                            {res.social.facebook ? (
+                                            {res.social.facebook &&
                                                 <a className="inline-block mx-2 hover:opacity-80" href={res.social.facebook} target='_blank'>
                                                     <img src={window.location.origin + "/flex-ui-assets/brands/facebook.svg"} alt="" />
                                                 </a>
-                                            ) : ''}
+                                            }
 
-                                            {res.social.linkedin ? (
+                                            {res.social.linkedin &&
                                                 <a className="inline-block mx-2 hover:opacity-80" href={res.social.linkedin} target='_blank'>
                                                     <img src={window.location.origin + "/flex-ui-assets/brands/linkedin.svg"} alt="" />
                                                 </a>
-                                            ) : ''}
+                                            }
 
-                                            {res.social.instagram ? (
+                                            {res.social.instagram &&
                                                 <a className="inline-block mx-2 hover:opacity-80" href={res.social.instagram} target='_blank'>
                                                     <img src={window.location.origin + "/flex-ui-assets/brands/instagram.svg"} alt="" />
                                                 </a>
-                                            ) : ''}
+                                            }
                                         </>
-                                    ) : ''}
+                                    }
                                 </div>
                             </div>
                         </div>

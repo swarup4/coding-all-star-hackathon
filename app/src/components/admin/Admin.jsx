@@ -183,7 +183,7 @@ export default function Admin() {
         const url = `${HOST_URL}hackathon/updateHackathon/${id}`
         return new Promise((resolve, reject) => {
             axios.put(url, data).then(res => {
-                if(Object.keys(bannerPics).length > 0){
+                if (Object.keys(bannerPics).length > 0) {
                     uploadImage(res.data._id, bannerPics.file).then(image => {
                         resolve(image)
                     }).catch(err => {
@@ -280,7 +280,7 @@ export default function Admin() {
                                 </div>
                             </div>
 
-                            {!id ? (
+                            {!id &&
                                 <div className="py-6 border-b border-coolGray-100">
                                     <div className="w-full md:w-9/12">
                                         <div className="flex flex-wrap -m-3">
@@ -295,7 +295,7 @@ export default function Admin() {
                                                     ))}
                                                 </select>
 
-                                                {panel.length > 0 ? (
+                                                {panel.length > 0 &&
                                                     <div className='mt-4'>
                                                         {panel.map((x, ind) => (
                                                             <div className='flex p-2' key={ind}>
@@ -308,12 +308,12 @@ export default function Admin() {
                                                             </div>
                                                         ))}
                                                     </div>
-                                                ) : ''}
+                                                }
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            ) : ''}
+                            }
 
                             <div className="pt-6">
                                 <div className="w-full md:w-9/12">
@@ -338,9 +338,9 @@ export default function Admin() {
                                             <p className="text-sm text-coolGray-800 font-semibold">Photo</p>
                                         </div>
                                         <div className="w-full md:w-auto">
-                                            {imageUrl ? (
+                                            {imageUrl &&
                                                 <img src={imageUrl} className='h-20 rounded-md' alt="" />
-                                            ) : ''}
+                                            }
                                         </div>
                                         <div className="w-full md:flex-1 p-3">
                                             <div className="relative flex flex-col items-center justify-center p-6 h-44 text-center text-yellow-500 focus-within:border-yellow-500 border border-dashed border-coolGray-200 rounded-lg">

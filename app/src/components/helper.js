@@ -102,3 +102,13 @@ export const checkDateDifference = (createdAt) => {
     const differenceInDays = now.diff(createdAt, 'days');
     return (2 - differenceInDays)
 }
+
+export const timeCalculator = (time) => {
+    let minute = Math.floor(time / 60);
+    let second = time - (minute * 60);
+
+    return {
+        minute,
+        second
+    }
+}

@@ -170,7 +170,7 @@ export default function Review() {
                                             <td className="whitespace-nowrap px-4 bg-white text-sm font-medium text-coolGray-800 text-center">{item.apiVersion}</td>
                                             <td className="whitespace-nowrap px-4 bg-white text-sm font-medium text-yellow-500 text-left">{item.programmingLanguage}</td>
                                             <td className="whitespace-nowrap px-4 bg-white text-sm font-medium text-coolGray-800 text-center">
-                                                {reviewPoint > 0 ? (
+                                                {reviewPoint > 0 &&
                                                     <>
                                                         {reviewEligible(item.review) ? (
                                                             <a className='cursor-pointer' onClick={() => viewDialog(item.apiId, item.userId)}>
@@ -180,7 +180,7 @@ export default function Review() {
                                                             <CheckIcon className='text-green-500 h-5 w-5 stroke-2' />
                                                         )}
                                                     </>
-                                                ) : ''}
+                                                }
                                             </td>
 
                                         </tr>
@@ -192,16 +192,17 @@ export default function Review() {
                 </div>
             </section >
 
-            <CommonDialog heading="Review Code" dialog='large' open={isOpen} close={setIsOpen} submitText='Approve' rejectText='Reject' submit={approveCode} reject={rejectDialog} timer={isOpen}>
-                <View apiId={apiId} />
-            </CommonDialog>
+            {isOpen && 
+                <CommonDialog heading="Review Code" dialog='large' open={isOpen} close={setIsOpen} submitText='Approve' rejectText='Reject' submit={approveCode} reject={rejectDialog} timer={isOpen}>
+                    <View apiId={apiId} />
+                </CommonDialog>
+            }
 
-            {reject ? (
+            {reject &&
                 <CommonDialog heading="Comment" open={reject} close={setReject} submitText='Sumbit' submit={rejectCode}>
                     <textarea name='comment' placeholder="Give rejection comment" value={comment} onChange={ev => setComment(ev.target.value)}
                         className="w-full px-4 py-2.5 text-base text-coolGray-900 font-normal outline-none focus:border-yellow-500 border border-coolGray-200 rounded-lg shadow-input"></textarea>
                 </CommonDialog>
-            ) : ''
             }
         </>
     )

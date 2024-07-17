@@ -92,7 +92,7 @@ export default function UserHeader() {
                         <div className="w-auto p-2">
                             <div className="hidden xl:flex flex-wrap items-center -m-3">
                                 <div className="w-auto p-3">
-                                    {userInfo ? (
+                                    {userInfo &&
                                         <Link to='/dashboard/review' className="block max-w-max text-coolGray-500 hover:text-coolGray-600">
                                             <div className='rounded-lg h-10 w-32 flex flex-wrap items-center'>
                                                 <div className='h-8 w-8 items-center flex justify-center text-green-600 bg-green-200 rounded-full'>{reviewPoint?.totalReviewPoint ?? 0}</div>
@@ -102,7 +102,7 @@ export default function UserHeader() {
                                                 </div>
                                             </div>
                                         </Link>
-                                    ) : ''}
+                                    }
                                 </div>
                                 <div className="w-auto p-3">
                                     {userInfo ? (
@@ -133,9 +133,9 @@ export default function UserHeader() {
                                                 <ul className="p-2 shadow menu dropdown-content z-20 bg-white rounded-box w-52">
                                                     <li><Link to='/dashboard/profile'>Profile</Link></li>
                                                     
-                                                    {user.isAdmin ? (
+                                                    {user.isAdmin &&
                                                         <li><Link to='/admin'>Admin</Link></li>
-                                                    ): ''}
+                                                    }
 
                                                     <li><Link to={`/changePassword/${user.id}`}>Change Password</Link></li>
                                                     <li><button onClick={() => logout()}>Logout</button></li>

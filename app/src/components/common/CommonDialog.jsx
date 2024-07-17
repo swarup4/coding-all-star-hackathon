@@ -1,5 +1,6 @@
 import React, { Fragment, useState, useEffect } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
+import { timeCalculator } from '../../components/helper'
 
 export default function CommonDialog(props) {
     const [showTimer, setShowTimer] = useState(false)
@@ -9,34 +10,30 @@ export default function CommonDialog(props) {
     });
 
     useEffect(() => {
+        let time;
         if (props.timer) {
             setShowTimer(true)
-            startTimer()
+            let startTime = (timer.minute * 60) + timer.second
+            time = setInterval(() => {
+                startTime = startTime - 1;
+                if (startTime < 0) {
+                    setShowTimer(false)
+                    clearInterval(time)
+                } else {
+                    setTimer(timeCalculator(startTime))
+                }
+            }, 1000)
+        }
+
+        return () => {
+            clearInterval(time)
+            setShowTimer(false)
+            setTimer({
+                minute: 3,
+                second: 0
+            })
         }
     }, [props.timer])
-
-
-    function startTimer() {
-        let startTime = (timer.minute * 60) + timer.second
-        let time = setInterval(() => {
-            startTime = startTime - 1;
-            if (startTime < 0) {
-                setShowTimer(false)
-                clearInterval(time)
-            } else {
-                timeCalculator(startTime)
-            }
-        }, 1000)
-    }
-    function timeCalculator(time) {
-        let minute = Math.floor(time / 60);
-        let second = time - (minute * 60);
-
-        setTimer({
-            minute,
-            second
-        })
-    }
 
 
     return (
@@ -76,19 +73,19 @@ export default function CommonDialog(props) {
                                                 </span>
                                             ) : (
                                                 <>
-                                                    {props.rejectText ? (
+                                                    {props.rejectText &&
                                                         <button type="button" onClick={() => props.reject()}
                                                             className="mr-3 inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium bg-red-500 hover:bg-red-600 font-medium text-sm text-white border border-red-500 rounded-md shadow-button">
                                                             {props.rejectText}
                                                         </button>
-                                                    ) : ''}
+                                                    }
 
-                                                    {props.submitText ? (
+                                                    {props.submitText &&
                                                         <button type="button" onClick={() => props.submit()}
                                                             className="inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium bg-yellow-500 hover:bg-yellow-600 font-medium text-sm text-white border border-yellow-500 rounded-md shadow-button">
                                                             {props.submitText}
                                                         </button>
-                                                    ) : ''}
+                                                    }
                                                 </>
                                             )}
                                         </div>

@@ -28,11 +28,11 @@ export default function View(props) {
         <section className="relative px-4 bg-white">
             <div className="container relative z-10 mx-auto">
                 <ul className="flex flex-wrap mb-8 -mx-2 text-center">
-                    <li className="w-full md:w-auto px-2 cursor-pointer"><a onClick={() => setTab(0)} className={`inline-block w-full py-2 px-4 mb-4 md:mb-0 text-sm text-coolGray-400 hover:text-yellow-500 hover:bg-yellow-200 font-bold rounded-md hover:shadow-sm ${tab == 0 ? 'tab-active' : ''}`}>Details</a></li>
-                    <li className="w-full md:w-auto px-2 cursor-pointer"><a onClick={() => setTab(1)} className={`inline-block w-full py-2 px-4 mb-4 md:mb-0 text-sm text-coolGray-400 hover:text-yellow-500 hover:bg-yellow-200 font-bold rounded-md hover:shadow-sm ${tab == 1 ? 'tab-active' : ''}`}>Code</a></li>
+                    <li className="w-full md:w-auto px-2 cursor-pointer"><a onClick={() => setTab(0)} className={`inline-block w-full py-2 px-4 mb-4 md:mb-0 text-sm text-coolGray-400 hover:text-yellow-500 hover:bg-yellow-200 font-bold rounded-md hover:shadow-sm ${tab == 0 && 'tab-active'}`}>Details</a></li>
+                    <li className="w-full md:w-auto px-2 cursor-pointer"><a onClick={() => setTab(1)} className={`inline-block w-full py-2 px-4 mb-4 md:mb-0 text-sm text-coolGray-400 hover:text-yellow-500 hover:bg-yellow-200 font-bold rounded-md hover:shadow-sm ${tab == 1 && 'tab-active'}`}>Code</a></li>
                 </ul>
                 <div className="flex flex-wrap overflow-y-auto" style={{height: 'calc(100vh - 350px)'}}>
-                    {Object.keys(api).length > 0 ? (
+                    {Object.keys(api).length > 0 && (
                         <>
                             {tab == 0 ? (
                                 <div className="w-full md:w-full">
@@ -51,18 +51,6 @@ export default function View(props) {
                                                     </div>
                                                 </div>
                                             </div>
-                                            {/* <div className="py-6 border-b border-coolGray-100">
-                                                <div className="w-full md:w-9/12">
-                                                    <div className="flex flex-wrap -m-3">
-                                                        <div className="w-full md:w-1/4 p-3">
-                                                            <p className="text-sm text-coolGray-800 font-semibold">Category</p>
-                                                        </div>
-                                                        <div className="w-full md:flex-1 p-3">
-                                                            {api.category}
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div> */}
                                             <div className="py-6 border-b border-coolGray-100">
                                                 <div className="w-full md:w-9/12">
                                                     <div className="flex flex-wrap -m-3">
@@ -158,7 +146,7 @@ export default function View(props) {
                                 </div>
                             )}
                         </>
-                    ) : ''}
+                    )}
                 </div>
             </div>
         </section>

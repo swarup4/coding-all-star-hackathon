@@ -115,7 +115,7 @@ export default function SubmissionDetails(props) {
                 </div>
             </div>
 
-            {Object.keys(submission).length > 0 ? (
+            {Object.keys(submission).length > 0 &&
                 <div className="w-full md:w-full">
                     <div className="flex flex-wrap -m-3">
 
@@ -132,18 +132,6 @@ export default function SubmissionDetails(props) {
                                     </div>
                                 </div>
                             </div>
-                            {/* <div className="py-6 border-b border-coolGray-100">
-                                <div className="w-full md:w-9/12">
-                                    <div className="flex flex-wrap -m-3">
-                                        <div className="w-full md:w-1/4 p-3">
-                                            <p className="text-sm text-coolGray-800 font-semibold">Category</p>
-                                        </div>
-                                        <div className="w-full md:flex-1 p-3">
-                                            {submission.category}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> */}
                             <div className="py-6 border-b border-coolGray-100">
                                 <div className="w-full md:w-full">
                                     <div className="flex flex-wrap -m-3">
@@ -260,7 +248,7 @@ export default function SubmissionDetails(props) {
                         </div>
                     </div>
                 </div>
-            ) : ''}
+            }
 
 
             <Transition appear show={isOpen} as={Fragment}>

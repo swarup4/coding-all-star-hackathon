@@ -103,10 +103,10 @@ export default function Dashboard() {
                         </div>
                     </div>
                     <ul className="flex flex-wrap mb-8 -mx-2 text-center">
-                        <li className="w-full md:w-auto px-2 cursor-pointer"><a onClick={() => selectTab(0)} className={`inline-block w-full py-2 px-4 mb-4 md:mb-0 text-sm text-coolGray-400 hover:text-yellow-500 hover:bg-yellow-200 font-bold rounded-md hover:shadow-sm ${tab == 0 ? 'tab-active' : ''}`}>All Hackathons</a></li>
-                        <li className="w-full md:w-auto px-2 cursor-pointer"><a onClick={() => selectTab(1)} className={`inline-block w-full py-2 px-4 mb-4 md:mb-0 text-sm text-coolGray-400 hover:text-yellow-500 hover:bg-yellow-200 font-bold rounded-md hover:shadow-sm ${tab == 1 ? 'tab-active' : ''}`}>Open</a></li>
-                        <li className="w-full md:w-auto px-2 cursor-pointer"><a onClick={() => selectTab(2)} className={`inline-block w-full py-2 px-4 mb-4 md:mb-0 text-sm text-coolGray-400 hover:text-yellow-500 hover:bg-yellow-200 font-bold rounded-md hover:shadow-sm ${tab == 2 ? 'tab-active' : ''}`}>Featured</a></li>
-                        <li className="w-full md:w-auto px-2 cursor-pointer"><a onClick={() => selectTab(3)} className={`inline-block w-full py-2 px-4 mb-4 md:mb-0 text-sm text-coolGray-400 hover:text-yellow-500 hover:bg-yellow-200 font-bold rounded-md hover:shadow-sm ${tab == 3 ? 'tab-active' : ''}`}>Past</a></li>
+                        <li className="w-full md:w-auto px-2 cursor-pointer"><a onClick={() => selectTab(0)} className={`inline-block w-full py-2 px-4 mb-4 md:mb-0 text-sm text-coolGray-400 hover:text-yellow-500 hover:bg-yellow-200 font-bold rounded-md hover:shadow-sm ${tab == 0 && 'tab-active'}`}>All Hackathons</a></li>
+                        <li className="w-full md:w-auto px-2 cursor-pointer"><a onClick={() => selectTab(1)} className={`inline-block w-full py-2 px-4 mb-4 md:mb-0 text-sm text-coolGray-400 hover:text-yellow-500 hover:bg-yellow-200 font-bold rounded-md hover:shadow-sm ${tab == 1 && 'tab-active'}`}>Open</a></li>
+                        <li className="w-full md:w-auto px-2 cursor-pointer"><a onClick={() => selectTab(2)} className={`inline-block w-full py-2 px-4 mb-4 md:mb-0 text-sm text-coolGray-400 hover:text-yellow-500 hover:bg-yellow-200 font-bold rounded-md hover:shadow-sm ${tab == 2 && 'tab-active'}`}>Featured</a></li>
+                        <li className="w-full md:w-auto px-2 cursor-pointer"><a onClick={() => selectTab(3)} className={`inline-block w-full py-2 px-4 mb-4 md:mb-0 text-sm text-coolGray-400 hover:text-yellow-500 hover:bg-yellow-200 font-bold rounded-md hover:shadow-sm ${tab == 3 && 'tab-active'}`}>Past</a></li>
                     </ul>
                     <div className="flex flex-wrap -mx-4 mb-12 md:mb-20">
                         {hackathon.length > 0 ? (
