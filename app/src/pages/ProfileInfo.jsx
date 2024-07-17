@@ -43,7 +43,8 @@ export default function ProfileInfo() {
     const [userProfilePics, setUserProfilePics] = useState({})
     const [profilePicsErrorMsg, setProfilePicsErrorMsg] = useState('')
     const [sociaMedia, setSociaMedia] = useState('');
-    const [url, setUrl] = useState('');
+    const [socialMediaUrl, setSocialMediaUrl] = useState('');
+    const [socialMediaError, setSocialMediaError] = useState('');
     const [isOpen, setIsOpen] = useState(false);
     const [isEdit, setIsEdit] = useState(false);
     const [imageUrl, setImageUrl] = useState('')
@@ -178,27 +179,32 @@ export default function ProfileInfo() {
     }
 
     function submitSocialMedia() {
-        let obj = {};
-        obj[sociaMedia.toLowerCase()] = url
-
-        const apiurl = `${HOST_URL}user/addSocialMedia/${user.id}`
-        axios.put(apiurl, obj).then(res => {
-            setUserContact(prevState => ({ ...prevState, ...obj }));
-            setIsOpen(false)
-            setUrl('')
-            dispatch(setNotification({
-                popup: true,
-                status: 'success',
-                message: res.data.message
-            }))
-        }).catch(err => {
-            console.log(err)
-            dispatch(setNotification({
-                popup: true,
-                status: 'error',
-                message: err.response.data
-            }))
-        })
+        if(socialMediaUrl.trim().length > 0){
+            setSocialMediaError('')
+            let obj = {};
+            obj[sociaMedia.toLowerCase()] = socialMediaUrl
+    
+            const apiurl = `${HOST_URL}user/addSocialMedia/${user.id}`
+            axios.put(apiurl, obj).then(res => {
+                setUserContact(prevState => ({ ...prevState, ...obj }));
+                setIsOpen(false)
+                setSocialMediaUrl('')
+                dispatch(setNotification({
+                    popup: true,
+                    status: 'success',
+                    message: res.data.message
+                }))
+            }).catch(err => {
+                console.log(err)
+                dispatch(setNotification({
+                    popup: true,
+                    status: 'error',
+                    message: err.response.data
+                }))
+            })
+        } else {
+            setSocialMediaError('Social Media url is not proper')
+        }
     }
 
     function getUserDetails() {
@@ -486,8 +492,10 @@ export default function ProfileInfo() {
                         </div>
 
                         <CommonDialog heading={`Add ${sociaMedia} URL`} open={isOpen} close={setIsOpen} submitText='Sumbit' submit={submitSocialMedia}>
-                            <input type="text" name='social' placeholder={`Add ${sociaMedia} URL`} value={url} onChange={ev => setUrl(ev.target.value)}
+                            <input type="text" name='social' required placeholder={`Add ${sociaMedia} URL`} value={socialMediaUrl} onChange={ev => setSocialMediaUrl(ev.target.value)}
                                 className="w-full px-4 py-2.5 text-base text-coolGray-900 font-normal outline-none focus:border-yellow-500 border border-coolGray-200 rounded-lg shadow-input" />
+                            
+                            <p className='mt-1 text-red-500'>{socialMediaError}</p>
                         </CommonDialog>
 
                     </form>
