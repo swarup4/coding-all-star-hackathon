@@ -89,6 +89,7 @@ export default function Review() {
             comment: comment
         }
         await updateReview(body, 'Reject')
+        setComment('')
         setReject(false)
     }
 

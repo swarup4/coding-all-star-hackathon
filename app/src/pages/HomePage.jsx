@@ -131,7 +131,7 @@ export default function HomePage() {
                                 </ul>
                             </div>
                             <div className="w-full md:w-1/2 p-3">
-                                <Link to='login' className="float-right px-7 py-4 font-medium text-lg text-white bg-yellow-500 hover:bg-yellow-600 rounded-md">Get Started</Link>
+                                <Link to='dashboard' className="float-right px-7 py-4 font-medium text-lg text-white bg-yellow-500 hover:bg-yellow-600 rounded-md">Get Started</Link>
                             </div>
                         </div>
                     </div>
