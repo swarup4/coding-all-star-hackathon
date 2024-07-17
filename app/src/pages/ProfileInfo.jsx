@@ -84,16 +84,21 @@ export default function ProfileInfo() {
 
     function selectImage(ev) {
         let file = ev.currentTarget.files[0];
-        if(file.size < (10 * 1024 * 1024)) { 
-            let reader = new FileReader();
-            let url = reader.readAsDataURL(file);
-            setUserProfilePics({ "file": file });
-    
-            reader.onloadend = (ev) => {
-                setImageUrl(reader.result)
+        if(file.type == 'image/png' || file.type == 'image/jpeg'){
+            if(file.size < (10 * 1024 * 1024)) { 
+                let reader = new FileReader();
+                let url = reader.readAsDataURL(file);
+                setUserProfilePics({ "file": file });
+
+                reader.onloadend = (ev) => {
+                    setProfilePicsErrorMsg('')
+                    setImageUrl(reader.result)
+                }
+            } else {
+                setProfilePicsErrorMsg('Your image size is more then 10MB')
             }
         } else {
-            setProfilePicsErrorMsg('Your image size is more then 10MB')
+            setProfilePicsErrorMsg('Your are trying to upload unsupported file')
         }
     }
 
