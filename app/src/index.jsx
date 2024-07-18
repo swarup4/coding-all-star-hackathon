@@ -1,16 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { Provider } from 'react-redux';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { Provider } from 'react-redux';
 import { store } from './store/store';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+const query = new QueryClient()
+
 root.render(
-	<Provider store={store}>
-		<App />
-	</Provider>
+	<QueryClientProvider client={query}>
+		<Provider store={store}>
+			<App />
+		</Provider>
+	</QueryClientProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function
