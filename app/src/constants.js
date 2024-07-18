@@ -1,1 +1,1 @@
-export const HOST_URL = 'http://13.200.85.53:3001/'
+export const HOST_URL = 'https://allstar.trigent.com:3001'
