@@ -367,11 +367,15 @@ function insertData(data) {
 
 router.post('/uploadExcel', userMiddleware.varifyToken, upload.single("userFile"), async (req, res) => {
     try {
-        let path = req.file.originalname;
-        const file = reader.readFile(path)
+
+        if (!req.file) {
+            return res.status(400).send('No file uploaded.');
+        }
+
+        const file = reader.read(req.file.buffer)
         let data = []
 
-        const sheets = file.SheetNames
+        const sheets = file.SheetNames;
         for (let i = 0; i < sheets.length; i++) {
             const temp = reader.utils.sheet_to_json(
                 file.Sheets[file.SheetNames[i]]
