@@ -1,9 +1,10 @@
 require('dotenv').config()
+const https = require('https');
+const fs = require('fs');
 const express = require('express');
 const cron = require('node-cron');
 const cors = require('cors');
 const mongoose = require("mongoose");
-const http = require('http');
 const { Server } = require('socket.io');
 
 const controller = require('./modules');
@@ -11,9 +12,17 @@ const SubmissionMiddleware = require('./middleware/submission')
 
 const app = express();
 const PORT = process.env.PORT | 3001;
-const server = http.createServer(app);
-const io = new Server(server);
 
+// const io = new Server(server);
+
+
+const privateKey = fs.readFileSync("/home/ec2-user/TrigentCert/trigent_wildcard_15March2024.key", "utf8");
+const certificate = fs.readFileSync("/home/ec2-user/TrigentCert/server.pem", "utf8");
+
+let option = {
+    key: privateKey,
+    cert: certificate
+};
 
 mongoose.connect(process.env.MONGO_DB, {
     useNewUrlParser: true,
@@ -83,10 +92,11 @@ app.use(controller);
 }); */
 
 
-cron.schedule("59 59 23 * * *", function() { 
-    console.log("running a task every day"); 
+cron.schedule("59 59 23 * * *", function () {
+    console.log("running a task every day");
     SubmissionMiddleware.rejectUnsubmittedApis()
-}); 
+});
 
+const server = https.createServer(option, app);
 
 server.listen(PORT, () => console.log('Server is running on port no ' + PORT));
