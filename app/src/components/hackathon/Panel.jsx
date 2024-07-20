@@ -1,12 +1,20 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { getInitial, randomColor } from '../helper'
 
 export default function Panel(props) {
+    const [panelist, setPanelist] = useState([])
+    
+    useEffect(() => {
+        if (props.data && Array.isArray(props.data)) {
+            const sortArr = [...props.data].sort((a, b) => a.empId - b.empId);
+            setPanelist(sortArr);
+        }
+    }, [])
     return (
         <section className="relative pb-24 bg-white theme-background">
             <div className="relative container px-4 mx-auto">
                 <div className="flex flex-wrap -mx-4">
-                    {props.data.map((res, ind) => (
+                    {panelist.map((res, ind) => (
                         <div className="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 px-4 mb-10" key={ind}>
                             <div className="text-center max-w-xs mx-auto">
                                 {res.profilePics ? (
