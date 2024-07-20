@@ -118,10 +118,10 @@ function App() {
             path: 'login',
             element: <Login />,
             errorElement: <Error />
-        }, {
-            path: 'signup',
-            element: <Register />,
-            errorElement: <Error />
+        // }, {
+        //     path: 'signup',
+        //     element: <Register />,
+        //     errorElement: <Error />
         }, {
             path: 'changePassword/:id',
             element: <ChangePassword />,

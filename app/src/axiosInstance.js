@@ -2,7 +2,7 @@ import axios from 'axios'
 
 const axiosInstance = axios.create({
     baseURL: 'http://localhost:3000',
-    timeout: 10000, // Timeout after 10 seconds
+    timeout: 60000, // Timeout after 60 seconds
 });
 
 // Request interceptor to add the authorization token to headers

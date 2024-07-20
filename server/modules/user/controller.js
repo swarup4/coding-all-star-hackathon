@@ -14,7 +14,7 @@ const router = express.Router();
 const storage = multer.memoryStorage()
 const upload = multer({ storage: storage });
 
-const expiresIn = 3600
+const expiresIn = 10800 // 3 Hours
 
 // Get All User Information. This is Only for Admin User
 router.get("/info/:id", userMiddleware.varifyToken, async (req, res) => {
@@ -157,6 +157,17 @@ router.get('/userList/:user', userMiddleware.varifyToken, async (req, res) => {
         } else {
             userList = await User.Auth.find({ isAdmin: false }, { name: 1, email: 1, password: 1 })
         }
+
+        res.json(userList);
+    } catch (error) {
+        res.send(error);
+    }
+})
+
+router.get('/filterUserList/:id', userMiddleware.varifyToken, async (req, res) => {
+    try {
+        let id = req.params.id;
+        let userList = await User.Auth.find({ canParticipate: true, manager: id }, { name: 1, email: 1, password: 1 })
 
         res.json(userList);
     } catch (error) {
@@ -367,11 +378,15 @@ function insertData(data) {
 
 router.post('/uploadExcel', userMiddleware.varifyToken, upload.single("userFile"), async (req, res) => {
     try {
-        let path = req.file.originalname;
-        const file = reader.readFile(path)
+
+        if (!req.file) {
+            return res.status(400).send('No file uploaded.');
+        }
+
+        const file = reader.read(req.file.buffer)
         let data = []
 
-        const sheets = file.SheetNames
+        const sheets = file.SheetNames;
         for (let i = 0; i < sheets.length; i++) {
             const temp = reader.utils.sheet_to_json(
                 file.Sheets[file.SheetNames[i]]

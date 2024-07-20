@@ -10,14 +10,14 @@ import { setNotification } from '../../store/notification/notificationSlice'
 export default function Rank() {
     const navigate = useNavigate()
     const dispatch = useDispatch()
-    const [ranks, setRanks] = useState()
+    const [ranks, setRanks] = useState(0)
     const user = useSelector(store => store.user.data)
     const count = useSelector(store => store.submission.data)
 
     useEffect(() => {
         const url = `${HOST_URL}point/getRank/${user.id}`
         axios.get(url).then(res => {
-            setRanks(res?.data[0]?.rank)
+            setRanks(res?.data[0]?.rank ?? 0)
         }).catch(err => {
             console.log(err)
             dispatch(setNotification({

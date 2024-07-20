@@ -115,7 +115,7 @@ export default function ApiList(props) {
                                     <div className="bg-white border border-coolGray-100 shadow-dashboard rounded-md">
                                         <div className="flex flex-col justify-center items-center p-4 border-b border-coolGray-100 relative">
 
-                                            {item.submitStatus &&
+                                            {!item.submitStatus &&
                                                 <div className="py-2 px-3 bg-cyan-100 border border-cyan-200 rounded-md w-full">
                                                     <div className="flex flex-wrap justify-between -m-2">
                                                         <div className="flex-1 p-3">

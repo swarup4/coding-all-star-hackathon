@@ -145,7 +145,7 @@ export default function UserHeader() {
                                     ) : (
                                         <div className="flex items-center justify-end">
                                             <Link to='/login' className="inline-block py-2 px-4 mr-2 leading-5 text-coolGray-500 hover:text-coolGray-900 bg-transparent font-medium rounded-md">Sign In</Link>
-                                            <Link to='/signup' className="inline-block py-2 px-4 text-sm leading-5 text-yellow-50 bg-yellow-500 hover:bg-yellow-600 font-medium focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-50 rounded-md">Create an account</Link>
+                                            {/* <Link to='/signup' className="inline-block py-2 px-4 text-sm leading-5 text-yellow-50 bg-yellow-500 hover:bg-yellow-600 font-medium focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-50 rounded-md">Create an account</Link> */}
                                         </div>
                                     )}
 

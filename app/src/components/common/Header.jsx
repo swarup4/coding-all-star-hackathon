@@ -72,7 +72,7 @@ export default function Header() {
                             ) : (
                                 <div className="flex items-center justify-end">
                                     <Link to='/login' className="inline-block py-2 px-4 mr-2 leading-5 text-coolGray-500 hover:text-coolGray-900 bg-transparent font-medium rounded-md">Sign In</Link>
-                                    <Link to='/signup' className="inline-block py-2 px-4 text-sm leading-5 text-yellow-50 bg-yellow-500 hover:bg-yellow-600 font-medium focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-50 rounded-md">Create an account</Link>
+                                    {/* <Link to='/signup' className="inline-block py-2 px-4 text-sm leading-5 text-yellow-50 bg-yellow-500 hover:bg-yellow-600 font-medium focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-50 rounded-md">Create an account</Link> */}
                                 </div>
                             )}
                         </div>
@@ -99,7 +99,7 @@ export default function Header() {
                                         <Link to='/login' className="inline-block py-2 px-4 w-full text-sm leading-5 text-coolGray-500 hover:text-coolGray-900 bg-transparent font-medium text-center rounded-md">Log In</Link>
                                     </div>
                                     <div className="w-full">
-                                        <Link to='/signup' className="inline-block py-2 px-4 w-full text-sm leading-5 text-white bg-yellow-500 hover:bg-yellow-600 font-medium text-center focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-50 rounded-md">Sign Up</Link>
+                                        {/* <Link to='/signup' className="inline-block py-2 px-4 w-full text-sm leading-5 text-white bg-yellow-500 hover:bg-yellow-600 font-medium text-center focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-50 rounded-md">Sign Up</Link> */}
                                     </div>
                                 </div>
                             </div>

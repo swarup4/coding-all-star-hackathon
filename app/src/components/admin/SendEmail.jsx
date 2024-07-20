@@ -8,8 +8,10 @@ export default function SendEmail() {
 
     const dispatch = useDispatch();
     const [userList, setUserList] = useState([])
+    const [managerList, setManagerList] = useState([])
     const [hackathonList, setHackathonList] = useState([])
     const [hackathon, setHackathon] = useState('')
+    const [selectAllUser, setSelectAllUser] = useState(false)
 
     const [checked, setChecked] = useState([])
 
@@ -46,6 +48,20 @@ export default function SendEmail() {
     }, []);
 
     useEffect(() => {
+        const url = `${HOST_URL}user/userList/manager`
+        axios.get(url).then(res => {
+            setManagerList(res.data)
+        }).catch(err => {
+            console.log(err)
+            dispatch(setNotification({
+                popup: true,
+                status: 'error',
+                message: err.response.data
+            }))
+        })
+    }, []);
+
+    useEffect(() => {
         const url = `${HOST_URL}hackathon/getHackathonList`
         axios.get(url).then(res => {
             setHackathonList(res.data)
@@ -58,6 +74,38 @@ export default function SendEmail() {
             }))
         })
     }, []);
+
+    function selectManager(id){
+        setSelectAllUser(false);
+        const url = `${HOST_URL}user/filterUserList/${id}`
+        axios.get(url).then(res => {
+            let user = res.data.map(x => {
+                x.checked = false;
+                return x
+            })
+            setUserList(user)
+        }).catch(err => {
+            console.log(err)
+            dispatch(setNotification({
+                popup: true,
+                status: 'error',
+                message: err.response.data
+            }))
+        })
+    }
+
+    function selectAll(status){
+        let user = userList.map(x => {
+            x.checked = status;
+            return x
+        })
+        setSelectAllUser(status);
+        if(status){
+            setChecked(user);
+        } else {
+            setChecked([])
+        }
+    }
 
     function sendMail() {
         let obj = {
@@ -121,19 +169,52 @@ export default function SendEmail() {
                         </div>
 
                         <div>
-                            <div className="py-6 border-b border-coolGray-100">
-                                <div className="w-full md:w-9/12">
-                                    <div className="flex flex-wrap -m-3">
-                                        <div className="w-full md:w-1/3 p-3">
-                                            <p className="text-sm text-coolGray-800 font-semibold">Hackathon Name</p>
+                            <div className="py-2 border-b border-coolGray-100">
+                                <div className="grid grid-cols-3 gap-6">
+                                    <div className="">
+                                        <div className="flex flex-wrap">
+                                            <div className="w-full md:w-1/3 p-3 flex items-center">
+                                                <span className="text-sm text-coolGray-800 font-semibold">Hackathon Name</span>
+                                            </div>
+                                            <div className="w-full md:flex-1 p-3">
+                                                <select name='panelist' onChange={(ev) => setHackathon(ev.target.value)} className="appearance-none w-full py-2.5 px-4 text-coolGray-900 text-base font-normal bg-white border outline-none border-coolGray-200 focus:border-yellow-500 rounded-lg shadow-input">
+                                                    <option value="">Select</option>
+                                                    {hackathonList.map((item, ind) => (
+                                                        <option value={item.name} key={ind}>{item.name}</option>
+                                                    ))}
+                                                </select>
+                                            </div>
                                         </div>
-                                        <div className="w-full md:flex-1 p-3">
-                                            <select name='panelist' onChange={(ev) => setHackathon(ev.target.value)} className="appearance-none w-full py-2.5 px-4 text-coolGray-900 text-base font-normal bg-white border outline-none border-coolGray-200 focus:border-yellow-500 rounded-lg shadow-input">
-                                                <option value="">Select</option>
-                                                {hackathonList.map((item, ind) => (
-                                                    <option value={item.name} key={ind}>{item.name}</option>
-                                                ))}
-                                            </select>
+                                    </div>
+
+                                    <div className="">
+                                        <div className="flex flex-wrap">
+                                            <div className="w-full md:w-1/3 p-3 flex items-center">
+                                                <span className="text-sm text-coolGray-800 font-semibold">Manager</span>
+                                            </div>
+                                            <div className="w-full md:flex-1 p-3">
+                                                <select name='panelist' onChange={(ev) => selectManager(ev.target.value)} className="appearance-none w-full py-2.5 px-4 text-coolGray-900 text-base font-normal bg-white border outline-none border-coolGray-200 focus:border-yellow-500 rounded-lg shadow-input">
+                                                    <option value="">Select</option>
+                                                    {managerList.map((item, ind) => (
+                                                        <option value={item._id} key={ind}>{item.name}</option>
+                                                    ))}
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="">
+                                        <div className="flex flex-wrap md:flex-1">
+                                            <div className="w-full md:w-1/3 p-3 flex justify-evenly">
+                                                <span className="items-center flex text-sm text-coolGray-800">Select All</span>
+                                                <input onChange={(ev) => selectAll(ev.target.checked)} checked={selectAllUser} type="checkbox" className="w-5 h-5 bg-white rounded" />
+                                            </div>
+                                            <div className="w-full md:w-1/3 p-3">
+                                                <p className="text-sm text-coolGray-800">Select User {checked.length}</p>
+                                            </div>
+                                            <div className="w-full md:w-1/3 p-3">
+                                                <p className="text-sm text-coolGray-800">Total User {userList.length}</p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
