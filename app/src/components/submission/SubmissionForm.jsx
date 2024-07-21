@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 // import axios from 'axios'
 import axios from '../../axiosInstance'
 import { useNavigate, Link } from 'react-router-dom'
@@ -6,11 +6,11 @@ import { useDispatch } from 'react-redux'
 import { useFormik } from 'formik'
 import { object, string } from 'yup';
 import { HOST_URL } from '../../constants'
+import { programmingLanguageList } from '../helper'
 import { setNotification } from '../../store/notification/notificationSlice'
 
 const initialValues = {
     name: '',
-    // category: '',
     apiEndPoint: '',
     apiVersion: '',
     documentationLink: '',
@@ -19,7 +19,6 @@ const initialValues = {
 }
 const schema = object().shape({
     name: string().required('Enter your API Name').matches(/\S/, 'Field cannot contain only spaces value'),
-    // category: string().required('Enter your Project Category'),
     apiEndPoint: string().required('Enter API End point').matches(/\S/, 'Field cannot contain only spaces value'),
     apiVersion: string().required('Enter your API End Point Version').matches(/\S/, 'Field cannot contain only spaces value'),
     documentationLink: string().required('Enter your API Documentation Link').matches(/\S/, 'Field cannot contain only spaces value'),
@@ -179,18 +178,9 @@ export default function SubmissionForm(props) {
                                 <select name='programmingLanguage' value={values.programmingLanguage} onChange={handleChange} onBlur={handleBlur}
                                     className="appearance-none w-full py-2.5 px-4 text-coolGray-900 text-base font-normal bg-white border outline-none border-coolGray-200 focus:border-yellow-500 rounded-lg shadow-input">
                                     <option value=''>Select</option>
-                                    <option value='javascript'>JavaScript</option>
-                                    <option value='typescript'>TypeScript</option>
-                                    <option value='java'>Java</option>
-                                    <option value='go'>Go Lang</option>
-                                    <option value='html'>HTML</option>
-                                    <option value='cpp'>C++</option>
-                                    <option value='json'>JSON</option>
-                                    <option value='php'>PHP</option>
-                                    <option value='python'>Python</option>
-                                    <option value='rust'>RUST</option>
-                                    <option value='ruby'>RUBY</option>
-                                    <option value='csharp'>C#</option>
+                                    {programmingLanguageList.map((x, ind) => (
+                                        <option value={x.value} key={ind}>{x.name}</option>
+                                    ))}
                                 </select>
                                 {errors.programmingLanguage && touched.programmingLanguage ? (
                                     <p className='mt-1 text-red-500'>{errors.programmingLanguage}</p>
