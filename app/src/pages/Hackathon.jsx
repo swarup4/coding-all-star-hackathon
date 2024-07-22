@@ -4,6 +4,7 @@ import axios from '../axiosInstance'
 import moment from 'moment'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams, useNavigate } from 'react-router-dom'
+import { useQuery } from '@tanstack/react-query'
 import { HOST_URL } from '../constants'
 import { getInitial, randomColor } from '../components/helper'
 import Leaderboard from '../components/hackathon/Leaderboard'
@@ -22,13 +23,19 @@ export default function Hackathon() {
     const { id } = useParams()
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const project = useSelector(store => store.hackathon.project);
+    // const project = useSelector(store => store.hackathon.project);
     const user = useSelector(store => store.user.data)
     const [tab, setTab] = useState('');
+    
 
-    useEffect(() => {
+    const { isLoading, error, data: project} = useQuery({ queryKey: ['hackathon'], queryFn: getHackathonDetails })
+
+    // useEffect(() => {
+    // }, [])
+
+    async function getHackathonDetails() {
         const url = `${HOST_URL}hackathon/getHackathon/false/${id}`
-        axios.get(url).then(res => {
+        await axios.get(url).then(res => {
             dispatch(selectProject(res.data[0]))
         }).catch(err => {
             console.log(err)
@@ -38,7 +45,8 @@ export default function Hackathon() {
                 message: err.response.data
             }))
         })
-    }, [])
+    }
+
 
     function participate(id) {
         const url = `${HOST_URL}hackathon/applyHackathon/${id}`;
