@@ -1,13 +1,13 @@
 const moment = require('moment');
 
-const PointsModel = require('../modules/points/models');
-const ReviewModel = require('../modules/reviews/models');
-const SubmissionModel = require('../modules/submission/models');
+const {Point} = require('../modules/points/models');
+const { Review } = require('../modules/reviews/models');
+const { SubmissionKey, UserAPIs } = require('../modules/submission/models');
 
 const Submission = {
     addPoint: async (body, res) => {
         try {
-            const model = new PointsModel.Point(body)
+            const model = new Point(body)
             let point = await model.save()
             if (point) {
                 return point;
@@ -19,7 +19,7 @@ const Submission = {
 
     getPoint: async (body, res) => {
         try {
-            let point = await PointsModel.Point.find({ apiId: body.apiId, category: "review" });
+            let point = await Point.find({ apiId: body.apiId, category: "review" });
             if (point) {
                 return point;
             }
@@ -31,9 +31,13 @@ const Submission = {
     approveApi: async (body) => {
         try {
             console.log("Call")
-            const model = new ReviewModel.Review(body);
+            const model = new Review(body);
             const review = await model.save();
             console.log("Success")
+
+            const obj = { isEditable: false  }
+            let data = await SubmissionKey.findOneAndUpdate({ apiId: body.apiId }, obj);
+
             if (review) {
                 return review;
             }
@@ -75,8 +79,8 @@ const Submission = {
 
     updateApiStatus: async (apiId, status) => {
         try {
-            const body = { apiStatus: status }
-            let data = await SubmissionModel.SubmissionKey.findOneAndUpdate({ apiId: apiId }, body, {
+            const body = { apiStatus: status, isEditable: false  }
+            let data = await SubmissionKey.findOneAndUpdate({ apiId: apiId }, body, {
                 returnOriginal: false
             });
             return data;
@@ -89,7 +93,7 @@ const Submission = {
         const endPoint = req.body.apiEndPoint;
         // const version = req.body.apiVersion;
 
-        SubmissionModel.UserAPIs.find({
+        UserAPIs.find({
             apiEndPoint: endPoint,
             status: true
             // apiVersion: version
@@ -106,7 +110,7 @@ const Submission = {
 
     getApiInfo: (req, res, next) => {
         const id = req.params.id;
-        SubmissionModel.UserAPIs.findOne({
+        UserAPIs.findOne({
             _id: id
         }).then(api => {
             req.apiData = api;
@@ -118,7 +122,7 @@ const Submission = {
 
     updateSubmissionApiStatus: (req, res, next) => {
         const id = req.params.id;
-        SubmissionModel.UserAPIs.findOneAndUpdate({ _id: id }, { submitStatus: 1 }, {
+        UserAPIs.findOneAndUpdate({ _id: id }, { submitStatus: 1 }, {
             returnOriginal: false
         }).then(res => {
             next()
@@ -129,7 +133,7 @@ const Submission = {
 
     getUnSubmittedApiList: async () => {
         try {
-            let apiList = await SubmissionModel.UserAPIs.find({ submitStatus: false, status: true })
+            let apiList = await UserAPIs.find({ submitStatus: false, status: true })
             return apiList
         } catch (error) {
             console.log(error)
@@ -149,19 +153,46 @@ const Submission = {
             let arr = [];
             let list = await Submission.getUnSubmittedApiList()
             for (const i of list) {
-                if(Submission.checkDateDifference(i)){
-                    arr.push(SubmissionModel.UserAPIs.findOneAndUpdate({ _id: i._id }, {status: false}))
+                if (Submission.checkDateDifference(i)) {
+                    arr.push(UserAPIs.findOneAndUpdate({ _id: i._id }, { status: false }))
                 }
             }
 
-            if(arr.length > 0){
+            if (arr.length > 0) {
                 await Promise.allSettled(arr);
                 console.log("Rejection Updated on ", new Date())
             }
-            
+
         } catch (error) {
             console.log(error);
         }
+    },
+
+    deleteSubmission: (req, res, next) => {
+        const id = req.params.id;
+        UserAPIs.findOneAndDelete({ _id: id }).then(data => {
+            res.json('API delete successfully')
+        }).catch(err => {
+            res.send(err);
+        });
+    },
+
+    deleteSubmissionKey: (req, res, next) => {
+        const id = req.params.id;
+        SubmissionKey.findOneAndDelete({ apiId: id }).then(res => {
+            next()
+        }).catch(err => {
+            res.send(err);
+        });
+    },
+
+    deletePoints: (req, res, next) => {
+        const id = req.params.id;
+        Point.findOneAndDelete({ apiId: id }).then(res => {
+            next()
+        }).catch(err => {
+            res.send(err);
+        });
     }
 };
 

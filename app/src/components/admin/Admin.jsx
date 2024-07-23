@@ -34,49 +34,7 @@ export default function Admin() {
     const [selectPanel, setSelectPanel] = useState('')
     const [imageUrl, setImageUrl] = useState('')
 
-
-    useEffect(() => {
-        const url = `${HOST_URL}user/userList/panel`
-        axios.get(url).then(res => {
-            setUserList(res.data)
-        }).catch(err => {
-            console.log(err)
-            dispatch(setNotification({
-                popup: true,
-                status: 'error',
-                message: err.response.data
-            }))
-        })
-    }, [])
-
-    useEffect(() => {
-        if (id) {
-            const url = `${HOST_URL}hackathon/getHackathon/true/${id}`
-            axios.get(url).then(res => {
-                let data = res.data[0]
-                initialValues.name = data.name;
-                initialValues.heading = data.heading;
-                initialValues.theme = data.theme;
-                initialValues.description = data.description;
-
-                let image = data?.banner
-                if (image) {
-                    let url = `https://trigent-hackathon-bucket.s3.ap-south-1.amazonaws.com/Hackathon-Banner/${image}`
-                    console.log(url);
-                    setImageUrl(url)
-                }
-            }).catch(err => {
-                console.log(err)
-                dispatch(setNotification({
-                    popup: true,
-                    status: 'error',
-                    message: err.response.data
-                }))
-            })
-        }
-    }, [])
-
-    const { values, errors, handleBlur, handleChange, handleSubmit, touched } = useFormik({
+    const { values, errors, handleBlur, handleChange, handleSubmit, touched, setValues } = useFormik({
         initialValues: initialValues,
         validationSchema: schema,
         onSubmit: (values, action) => {
@@ -126,6 +84,52 @@ export default function Admin() {
             }
         }
     })
+
+
+    useEffect(() => {
+        const url = `${HOST_URL}user/userList/panel`
+        axios.get(url).then(res => {
+            setUserList(res.data)
+        }).catch(err => {
+            console.log(err)
+            dispatch(setNotification({
+                popup: true,
+                status: 'error',
+                message: err.response.data
+            }))
+        })
+    }, [])
+
+    useEffect(() => {
+        if (id) {
+            const url = `${HOST_URL}hackathon/getHackathon/true/${id}`
+            axios.get(url).then(res => {
+                let data = res.data[0]
+                setValues({
+                    name: data?.name,
+                    heading: data?.heading,
+                    theme: data?.theme,
+                    description: data?.description
+                })
+
+                let image = data?.banner
+                if (image) {
+                    let url = `https://trigent-hackathon-bucket.s3.ap-south-1.amazonaws.com/Hackathon-Banner/${image}`
+                    console.log(url);
+                    setImageUrl(url)
+                }
+            }).catch(err => {
+                console.log(err)
+                dispatch(setNotification({
+                    popup: true,
+                    status: 'error',
+                    message: err.response.data
+                }))
+            })
+        }
+    }, [])
+
+
 
     function selectPanelist(id) {
         setSelectPanel(id)

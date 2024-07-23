@@ -50,7 +50,7 @@ export default function ProfileInfo() {
     const [imageUrl, setImageUrl] = useState('')
     const user = JSON.parse(sessionStorage.user);
     
-    const { values, errors, handleBlur, handleChange, handleSubmit, touched } = useFormik({
+    const { values, errors, handleBlur, handleChange, handleSubmit, touched, setValues } = useFormik({
         initialValues: initialValues,
         validationSchema: schema,
         onSubmit: (values, action) => {
@@ -215,16 +215,19 @@ export default function ProfileInfo() {
     function getUserDetails() {
         const url = `${HOST_URL}user/info/${user.id}`
         axios.get(url).then(res => {
-            let data = res.data.data
+            let data = res.data.data;
             setUserContact(data?.userContact);
-            initialValues.role = data.user.role ? data.user.role : '';
-            initialValues.empId = data.user.empId ? data.user.empId : '';
-            initialValues.manager = data.user.manager ? data.user.manager : '';
-            initialValues.primarySkill = data.userDetails?.primarySkill ?? '';
-            initialValues.secondarySkill = data.userDetails?.secondarySkill ?? '';
-            initialValues.city = data.userDetails?.city ?? '';
-            initialValues.state = data.userDetails?.state ?? '';
-            initialValues.country = data.userDetails?.country ?? '';
+            setValues({
+                role: data.user?.role,
+                empId: data.user?.empId,
+                manager: data.user?.manager,
+                primarySkill: data.userDetails?.primarySkill ?? '',
+                secondarySkill: data.userDetails?.secondarySkill ?? '',
+                city: data.userDetails?.city ?? '',
+                state: data.userDetails?.state ?? '',
+                country: data.userDetails?.country ?? ''
+            })
+
             let image = res.data.data.user?.profilePics
             if (image) {
                 let url = `https://trigent-hackathon-bucket.s3.ap-south-1.amazonaws.com/Users/${image}`

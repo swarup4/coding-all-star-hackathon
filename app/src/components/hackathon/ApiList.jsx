@@ -7,7 +7,7 @@ import { getInitial, randomColor } from '../helper'
 import { Link, useNavigate } from 'react-router-dom'
 import { setReview } from '../../store/review/reviewSlice'
 import { setNotification } from '../../store/notification/notificationSlice'
-import { PencilSquareIcon, EyeIcon } from '@heroicons/react/24/outline'
+import { PencilSquareIcon, EyeIcon, TrashIcon } from '@heroicons/react/24/outline'
 import CommonDialog from '../common/CommonDialog'
 import View from '../review/View'
 import EmptyContent from '../common/EmptyContent'
@@ -73,20 +73,20 @@ export default function ApiList(props) {
         setIsOpen(true)
     }
 
-    function getApiStatus(item){
+    function getApiStatus(item) {
         let days = checkDateDifference(item)
         let str = '';
-        if(days > 1){
+        if (days > 1) {
             str = `You have ${days} days left to submit the API`
-        }else if(days == 1){
+        } else if (days == 1) {
             str = `You have ${days} day left to submit the API`
         } else {
             str = `Today is the last day to submit the API`
         }
-        return str
+        return str;
     }
 
-    function apiStatus(statusCode){
+    function apiStatus(statusCode) {
         let status = ''
         switch (statusCode) {
             case 0:
@@ -102,6 +102,27 @@ export default function ApiList(props) {
                 break;
         }
         return status
+    }
+
+    function deleteApi(id) {
+        const url = `${HOST_URL}submission/deleteApi/${id}`;
+        axios.delete(url).then(res => {
+            let pointDec = (reviewPoint?.totalReviewPoint ?? 0) - 2
+            dispatch(setReview({ totalReviewPoint: pointDec }))
+            dispatch(setNotification({
+                popup: true,
+                status: 'success',
+                message: res.data
+            }))
+            getApiList()
+        }).catch(err => {
+            console.log(err);
+            dispatch(setNotification({
+                popup: true,
+                status: 'error',
+                message: err.response.data
+            }))
+        })
     }
 
     return (
@@ -141,6 +162,15 @@ export default function ApiList(props) {
                                                                 <span>View</span>
                                                             </button>
                                                         </div>
+                                                        
+                                                        {item?.submission?.isEditable && (
+                                                            <div className='md:w-1/2'>
+                                                                <button onClick={() => deleteApi(item._id)} className="px-4 py-2 w-11/12 font-medium text-sm rounded-md">
+                                                                    <TrashIcon className="mr-2 h-5 w-5 stroke-2 inline" />
+                                                                    <span>Delete</span>
+                                                                </button>
+                                                            </div>
+                                                        )}
                                                     </div>
                                                 ) : (
                                                     <>
@@ -151,7 +181,7 @@ export default function ApiList(props) {
                                                             </button>
                                                         </div>
                                                         <div className='md:w-1/2 float-left'>
-                                                            <button className="float-right w-11/12 px-4 py-2 font-medium text-sm border rounded-md" onClick={() => navigate(`/dashboard/details/${item._id}`)}>
+                                                            <button className="float-right w-11/12 px-4 py-2 font-medium text-sm border rounded-md" onClick={() => navigate(`/dashboard/submission/edit/${item._id}`)}>
                                                                 <PencilSquareIcon className="mr-2 h-5 w-5 stroke-2 inline" />
                                                                 <span className='inline'>Edit</span>
                                                             </button>

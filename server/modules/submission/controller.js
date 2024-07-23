@@ -3,16 +3,19 @@ require("dotenv").config();
 const express = require("express");
 const ObjectId = require("mongoose").Types.ObjectId;
 const Models = require("./models");
-const ReviewModel = require("../reviews/models");
-const PointModel = require("../points/models");
-const userMiddleware = require('../../middleware/user');
-const SubmissionMiddleware = require('../../middleware/submission');
+const { Review } = require("../reviews/models");
+const { Point } = require("../points/models");
+const { varifyToken } = require('../../middleware/user');
+const {
+    checkApiExist, deleteSubmission, deletePoints,
+    deleteSubmissionKey, updateSubmissionApiStatus, getApiInfo, addPoint
+} = require('../../middleware/submission');
 
 const router = express.Router();
 
 
 // User API 
-router.post('/addApi', userMiddleware.varifyToken, SubmissionMiddleware.checkApiExist, async (req, res) => {
+router.post('/addApi', varifyToken, checkApiExist, async (req, res) => {
     try {
         const model = new Models.UserAPIs(req.body);
         const api = await model.save();
@@ -24,7 +27,7 @@ router.post('/addApi', userMiddleware.varifyToken, SubmissionMiddleware.checkApi
     }
 })
 
-router.get('/getApiList/:id', userMiddleware.varifyToken, async (req, res) => {
+router.get('/getApiList/:id', varifyToken, async (req, res) => {
     try {
         const id = req.params.id;
         const api = await Models.UserAPIs.aggregate([
@@ -73,7 +76,7 @@ router.get('/getApiList/:id', userMiddleware.varifyToken, async (req, res) => {
     }
 })
 
-router.get('/getApiDetails/:id', userMiddleware.varifyToken, async (req, res) => {
+router.get('/getApiDetails/:id', varifyToken, async (req, res) => {
     try {
         const id = req.params.id;
         const api = await Models.UserAPIs.findOne({ _id: id })
@@ -85,7 +88,7 @@ router.get('/getApiDetails/:id', userMiddleware.varifyToken, async (req, res) =>
     }
 })
 
-router.put('/updateApiDetails/:id', userMiddleware.varifyToken, async (req, res) => {
+router.put('/updateApiDetails/:id', varifyToken, async (req, res) => {
     try {
         const id = req.params.id
         const body = req.body;
@@ -103,7 +106,7 @@ router.put('/updateApiDetails/:id', userMiddleware.varifyToken, async (req, res)
     }
 })
 
-router.put('/saveCode/:id', userMiddleware.varifyToken, async (req, res) => {
+router.put('/saveCode/:id', varifyToken, async (req, res) => {
     try {
         const id = req.params.id
         const body = req.body
@@ -121,7 +124,7 @@ router.put('/saveCode/:id', userMiddleware.varifyToken, async (req, res) => {
     }
 })
 
-router.get('/getStatusCount', userMiddleware.varifyToken, (req, res) => {
+router.get('/getStatusCount', varifyToken, (req, res) => {
     Models.UserAPIs.find({ status: 1 }).count().then(data => {
         res.json(data)
     }).catch(err => {
@@ -129,7 +132,7 @@ router.get('/getStatusCount', userMiddleware.varifyToken, (req, res) => {
     })
 })
 
-router.put('/saveUnitTestCode/:id', userMiddleware.varifyToken, async (req, res) => {
+router.put('/saveUnitTestCode/:id', varifyToken, async (req, res) => {
     try {
         const id = req.params.id;
         const body = req.body;
@@ -147,9 +150,11 @@ router.put('/saveUnitTestCode/:id', userMiddleware.varifyToken, async (req, res)
     }
 })
 
+router.delete('/deleteApi/:id', deletePoints, deleteSubmissionKey, deleteSubmission)
+
 
 // API Submission
-router.put("/submitApi/:id", userMiddleware.varifyToken, SubmissionMiddleware.updateSubmissionApiStatus, SubmissionMiddleware.getApiInfo, async (req, res) => {
+router.put("/submitApi/:id", varifyToken, updateSubmissionApiStatus, getApiInfo, async (req, res) => {
     try {
         const id = req.params.id;
 
@@ -169,7 +174,7 @@ router.put("/submitApi/:id", userMiddleware.varifyToken, SubmissionMiddleware.up
             point: 1,
             category: "submit",
         }
-        let point = await SubmissionMiddleware.addPoint(pointObj, res)
+        let point = await addPoint(pointObj, res)
         res.json(api);
 
     } catch (error) {
@@ -177,7 +182,7 @@ router.put("/submitApi/:id", userMiddleware.varifyToken, SubmissionMiddleware.up
     }
 });
 
-router.get("/getAllSubmittedApiList/:id", userMiddleware.varifyToken, async (req, res) => {
+router.get("/getAllSubmittedApiList/:id", varifyToken, async (req, res) => {
     try {
         const id = req.params.id;
         const reviewList = await Models.SubmissionKey.aggregate([
@@ -375,14 +380,14 @@ router.get("/getAllUserSubmittedApiList", async (req, res) => {
     }
 })
 
-router.get('/getSubmissionCount/:id', userMiddleware.varifyToken, async (req, res) => {
+router.get('/getSubmissionCount/:id', varifyToken, async (req, res) => {
     try {
         const userId = req.params.id
 
         const submissionCount = await Models.SubmissionKey.find({ submitedBy: userId }).count();
-        const reviewCount = await ReviewModel.Review.find({ reviewerId: userId }).count();
-        const approvePointCount = await PointModel.Point.find({ userId: userId, category: 'review', point: 2 }).count();
-        const rejectPointCount = await PointModel.Point.find({ userId: userId, category: 'review', point: -1 }).count();
+        const reviewCount = await Review.find({ reviewerId: userId }).count();
+        const approvePointCount = await Point.find({ userId: userId, category: 'review', point: 2 }).count();
+        const rejectPointCount = await Point.find({ userId: userId, category: 'review', point: -1 }).count();
 
         res.json({
             submission: submissionCount,

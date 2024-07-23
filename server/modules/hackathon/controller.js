@@ -5,6 +5,7 @@ const Models = require('./models');
 const UserModels = require('../user/models');
 const userMiddleware = require('../../middleware/user');
 const hackathonMiddleware = require('../../middleware/hackathon');
+const { paticipateEmployee, unparticipateEmployee, submitedUser } = require('../../middleware/dashboard')
 
 const router = express.Router();
 
@@ -94,13 +95,13 @@ router.get('/getHackathon/:isAdmin/:id', userMiddleware.varifyToken, async (req,
             }
         ])
 
-        if(isAdmin == 'false'){
+        if (isAdmin == 'false') {
             let panelData = hackathonData[0].panels.map(async x => {
                 x.social = await UserModels.Contacts.findOne({ userId: x._id })
                 return x
             })
             hackathonData[0].panels = await Promise.all(panelData)
-    
+
             let participateData = hackathonData[0].appliedUser.map(async x => {
                 x.social = await UserModels.Contacts.findOne({ userId: x._id })
                 return x
@@ -124,7 +125,6 @@ router.get('/getApplyHackathon/:userId', userMiddleware.varifyToken, async (req,
         res.send(error);
     }
 });
-
 
 router.post('/addHackathon', userMiddleware.varifyToken, async (req, res) => {
     try {
@@ -173,7 +173,6 @@ router.delete('/deleteHackathon/:id', userMiddleware.varifyToken, async (req, re
         res.send(error);
     }
 });
-
 
 router.put('/applyHackathon/:id', userMiddleware.varifyToken, async (req, res) => {
     try {
@@ -285,8 +284,8 @@ router.put('/uploadBanner/:id', upload.single("banner"), hackathonMiddleware.upl
     try {
         let id = req.params.id;
         const banner = await Models.Hackathon.findOneAndUpdate(
-            { _id: id }, 
-            { banner: req.fileName }, 
+            { _id: id },
+            { banner: req.fileName },
             { returnOriginal: false }
         );
 
@@ -301,6 +300,12 @@ router.put('/uploadBanner/:id', upload.single("banner"), hackathonMiddleware.upl
         res.send(error);
     }
 });
+
+router.get('/getParticipateEmployee', paticipateEmployee);
+
+router.get('/getUnparticipateEmployee/:id', unparticipateEmployee);
+
+router.get('/getSubmitedUser', submitedUser)
 
 
 module.exports = router;

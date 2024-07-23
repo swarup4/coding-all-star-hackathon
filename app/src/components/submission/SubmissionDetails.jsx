@@ -14,6 +14,7 @@ import { HOST_URL } from '../../constants'
 export default function SubmissionDetails(props) {
     const navigate = useNavigate()
     const [isOpen, setIsOpen] = useState(false)
+    const [videoLink, setVideoLink] = useState('')
     const [videoUrl, setVideoUrl] = useState('')
     const { id } = useParams();
     const dispatch = useDispatch()
@@ -40,6 +41,7 @@ export default function SubmissionDetails(props) {
     useEffect(() => {
         const url = `${HOST_URL}submission/getApiDetails/${id}`
         axios.get(url).then(res => {
+            setVideoLink(res.data?.videoLink)
             dispatch(setSubmission(res.data))
         }).catch(err => {
             console.log(err);
@@ -101,7 +103,6 @@ export default function SubmissionDetails(props) {
                 <div className="flex flex-wrap items-center justify-between -m-2">
                     <div className="w-full md:w-auto p-2">
                         <h2 className="text-coolGray-900 text-lg font-semibold">API Details</h2>
-                        {/* <p className="text-xs text-coolGray-500 font-medium">Lorem ipsum dolor sit amet</p> */}
                     </div>
                     <div className="w-full md:w-auto p-2">
                         <div className="flex flex-wrap justify-between -m-1.5">
@@ -163,7 +164,7 @@ export default function SubmissionDetails(props) {
                                             <p className="text-sm text-coolGray-800 font-semibold">Documentation Link</p>
                                         </div>
                                         <div className="w-full md:flex-1 p-3">
-                                            {submission.documentationLink}
+                                            <a className='text-solidBlue underline' href={submission.documentationLink} >{submission.documentationLink}</a>
                                         </div>
                                     </div>
                                 </div>
@@ -181,6 +182,21 @@ export default function SubmissionDetails(props) {
                                 </div>
                             </div>
                             
+                            {videoLink && (
+                                <div className="py-6 border-b border-coolGray-100">
+                                    <div className="w-full md:w-full">
+                                        <div className="flex flex-wrap -m-3">
+                                            <div className="w-full md:w-1/4 p-3">
+                                                <p className="text-sm text-coolGray-800 font-semibold">Video Link</p>
+                                            </div>
+                                            <div className="w-full md:flex-1 p-3">
+                                                <a className='text-solidBlue underline' href={videoLink} >{videoLink}</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+
                             <div className="py-6 border-b border-coolGray-100">
                                 <div className="w-full md:w-full">
                                     <div className="flex flex-wrap -m-3">

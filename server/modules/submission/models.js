@@ -37,6 +37,7 @@ const submissionKey = {
     endPointVersion: { type: String, required: true },
     apiEndPoint: { type: String, required: true },
     apiStatus: { type: Number, default: 0 },    // 0 is for Unvarified, 1 is for Approve the Code, 2 is for Reject the code
+    isEditable: { type: Boolean, default: 1 },
     createdAt: Date,
     updatedAt: Date
 };
