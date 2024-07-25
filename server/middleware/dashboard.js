@@ -157,7 +157,7 @@ const Dashboard = {
         }
     },
 
-    paticipateEmployee: async (req, res) => {
+    paticipateEmployee: async () => {
         try {
             const data = await Hackathon.aggregate([
                 {
@@ -189,31 +189,33 @@ const Dashboard = {
 
 
             if (data) {
-                res.json(data);
+                return data;
             }
         } catch (error) {
-            res.json(error)
+            return error;
         }
     },
-    unparticipateEmployee: async (req, res, next) => {
+
+    unparticipateEmployee: async (id) => {
         try {
-            const hackathonId = req.params.id;
             const userList = await Auth.find({ canParticipate: true }, { _id: 1 })
             let userId = userList.map(x => x._id)
 
-            const data = await Hackathon.findOne({ _id: hackathonId })
+            const data = await Hackathon.findOne({ _id: id })
             let appliedUser = data.appliedUser;
             let unParticipate = userId.filter(x => !appliedUser.includes(x))
 
             const userData = await Auth.find({ _id: { $in: unParticipate } }, 
                 { _id: 1, name: 1, role: 1, email: 1, empId: 1 })
-            res.json(userData)
+
+
+            return userData
         } catch (error) {
-            res.json(error)
+            return error
         }
     },
 
-    submitedUser: async (req, res, next) => {
+    submitedUser: async () => {
         const data = await SubmissionKey.aggregate([
             {
                 $lookup: {
@@ -238,7 +240,7 @@ const Dashboard = {
         ])
 
         if (data) {
-            res.json(data);
+            return data;
         }
     }
 };

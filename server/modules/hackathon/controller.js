@@ -301,11 +301,33 @@ router.put('/uploadBanner/:id', upload.single("banner"), hackathonMiddleware.upl
     }
 });
 
-router.get('/getParticipateEmployee', paticipateEmployee);
+router.get('/getParticipateEmployee', async (req, res) => {
+    try {
+        let data = await paticipateEmployee()
+        res.json(data);
+    } catch (error) {
+        res.send(error);
+    }
+});
 
-router.get('/getUnparticipateEmployee/:id', unparticipateEmployee);
+router.get('/getUnparticipateEmployee/:id', async (req, res) => {
+    try {
+        let id = req.params.id
+        let data = await unparticipateEmployee(id)
+        res.json(data);
+    } catch (error) {
+        res.send(error);
+    }
+});
 
-router.get('/getSubmitedUser', submitedUser)
+router.get('/getSubmitedUser', async (req, res) => {
+    try {
+        let data = await submitedUser()
+        res.json(data);
+    } catch (error) {
+        res.send(error);
+    }
+});
 
 
 module.exports = router;

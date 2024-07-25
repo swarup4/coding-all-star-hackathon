@@ -7,7 +7,7 @@ const multer = require('multer');
 const ObjectId = require("mongoose").Types.ObjectId;
 const User = require('./models');
 const userMiddleware = require('../../middleware/user');
-const {getEmailTemplate, sendEmail} = require('../../middleware/email')
+const {getEmailTemplate, sendEmail, sendStatusFile} = require('../../middleware/email')
 
 const router = express.Router();
 
@@ -424,6 +424,16 @@ router.post('/sendEmail', userMiddleware.varifyToken, async (req, res) => {
     }).catch(err => {
         res.json(err);
     })
+});
+
+router.get('/sendStatusEmail', async (req, res) => {
+    try {
+        await sendStatusFile();
+        res.send("Mail Sent Successfully");
+    } catch (error) {
+        console.log(error)
+        res.status(500).send("Mail Send Failed");
+    }
 });
 
 module.exports = router;
