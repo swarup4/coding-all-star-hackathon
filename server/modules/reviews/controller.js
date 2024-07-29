@@ -3,17 +3,17 @@ require('dotenv').config();
 const express = require('express');
 const ObjectId = require("mongoose").Types.ObjectId;
 
-const Models = require('./models');
+const { Review } = require('./models');
 
-const SubmissionMiddleware = require('../../middleware/submission');
-const UserMiddleware = require('../../middleware/user');
+const { rejectApi, updateApiStatus, addPoint, approveApi } = require('../../middleware/submission');
+const { varifyToken } = require('../../middleware/user');
 const router = express.Router();
 
 
 // Review 
-router.get('/getAllReview/:apiId', UserMiddleware.varifyToken, (req, res) => {
+router.get('/getAllReview/:apiId', varifyToken, (req, res) => {
 	const apiId = req.params.apiId;
-	Models.Review.aggregate([
+	Review.aggregate([
 		{
 			$match: {
 				apiId: new ObjectId(apiId)
@@ -42,20 +42,20 @@ router.get('/getAllReview/:apiId', UserMiddleware.varifyToken, (req, res) => {
 	Points 1 = Approve
 	Points 2 = Reject
 */
-router.post('/addReview', UserMiddleware.varifyToken, SubmissionMiddleware.rejectApi, async (req, res) => {
+router.post('/addReview', varifyToken, rejectApi, async (req, res) => {
 	try {
 		let body = req.body;
-		let reviewData = await Models.Review.find({ apiId: body.apiId });
+		let reviewData = await Review.find({ apiId: body.apiId });
 
 		if (reviewData.length == 0) {
-			let reviews = await SubmissionMiddleware.approveApi(body)
+			let reviews = await approveApi(body)
 			res.json(reviews)
 		} else {
 			// If One people give approveal the code
 			if (reviewData[0].codeVerification == 1) {
-				let reviews = await SubmissionMiddleware.approveApi(body)
+				let reviews = await approveApi(body)
 
-				if(reviews){
+				if (reviews) {
 					let obj = {
 						userId: body.apiUserId,
 						apiId: body.apiId,
@@ -63,13 +63,13 @@ router.post('/addReview', UserMiddleware.varifyToken, SubmissionMiddleware.rejec
 						category: "review",
 					}
 
-					let updateStatus = await SubmissionMiddleware.updateApiStatus(body.apiId, 1)
-					let point = await SubmissionMiddleware.addPoint(obj, res)
+					let updateStatus = await updateApiStatus(body.apiId, 1)
+					let point = await addPoint(obj, res)
 					res.json("Point added");
 				}
 			} else {
-				let reviews = await SubmissionMiddleware.approveApi(body)
-				if(reviews){
+				let reviews = await approveApi(body)
+				if (reviews) {
 					res.json("Point added After One Reject");
 				}
 			}
@@ -79,14 +79,14 @@ router.post('/addReview', UserMiddleware.varifyToken, SubmissionMiddleware.rejec
 	}
 });
 
-router.post('/addReply/:id', UserMiddleware.varifyToken, async (req, res) => {
+router.post('/addReply/:id', varifyToken, async (req, res) => {
 	try {
 		const reviewId = req.params.id;
 		const obj = req.body;
 		obj.createdAt = new Date();
 		obj.updatedAt = new Date();
 
-		const review = await Models.Review.findOneAndUpdate({ _id: reviewId }, { $push: { reply: obj } }, {
+		const review = await Review.findOneAndUpdate({ _id: reviewId }, { $push: { reply: obj } }, {
 			new: true,
 			upsert: true, // Make this update into an upsert
 			returnOriginal: false

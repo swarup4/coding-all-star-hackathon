@@ -7,8 +7,9 @@ import { getInitial, randomColor } from '../helper'
 import { Link, useNavigate } from 'react-router-dom'
 import { setReview } from '../../store/review/reviewSlice'
 import { setNotification } from '../../store/notification/notificationSlice'
-import { PencilSquareIcon, EyeIcon, TrashIcon } from '@heroicons/react/24/outline'
+import { PencilSquareIcon, EyeIcon, TrashIcon, InformationCircleIcon } from '@heroicons/react/24/outline'
 import CommonDialog from '../common/CommonDialog'
+import PopoverDialog from '../common/PopoverDialog'
 import View from '../review/View'
 import EmptyContent from '../common/EmptyContent'
 import { getParticipate, checkDateDifference } from '../helper'
@@ -75,15 +76,22 @@ export default function ApiList(props) {
 
     function getApiStatus(item) {
         let days = checkDateDifference(item)
-        let str = '';
+        let obj = { str: '' }
+
         if (days > 1) {
-            str = `You have ${days} days left to submit the API`
+            obj.str = `You have ${days} days left to submit the API`;
+            obj.status = true;
         } else if (days == 1) {
-            str = `You have ${days} day left to submit the API`
+            obj.str = `You have ${days} day left to submit the API`;
+            obj.status = true;
+        } else if (days == 0) {
+            obj.str = `Today is the last day to submit the API`;
+            obj.status = true;
         } else {
-            str = `Today is the last day to submit the API`
+            obj.str = `Your API has been Expired`;
+            obj.status = false;
         }
-        return str;
+        return obj;
     }
 
     function apiStatus(statusCode) {
@@ -136,19 +144,35 @@ export default function ApiList(props) {
                                     <div className="bg-white border border-coolGray-100 shadow-dashboard rounded-md">
                                         <div className="flex flex-col justify-center items-center p-4 border-b border-coolGray-100 relative">
 
-                                            {!item.submitStatus &&
-                                                <div className="py-2 px-3 bg-cyan-100 border border-cyan-200 rounded-md w-full">
-                                                    <div className="flex flex-wrap justify-between -m-2">
-                                                        <div className="flex-1 p-3">
-                                                            <div className="flex flex-wrap -m-1">
-                                                                <div className="flex-1">
-                                                                    <h3 className="font-medium text-sm text-cyan-900">{getApiStatus(item.createdAt)}</h3>
+                                            {!item.submitStatus && (
+                                                <>
+                                                    {getApiStatus(item.createdAt)?.status ? (
+                                                        <div className="py-2 px-3 bg-cyan-100 border border-cyan-200 rounded-md w-full">
+                                                            <div className="flex flex-wrap justify-between -m-2">
+                                                                <div className="flex-1 p-3">
+                                                                    <div className="flex flex-wrap -m-1">
+                                                                        <div className="flex-1">
+                                                                            <h3 className="font-medium text-sm text-cyan-900 text-center">{getApiStatus(item.createdAt)?.str}</h3>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                </div>
-                                            }
+                                                    ) : (
+                                                        <div className="py-2 px-3 bg-red-100 border border-red-200 rounded-md w-full">
+                                                            <div className="flex flex-wrap justify-between -m-2">
+                                                                <div className="flex-1 p-3">
+                                                                    <div className="flex flex-wrap -m-1">
+                                                                        <div className="flex-1">
+                                                                            <h3 className="font-medium text-sm text-red-900 text-center">{getApiStatus(item.createdAt)?.str}</h3>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    )}
+                                                </>
+                                            )}
 
                                             <h2 className="text-sm font-medium text-coolGray-900">{item.name}</h2>
                                             <h3 className="mb-3 text-xs font-medium text-coolGray-400">{item.programmingLanguage}</h3>
@@ -162,7 +186,7 @@ export default function ApiList(props) {
                                                                 <span>View</span>
                                                             </button>
                                                         </div>
-                                                        
+
                                                         {item?.submission?.isEditable && (
                                                             <div className='md:w-1/2'>
                                                                 <button onClick={() => deleteApi(item._id)} className="px-4 py-2 w-11/12 font-medium text-sm rounded-md">
@@ -191,19 +215,33 @@ export default function ApiList(props) {
                                             </div>
 
                                         </div>
-                                        <div className="flex flex-wrap p-2 justify-between">
-                                            <div className="w-full md:w-1/3 p-2">
+                                        <div className="flex flex-wrap p-2 justify-between relative">
+                                            <div className="w-full md:w-2/5 p-2">
                                                 <div className="text-center">
                                                     <p className="mb-1 text-xs text-coolGray-900 font-semibold">Api Version</p>
                                                     <p className="text-xs text-coolGray-400 font-medium">{item.apiVersion}</p>
                                                 </div>
                                             </div>
-                                            <div className="w-full md:w-1/3 p-2">
-                                                <div className="text-center">
-                                                    <p className="mb-1 text-xs text-coolGray-900 font-semibold">Status</p>
-                                                    <p className="text-xs text-coolGray-400 font-medium">{item.submitStatus ? apiStatus(item?.submission?.apiStatus) : 'In Progress'}</p>
-                                                </div>
-                                            </div>
+                                            <>
+                                                {item?.submission?.apiStatus == 2 ? (
+                                                    <div className="w-full md:w-2/5 p-2 flex justify-between">
+                                                        <div className="text-center">
+                                                            <p className="mb-1 text-xs text-coolGray-900 font-semibold">Status</p>
+                                                            <p className="text-xs text-coolGray-400 font-medium">{item.submitStatus ? apiStatus(item?.submission?.apiStatus) : 'In Progress'}</p>
+                                                        </div>
+                                                        <div className='flex items-center'>
+                                                            <PopoverDialog comment={item?.comment} />
+                                                        </div>
+                                                    </div>
+                                                ) : (
+                                                    <div className="w-full md:w-2/5 p-2 flex justify-center">
+                                                        <div className="text-center">
+                                                            <p className="mb-1 text-xs text-coolGray-900 font-semibold">Status</p>
+                                                            <p className="text-xs text-coolGray-400 font-medium">{item.submitStatus ? apiStatus(item?.submission?.apiStatus) : 'In Progress'}</p>
+                                                        </div>
+                                                    </div>
+                                                )}
+                                            </>
                                         </div>
                                         <div className="flex flex-wrap p-2 justify-between">
                                             <div className="w-full md:w-1/3 p-2">

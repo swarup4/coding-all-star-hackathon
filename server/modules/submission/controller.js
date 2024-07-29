@@ -33,8 +33,7 @@ router.get('/getApiList/:id', varifyToken, async (req, res) => {
         const api = await Models.UserAPIs.aggregate([
             {
                 $match: {
-                    userId: new ObjectId(id),
-                    status: true
+                    userId: new ObjectId(id)
                 }
             }, {
                 $lookup: {
@@ -62,8 +61,11 @@ router.get('/getApiList/:id', varifyToken, async (req, res) => {
                     foreignField: "_id",
                     as: "reviewUser"
                 }
-            },
-            {
+            }, {
+                $addFields: {
+                    comment: "$review.comment"
+                }
+            }, {
                 $unset: "review"
             }
         ])

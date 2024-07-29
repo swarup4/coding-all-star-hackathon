@@ -167,7 +167,7 @@ router.get('/userList/:user', userMiddleware.varifyToken, async (req, res) => {
 router.get('/filterUserList/:id', userMiddleware.varifyToken, async (req, res) => {
     try {
         let id = req.params.id;
-        let userList = await User.Auth.find({ canParticipate: true, manager: id }, { name: 1, email: 1, password: 1 })
+        let userList = await User.Auth.find({ manager: id }, { name: 1, email: 1, password: 1 })
 
         res.json(userList);
     } catch (error) {

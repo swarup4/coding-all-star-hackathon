@@ -1,6 +1,6 @@
 const moment = require('moment');
 
-const {Point} = require('../modules/points/models');
+const { Point } = require('../modules/points/models');
 const { Review } = require('../modules/reviews/models');
 const { SubmissionKey, UserAPIs } = require('../modules/submission/models');
 
@@ -35,7 +35,7 @@ const Submission = {
             const review = await model.save();
             console.log("Success")
 
-            const obj = { isEditable: false  }
+            const obj = { isEditable: false }
             let data = await SubmissionKey.findOneAndUpdate({ apiId: body.apiId }, obj);
 
             if (review) {
@@ -50,8 +50,6 @@ const Submission = {
         try {
             let body = req.body;
             if (body.codeVerification == 2) {
-                console.log("Calling")
-                console.log(body)
                 await Submission.approveApi(body);
                 let obj = {
                     userId: body.apiUserId,
@@ -65,6 +63,7 @@ const Submission = {
                 if (point.length == 0) {
                     let addPoint = await Submission.addPoint(obj, res)
                     let updateStatus = await Submission.updateApiStatus(body.apiId, 2)
+                    let updateAPIStatus = await UserAPIs.findOneAndUpdate({ apiId: body.apiId }, { status: false })
                     res.json("Reject Point Add")
                 } else {
                     res.json("API Already Rejected")
@@ -79,7 +78,7 @@ const Submission = {
 
     updateApiStatus: async (apiId, status) => {
         try {
-            const body = { apiStatus: status, isEditable: false  }
+            const body = { apiStatus: status, isEditable: false }
             let data = await SubmissionKey.findOneAndUpdate({ apiId: apiId }, body, {
                 returnOriginal: false
             });
