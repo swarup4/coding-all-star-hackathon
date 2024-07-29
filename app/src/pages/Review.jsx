@@ -143,7 +143,7 @@ export default function Review() {
                                                 <p>User Name</p>
                                             </div>
                                         </th>
-                                        <th className="whitespace-nowrap px-4 font-semibold text-xs text-coolGray-500 uppercase text-left">Manager</th>
+                                        {/* <th className="whitespace-nowrap px-4 font-semibold text-xs text-coolGray-500 uppercase text-left">Manager</th> */}
                                         <th className="whitespace-nowrap px-4 font-semibold text-xs text-coolGray-500 uppercase text-left">API End Point</th>
                                         <th className="whitespace-nowrap px-4 font-semibold text-xs text-coolGray-500 uppercase text-center">Version</th>
                                         <th className="whitespace-nowrap px-4 font-semibold text-xs text-coolGray-500 uppercase text-left">Language</th>
@@ -166,7 +166,7 @@ export default function Review() {
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td className="whitespace-nowrap px-4 bg-white text-sm font-medium text-coolGray-800 text-left">{item.manager}</td>
+                                            {/* <td className="whitespace-nowrap px-4 bg-white text-sm font-medium text-coolGray-800 text-left">{item.manager}</td> */}
                                             <td className="whitespace-nowrap px-4 bg-white text-sm font-medium text-coolGray-800 text-left">{item.apiEndPoint}</td>
                                             <td className="whitespace-nowrap px-4 bg-white text-sm font-medium text-coolGray-800 text-center">{item.apiVersion}</td>
                                             <td className="whitespace-nowrap px-4 bg-white text-sm font-medium text-yellow-500 text-left">{item.programmingLanguage}</td>
