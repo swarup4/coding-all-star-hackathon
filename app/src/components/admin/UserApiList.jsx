@@ -16,6 +16,7 @@ export default function UserApiList() {
     const [apiId, setApiId] = useState('')
 
     useEffect(() => {
+        // const url = `${HOST_URL}dashboard/getAllApiListDetails`;
         const url = `${HOST_URL}submission/getAllUserSubmittedApiList`;
         axios.get(url).then(res => {
             setApi(res.data)
@@ -32,6 +33,16 @@ export default function UserApiList() {
     function viewDialog(id) {
         setApiId(id);
         setIsOpen(true)
+    }
+
+    function apiStatus(code) {
+        if (code == 0) {
+            return <span className="text-cyan-500">Pending Approval</span>
+        } else if (code == 1) {
+            return <span className="text-green-500">Accepted</span>
+        } else {
+            return <span className="text-red-500">Rejected</span>
+        }
     }
 
     return (
@@ -60,7 +71,7 @@ export default function UserApiList() {
                                                 </div>
                                             </th> */}
                                             <th className="whitespace-nowrap px-4 font-semibold text-xs text-coolGray-500 uppercase text-left">Creator Name</th>
-                                            <th className="whitespace-nowrap px-4 font-semibold text-xs text-coolGray-500 uppercase text-center">Name</th>
+                                            <th className="whitespace-nowrap px-4 font-semibold text-xs text-coolGray-500 uppercase text-center">API Name</th>
                                             <th className="whitespace-nowrap px-4 font-semibold text-xs text-coolGray-500 uppercase text-center">End Point</th>
                                             <th className="whitespace-nowrap px-4 font-semibold text-xs text-coolGray-500 uppercase text-center">Programing Language</th>
                                             <th className="whitespace-nowrap px-4 font-semibold text-xs text-coolGray-500 uppercase text-center">Status</th>
@@ -75,7 +86,10 @@ export default function UserApiList() {
                                                 <td className="whitespace-nowrap px-4 bg-white text-sm font-medium text-coolGray-800 text-center">{item.name}</td>
                                                 <td className="whitespace-nowrap px-4 bg-white text-sm font-medium text-green-500 text-center">{item.apiEndPoint}</td>
                                                 <td className="whitespace-nowrap px-4 bg-white text-sm font-medium text-coolGray-800 text-center">{item.programmingLanguage}</td>
-                                                <td className="whitespace-nowrap px-4 bg-white text-sm font-medium text-center">{item.apiStatus == 1 ? <span className="text-green-500">Accepted</span> : <span className="text-red-500">Rejected</span>}</td>
+                                                <td className="whitespace-nowrap px-4 bg-white text-sm font-medium text-center">
+                                                    {/* {item.apiStatus == 1 ? <span className="text-green-500">Accepted</span> : <span className="text-red-500">Rejected</span>} */}
+                                                    {apiStatus(item.apiStatus)}
+                                                </td>
                                                 <td className="whitespace-nowrap px-4 bg-white text-sm font-medium text-coolGray-800 text-center">
                                                     <p className="mb-1 text-xs text-coolGray-900 font-semibold">
                                                         {item.review.map((x, i) => (

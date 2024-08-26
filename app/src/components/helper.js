@@ -74,7 +74,8 @@ export const getExtensions = (language) => {
             extension = [cpp()];
             break;
         case 'php':
-            extension = [php({ baseLanguage: 'php' })];
+            // extension = [php({ baseLanguage: 'php' })];
+            extension = [php()];
             break;
         case 'python':
             extension = [python()];

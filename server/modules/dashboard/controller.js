@@ -46,8 +46,7 @@ router.get('/getAllApiListDetails', async (req, res) => {
                 $addFields: {
                     review: {
                         name: "$review.user.name",
-                        role: "$review.user.role",
-                        empId: "$review.user.empId",
+                        profilePics: "$review.user.profilePics",
                         email: "$review.user.email"
                     }
                 }
