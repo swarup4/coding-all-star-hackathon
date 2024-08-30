@@ -96,15 +96,18 @@ export default function Hackathon() {
                                         </div>
                                     </div>
                                     <div className="w-auto">
-                                        {getParticipate(project.appliedUser, user.id) ? (
-                                            <button type="button" onClick={() => navigate(`/dashboard/submission/${id}`)} className="float-right inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium bg-yellow-500 hover:bg-yellow-600 font-medium text-sm text-white border border-yellow-500 rounded-md shadow-button">
-                                                Create Submission
-                                            </button>
-                                        ) : (
-                                            <button type="button" onClick={() => participate(id)} className="float-right inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium bg-yellow-500 hover:bg-yellow-600 font-medium text-sm text-white border border-yellow-500 rounded-md shadow-button">
-                                                Participate
-                                            </button>
-                                        )}
+                                        {project.status &&
+                                        <>
+                                            {getParticipate(project.appliedUser, user.id) ? (
+                                                <button type="button" onClick={() => navigate(`/dashboard/submission/${id}`)} className="float-right inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium bg-yellow-500 hover:bg-yellow-600 font-medium text-sm text-white border border-yellow-500 rounded-md shadow-button">
+                                                    Create Submission
+                                                </button>
+                                            ) : (
+                                                <button type="button" onClick={() => participate(id)} className="float-right inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium bg-yellow-500 hover:bg-yellow-600 font-medium text-sm text-white border border-yellow-500 rounded-md shadow-button">
+                                                    Participate
+                                                </button>
+                                            )}
+                                        </>}
                                     </div>
                                 </div>
                             </div>

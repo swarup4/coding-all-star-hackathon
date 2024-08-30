@@ -115,6 +115,16 @@ router.get('/getHackathon/:isAdmin/:id', userMiddleware.varifyToken, async (req,
     }
 });
 
+router.get('/getHackathonInfo/:id', userMiddleware.varifyToken, async (req, res) => {
+    const id = req.params.id;
+    try {
+        const hackathonData = await Models.Hackathon.findOne({_id: id})
+        res.json(hackathonData);
+    } catch (error) {
+        res.send(error);
+    }
+});
+
 
 router.get('/getApplyHackathon/:userId', userMiddleware.varifyToken, async (req, res) => {
     const userId = req.params.userId;

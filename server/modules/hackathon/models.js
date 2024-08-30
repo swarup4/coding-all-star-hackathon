@@ -13,7 +13,7 @@ const hackathon = {
     heading: String,
     description: String,
     banner: String,
-    status: { type: Number, default: 1 },
+    status: { type: Boolean, default: 1 },
     expireAt: Date,
     createdAt: Date,
     updatedAt: Date
