@@ -7,17 +7,21 @@ import { setNotification } from '../../store/notification/notificationSlice'
 import { randomColor, getInitial } from '../helper'
 import CommonDialog from '../common/CommonDialog'
 import View from '../review/View'
+// import { setReview } from '../../store/review/reviewSlice'
 
 export default function UserApiList() {
 
     const dispatch = useDispatch()
     const [api, setApi] = useState([])
     const [isOpen, setIsOpen] = useState(false)
+    const [reject, setReject] = useState(false)
+    const [apiUserId, setApiUserId] = useState('')
     const [apiId, setApiId] = useState('')
+    const [comment, setComment] = useState('')
+    const user = useSelector(store => store.user.data)
 
-    useEffect(() => {
-        // const url = `${HOST_URL}dashboard/getAllApiListDetails`;
-        const url = `${HOST_URL}submission/getAllUserSubmittedApiList`;
+    function getSubmittedApiList() {
+        const url = `${HOST_URL}submission/getAllUserSubmittedApiList`
         axios.get(url).then(res => {
             setApi(res.data)
         }).catch(err => {
@@ -28,6 +32,10 @@ export default function UserApiList() {
                 message: err.response.data
             }))
         })
+    }
+
+    useEffect(() => {
+        getSubmittedApiList();
     }, [])
 
     function viewDialog(id) {
@@ -43,6 +51,57 @@ export default function UserApiList() {
         } else {
             return <span className="text-red-500">Rejected</span>
         }
+    }
+
+    async function updateReview(body, status){
+        try {
+            const url = `${HOST_URL}review/addReview`
+            await axios.post(url, body)
+    
+            dispatch(setNotification({
+                popup: true,
+                status: 'success',
+                message: `Code ${status}`
+            }))
+            // dispatch(setReview({ totalReviewPoint: (reviewPoint - 1) }))
+            getSubmittedApiList()
+        } catch (err) {
+            console.log(err)
+            dispatch(setNotification({
+                popup: true,
+                status: 'error',
+                message: err.response.data
+            }))
+        }
+    }
+
+
+    async function approveCode() {
+        let body = {
+            apiId: apiId,
+            reviewerId: user.id,
+            codeVerification: 1,
+        }
+        // await updateReview(body, 'Approve')
+        setIsOpen(false)
+    }
+
+    async function rejectCode() {
+        let body = {
+            apiId: apiId,
+            apiUserId: apiUserId,
+            reviewerId: user.id,
+            codeVerification: 2,
+            comment: comment
+        }
+        // await updateReview(body, 'Reject')
+        // setComment('')
+        setReject(false)
+    }
+
+    function rejectDialog() {
+        setIsOpen(false)
+        setReject(true)
     }
 
     return (
@@ -63,7 +122,7 @@ export default function UserApiList() {
                         <div className="overflow-hidden border border-coolGray-100 rounded-md shadow-dashboard">
                             <div className="overflow-y-auto" style={{ maxHeight: 'calc(100vh - 246px)' }}>
                                 <table className="min-w-full divide-y divide-gray-200">
-                                    <thead className="bg-gray-50 sticky top-0">
+                                    <thead className="bg-gray-50 sticky top-0 z-10">
                                         <tr className="whitespace-nowrap h-11 bg-coolGray-50 bg-opacity-80 border-b border-coolGray-100">
                                             {/* <th className="px-4 font-semibold text-xs text-coolGray-500 uppercase text-left">
                                                 <div className="flex items-center pl-2">
@@ -72,11 +131,11 @@ export default function UserApiList() {
                                             </th> */}
                                             <th className="whitespace-nowrap px-4 font-semibold text-xs text-coolGray-500 uppercase text-left">Creator Name</th>
                                             <th className="whitespace-nowrap px-4 font-semibold text-xs text-coolGray-500 uppercase text-center">API Name</th>
-                                            <th className="whitespace-nowrap px-4 font-semibold text-xs text-coolGray-500 uppercase text-center">End Point</th>
+                                            {/* <th className="whitespace-nowrap px-4 font-semibold text-xs text-coolGray-500 uppercase text-center">End Point</th> */}
                                             <th className="whitespace-nowrap px-4 font-semibold text-xs text-coolGray-500 uppercase text-center">Programing Language</th>
                                             <th className="whitespace-nowrap px-4 font-semibold text-xs text-coolGray-500 uppercase text-center">Status</th>
                                             <th className="whitespace-nowrap px-4 font-semibold text-xs text-coolGray-500 uppercase text-center">Reviewer</th>
-                                            <th className="whitespace-nowrap font-semibold text-xs text-coolGray-500 uppercase text-center"></th>
+                                            <th className="whitespace-nowrap font-semibold text-xs text-coolGray-500 uppercase text-center">View</th>
                                         </tr>
                                     </thead>
                                     <tbody className="bg-white divide-y divide-gray-200">
@@ -84,7 +143,7 @@ export default function UserApiList() {
                                             <tr className="h-14 border-b border-coolGray-100" key={ind}>
                                                 <td className="whitespace-nowrap px-4 bg-white text-sm font-medium text-coolGray-800 text-left">{item.userName}</td>
                                                 <td className="whitespace-nowrap px-4 bg-white text-sm font-medium text-coolGray-800 text-center">{item.name}</td>
-                                                <td className="whitespace-nowrap px-4 bg-white text-sm font-medium text-green-500 text-center">{item.apiEndPoint}</td>
+                                                {/* <td className="whitespace-nowrap px-4 bg-white text-sm font-medium text-green-500 text-center">{item.apiEndPoint}</td> */}
                                                 <td className="whitespace-nowrap px-4 bg-white text-sm font-medium text-coolGray-800 text-center">{item.programmingLanguage}</td>
                                                 <td className="whitespace-nowrap px-4 bg-white text-sm font-medium text-center">
                                                     {/* {item.apiStatus == 1 ? <span className="text-green-500">Accepted</span> : <span className="text-red-500">Rejected</span>} */}
@@ -108,7 +167,7 @@ export default function UserApiList() {
                                                 </td>
 
                                                 <td className="whitespace-nowrap px-4 bg-white text-sm font-medium text-coolGray-800 text-center">
-                                                    <a className='cursor-pointer' onClick={() => viewDialog(item.apiId)}>
+                                                    <a className='cursor-pointer' onClick={() => viewDialog(item._id)}>
                                                         <EyeIcon className='h-5 w-5 text-coolGray-400 stroke-2' />
                                                     </a>
                                                 </td>
@@ -122,9 +181,22 @@ export default function UserApiList() {
                 </div>
             </section>
 
-            <CommonDialog heading='Api Details' dialog='large' open={isOpen} close={setIsOpen}>
+            {/* <CommonDialog heading='Api Review' dialog='large' open={isOpen} close={setIsOpen}>
                 <View apiId={apiId} />
-            </CommonDialog>
+            </CommonDialog> */}
+
+            {isOpen && 
+                <CommonDialog heading="Review Code" dialog='large' open={isOpen} close={setIsOpen} submitText='Approve' rejectText='Reject' submit={approveCode} reject={rejectDialog}>
+                    <View apiId={apiId} />
+                </CommonDialog>
+            }
+
+            {reject &&
+                <CommonDialog heading="Comment" open={reject} close={setReject} submitText='Sumbit' submit={rejectCode}>
+                    <textarea name='comment' placeholder="Give rejection comment" value={comment} onChange={ev => setComment(ev.target.value)}
+                        className="w-full px-4 py-2.5 text-base text-coolGray-900 font-normal outline-none focus:border-yellow-500 border border-coolGray-200 rounded-lg shadow-input"></textarea>
+                </CommonDialog>
+            }
 
         </div>
     )

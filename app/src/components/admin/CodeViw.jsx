@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-// import axios from 'axios'
-import axios from '../../axiosInstance'
+import React, { useEffect, useState, useCallback } from 'react';
+import { Link, useParams, useNavigate } from 'react-router-dom'
+import axios from 'axios'
+import { useDispatch, useSelector } from 'react-redux'
 import { HOST_URL } from '../../constants'
-import EditorView from './EditorView'
+import EditorView from '../review/EditorView'
 
-
-export default function View(props) {
-
+export default function CodeViw() {
+    const { id } = useParams();
     const [tab, setTab] = useState(0);
     const [api, setApi] = useState({});
 
+
     useEffect(() => {
-        const url = `${HOST_URL}submission/getApiDetails/${props.apiId}`
+        const url = `${HOST_URL}submission/getApiDetails/${id}`
         axios.get(url).then(res => {
             setApi(res.data)
         }).catch(err => {
@@ -20,15 +20,14 @@ export default function View(props) {
         })
     }, [])
 
-
     return (
-        <section className="relative px-4 bg-white">
+        <section className="p-10 bg-white">
             <div className="container relative z-10 mx-auto">
                 <ul className="flex flex-wrap mb-8 -mx-2 text-center">
                     <li className="w-full md:w-auto px-2 cursor-pointer"><a onClick={() => setTab(0)} className={`inline-block w-full py-2 px-4 mb-4 md:mb-0 text-sm text-coolGray-400 hover:text-yellow-500 hover:bg-yellow-200 font-bold rounded-md hover:shadow-sm ${tab == 0 && 'tab-active'}`}>Details</a></li>
                     <li className="w-full md:w-auto px-2 cursor-pointer"><a onClick={() => setTab(1)} className={`inline-block w-full py-2 px-4 mb-4 md:mb-0 text-sm text-coolGray-400 hover:text-yellow-500 hover:bg-yellow-200 font-bold rounded-md hover:shadow-sm ${tab == 1 && 'tab-active'}`}>Code</a></li>
                 </ul>
-                <div className="flex flex-wrap overflow-y-auto" style={{height: 'calc(100vh - 350px)'}}>
+                <div className="flex flex-wrap overflow-y-auto" style={{height: 'calc(100vh - 150px)'}}>
                     {Object.keys(api).length > 0 && (
                         <>
                             {tab == 0 ? (

@@ -79,6 +79,54 @@ router.post('/addReview', varifyToken, rejectApi, async (req, res) => {
 	}
 });
 
+
+router.post('/addPanelistReview', varifyToken, rejectApi, async (req, res) => {
+	try {
+		let body = req.body;
+		const model = new Review(body);
+		const review = await model.save();
+		console.log("Success")
+
+		const obj = { isEditable: false }
+		let data = await SubmissionKey.findOneAndUpdate({ apiId: body.apiId }, obj);
+
+		if (review) {
+			return review;
+		}
+		// let reviewData = await Review.find({ apiId: body.apiId });
+
+		// if (reviewData.length == 0) {
+		// 	let reviews = await approveApi(body)
+		// 	res.json(reviews)
+		// } else {
+		// 	// If One people give approveal the code
+		// 	if (reviewData[0].codeVerification == 1) {
+		// 		let reviews = await approveApi(body)
+
+		// 		if (reviews) {
+		// 			let obj = {
+		// 				userId: body.apiUserId,
+		// 				apiId: body.apiId,
+		// 				point: 2,
+		// 				category: "review",
+		// 			}
+
+		// 			let updateStatus = await updateApiStatus(body.apiId, 1)
+		// 			let point = await addPoint(obj, res)
+		// 			res.json("Point added");
+		// 		}
+		// 	} else {
+		// 		let reviews = await approveApi(body)
+		// 		if (reviews) {
+		// 			res.json("Point added After One Reject");
+		// 		}
+		// 	}
+		// }
+	} catch (error) {
+		res.send(error);
+	}
+});
+
 router.post('/addReply/:id', varifyToken, async (req, res) => {
 	try {
 		const reviewId = req.params.id;

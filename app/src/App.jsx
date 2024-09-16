@@ -28,6 +28,7 @@ import SendEmail from './components/admin/SendEmail'
 import AddPrize from './components/admin/AddPrize'
 import HackathonList from './components/admin/HackathonList'
 import UserApiList from './components/admin/UserApiList'
+import CodeView from './components/admin/CodeViw'
 
 
 function App() {
@@ -122,10 +123,10 @@ function App() {
             path: 'login',
             element: <Login />,
             errorElement: <Error />
-        // }, {
-        //     path: 'signup',
-        //     element: <Register />,
-        //     errorElement: <Error />
+        }, {
+            path: 'codeView/:id',
+            element: <CodeView />,
+            errorElement: <Error />
         }, {
             path: 'changePassword/:id',
             element: <ChangePassword />,

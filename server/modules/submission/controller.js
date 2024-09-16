@@ -78,7 +78,7 @@ router.get('/getApiList/:id', varifyToken, async (req, res) => {
     }
 })
 
-router.get('/getApiDetails/:id', varifyToken, async (req, res) => {
+router.get('/getApiDetails/:id', async (req, res) => {
     try {
         const id = req.params.id;
         const api = await Models.UserAPIs.findOne({ _id: id })
